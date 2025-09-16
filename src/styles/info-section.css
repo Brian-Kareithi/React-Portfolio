@@ -269,8 +269,8 @@
 }
 
 .rgb-effect {
-  animation: rgbBorder 3s linear infinite;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .rgb-effect::before {
@@ -280,12 +280,24 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #9900ff, #ff00ff, #ff0000);
-  background-size: 400%;
+  background: linear-gradient(45deg, #ff4d4d, #4d94ff, #4dff88, #ffd24d);
+  background-size: 300%;
   border-radius: 50%;
   z-index: -1;
-  animation: rgbBorder 3s linear infinite;
-  filter: blur(5px);
+  animation: subtleRGB 8s linear infinite;
+  filter: blur(4px);
+  opacity: 0.5;
+}
+
+@keyframes subtleRGB {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.rgb-effect:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
 }
 
 @keyframes rgbBorder {
