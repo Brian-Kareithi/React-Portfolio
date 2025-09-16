@@ -52,7 +52,7 @@ export const InfoSection = () => {
             '--duration': Math.random() * 10 + 10 + 's',
             '--opacity': Math.random() * 0.5 + 0.1,
             '--left': Math.random() * 100 + '%',
-          }}></div>
+          } as React.CSSProperties}></div>
         ))}
       </div>
       
@@ -86,11 +86,13 @@ export const InfoSection = () => {
               src="./assets/kareithi.jpg" 
               alt="Brian Kareithi" 
               onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.nextSibling.style.display = 'block';
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const next = target.nextElementSibling as HTMLElement;
+                if (next) next.style.display = 'block';
               }}
             />
-            <div className="image-fallback">
+            <div className="image-fallback" style={{ display: "none" }}>
               <span>BK</span>
             </div>
           </div>
