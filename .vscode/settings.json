@@ -1,0 +1,21 @@
+{
+	"eslint.workingDirectories": [{ "mode": "auto" }],
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"editor.codeActionsOnSave": {
+		"source.fixAll": "explicit",
+		"source.organizeImports": "explicit"
+	},
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/*.code-search": true,
+		"**/build": true,
+		"**/dist": true,
+		"**/trace": true,
+		"**/pnpm-lock.yaml": true,
+		"**/package-lock.json": true,
+		"**/yarn.lock": true,
+		"**/.expo": true
+	},
+	"editor.insertSpaces": false
+}

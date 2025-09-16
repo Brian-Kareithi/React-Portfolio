@@ -1,0 +1,30 @@
+.hover-text {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+
+.hover-text span {
+	display: inline-block;
+	transition: transform 0.2s;
+	position: relative;
+	transition-delay: var(--delay);
+}
+
+.hover-text span::after {
+	content: attr(data-char);
+	position: absolute;
+	left: 0;
+	bottom: -100%;
+	transform: translateY(100%);
+	transition: transform 0.3s;
+	transition-delay: var(--delay);
+}
+
+.hover-text:hover span {
+	transform: translateY(-100%);
+}
+
+.hover-text:hover span::after {
+	transform: translateY(0);
+}

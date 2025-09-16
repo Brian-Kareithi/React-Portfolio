@@ -1,0 +1,128 @@
+/* TODO convert to rgb colors to apply opacity property */
+:root {
+	--text: hsl(0, 0%, 100%);
+	--text-reverse: hsl(0, 0%, 0%);
+	--textDim: hsl(0, 0%, 60%);
+	--background: hsl(0, 0%, 0%);
+	--background-reverse: hsl(0, 0%, 100%);
+	--scroll-bar: 31, 195, 255;
+	--primary: 31, 195, 255;
+	--primaryBg: hsla(155, 100%, 65%, 1%);
+	--primaryHi: hsla(155, 100%, 75%, 25%);
+	--primaryFg: hsl(155, 100%, 85%);
+	--secondary: hsl(156, 51%, 14%);
+	--secondaryFg: hsl(156, 51%, 75%);
+	--secondaryBg: hsla(156, 51%, 14%, 5%);
+	--secondaryHi: hsla(156, 51%, 30%, 50%);
+	--accent: hsl(155, 100%, 94%);
+	--accentBg: hsla(155, 100%, 94%, 1%);
+	--accentHi: hsla(155, 100%, 100%, 25%);
+}
+
+html {
+	scrollbar-width: none;
+	scroll-behavior: smooth !important;
+}
+
+* {
+	cursor: none !important;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Fugaz One', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	background-color: var(--background);
+	color: var(--text);
+	cursor: none;
+	scroll-behavior: smooth;
+}
+
+.container {
+	max-width: 1600px;
+	margin-inline: auto;
+}
+
+@keyframes anim {
+	0% {
+		transform: translateY(0px);
+	}
+
+	50% {
+		transform: translateY(15px);
+	}
+
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+hr {
+	position: relative;
+	padding: 2.5rem 0;
+	border: none;
+	margin-top: 10px;
+}
+
+hr:before {
+	content: '\2044  \2217\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2217  \2044';
+	position: absolute;
+	top: 1.2rem;
+	right: 0;
+	left: 0;
+	font-size: 1.5em;
+	color: hsl(196, 100%, 56%);
+	text-align: center;
+}
+
+/*
+	* ScrollBar Styling
+*/
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+.scroll-bar {
+	--p: 0%;
+	position: fixed;
+	width: 7px;
+	height: 7px;
+	right: 0;
+	top: 0;
+	background: rgb(var(--scroll-bar));
+	border-radius: 50%;
+}
+
+/*  TODO Remove before class if scroll tail is not needed */
+.scroll-bar::before {
+	content: '';
+	position: absolute;
+	bottom: 50%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	width: 7px;
+	height: var(--p);
+	background: linear-gradient(0deg, rgb(var(--scroll-bar)), transparent);
+}
+
+.heading {
+	color: hsl(196, 100%, 56%);
+	text-decoration: underline;
+	margin-bottom: 0.9rem;
+}
+
+@media screen and (max-width: 700px) {
+	.scroll-bar {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	p {
+		font-size: 1.5rem;
+	}
+}

@@ -1,0 +1,44 @@
+:root {
+	--text-primary: 8rem;
+	--text-secondary: 11rem;
+}
+
+.title {
+	text-align: center;
+	margin: auto;
+	padding: 2rem;
+	width: fit-content;
+	position: sticky;
+	top: 50vh;
+}
+
+.title .primary-text {
+	color: white;
+	font-size: var(--text-primary);
+	margin-bottom: 3rem;
+	letter-spacing: 0.1rem;
+	text-transform: uppercase;
+	font-family: 'Fugaz One', sans-serif;
+}
+
+.title .secondary-text {
+	font-size: var(--text-secondary);
+	text-align: end;
+	letter-spacing: 0.1rem;
+	text-transform: uppercase;
+	font-family: 'Fugaz One', sans-serif;
+	-webkit-text-fill-color: transparent;
+	-webkit-text-stroke-width: 3px;
+	-webkit-text-stroke-color: hsl(196, 100%, 56%);
+}
+
+@media screen and (max-width: 700px) {
+	:root {
+		--text-primary: 5rem;
+		--text-secondary: 6rem;
+	}
+	.title {
+		position: relative;
+		top: 0rem;
+	}
+}

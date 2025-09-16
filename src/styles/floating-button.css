@@ -1,0 +1,83 @@
+.floating-btn {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	text-decoration: none;
+	color: inherit;
+	height: 50px;
+	width: 160px;
+	z-index: 9999;
+	background-color: transparent;
+	outline: none;
+	border: none;
+}
+
+.floating-btn div {
+	height: 50px;
+	width: 160px;
+	border: none;
+	border-radius: 13px;
+	background-color: var(--primaryBg);
+	box-shadow: 0px -3px 15px 0px var(--primaryHi) inset;
+	color: var(--primaryFg);
+	font-size: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	transform: translateY(0px);
+	transition: all 0.2s ease;
+	animation: anim 5s linear infinite;
+}
+
+.floating-btn span {
+	width: 100px;
+	height: 60px;
+	background-color: var(--primaryHi);
+	border-radius: 100%;
+	filter: blur(20px);
+	position: absolute;
+	bottom: -50%;
+	transition: all 0.2s ease;
+}
+
+.floating-btn:hover > span {
+	bottom: -40%;
+	filter: blur(18px);
+	scale: 1.2;
+}
+
+.floating-btn:hover > div {
+	transform: translateY(5px);
+}
+
+.floating-btn.first {
+	top: 12%;
+	left: 15%;
+}
+
+.floating-btn.first > div {
+	background-color: var(--accentBg);
+	box-shadow: 0px -3px 15px 0px var(--accentHi) inset;
+}
+
+.floating-btn.first > span {
+	background-color: hsla(200, 88%, 46%, 0.475);
+}
+
+.floating-btn.sec {
+	bottom: 20%;
+	right: 15%;
+}
+
+.floating-btn.sec > button {
+	background-color: var(--accentBg);
+	box-shadow: 0px -3px 15px 0px var(--accentHi) inset;
+	color: var(--accentFg);
+}
+
+.floating-btn.sec > span {
+	background-color: var(--accentHi);
+}
