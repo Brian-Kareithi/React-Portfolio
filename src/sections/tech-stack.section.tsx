@@ -194,7 +194,7 @@ const GlowBox: React.FC<GlowBoxProps> = ({ icon, color, title }) => {
         <div className="glow-box-icon">{icon}</div>
         <div className="glow-box-info">
           <div className="glow-box-title">{title}</div>
-          <div className="glow-box-experience">{experience}</div>
+          <div className="glow-box-experience" data-level={experience}>{experience}</div>
         </div>
       </div>
       <div className="glow-effect"></div>
@@ -231,6 +231,20 @@ export const TechStack: React.FC = () => {
 
   return (
     <section className="tech-stack" id="tech-stack">
+      {/* Animated particles background */}
+      <div className="particles">
+        {[...Array(30)].map((_, i) => (
+          <div key={i} className="particle" style={{
+            '--delay': Math.random() * 5 + 's',
+            '--size': Math.random() * 4 + 2 + 'px',
+            '--distance': Math.random() * 20 + 10 + 'vmax',
+            '--duration': Math.random() * 10 + 10 + 's',
+            '--opacity': Math.random() * 0.5 + 0.1,
+            '--left': Math.random() * 100 + '%',
+          } as React.CSSProperties}></div>
+        ))}
+      </div>
+      
       <div className="tech-stack-container">
         <div className="tech-stack-title">
           <SectionTitle title="Tech" subTitle="STACK" />

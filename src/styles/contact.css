@@ -17,10 +17,84 @@
   pointer-events: none;
 }
 
+/* Particles */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: floatParticle linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Bubbles */
+.bubbles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0) 70%);
+  border-radius: 50%;
+  bottom: -100px;
+  animation: floatBubble linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes floatBubble {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
 .contact-container {
   max-width: 800px;
   margin: 0 auto;
   position: relative;
+  z-index: 2;
 }
 
 .contact-header {
@@ -92,7 +166,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: #ef4444;
+  background-color: #00fc15;
   box-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
 }
 
@@ -119,6 +193,8 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
   text-decoration: none;
   color: inherit;
+  position: relative;
+  z-index: 2;
 }
 
 .contact-card:hover {
@@ -182,6 +258,8 @@
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: #94a3b8;
+  position: relative;
+  z-index: 2;
 }
 
 .heart {
@@ -215,5 +293,9 @@
   
   .contact-details {
     padding: 1.5rem;
+  }
+  
+  .particle, .bubble {
+    display: none;
   }
 }

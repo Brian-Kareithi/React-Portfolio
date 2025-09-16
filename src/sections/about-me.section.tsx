@@ -11,24 +11,9 @@ const timeline = [
         icon: '🔒',
         description: (
           <ul>
-            <li>
-              Analyzing and managing government email security, implementing advanced threat detection systems that reduced phishing incidents by 35%.
-            </li>
-            <li>
-              Supporting development and maintenance of 15+ government websites, including the Deputy President's site, ensuring 99.9% uptime.
-            </li>
-            <li>
-              Implementing automated SSL/TLS certificate monitoring system that eliminated certificate expiration issues.
-            </li>
-            <li>
-              Assisting with national internet budget records across 47 counties, optimizing resource allocation.
-            </li>
-            <li>
-              Leading Umma University's cybersecurity team in national CTF competitions, achieving top 3 rankings consistently.
-            </li>
-            <li>
-              Developed and delivered cybersecurity training modules for 200+ new networking students.
-            </li>
+            <li>Analyzing and managing government email security</li>
+            <li>Supporting development of 15+ government websites</li>
+            <li>Implementing automated SSL/TLS certificate monitoring</li>
           </ul>
         ),
       },
@@ -39,15 +24,9 @@ const timeline = [
         icon: '💻',
         description: (
           <ul>
-            <li>
-              Designed and developed responsive websites for small businesses using React, Node.js, and MongoDB.
-            </li>
-            <li>
-              Implemented security best practices, reducing client vulnerability to attacks by 60%.
-            </li>
-            <li>
-              Optimized website performance, achieving Google PageSpeed scores of 90+ for all projects.
-            </li>
+            <li>Designed responsive websites for small businesses</li>
+            <li>Implemented security best practices</li>
+            <li>Optimized website performance</li>
           </ul>
         ),
       },
@@ -63,10 +42,8 @@ const timeline = [
         icon: '🌐',
         description: (
           <ul>
-            <li>Expertise in network fundamentals, IP connectivity, and security fundamentals</li>
-            <li>Hands-on experience with routing protocols including OSPF and EIGRP</li>
-            <li>VLAN configuration and troubleshooting in enterprise environments</li>
-            <li>Network access control and infrastructure security implementation</li>
+            <li>Expertise in network fundamentals and security</li>
+            <li>Hands-on experience with routing protocols</li>
           </ul>
         ),
       },
@@ -77,23 +54,8 @@ const timeline = [
         icon: '🛡️',
         description: (
           <ul>
-            <li>Studying threats, attacks, and vulnerabilities</li>
-            <li>Learning technologies and tools for security architecture</li>
-            <li>Mastering risk management and cryptography concepts</li>
-          </ul>
-        ),
-      },
-      {
-        title: 'Linux Professional Certification',
-        place: 'IBM SkillsBuild',
-        timePeriod: '2022',
-        icon: '🐧',
-        description: (
-          <ul>
-            <li>System administration and automation with Bash scripting</li>
-            <li>Security hardening and intrusion detection</li>
-            <li>Network services configuration and troubleshooting</li>
-            <li>Containerization with Docker and Kubernetes fundamentals</li>
+            <li>Studying threats and vulnerabilities</li>
+            <li>Learning security architecture technologies</li>
           </ul>
         ),
       },
@@ -109,36 +71,9 @@ const timeline = [
         icon: '🎓',
         description: (
           <ul>
-            <li>Specializing in cybersecurity, networking, and software development</li>
+            <li>Specializing in cybersecurity and networking</li>
             <li>Current GPA: 3.8/4.0</li>
-            <li>Relevant coursework: Network Security, Cryptography, Secure Coding Practices, Digital Forensics</li>
-            <li>President of Cybersecurity Club, organizing workshops and hackathons</li>
-          </ul>
-        ),
-      },
-      {
-        title: 'Cisco Networking Academy',
-        place: 'Cisco',
-        timePeriod: '2022 - 2023',
-        icon: '📚',
-        description: (
-          <ul>
-            <li>Completed CCNA curriculum with honors</li>
-            <li>Participated in advanced networking simulations</li>
-            <li>Mentored fellow students in networking concepts</li>
-          </ul>
-        ),
-      },
-      {
-        title: 'Kenya Certificate of Secondary Education',
-        place: 'Thika High School',
-        timePeriod: '2016 - 2020',
-        icon: '🏫',
-        description: (
-          <ul>
-            <li>Graduated with an A- mean grade</li>
-            <li>Top performer in Mathematics and Physics</li>
-            <li>Captain of the school's debate team</li>
+            <li>President of Cybersecurity Club</li>
           </ul>
         ),
       },
@@ -160,8 +95,6 @@ const timeline = [
                 <span className="skill-tag">Network Security</span>
                 <span className="skill-tag">Vulnerability Assessment</span>
                 <span className="skill-tag">Incident Response</span>
-                <span className="skill-tag">Security Auditing</span>
-                <span className="skill-tag">Cryptography</span>
               </div>
             </div>
             <div className="skill-category">
@@ -170,31 +103,7 @@ const timeline = [
                 <span className="skill-tag">React</span>
                 <span className="skill-tag">Flutter</span>
                 <span className="skill-tag">Node.js</span>
-                <span className="skill-tag">Java</span>
-                <span className="skill-tag">C#</span>
                 <span className="skill-tag">Python</span>
-                <span className="skill-tag">MongoDB</span>
-                <span className="skill-tag">SQL</span>
-              </div>
-            </div>
-            <div className="skill-category">
-              <h4>Networking</h4>
-              <div className="skill-list">
-                <span className="skill-tag">CCNA</span>
-                <span className="skill-tag">TCP/IP</span>
-                <span className="skill-tag">Routing & Switching</span>
-                <span className="skill-tag">Firewalls</span>
-                <span className="skill-tag">VPNs</span>
-              </div>
-            </div>
-            <div className="skill-category">
-              <h4>Systems</h4>
-              <div className="skill-list">
-                <span className="skill-tag">Linux Administration</span>
-                <span className="skill-tag">Windows Server</span>
-                <span className="skill-tag">Docker</span>
-                <span className="skill-tag">AWS Fundamentals</span>
-                <span className="skill-tag">Virtualization</span>
               </div>
             </div>
           </div>
@@ -210,6 +119,20 @@ export const AboutMe = () => {
       className='about-me container'
       id='about-me'
     >
+      {/* Animated particles background */}
+      <div className="particles">
+        {[...Array(20)].map((_, i) => (
+          <div key={i} className="particle" style={{
+            '--delay': Math.random() * 5 + 's',
+            '--size': Math.random() * 4 + 2 + 'px',
+            '--distance': Math.random() * 20 + 10 + 'vmax',
+            '--duration': Math.random() * 10 + 10 + 's',
+            '--opacity': Math.random() * 0.5 + 0.1,
+            '--left': Math.random() * 100 + '%',
+          } as React.CSSProperties}></div>
+        ))}
+      </div>
+      
       <div className="about-header">
         <SectionTitle
           title='About'
@@ -222,19 +145,16 @@ export const AboutMe = () => {
             <div className="intro-text">
               <h2>👋 Hey, I'm Brian Kareithi</h2>
               <p>
-                I'm an aspiring <strong>Cybersecurity Analyst</strong> and <strong>Full-Stack Developer</strong> with a passion for creating secure, efficient digital solutions. With expertise spanning both defensive security measures and development practices, I bridge the gap between creating functional applications and ensuring they remain protected against threats.
+                I'm an aspiring <strong>Cybersecurity Analyst</strong> and <strong>Full-Stack Developer</strong> with a passion for creating secure, efficient digital solutions.
               </p>
               <p>
-                I work extensively with <strong>web and mobile technologies</strong> including React, Flutter, Node.js, Java, and C#, while maintaining strong foundations in networking principles and Linux administration. My approach combines technical excellence with strategic thinking to solve complex security challenges.
-              </p>
-              <p>
-                When I'm not coding or securing systems, I enjoy mentoring students in cybersecurity, contributing to open-source projects, and staying updated with the latest infosec developments. Outside the tech world, I'm passionate about automotive engineering and football tactics analysis.
+                I work extensively with <strong>web and mobile technologies</strong> including React, Flutter, Node.js, and Python, while maintaining strong foundations in networking principles and Linux administration.
               </p>
             </div>
             <div className="stats-grid">
               <div className="stat-item">
                 <div className="stat-number">15+</div>
-                <div className="stat-label">Projects Completed</div>
+                <div className="stat-label">Projects</div>
               </div>
               <div className="stat-item">
                 <div className="stat-number">3</div>
@@ -242,11 +162,7 @@ export const AboutMe = () => {
               </div>
               <div className="stat-item">
                 <div className="stat-number">2+</div>
-                <div className="stat-label">Years Experience</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">100%</div>
-                <div className="stat-label">Client Satisfaction</div>
+                <div className="stat-label">Years Exp</div>
               </div>
             </div>
           </div>

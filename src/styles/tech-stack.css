@@ -1,9 +1,51 @@
 .tech-stack {
   padding: 4rem 1rem;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   color: white;
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Particle background */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  top: 0;
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  background: #64ffda;
+  border-radius: 50%;
+  opacity: var(--opacity);
+  animation: floatParticle var(--duration) var(--delay) infinite linear;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--opacity);
+  }
+  90% {
+    opacity: var(--opacity);
+  }
+  100% {
+    transform: translateY(calc(-1 * var(--distance))) rotate(360deg);
+    opacity: 0;
+  }
 }
 
 .tech-stack::before {
@@ -13,14 +55,17 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 10% 20%, rgba(29, 78, 216, 0.15) 0%, transparent 40%);
+  background: radial-gradient(circle at 10% 20%, rgba(100, 255, 218, 0.1) 0%, transparent 20%),
+              radial-gradient(circle at 90% 80%, rgba(100, 150, 255, 0.1) 0%, transparent 20%);
   pointer-events: none;
+  z-index: 2;
 }
 
 .tech-stack-container {
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
+  z-index: 3;
 }
 
 .tech-stack-title {
@@ -34,16 +79,18 @@
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
 }
 
 .section-title h2 span {
-  color: #3b82f6;
+  color: #64ffda;
 }
 
 .section-title-line {
   height: 4px;
   width: 80px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(90deg, #64ffda, #8b5cf6);
   margin: 0 auto;
   border-radius: 2px;
 }
@@ -67,18 +114,24 @@
   backdrop-filter: blur(10px);
   border-radius: 16px;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tech-category:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
 .tech-category-heading {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 1.2rem;
-  color: #e2e8f0;
+  color: #64ffda;
   text-align: center;
   padding-bottom: 0.8rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(100, 255, 218, 0.2);
 }
 
 .tech-row {
@@ -98,15 +151,15 @@
   height: 110px;
   background: rgba(15, 23, 42, 0.9);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(100, 255, 218, 0.1);
   transition: all 0.3s ease;
   cursor: pointer;
   overflow: hidden;
 }
 
 .glow-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .glow-box-content {
@@ -126,6 +179,11 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.glow-box:hover .glow-box-icon {
+  transform: scale(1.2);
 }
 
 .glow-box-info {
@@ -141,8 +199,8 @@
 
 .glow-box-experience {
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.7);
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .glow-effect {
@@ -156,11 +214,11 @@
   transition: opacity 0.3s ease;
   pointer-events: none;
   z-index: 1;
-  box-shadow: 0 0 15px 3px var(--glow-color);
+  box-shadow: 0 0 20px 5px var(--glow-color);
 }
 
 .glow-box:hover .glow-effect {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 /* Experience level specific colors */
@@ -178,6 +236,51 @@
 
 .glow-box-experience[data-level="Beginner"] {
   color: #ef4444;
+}
+
+/* Floating elements for extra wow factor */
+.floating-element {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #64ffda, #0a192f);
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.floating-element.el-1 {
+  width: 100px;
+  height: 100px;
+  top: 10%;
+  right: 10%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-element.el-2 {
+  width: 70px;
+  height: 70px;
+  bottom: 20%;
+  left: 10%;
+  animation: float 8s ease-in-out infinite 1s;
+}
+
+.floating-element.el-3 {
+  width: 50px;
+  height: 50px;
+  bottom: 10%;
+  right: 20%;
+  animation: float 7s ease-in-out infinite 0.5s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
 }
 
 /* Responsive adjustments */
