@@ -4,7 +4,6 @@
 
 - [`React`](https://react.dev) (with [`Vite`](https://vitejs.dev))
 - [`Typescript`](https://www.typescriptlang.org/)
-- Package Manager: [`pnpm`](https://pnpm.io)
 
 ---
 
@@ -13,23 +12,23 @@
 #### Start the development server:
 
 ```bash
-pnpm dev
+npm dev
 ```
 
 #### Start the production server:
 
 ```bash
-pnpm start
+npm start
 ```
 
 #### Build For Production:
 
 ```bash
-pnpm build
+npm build
 ```
 
 #### Preview Production Build:
 
 ```bash
-pnpm preview
+npm preview
 ```
