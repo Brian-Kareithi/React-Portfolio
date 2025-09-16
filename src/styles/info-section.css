@@ -1,58 +1,340 @@
 .hero-section {
-	min-height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	font-size: 2.5rem;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  padding: 0 2rem;
 }
 
-.hero-section .name {
-	font-size: 7rem;
-	color: rgb(31, 195, 255);
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  z-index: -2;
 }
 
-.blur {
-	height: 12rem;
-	width: 12rem;
-	background-color: hsl(196, 100%, 56%, 0.7);
-	filter: blur(100px);
-	border-radius: 100px;
-	z-index: -1;
-	position: absolute;
+.hero-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 70% 30%, rgba(29, 78, 216, 0.15) 0%, transparent 40%),
+              radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* Particles animation */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.particle {
+  position: absolute;
+  top: 0;
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+  border-radius: 50%;
+  opacity: var(--opacity);
+  animation: floatParticle var(--duration) linear infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--opacity);
+  }
+  90% {
+    opacity: var(--opacity);
+  }
+  100% {
+    transform: translateY(calc(-1 * var(--distance))) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  gap: 3rem;
+  z-index: 1;
+}
+
+.hero-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.greeting {
+  color: #e2e8f0;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.name {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0.5rem 0;
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+  position: relative;
+  display: inline-block;
+}
+
+.name::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: nameUnderline 2s ease-in-out forwards;
+  animation-delay: 1s;
+}
+
+@keyframes nameUnderline {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.role-text {
+  font-size: 2rem;
+  margin-top: 1rem;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.static-text {
+  color: #e2e8f0;
+}
+
+.animated-text {
+  color: #3b82f6;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+  color: #3b82f6;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
+}
+
+.image-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Floating decorative elements */
+.floating-element {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+  opacity: 0.5;
+  filter: blur(15px);
+  z-index: 1;
+}
+
+.el-1 {
+  width: 100px;
+  height: 100px;
+  top: -30px;
+  right: -30px;
+  animation: float 8s ease-in-out infinite;
+}
+
+.el-2 {
+  width: 70px;
+  height: 70px;
+  bottom: 20px;
+  left: -20px;
+  animation: float 10s ease-in-out infinite 1s;
+}
+
+.el-3 {
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  right: -10px;
+  animation: float 12s ease-in-out infinite 2s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
 }
 
 .bottom-bar {
-	border-radius: 13px;
-	color: var(--primaryFg);
-	font-size: 1rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	bottom: 20px;
-	gap: 10px;
+  border-radius: 13px;
+  color: var(--primaryFg);
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 20px;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 0.8rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon {
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(0.9);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 900px) {
+  .hero-content {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 2rem;
+  }
+  
+  .hero-text {
+    align-items: center;
+  }
+  
+  .name {
+    font-size: 3.5rem;
+  }
+  
+  .role-text {
+    font-size: 1.8rem;
+  }
+  
+  .image-container {
+    max-width: 300px;
+    height: 300px;
+  }
 }
 
 @media screen and (max-width: 700px) {
-	.hero-section {
-		font-size: 2rem;
-	}
-	.hero-section .name {
-		font-size: 4rem;
-	}
-
-	.bottom-bar {
-		gap: 5px;
-	}
+  .hero-section {
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .name {
+    font-size: 3rem;
+  }
+  
+  .role-text {
+    font-size: 1.5rem;
+    flex-direction: column;
+  }
+  
+  .animated-text {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .particle {
+    display: none;
+  }
 }
 
-@media screen and (max-width: 300px) {
-	.hero-section .name {
-		font-size: 3rem;
-	}
-
-	.bottom-bar {
-		gap: 2px;
-	}
+@media screen and (max-width: 480px) {
+  .name {
+    font-size: 2.5rem;
+  }
+  
+  .role-text {
+    font-size: 1.3rem;
+  }
+  
+  .image-container {
+    max-width: 250px;
+    height: 250px;
+  }
+  
+  .bottom-bar {
+    padding: 0.5rem 1rem;
+  }
+  
+  .social-icon {
+    transform: scale(0.7);
+  }
 }
