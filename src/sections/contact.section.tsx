@@ -13,6 +13,33 @@ export const Contact = () => {
 
   return (
     <section id="contact" className="contact-section">
+      {/* Particles Background */}
+      <div className="particles-container">
+        {[...Array(30)].map((_, i) => (
+          <div key={i} className="particle" style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            width: `${Math.random() * 10 + 2}px`,
+            height: `${Math.random() * 10 + 2}px`,
+            animationDelay: `${Math.random() * 5}s`,
+            animationDuration: `${Math.random() * 10 + 10}s`
+          }}></div>
+        ))}
+      </div>
+      
+      {/* Bubbles Background */}
+      <div className="bubbles-container">
+        {[...Array(15)].map((_, i) => (
+          <div key={i} className="bubble" style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 5}s`,
+            animationDuration: `${Math.random() * 15 + 10}s`,
+            width: `${Math.random() * 30 + 10}px`,
+            height: `${Math.random() * 30 + 10}px`,
+          }}></div>
+        ))}
+      </div>
+
       <div className="contact-container">
         <div className={`contact-header ${isVisible ? 'visible' : ''}`}>
           <h2>Reach Out to me!</h2>
@@ -36,7 +63,7 @@ export const Contact = () => {
               <div className="icon-wrapper">
                 <div className="opportunity-indicator"></div>
               </div>
-              <span>Open for opportunities: No</span>
+              <span>Open for opportunities: ALL THE TIME</span>
             </div>
           </div>
 

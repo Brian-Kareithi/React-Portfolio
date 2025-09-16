@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { FaExternalLinkAlt, FaGithub, FaUsers } from "react-icons/fa";
 
 interface Project {
   title: string;
@@ -8,53 +8,58 @@ interface Project {
   image: string;
   github: string;
   demo?: string;
+  collaboration?: boolean;
 }
 
 const projects: Project[] = [
   {
     title: "UMMA Vision",
-    description: "A university project portal for managing activities and resources.",
+    description: "A comprehensive university portal for managing projects, activities, and resources with real-time collaboration features.",
     type: "webapp",
-    image: "/assets/umma-vision.jpeg",
-    github: "https://github.com/yourusername/umma-vision",
-    demo: "https://umma-vision.demo.com"
+    image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/umma-vision.jpeg",
+    github: "https://github.com/Brian-Kareithi/umma-vision",
+    demo: "https://umma-vision.vercel.app",
+    collaboration: true
   },
   {
     title: "First Lady Scholarship App",
-    description: "An application for managing scholarships and school support.",
+    description: "Mobile application for scholarship management and school support systems with automated eligibility checking.",
     type: "app",
-    image: "/assets/first-lady-scholarship.jpeg",
-    github: "https://github.com/yourusername/scholarship-app",
+    image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/first-lady-scholarship.jpeg",
+    github: "https://github.com/Brian-Kareithi/scholarship-app",
+    collaboration: true
   },
   {
     title: "Library Link",
-    description: "A mobile system for accessing past papers and revision materials.",
+    description: "Mobile system providing access to past papers, revision materials, and digital library resources for students.",
     type: "app",
-    image: "/assets/library-link.jpeg",
-    github: "https://github.com/yourusername/library-link",
-    demo: "https://library-link.demo.com"
+    image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/library-link.jpeg",
+    github: "https://github.com/Brian-Kareithi/library-link",
+    demo: "https://library-link.vercel.app"
   },
   {
     title: "Visitor Management System",
-    description: "Logs visitors, guards on duty, and parking spots in organizations.",
+    description: "Digital system for logging visitors, tracking guards on duty, and managing parking spots in organizations.",
     type: "webapp",
-    image: "/assets/visitor-system.jpeg",
-    github: "https://github.com/yourusername/visitor-system",
+    image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/visitor-system.jpeg",
+    github: "https://github.com/Brian-Kareithi/visitor-system",
+    collaboration: true
   },
   {
-    title: "Cybershield",
-    description: "A cybersecurity software project with detailed system architecture.",
+    title: "Cybershield Security Suite",
+    description: "Comprehensive cybersecurity software with threat detection, system architecture analysis, and vulnerability scanning.",
     type: "tool",
-    image: "/assets/cybershield.jpeg",
-    github: "https://github.com/yourusername/cybershield",
-    demo: "https://cybershield.demo.com"
+    image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/cybershield.jpeg",
+    github: "https://github.com/Brian-Kareithi/cybershield",
+    demo: "https://cybershield-demo.vercel.app"
   },
   {
-    title: "Prayer Times & Qibla App",
-    description: "Islamic app with Qibla compass, mosque locator, and donation system.",
+    title: "Prayer Times & Qibla Finder",
+    description: "Islamic application featuring Qibla compass, mosque locator, prayer times, and donation system integration.",
     type: "app",
-    image: "/assets/prayer-app.jpeg",
-    github: "https://github.com/yourusername/prayer-app",
+    image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/prayer-app.jpeg",
+    github: "https://github.com/Brian-Kareithi/prayer-app",
+    collaboration: true
   },
 ];
 
@@ -70,7 +75,7 @@ export const Projects = () => {
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "app": return "rgba(34, 197, 94, 0.8)";
+      case "app": return "rgba(100, 255, 218, 0.8)";
       case "webapp": return "rgba(59, 130, 246, 0.8)";
       case "tool": return "rgba(245, 158, 11, 0.8)";
       default: return "rgba(156, 163, 175, 0.8)";
@@ -79,10 +84,32 @@ export const Projects = () => {
 
   return (
     <section id="projects" className="projects-section">
+      {/* Animated particles background */}
+      <div className="particles">
+        {[...Array(30)].map((_, i) => (
+          <div key={i} className="particle" style={{
+            '--delay': Math.random() * 5 + 's',
+            '--size': Math.random() * 4 + 2 + 'px',
+            '--distance': Math.random() * 20 + 10 + 'vmax',
+            '--duration': Math.random() * 10 + 10 + 's',
+            '--opacity': Math.random() * 0.5 + 0.1,
+            '--left': Math.random() * 100 + '%',
+          } as React.CSSProperties}></div>
+        ))}
+      </div>
+      
+      {/* Floating decorative elements */}
+      <div className="floating-element el-1"></div>
+      <div className="floating-element el-2"></div>
+      <div className="floating-element el-3"></div>
+      
       <div className="projects-container">
         <div className="section-header">
           <h2>My <span>Projects</span></h2>
-          <p>A showcase of my recent work and contributions</p>
+          <p>A showcase of my work - some were collaborative efforts with other talented developers</p>
+          <div className="collaboration-note">
+            <FaUsers /> <span>Indicates collaborative project</span>
+          </div>
         </div>
 
         <div className={`projects-grid ${isVisible ? 'visible' : ''}`}>
@@ -97,17 +124,30 @@ export const Projects = () => {
                   src={project.image}
                   alt={project.title}
                   className="project-img"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.className = 'image-fallback';
+                    fallback.innerHTML = `<span>${project.title.charAt(0)}</span>`;
+                    target.parentNode?.appendChild(fallback);
+                  }}
                 />
                 <div className="project-type" style={{ backgroundColor: getTypeColor(project.type) }}>
                   {project.type}
                 </div>
+                {project.collaboration && (
+                  <div className="collaboration-badge">
+                    <FaUsers /> Team Project
+                  </div>
+                )}
                 <div className="project-overlay">
                   <div className="project-links">
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
                       <FaGithub />
                     </a>
                     {project.demo && (
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer" aria-label="Live demo">
                         <FaExternalLinkAlt />
                       </a>
                     )}
@@ -129,12 +169,30 @@ export const Projects = () => {
                     <FaGithub className="icon" />
                     View Code
                   </a>
+                  {project.demo && (
+                    <a 
+                      href={project.demo} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="demo-link"
+                    >
+                      <FaExternalLinkAlt className="icon" />
+                      Live Demo
+                    </a>
+                  )}
                 </div>
               </div>
               
               <div className="glow-effect"></div>
             </div>
           ))}
+        </div>
+
+        <div className="more-projects">
+          <p>And many more web projects and experiments available on my GitHub!</p>
+          <a href="https://github.com/Brian-Kareithi" target="_blank" rel="noopener noreferrer" className="github-button">
+            <FaGithub /> Explore More on GitHub
+          </a>
         </div>
       </div>
     </section>

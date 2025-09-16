@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { IoMailOutline } from 'react-icons/io5';
-
 import { FloatingButton } from '../components/floating-button';
 import { GlowLink } from '../components/glow-box-link';
 
@@ -40,9 +39,21 @@ export const InfoSection = () => {
 
   return (
     <div className='hero-section'>
+      {/* Navigation Header */}
+      <nav className="navigation-header">
+        <div className="nav-brand">
+          <span>Brian Kareithi</span>
+        </div>
+        <div className="nav-links">
+          <a href="#about-me">About Me</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+      
       <div className="hero-background"></div>
       
-      {/* Animated particles for wow effect */}
+      {/* Animated particles */}
       <div className="particles">
         {[...Array(30)].map((_, i) => (
           <div key={i} className="particle" style={{
@@ -79,11 +90,12 @@ export const InfoSection = () => {
             <span className="cursor">|</span>
           </p>
         </div>
-        
+
+        {/* Hero Image */}
         <div className="hero-image">
           <div className="image-container">
             <img 
-              src="./assets/kareithi.jpg" 
+              src="https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg"
               alt="Brian Kareithi" 
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
@@ -96,35 +108,38 @@ export const InfoSection = () => {
               <span>BK</span>
             </div>
           </div>
-          {/* Decorative elements around the image */}
+          {/* Decorative elements */}
           <div className="floating-element el-1"></div>
           <div className="floating-element el-2"></div>
           <div className="floating-element el-3"></div>
         </div>
       </div>
 
+      {/* Bottom Social Icons */}
       <div className='bottom-bar'>
-        <GlowLink
-          href='https://github.com/Brian-Kareithi'
-          color='rgba(255, 255, 255, 0.4)'
-          icon={<FaGithub />}
-          aria-label='github'
-          className="social-icon"
-        />
-        <GlowLink
-          href='https://www.linkedin.com/in/brian-kareithi'
-          color='rgb(0, 160, 220, 0.6)'
-          icon={<FaLinkedinIn />}
-          aria-label='linkedin'
-          className="social-icon"
-        />
-        <GlowLink
-          href='mailto:kareithibrian2@gmail.com'
-          icon={<IoMailOutline />}
-          color=' rgb(18, 122, 209,0.7)'
-          aria-label='mail'
-          className="social-icon"
-        />
+        <div className="social-icons-wrapper">
+          <GlowLink
+            href='https://github.com/Brian-Kareithi'
+            color='rgba(255, 255, 255, 0.4)'
+            icon={<FaGithub size={28} />}
+            aria-label='github'
+            className="social-icon rgb-effect"
+          />
+          <GlowLink
+            href='https://www.linkedin.com/in/brian-kareithi'
+            color='rgb(0, 160, 220, 0.6)'
+            icon={<FaLinkedinIn size={28} />}
+            aria-label='linkedin'
+            className="social-icon rgb-effect"
+          />
+          <GlowLink
+            href='mailto:kareithibrian2@gmail.com'
+            icon={<IoMailOutline size={30} />}
+            color='rgb(18, 122, 209, 0.7)'
+            aria-label='mail'
+            className="social-icon rgb-effect"
+          />
+        </div>
       </div>
     </div>
   );
