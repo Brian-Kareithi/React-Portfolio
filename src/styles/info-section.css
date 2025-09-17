@@ -27,38 +27,13 @@
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-.nav-links {
+.nav-buttons {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
 }
 
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.nav-links a:hover {
-  color: #64ffda;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #64ffda;
-  transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
+.nav-btn {
+  margin: 0;
 }
 
 .hero-background {
@@ -122,12 +97,8 @@
 .hero-text {
   max-width: 600px;
   z-index: 2;
-}
-
-.button-group {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .greeting {
@@ -171,6 +142,7 @@
 .hero-image {
   position: relative;
   z-index: 2;
+  margin: 0 auto;
 }
 
 .image-container {
@@ -312,13 +284,15 @@
 /* Responsive Design */
 @media (max-width: 968px) {
   .hero-content {
-    flex-direction: column-reverse;
+    flex-direction: column;
     text-align: center;
-    padding-top: 2rem;
+    padding-top: 8rem; /* Added more padding to push content below navigation */
+    gap: 3rem; /* Added gap between elements */
   }
   
   .hero-text {
-    margin-top: 2rem;
+    margin-top: 0;
+    order: 2; /* Make text appear after image */
   }
   
   .name {
@@ -328,12 +302,43 @@
   .image-container {
     width: 280px;
     height: 280px;
+    order: 1; /* Make image appear first */
   }
   
   .navigation-header {
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+    position: relative; /* Change from absolute to relative on mobile */
+    padding-top: 2rem;
+  }
+  
+  .nav-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation-header {
+    position: relative;
+    padding: 1.5rem 1rem 1rem;
+  }
+  
+  .hero-content {
+    padding-top: 2rem; /* Reduce top padding since nav is now relative */
+    margin-top: 0;
+    flex-direction: column;
+  }
+  
+  .hero-text {
+    order: 2;
+  }
+  
+  .hero-image {
+    order: 1;
+    margin-bottom: 2rem;
   }
 }
 
@@ -351,13 +356,12 @@
     height: 220px;
   }
   
-  .nav-links {
-    gap: 1rem;
+  .nav-buttons {
+    gap: 0.5rem;
   }
   
-  .nav-links a {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.9rem;
+  .nav-btn {
+    transform: scale(0.9); /* Slightly smaller buttons on mobile */
   }
   
   .social-icon {
@@ -367,5 +371,15 @@
   
   .social-icons-wrapper {
     gap: 1rem;
+  }
+  
+  /* Ensure proper spacing for the navigation */
+  .navigation-header {
+    padding: 1rem 0.5rem;
+  }
+  
+  .nav-brand {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 }
