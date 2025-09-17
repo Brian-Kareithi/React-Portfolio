@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
+import { FaDownload, FaEnvelope, FaGithub, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 
 export const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -10,6 +10,17 @@ export const Contact = () => {
     }, 100);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleDownloadCV = () => {
+    // Create a link to download the CV from Supabase
+    const link = document.createElement('a');
+    link.href = 'https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/Brian%20Kareithi%20CV.pdf';
+    link.target = '_blank';
+    link.download = 'Brian_Kareithi_CV.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <section id="contact" className="contact-section">
@@ -40,14 +51,19 @@ export const Contact = () => {
         ))}
       </div>
 
+      {/* Floating elements */}
+      <div className="floating-element floating-element-1"></div>
+      <div className="floating-element floating-element-2"></div>
+      <div className="floating-element floating-element-3"></div>
+
       <div className="contact-container">
         <div className={`contact-header ${isVisible ? 'visible' : ''}`}>
-          <h2>Reach Out to me!</h2>
+          <h2>Let's Create Something Amazing Together!</h2>
           <p className="contact-subtitle">
             DISCUSS A PROJECT OR JUST WANT TO SAY HI? MY INBOX IS OPEN FOR ALL.
           </p>
           <p className="contact-tagline">
-            <strong>"Kareithi"</strong>
+            <strong>"Turning Ideas Into Digital Reality"</strong>
           </p>
         </div>
 
@@ -57,13 +73,13 @@ export const Contact = () => {
               <div className="icon-wrapper">
                 <FaMapMarkerAlt className="contact-icon" />
               </div>
-              <span>Remote</span>
+              <span>Remote · Worldwide</span>
             </div>
             <div className="contact-item">
               <div className="icon-wrapper">
                 <div className="opportunity-indicator"></div>
               </div>
-              <span>Open for opportunities: ALL THE TIME</span>
+              <span>Open for opportunities: YES!</span>
             </div>
           </div>
 
@@ -107,11 +123,30 @@ export const Contact = () => {
               </div>
               <span>LinkedIn</span>
             </a>
+
+            <a 
+              href="https://www.instagram.com/kareithi._/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="contact-card"
+            >
+              <div className="icon-wrapper">
+                <FaInstagram className="contact-icon" />
+              </div>
+              <span>Instagram</span>
+            </a>
+
+            <button onClick={handleDownloadCV} className="contact-card cv-download">
+              <div className="icon-wrapper">
+                <FaDownload className="contact-icon" />
+              </div>
+              <span>Download CV</span>
+            </button>
           </div>
         </div>
 
         <div className="footer-note">
-          <p>Made with <span className="heart">❤</span> by Kareithi</p>
+          <p>Made with  <span className="heart">❤</span>  by Kareithi | © {new Date().getFullYear()}</p>
         </div>
       </div>
     </section>

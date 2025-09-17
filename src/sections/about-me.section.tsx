@@ -5,28 +5,43 @@ const timeline = [
     title: 'Experience',
     items: [
       {
-        title: 'Information Security Intern',
-        place: 'ICT Authority of Kenya',
-        timePeriod: '2024 - Present',
-        icon: '🔒',
+        title: 'Backend Developer',
+        place: 'Thee Entity Limited',
+        timePeriod: '2025 - Present',
+        icon: '🚀',
         description: (
           <ul>
-            <li>Analyzing and managing government email security</li>
-            <li>Supporting development of 15+ government websites</li>
-            <li>Implementing automated SSL/TLS certificate monitoring</li>
+            <li>Developing scalable backend systems and APIs</li>
+            <li>Implementing database solutions and cloud infrastructure</li>
+            <li>Working with modern tech stack including Node.js and cloud services</li>
           </ul>
         ),
       },
       {
-        title: 'Freelance Web Developer',
-        place: 'Remote',
+        title: 'Information Security Intern',
+        place: 'ICT Authority of Kenya',
+        timePeriod: '2022 - 2024',
+        icon: '🔒',
+        description: (
+          <ul>
+            <li>Analyzed and managed government email security systems</li>
+            <li>Supported development of 15+ government websites</li>
+            <li>Implemented automated SSL/TLS certificate monitoring</li>
+            <li>Conducted vulnerability assessments and security audits</li>
+          </ul>
+        ),
+      },
+      {
+        title: 'Freelance Developer',
+        place: 'Fiverr & Upwork',
         timePeriod: '2022 - 2024',
         icon: '💻',
         description: (
           <ul>
-            <li>Designed responsive websites for small businesses</li>
-            <li>Implemented security best practices</li>
-            <li>Optimized website performance</li>
+            <li>Designed responsive websites for international clients</li>
+            <li>Implemented security best practices for web applications</li>
+            <li>Optimized website performance and SEO rankings</li>
+            <li>Built custom web applications and e-commerce solutions</li>
           </ul>
         ),
       },
@@ -36,14 +51,41 @@ const timeline = [
     title: 'Certifications',
     items: [
       {
+        title: 'IBM Cybersecurity Analyst Professional Certificate',
+        place: 'IBM',
+        timePeriod: '2024',
+        icon: '🏆',
+        description: (
+          <ul>
+            <li>Cybersecurity compliance and system administration</li>
+            <li>Network security and database vulnerabilities</li>
+            <li>Incident response and digital forensics</li>
+          </ul>
+        ),
+      },
+      {
         title: 'Cisco Certified Network Associate (CCNA)',
         place: 'Cisco Networking Academy',
         timePeriod: '2023',
         icon: '🌐',
         description: (
           <ul>
-            <li>Expertise in network fundamentals and security</li>
-            <li>Hands-on experience with routing protocols</li>
+            <li>Expertise in network fundamentals and security protocols</li>
+            <li>Advanced routing and switching configurations</li>
+            <li>Network automation and programmability</li>
+          </ul>
+        ),
+      },
+      {
+        title: 'Google Cybersecurity Professional Certificate',
+        place: 'Google',
+        timePeriod: '2023',
+        icon: '🛡️',
+        description: (
+          <ul>
+            <li>Security operations and monitoring</li>
+            <li>Threat detection and analysis</li>
+            <li>Security information and event management (SIEM)</li>
           </ul>
         ),
       },
@@ -51,11 +93,12 @@ const timeline = [
         title: 'CompTIA Security+ (In Progress)',
         place: 'CompTIA',
         timePeriod: '2024',
-        icon: '🛡️',
+        icon: '📜',
         description: (
           <ul>
-            <li>Studying threats and vulnerabilities</li>
-            <li>Learning security architecture technologies</li>
+            <li>Studying threats, attacks, and vulnerabilities</li>
+            <li>Learning security architecture and technologies</li>
+            <li>Preparing for risk management and incident response</li>
           </ul>
         ),
       },
@@ -71,9 +114,36 @@ const timeline = [
         icon: '🎓',
         description: (
           <ul>
-            <li>Specializing in cybersecurity and networking</li>
-            <li>Current GPA: 3.8/4.0</li>
-            <li>President of Cybersecurity Club</li>
+            <li>Specializing in cybersecurity and network infrastructure</li>
+            <li>Current GPA: 2.6/4.0</li>
+            <li>President of Cybersecurity Club and Tech Society</li>
+            <li>Leading cybersecurity workshops and hackathons</li>
+          </ul>
+        ),
+      },
+      {
+        title: 'Kenya Certificate of Secondary Education (KCSE)',
+        place: 'Thika High School',
+        timePeriod: '2017 - 2020',
+        icon: '📚',
+        description: (
+          <ul>
+            <li>Focus on Mathematics, Physics, and Computer Studies</li>
+            <li>Participated in Science and Technology competitions</li>
+            <li>Member of Computer Club and Debate Team</li>
+          </ul>
+        ),
+      },
+      {
+        title: 'Kenya Certificate of Primary Education (KCPE)',
+        place: 'Lily Academy',
+        timePeriod: '2008 - 2016',
+        icon: '✏️',
+        description: (
+          <ul>
+            <li>Strong foundation in Mathematics and Sciences</li>
+            <li>Early interest in technology and computing</li>
+            <li>Participated in science fairs and tech exhibitions</li>
           </ul>
         ),
       },
@@ -90,20 +160,71 @@ const timeline = [
         description: (
           <div className="skills-grid">
             <div className="skill-category">
+              <h4>Programming Languages</h4>
+              <div className="skill-list">
+                <span className="skill-tag">C#</span>
+                <span className="skill-tag">C++</span>
+                <span className="skill-tag">Python</span>
+                <span className="skill-tag">Kotlin</span>
+                <span className="skill-tag">JavaScript</span>
+                <span className="skill-tag">TypeScript</span>
+                <span className="skill-tag">Java</span>
+                <span className="skill-tag">PHP</span>
+              </div>
+            </div>
+            <div className="skill-category">
+              <h4>Frontend Development</h4>
+              <div className="skill-list">
+                <span className="skill-tag">Next.js</span>
+                <span className="skill-tag">React.js</span>
+                <span className="skill-tag">Vue.js</span>
+                <span className="skill-tag">Angular</span>
+                <span className="skill-tag">HTML5 & CSS3</span>
+              </div>
+            </div>
+            <div className="skill-category">
+              <h4>Backend Development</h4>
+              <div className="skill-list">
+                <span className="skill-tag">Node.js</span>
+                <span className="skill-tag">Express</span>
+                <span className="skill-tag">Django</span>
+                <span className="skill-tag">Flask</span>
+                <span className="skill-tag">Spring Boot</span>
+              </div>
+            </div>
+            <div className="skill-category">
+              <h4>Database Management</h4>
+              <div className="skill-list">
+                <span className="skill-tag">MySQL</span>
+                <span className="skill-tag">PostgreSQL</span>
+                <span className="skill-tag">MongoDB</span>
+                <span className="skill-tag">Redis</span>
+                <span className="skill-tag">SQLite</span>
+              </div>
+            </div>
+            <div className="skill-category">
               <h4>Cybersecurity</h4>
               <div className="skill-list">
                 <span className="skill-tag">Network Security</span>
                 <span className="skill-tag">Vulnerability Assessment</span>
+                <span className="skill-tag">Penetration Testing</span>
+                <span className="skill-tag">Digital Forensics</span>
                 <span className="skill-tag">Incident Response</span>
+                <span className="skill-tag">Cryptography</span>
+                <span className="skill-tag">SIEM Tools</span>
+                <span className="skill-tag">Firewall Configuration</span>
               </div>
             </div>
             <div className="skill-category">
-              <h4>Development</h4>
+              <h4>DevOps & Cloud</h4>
               <div className="skill-list">
-                <span className="skill-tag">React</span>
-                <span className="skill-tag">Flutter</span>
-                <span className="skill-tag">Node.js</span>
-                <span className="skill-tag">Python</span>
+                <span className="skill-tag">Docker</span>
+                <span className="skill-tag">Proxmox</span>
+                <span className="skill-tag">Kubernetes</span>
+                <span className="skill-tag">AWS</span>
+                <span className="skill-tag">Azure</span>
+                <span className="skill-tag">Git & GitHub</span>
+                <span className="skill-tag">CI/CD Pipelines</span>
               </div>
             </div>
           </div>
@@ -145,24 +266,28 @@ export const AboutMe = () => {
             <div className="intro-text">
               <h2>👋 Hey, I'm Brian Kareithi</h2>
               <p>
-                I'm an aspiring <strong>Cybersecurity Analyst</strong> and <strong>Full-Stack Developer</strong> with a passion for creating secure, efficient digital solutions.
+                I'm a passionate <strong>Cybersecurity Analyst</strong> and <strong>Full-Stack Developer</strong> with expertise in creating secure, scalable digital solutions. My journey spans from government security systems to cutting-edge web applications.
               </p>
               <p>
-                I work extensively with <strong>web and mobile technologies</strong> including React, Flutter, Node.js, and Python, while maintaining strong foundations in networking principles and Linux administration.
+                I specialize in <strong>modern web technologies</strong> including React, Node.js, and cloud infrastructure, while maintaining deep knowledge in network security, vulnerability assessment, and incident response protocols.
               </p>
             </div>
             <div className="stats-grid">
               <div className="stat-item">
-                <div className="stat-number">15+</div>
+                <div className="stat-number">25+</div>
                 <div className="stat-label">Projects</div>
               </div>
               <div className="stat-item">
-                <div className="stat-number">3</div>
+                <div className="stat-number">8</div>
                 <div className="stat-label">Certifications</div>
               </div>
               <div className="stat-item">
-                <div className="stat-number">2+</div>
+                <div className="stat-number">3+</div>
                 <div className="stat-label">Years Exp</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-number">15+</div>
+                <div className="stat-label">Technologies</div>
               </div>
             </div>
           </div>

@@ -4,6 +4,25 @@ import { IoMailOutline } from 'react-icons/io5';
 import { FloatingButton } from '../components/floating-button';
 import { GlowLink } from '../components/glow-box-link';
 
+const NavBrand = () => {
+  const [greeting, setGreeting] = useState("");
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) {
+      setGreeting("Good Morning ☀️");
+    } else {
+      setGreeting("Good Evening 🌙");
+    }
+  }, []);
+
+  return (
+    <div className="nav-brand">
+      <span>{greeting}</span>
+    </div>
+  );
+};
+
 export const InfoSection = () => {
   const [currentRole, setCurrentRole] = useState(0);
   const [displayText, setDisplayText] = useState('');
@@ -41,13 +60,13 @@ export const InfoSection = () => {
     <div className='hero-section'>
       {/* Navigation Header */}
       <nav className="navigation-header">
-        <div className="nav-brand">
-          <span>Brian Kareithi</span>
-        </div>
-        <div className="nav-links">
-          <a href="#about-me">About Me</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+        <NavBrand />
+
+        <div className="nav-buttons">
+          <FloatingButton label='About Me' className='nav-btn' href='/#about-me' />
+          <FloatingButton label='Tech Stack' className='nav-btn' href='/#tech-stack' />
+          <FloatingButton label='Projects' className='nav-btn' href='/#projects' />
+          <FloatingButton label='Contact' className='nav-btn' href='/#contact' />
         </div>
       </nav>
       
@@ -56,32 +75,23 @@ export const InfoSection = () => {
       {/* Animated particles */}
       <div className="particles">
         {[...Array(30)].map((_, i) => (
-          <div key={i} className="particle" style={{
-            '--delay': Math.random() * 5 + 's',
-            '--size': Math.random() * 6 + 2 + 'px',
-            '--distance': Math.random() * 30 + 10 + 'vmax',
-            '--duration': Math.random() * 10 + 10 + 's',
-            '--opacity': Math.random() * 0.5 + 0.1,
-            '--left': Math.random() * 100 + '%',
-          } as React.CSSProperties}></div>
+          <div 
+            key={i} 
+            className="particle" 
+            style={{
+              '--delay': Math.random() * 5 + 's',
+              '--size': Math.random() * 6 + 2 + 'px',
+              '--distance': Math.random() * 30 + 10 + 'vmax',
+              '--duration': Math.random() * 10 + 10 + 's',
+              '--opacity': Math.random() * 0.5 + 0.1,
+              '--left': Math.random() * 100 + '%',
+            } as React.CSSProperties}
+          ></div>
         ))}
       </div>
       
       <div className="hero-content">
         <div className="hero-text">
-          <div className="button-group">
-            <FloatingButton
-              label='About Me'
-              className='first'
-              href='/#about-me'
-            />
-            <FloatingButton
-              label='Tech'
-              className='sec'
-              href='/#tech-stack'
-            />
-          </div>
-          
           <p className="greeting">Hi, I am</p>
           <h1 className="name">Brian Kareithi</h1>
           <p className="role-text">
@@ -126,8 +136,8 @@ export const InfoSection = () => {
             className="social-icon rgb-effect"
           />
           <GlowLink
-            href='https://www.linkedin.com/in/brian-kareithi'
-            color='rgb(0, 160, 220, 0.6)'
+            href='https://www.linkedin.com/in/brian-kareithi-04007637b/'
+            color='rgba(0, 160, 220, 0.6)'
             icon={<FaLinkedinIn size={28} />}
             aria-label='linkedin'
             className="social-icon rgb-effect"
@@ -135,7 +145,7 @@ export const InfoSection = () => {
           <GlowLink
             href='mailto:kareithibrian2@gmail.com'
             icon={<IoMailOutline size={30} />}
-            color='rgb(18, 122, 209, 0.7)'
+            color='rgba(18, 122, 209, 0.7)'
             aria-label='mail'
             className="social-icon rgb-effect"
           />

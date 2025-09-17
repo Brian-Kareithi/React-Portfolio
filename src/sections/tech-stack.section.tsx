@@ -75,7 +75,7 @@ const experienceLevels: Record<string, ExperienceLevel> = {
   MacOS: 'Advanced',
   iOS: 'Intermediate',
   Android: 'Intermediate',
-  Linux: 'Advanced',
+  Linux: 'Expert', // Updated to Expert
 
   // DevOps
   AWS: 'Intermediate',
@@ -92,6 +92,7 @@ interface TechItem {
   title: string;
   icon: ReactNode;
   color: string;
+  textColor?: string;
 }
 
 interface TechCategory {
@@ -103,71 +104,71 @@ const techs: TechCategory[] = [
   {
     heading: 'Core Stack',
     items: [
-      { title: 'Next JS', icon: <TbBrandNextjs color="rgb(255, 255, 255)" />, color: 'rgba(255, 255, 255, 0.4)' },
-      { title: 'React JS', icon: <FaReact color="rgb(97, 219, 251)" />, color: 'rgb(97, 219, 251, 0.6)' },
-      { title: 'Node JS', icon: <FaNodeJs color="rgb(104, 160, 99)" />, color: 'rgb(104, 160, 99)' },
-      { title: 'TypeScript', icon: <BiLogoTypescript color="rgb(0, 122, 204)" />, color: 'rgba(0, 122, 204, 0.6)' },
-      { title: 'Fastify', icon: <SiFastify color="rgba(255, 255, 255)" />, color: 'rgba(255, 255, 255, 0.4)' },
-      { title: 'Express JS', icon: <SiExpress color="rgba(255, 255, 255)" />, color: 'rgba(255, 255, 255, 0.4)' },
+      { title: 'Next JS', icon: <TbBrandNextjs />, color: 'rgba(0, 0, 0, 0.9)', textColor: '#ffffff' },
+      { title: 'React JS', icon: <FaReact />, color: 'rgba(97, 219, 251, 0.9)', textColor: '#000000' },
+      { title: 'Node JS', icon: <FaNodeJs />, color: 'rgba(104, 160, 99, 0.9)', textColor: '#000000' },
+      { title: 'TypeScript', icon: <BiLogoTypescript />, color: 'rgba(0, 122, 204, 0.9)', textColor: '#ffffff' },
+      { title: 'Fastify', icon: <SiFastify />, color: 'rgba(255, 255, 255, 0.9)', textColor: '#000000' },
+      { title: 'Express JS', icon: <SiExpress />, color: 'rgba(255, 255, 255, 0.9)', textColor: '#000000' },
     ],
   },
   {
     heading: 'Languages',
     items: [
-      { title: 'Java', icon: <FaJava color="rgb(231, 111, 0)" />, color: 'rgba(231, 111, 0, 0.6)' },
-      { title: 'Python', icon: <SiCplusplus color="rgb(55, 118, 171)" />, color: 'rgba(55, 118, 171, 0.6)' },
-      { title: 'JavaScript', icon: <FaReact color="rgb(240, 219, 79)" />, color: 'rgba(240, 219, 79, 0.75)' },
-      { title: 'Ruby', icon: <DiRuby color="rgb(224, 17, 95)" />, color: 'rgba(224, 17, 95, 0.7)' },
-      { title: 'C++', icon: <SiCplusplus color="rgb(0, 123, 181)" />, color: 'rgba(0, 123, 181, 0.6)' },
-      { title: 'Kotlin', icon: <SiKotlin color="rgb(255, 87, 34)" />, color: 'rgba(255, 87, 34, 0.7)' },
-      { title: 'Flutter', icon: <SiFlutter color="rgb(0, 180, 255)" />, color: 'rgba(0, 180, 255, 0.6)' },
+      { title: 'Java', icon: <FaJava />, color: 'rgba(231, 111, 0, 0.9)', textColor: '#000000' },
+      { title: 'Python', icon: <SiCplusplus />, color: 'rgba(55, 118, 171, 0.9)', textColor: '#ffffff' },
+      { title: 'JavaScript', icon: <FaReact />, color: 'rgba(240, 219, 79, 0.9)', textColor: '#000000' },
+      { title: 'Ruby', icon: <DiRuby />, color: 'rgba(224, 17, 95, 0.9)', textColor: '#ffffff' },
+      { title: 'C++', icon: <SiCplusplus />, color: 'rgba(0, 123, 181, 0.9)', textColor: '#ffffff' },
+      { title: 'Kotlin', icon: <SiKotlin />, color: 'rgba(255, 87, 34, 0.9)', textColor: '#ffffff' },
+      { title: 'Flutter', icon: <SiFlutter />, color: 'rgba(0, 180, 255, 0.9)', textColor: '#000000' },
     ],
   },
   {
     heading: 'Frontend',
     items: [
-      { title: 'HTML5', icon: <FaHtml5 color="rgb(227, 76, 38)" />, color: 'rgba(227, 76, 38, 0.75)' },
-      { title: 'CSS3', icon: <FaCss3 color="rgb(38, 77, 228)" />, color: 'rgba(38, 77, 228, 0.75)' },
-      { title: 'Bootstrap', icon: <FaBootstrap color="rgb(125, 17, 248)" />, color: 'rgb(125, 17, 248, 0.75)' },
-      { title: 'Tailwind', icon: <SiTailwindcss color="rgb(6, 182, 212)" />, color: 'rgb(6, 182, 212, 0.7)' },
-      { title: 'Material UI', icon: <SiMui color="rgb(0, 127, 255)" />, color: 'rgb(0, 127, 255, 0.6)' },
-      { title: 'ShadCn UI', icon: <SiShadcnui color="rgb(255, 255, 255)" />, color: 'rgba(255, 255, 255, 0.4)' },
+      { title: 'HTML5', icon: <FaHtml5 />, color: 'rgba(227, 76, 38, 0.9)', textColor: '#ffffff' },
+      { title: 'CSS3', icon: <FaCss3 />, color: 'rgba(38, 77, 228, 0.9)', textColor: '#ffffff' },
+      { title: 'Bootstrap', icon: <FaBootstrap />, color: 'rgba(125, 17, 248, 0.9)', textColor: '#ffffff' },
+      { title: 'Tailwind', icon: <SiTailwindcss />, color: 'rgba(6, 182, 212, 0.9)', textColor: '#000000' },
+      { title: 'Material UI', icon: <SiMui />, color: 'rgba(0, 127, 255, 0.9)', textColor: '#ffffff' },
+      { title: 'ShadCn UI', icon: <SiShadcnui />, color: 'rgba(255, 255, 255, 0.9)', textColor: '#000000' },
     ],
   },
   {
     heading: 'Databases',
     items: [
-      { title: 'MsSQL', icon: <DiMsqlServer color="rgb(230, 50, 42)" />, color: 'rgb(241, 83, 75, 0.5)' },
-      { title: 'MySQL', icon: <SiMysql color="rgb(0, 122, 158)" />, color: 'rgb(0, 122, 158, 0.75)' },
-      { title: 'PostgreSQL', icon: <SiPostgresql color="rgb(51,103,145)" />, color: 'rgba(51,103,145,0.7)' },
-      { title: 'MongoDB', icon: <DiMongodb color="rgb(0, 237, 100)" />, color: 'rgb(0, 237, 100, 0.7)' },
-      { title: 'Firebase', icon: <SiFirebase color="rgb(255, 202, 40)" />, color: 'rgba(255, 202, 40, 0.7)' },
-      { title: 'Supabase', icon: <SiSupabase color="rgb(16,185,129)" />, color: 'rgba(16,185,129,0.7)' },
+      { title: 'MsSQL', icon: <DiMsqlServer />, color: 'rgba(230, 50, 42, 0.9)', textColor: '#ffffff' },
+      { title: 'MySQL', icon: <SiMysql />, color: 'rgba(0, 122, 158, 0.9)', textColor: '#ffffff' },
+      { title: 'PostgreSQL', icon: <SiPostgresql />, color: 'rgba(51,103,145,0.9)', textColor: '#ffffff' },
+      { title: 'MongoDB', icon: <DiMongodb />, color: 'rgba(0, 237, 100, 0.9)', textColor: '#000000' },
+      { title: 'Firebase', icon: <SiFirebase />, color: 'rgba(255, 202, 40, 0.9)', textColor: '#000000' },
+      { title: 'Supabase', icon: <SiSupabase />, color: 'rgba(16,185,129,0.9)', textColor: '#000000' },
     ],
   },
   {
     heading: 'Platforms',
     items: [
-      { title: 'Windows', icon: <FaWindows color="rgb(0,120,215)" />, color: 'rgba(0,120,215,0.6)' },
-      { title: 'MacOS', icon: <FaApple color="rgb(100,100,100)" />, color: 'rgba(100,100,100,0.6)' },
-      { title: 'iOS', icon: <FaApple color="rgb(255,255,255)" />, color: 'rgba(255,255,255,0.6)' },
-      { title: 'Android', icon: <SiFlutter color="rgb(164,198,57)" />, color: 'rgba(164,198,57,0.7)' },
-      { title: 'Linux', icon: <FaLinux color="rgb(240,200,40)" />, color: 'rgba(240,200,40,0.7)' },
+      { title: 'Windows', icon: <FaWindows />, color: 'rgba(0,120,215,0.9)', textColor: '#ffffff' },
+      { title: 'MacOS', icon: <FaApple />, color: 'rgba(100,100,100,0.9)', textColor: '#ffffff' },
+      { title: 'iOS', icon: <FaApple />, color: 'rgba(255,255,255,0.9)', textColor: '#000000' },
+      { title: 'Android', icon: <SiFlutter />, color: 'rgba(164,198,57,0.9)', textColor: '#000000' },
+      { title: 'Linux', icon: <FaLinux />, color: 'rgba(240,200,40,0.9)', textColor: '#000000' },
     ],
   },
   {
     heading: 'DevOps',
     items: [
-      { title: 'AWS', icon: <SiAwsamplify color="rgb(255,153,0)" />, color: 'rgba(255,153,0,0.7)' },
-      { title: 'Docker', icon: <FaDocker color="rgb(0,123,181)" />, color: 'rgba(0,123,181,0.7)' },
-      { title: 'Proxmox', icon: <SiProxmox color="rgb(239,83,80)" />, color: 'rgba(239,83,80,0.7)' },
+      { title: 'AWS', icon: <SiAwsamplify />, color: 'rgba(255,153,0,0.9)', textColor: '#000000' },
+      { title: 'Docker', icon: <FaDocker />, color: 'rgba(0,123,181,0.9)', textColor: '#ffffff' },
+      { title: 'Proxmox', icon: <SiProxmox />, color: 'rgba(239,83,80,0.9)', textColor: '#ffffff' },
     ],
   },
   {
     heading: 'Design',
     items: [
-      { title: 'Figma', icon: <SiFigma color="rgb(255,0,141)" />, color: 'rgba(255,0,141,0.7)' },
-      { title: 'Canva', icon: <SiCanva color="rgb(0,159,227)" />, color: 'rgba(0,159,227,0.7)' },
+      { title: 'Figma', icon: <SiFigma />, color: 'rgba(255,0,141,0.9)', textColor: '#ffffff' },
+      { title: 'Canva', icon: <SiCanva />, color: 'rgba(0,159,227,0.9)', textColor: '#ffffff' },
     ],
   },
 ];
@@ -177,9 +178,10 @@ interface GlowBoxProps {
   icon: ReactNode;
   color: string;
   title: string;
+  textColor?: string;
 }
 
-const GlowBox: React.FC<GlowBoxProps> = ({ icon, color, title }) => {
+const GlowBox: React.FC<GlowBoxProps> = ({ icon, color, title, textColor = '#ffffff' }) => {
   const [isHovered, setIsHovered] = useState(false);
   const experience: ExperienceLevel = experienceLevels[title] || 'Intermediate';
 
@@ -188,12 +190,12 @@ const GlowBox: React.FC<GlowBoxProps> = ({ icon, color, title }) => {
       className={`glow-box ${isHovered ? 'hovered' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ '--glow-color': color } as React.CSSProperties}
+      style={{ '--glow-color': color, '--text-color': textColor } as React.CSSProperties}
     >
       <div className="glow-box-content">
+        <div className="tech-name">{title}</div>
         <div className="glow-box-icon">{icon}</div>
         <div className="glow-box-info">
-          <div className="glow-box-title">{title}</div>
           <div className="glow-box-experience" data-level={experience}>{experience}</div>
         </div>
       </div>
@@ -256,7 +258,13 @@ export const TechStack: React.FC = () => {
               <h3 className="tech-category-heading">{tech.heading}</h3>
               <div className="tech-row">
                 {tech.items.map((item, idx) => (
-                  <GlowBox key={idx} icon={item.icon} color={item.color} title={item.title} />
+                  <GlowBox 
+                    key={idx} 
+                    icon={item.icon} 
+                    color={item.color} 
+                    title={item.title} 
+                    textColor={item.textColor} 
+                  />
                 ))}
               </div>
             </div>
