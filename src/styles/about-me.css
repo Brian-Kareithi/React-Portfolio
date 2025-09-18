@@ -98,7 +98,7 @@ html, body {
 
 .particle {
   position: absolute;
-  background: var(--vibrant-accent);
+  background: #ffffff;
   border-radius: 50%;
   opacity: var(--opacity);
   top: -10px;
@@ -106,7 +106,7 @@ html, body {
   width: var(--size);
   height: var(--size);
   animation: floatParticle var(--duration) var(--delay) infinite ease-in-out;
-  box-shadow: 0 0 10px var(--vibrant-accent);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
 }
 
 @keyframes floatParticle {
