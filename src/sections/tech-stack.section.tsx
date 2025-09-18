@@ -94,6 +94,7 @@ interface TechItem {
   icon: ReactNode;
   color: string;
   textColor?: string;
+  iconColor?: string;
 }
 
 interface TechCategory {
@@ -105,71 +106,71 @@ const techs: TechCategory[] = [
   {
     heading: 'Core Stack',
     items: [
-      { title: 'Next JS', icon: <TbBrandNextjs />, color: '#0A1931', textColor: '#F6FAFD' },
-      { title: 'React JS', icon: <FaReact />, color: '#1A3D63', textColor: '#F6FAFD' },
-      { title: 'Node JS', icon: <FaNodeJs />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'TypeScript', icon: <BiLogoTypescript />, color: '#0A1931', textColor: '#F6FAFD' },
-      { title: 'Fastify', icon: <SiFastify />, color: '#1A3D63', textColor: '#F6FAFD' },
-      { title: 'Express JS', icon: <SiExpress />, color: '#4A7FA7', textColor: '#F6FAFD' },
+      { title: 'Next JS', icon: <TbBrandNextjs />, color: '#000000', textColor: '#ffffff', iconColor: '#ffffff' },
+      { title: 'React JS', icon: <FaReact />, color: '#61DAFB', textColor: '#000000', iconColor: '#61DAFB' },
+      { title: 'Node JS', icon: <FaNodeJs />, color: '#339933', textColor: '#ffffff', iconColor: '#339933' },
+      { title: 'TypeScript', icon: <BiLogoTypescript />, color: '#3178C6', textColor: '#ffffff', iconColor: '#3178C6' },
+      { title: 'Fastify', icon: <SiFastify />, color: '#000000', textColor: '#ffffff', iconColor: '#ffffff' },
+      { title: 'Express JS', icon: <SiExpress />, color: '#000000', textColor: '#ffffff', iconColor: '#ffffff' },
     ],
   },
   {
     heading: 'Languages',
     items: [
-      { title: 'Java', icon: <FaJava />, color: '#0A1931', textColor: '#F6FAFD' },
-      { title: 'Python', icon: <SiCplusplus />, color: '#1A3D63', textColor: '#F6FAFD' },
-      { title: 'JavaScript', icon: <FaReact />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'Ruby', icon: <DiRuby />, color: '#0A1931', textColor: '#F6FAFD' },
-      { title: 'C++', icon: <SiCplusplus />, color: '#1A3D63', textColor: '#F6FAFD' },
-      { title: 'Kotlin', icon: <SiKotlin />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'Flutter', icon: <SiFlutter />, color: '#0A1931', textColor: '#F6FAFD' },
+      { title: 'Java', icon: <FaJava />, color: '#007396', textColor: '#ffffff', iconColor: '#007396' },
+      { title: 'Python', icon: <SiCplusplus />, color: '#3776AB', textColor: '#FFD43B', iconColor: '#3776AB' },
+      { title: 'JavaScript', icon: <FaReact />, color: '#F7DF1E', textColor: '#000000', iconColor: '#F7DF1E' },
+      { title: 'Ruby', icon: <DiRuby />, color: '#CC342D', textColor: '#ffffff', iconColor: '#CC342D' },
+      { title: 'C++', icon: <SiCplusplus />, color: '#00599C', textColor: '#ffffff', iconColor: '#00599C' },
+      { title: 'Kotlin', icon: <SiKotlin />, color: '#7F52FF', textColor: '#ffffff', iconColor: '#7F52FF' },
+      { title: 'Flutter', icon: <SiFlutter />, color: '#02569B', textColor: '#ffffff', iconColor: '#02569B' },
     ],
   },
   {
     heading: 'Frontend',
     items: [
-      { title: 'HTML5', icon: <FaHtml5 />, color: '#1A3D63', textColor: '#F6FAFD' },
-      { title: 'CSS3', icon: <FaCss3 />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'Bootstrap', icon: <FaBootstrap />, color: '#0A1931', textColor: '#F6FAFD' },
-      { title: 'Tailwind', icon: <SiTailwindcss />, color: '#1A3D63', textColor: '#F6FAFD' },
-      { title: 'Material UI', icon: <SiMui />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'ShadCn UI', icon: <SiShadcnui />, color: '#0A1931', textColor: '#F6FAFD' },
+      { title: 'HTML5', icon: <FaHtml5 />, color: '#E34F26', textColor: '#ffffff', iconColor: '#E34F26' },
+      { title: 'CSS3', icon: <FaCss3 />, color: '#1572B6', textColor: '#ffffff', iconColor: '#1572B6' },
+      { title: 'Bootstrap', icon: <FaBootstrap />, color: '#7952B3', textColor: '#ffffff', iconColor: '#7952B3' },
+      { title: 'Tailwind', icon: <SiTailwindcss />, color: '#06B6D4', textColor: '#ffffff', iconColor: '#06B6D4' },
+      { title: 'Material UI', icon: <SiMui />, color: '#007FFF', textColor: '#ffffff', iconColor: '#007FFF' },
+      { title: 'ShadCn UI', icon: <SiShadcnui />, color: '#000000', textColor: '#ffffff', iconColor: '#ffffff' },
     ],
   },
   {
     heading: 'Databases',
     items: [
-      { title: 'MsSQL', icon: <DiMsqlServer />, color: '#1A3D63', textColor: '#F6FAFD' },
-      { title: 'MySQL', icon: <SiMysql />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'PostgreSQL', icon: <SiPostgresql />, color: '#0A1931', textColor: '#F6FAFD' },
-      { title: 'MongoDB', icon: <DiMongodb />, color: '#1A3D63', textColor: '#F6FAFD' },
-      { title: 'Firebase', icon: <SiFirebase />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'Supabase', icon: <SiSupabase />, color: '#0A1931', textColor: '#F6FAFD' },
+      { title: 'MsSQL', icon: <DiMsqlServer />, color: '#CC2927', textColor: '#ffffff', iconColor: '#CC2927' },
+      { title: 'MySQL', icon: <SiMysql />, color: '#4479A1', textColor: '#ffffff', iconColor: '#4479A1' },
+      { title: 'PostgreSQL', icon: <SiPostgresql />, color: '#4169E1', textColor: '#ffffff', iconColor: '#4169E1' },
+      { title: 'MongoDB', icon: <DiMongodb />, color: '#47A248', textColor: '#ffffff', iconColor: '#47A248' },
+      { title: 'Firebase', icon: <SiFirebase />, color: '#FFCA28', textColor: '#000000', iconColor: '#FFCA28' },
+      { title: 'Supabase', icon: <SiSupabase />, color: '#3ECF8E', textColor: '#000000', iconColor: '#3ECF8E' },
     ],
   },
   {
     heading: 'Platforms',
     items: [
-      { title: 'Windows', icon: <FaWindows />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'MacOS', icon: <FaApple />, color: '#0A1931', textColor: '#F6FAFD' },
-      { title: 'iOS', icon: <FaApple />, color: '#1A3D63', textColor: '#F6FAFD' },
-      { title: 'Android', icon: <SiFlutter />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'Linux', icon: <FaLinux />, color: '#0A1931', textColor: '#F6FAFD' },
+      { title: 'Windows', icon: <FaWindows />, color: '#0078D4', textColor: '#ffffff', iconColor: '#0078D4' },
+      { title: 'MacOS', icon: <FaApple />, color: '#000000', textColor: '#ffffff', iconColor: '#ffffff' },
+      { title: 'iOS', icon: <FaApple />, color: '#000000', textColor: '#ffffff', iconColor: '#ffffff' },
+      { title: 'Android', icon: <SiFlutter />, color: '#3DDC84', textColor: '#000000', iconColor: '#3DDC84' },
+      { title: 'Linux', icon: <FaLinux />, color: '#FCC624', textColor: '#000000', iconColor: '#FCC624' },
     ],
   },
   {
     heading: 'DevOps',
     items: [
-      { title: 'AWS', icon: <SiAwsamplify />, color: '#1A3D63', textColor: '#F6FAFD' },
-      { title: 'Docker', icon: <FaDocker />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'Proxmox', icon: <SiProxmox />, color: '#0A1931', textColor: '#F6FAFD' },
+      { title: 'AWS', icon: <SiAwsamplify />, color: '#FF9900', textColor: '#000000', iconColor: '#FF9900' },
+      { title: 'Docker', icon: <FaDocker />, color: '#2496ED', textColor: '#ffffff', iconColor: '#2496ED' },
+      { title: 'Proxmox', icon: <SiProxmox />, color: '#E57000', textColor: '#ffffff', iconColor: '#E57000' },
     ],
   },
   {
     heading: 'Design',
     items: [
-      { title: 'Figma', icon: <SiFigma />, color: '#4A7FA7', textColor: '#F6FAFD' },
-      { title: 'Canva', icon: <SiCanva />, color: '#0A1931', textColor: '#F6FAFD' },
+      { title: 'Figma', icon: <SiFigma />, color: '#F24E1E', textColor: '#ffffff', iconColor: '#F24E1E' },
+      { title: 'Canva', icon: <SiCanva />, color: '#00C4CC', textColor: '#ffffff', iconColor: '#00C4CC' },
     ],
   },
 ];
@@ -180,9 +181,10 @@ interface GlowBoxProps {
   color: string;
   title: string;
   textColor?: string;
+  iconColor?: string;
 }
 
-const GlowBox: React.FC<GlowBoxProps> = ({ icon, color, title, textColor = '#F6FAFD' }) => {
+const GlowBox: React.FC<GlowBoxProps> = ({ icon, color, title, textColor = '#ffffff', iconColor }) => {
   const [isHovered, setIsHovered] = useState(false);
   const experience: ExperienceLevel = experienceLevels[title] || 'Intermediate';
 
@@ -191,7 +193,11 @@ const GlowBox: React.FC<GlowBoxProps> = ({ icon, color, title, textColor = '#F6F
       className={`glow-box ${isHovered ? 'hovered' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ '--glow-color': color, '--text-color': textColor } as React.CSSProperties}
+      style={{ 
+        '--glow-color': color, 
+        '--text-color': textColor,
+        '--icon-color': iconColor || textColor
+      } as React.CSSProperties}
     >
       <div className="glow-box-content">
         <div className="tech-name">{title}</div>
@@ -253,6 +259,7 @@ export const TechStack: React.FC = () => {
                     color={item.color} 
                     title={item.title} 
                     textColor={item.textColor} 
+                    iconColor={item.iconColor}
                   />
                 ))}
               </div>

@@ -1,18 +1,24 @@
-/* CSS Variables using the new color scheme */
+/* CSS Variables using vibrant color schemes */
 :root {
-  --primary-dark: #0A1931;
-  --primary-medium: #1A3D63;
-  --primary-light: #4A7FA7;
-  --accent-light: #B3CFE5;
-  --background-light: #F6FAFD;
-  --text-dark: #0A1931;
-  --text-light: #F6FAFD;
+  /* Vibrant Blue Scheme */
+  --vibrant-primary: #0A1931;
+  --vibrant-accent: #FF6B6B;
+  --vibrant-secondary: #4ECDC4;
+  --vibrant-light: #F6FAFD;
+  --vibrant-highlight: #FFE66D;
+  
+  /* Alternative Purple Scheme */
+  --purple-primary: #2D1B69;
+  --purple-accent: #FF6B8B;
+  --purple-secondary: #7B68EE;
+  --purple-light: #F8F6FF;
+  --purple-highlight: #A3DEFF;
 }
 
 .projects-section {
   padding: 5rem 1rem;
-  background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
-  color: var(--text-light);
+  background: linear-gradient(135deg, var(--vibrant-primary), #142850);
+  color: var(--vibrant-light);
   position: relative;
   overflow: hidden;
   min-height: 100vh;
@@ -37,20 +43,20 @@
   font-weight: 700;
   margin-bottom: 1rem;
   letter-spacing: 2px;
-  color: var(--text-light);
-  text-shadow: 0 0 15px rgba(74, 127, 167, 0.5);
+  color: var(--vibrant-light);
+  text-shadow: 0 0 15px rgba(78, 205, 196, 0.5);
 }
 
 .section-header h2 span {
-  color: var(--accent-light);
-  background: linear-gradient(90deg, var(--accent-light), var(--primary-light));
+  color: var(--vibrant-accent);
+  background: linear-gradient(90deg, var(--vibrant-accent), var(--vibrant-highlight));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .section-header p {
-  color: var(--accent-light);
+  color: var(--vibrant-secondary);
   font-size: 1.2rem;
   max-width: 600px;
   margin: 0 auto 1rem;
@@ -61,12 +67,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(74, 127, 167, 0.2);
+  background: rgba(255, 107, 107, 0.2);
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  border: 1px solid rgba(74, 127, 167, 0.4);
+  border: 1px solid rgba(255, 107, 107, 0.4);
   font-size: 0.9rem;
-  color: var(--accent-light);
+  color: var(--vibrant-secondary);
 }
 
 .projects-grid {
@@ -84,12 +90,12 @@
 }
 
 .project-card {
-  background: rgba(10, 25, 49, 0.8);
+  background: linear-gradient(145deg, rgba(10, 25, 49, 0.9), rgba(20, 40, 80, 0.9));
   border-radius: 16px;
   overflow: hidden;
   position: relative;
   transition: all 0.4s ease;
-  border: 1px solid rgba(74, 127, 167, 0.3);
+  border: 1px solid rgba(78, 205, 196, 0.3);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(12px);
   height: 480px;
@@ -98,9 +104,9 @@
 }
 
 .project-card:hover, .project-card.hovered {
-  transform: translateY(-8px);
+  transform: translateY(-8px) scale(1.02);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  border-color: rgba(74, 127, 167, 0.6);
+  border-color: rgba(255, 107, 107, 0.6);
 }
 
 .project-image {
@@ -119,7 +125,7 @@
 }
 
 .project-card:hover .project-img, .project-card.hovered .project-img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .image-fallback {
@@ -128,8 +134,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
-  color: var(--accent-light);
+  background: linear-gradient(135deg, var(--vibrant-primary), var(--vibrant-secondary));
+  color: var(--vibrant-light);
   font-size: 2.5rem;
   font-weight: 700;
 }
@@ -142,9 +148,11 @@
   border-radius: 16px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--text-light);
+  color: var(--vibrant-light);
   backdrop-filter: blur(10px);
   z-index: 2;
+  background: linear-gradient(90deg, var(--vibrant-accent), var(--vibrant-highlight));
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
 }
 
 .project-status {
@@ -155,10 +163,11 @@
   border-radius: 16px;
   font-size: 0.8rem;
   font-weight: 600;
-  background: rgba(179, 207, 229, 0.8);
-  color: var(--primary-dark);
+  background: linear-gradient(90deg, var(--vibrant-secondary), #36D1DC);
+  color: var(--vibrant-primary);
   backdrop-filter: blur(10px);
   z-index: 2;
+  box-shadow: 0 2px 8px rgba(78, 205, 196, 0.4);
 }
 
 .collaboration-badge {
@@ -169,13 +178,14 @@
   border-radius: 16px;
   font-size: 0.8rem;
   font-weight: 600;
-  background: rgba(26, 61, 99, 0.8);
-  color: var(--text-light);
+  background: linear-gradient(90deg, var(--vibrant-primary), #2A3B66);
+  color: var(--vibrant-light);
   display: flex;
   align-items: center;
   gap: 0.4rem;
   backdrop-filter: blur(10px);
   z-index: 2;
+  box-shadow: 0 2px 8px rgba(10, 25, 49, 0.4);
 }
 
 .project-overlay {
@@ -184,7 +194,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(10, 25, 49, 0.8));
+  background: linear-gradient(45deg, rgba(255, 107, 107, 0.7), rgba(78, 205, 196, 0.8));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,21 +215,21 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background: rgba(246, 250, 253, 0.15);
+  background: rgba(246, 250, 253, 0.2);
   backdrop-filter: blur(15px);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-light);
+  color: var(--vibrant-light);
   font-size: 1.2rem;
   transition: all 0.3s ease;
-  border: 1px solid rgba(246, 250, 253, 0.2);
+  border: 1px solid rgba(246, 250, 253, 0.3);
 }
 
 .project-links a:hover {
-  background: rgba(74, 127, 167, 0.9);
-  transform: scale(1.1) translateY(-2px);
-  box-shadow: 0 4px 12px rgba(74, 127, 167, 0.4);
+  background: rgba(255, 107, 107, 0.9);
+  transform: scale(1.15) translateY(-3px);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5);
 }
 
 .project-content {
@@ -234,12 +244,16 @@
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: var(--text-light);
+  color: var(--vibrant-light);
   line-height: 1.3;
+  background: linear-gradient(90deg, var(--vibrant-light), var(--vibrant-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .project-description {
-  color: var(--accent-light);
+  color: var(--vibrant-secondary);
   line-height: 1.6;
   margin-bottom: 1rem;
   font-size: 0.95rem;
@@ -260,7 +274,7 @@
 }
 
 .problem-solving p {
-  color: var(--accent-light);
+  color: var(--vibrant-light);
   line-height: 1.6;
   font-size: 0.9rem;
   margin-bottom: 1rem;
@@ -268,7 +282,7 @@
 }
 
 .tech-stack h4 {
-  color: var(--accent-light);
+  color: var(--vibrant-highlight);
   font-size: 1rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
@@ -281,12 +295,18 @@
 }
 
 .tech-tag {
-  background: rgba(74, 127, 167, 0.2);
-  color: var(--accent-light);
+  background: rgba(78, 205, 196, 0.2);
+  color: var(--vibrant-secondary);
   padding: 0.3rem 0.6rem;
   border-radius: 10px;
   font-size: 0.8rem;
-  border: 1px solid rgba(74, 127, 167, 0.3);
+  border: 1px solid rgba(78, 205, 196, 0.3);
+  transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+  background: rgba(255, 107, 107, 0.2);
+  transform: translateY(-2px);
 }
 
 .project-footer {
@@ -301,21 +321,22 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--accent-light);
+  color: var(--vibrant-light);
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
   padding: 0.6rem 1rem;
   border-radius: 8px;
-  background: rgba(74, 127, 167, 0.2);
-  border: 1px solid rgba(74, 127, 167, 0.3);
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.3), rgba(78, 205, 196, 0.3));
+  border: 1px solid rgba(255, 107, 107, 0.3);
   transition: all 0.3s ease;
 }
 
 .github-link:hover, .demo-link:hover {
-  background: rgba(74, 127, 167, 0.3);
-  color: var(--text-light);
-  transform: translateY(-2px);
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.5), rgba(78, 205, 196, 0.5));
+  color: var(--vibrant-light);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
 }
 
 .github-link .icon, .demo-link .icon {
@@ -323,7 +344,7 @@
 }
 
 .github-link:hover .icon, .demo-link:hover .icon {
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.1);
 }
 
 .glow-effect {
@@ -337,11 +358,11 @@
   transition: opacity 0.4s ease;
   pointer-events: none;
   z-index: -1;
-  box-shadow: 0 0 25px 5px var(--glow-color);
+  box-shadow: 0 0 30px 8px var(--glow-color);
 }
 
 .project-card:hover .glow-effect, .project-card.hovered .glow-effect {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 /* More projects section */
@@ -349,14 +370,15 @@
   text-align: center;
   margin-top: 4rem;
   padding: 2rem;
-  background: rgba(10, 25, 49, 0.6);
+  background: linear-gradient(135deg, rgba(10, 25, 49, 0.8), rgba(42, 59, 102, 0.8));
   border-radius: 16px;
-  border: 1px solid rgba(74, 127, 167, 0.3);
+  border: 1px solid rgba(78, 205, 196, 0.3);
   backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .more-projects p {
-  color: var(--accent-light);
+  color: var(--vibrant-secondary);
   font-size: 1.1rem;
   margin-bottom: 1rem;
   opacity: 0.9;
@@ -366,19 +388,55 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(90deg, var(--primary-light), var(--accent-light));
-  color: var(--primary-dark);
+  background: linear-gradient(90deg, var(--vibrant-accent), var(--vibrant-highlight));
+  color: var(--vibrant-primary);
   text-decoration: none;
   font-weight: 600;
   padding: 0.8rem 1.5rem;
   border-radius: 50px;
   transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(74, 127, 167, 0.3);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.github-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: 0.5s;
+}
+
+.github-button:hover::before {
+  left: 100%;
 }
 
 .github-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(74, 127, 167, 0.4);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+}
+
+/* Animation for cards */
+@keyframes cardPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+}
+
+.project-card {
+  animation: cardPulse 3s infinite;
+}
+
+.project-card:nth-child(2n) {
+  animation-delay: 1s;
+}
+
+.project-card:nth-child(3n) {
+  animation-delay: 2s;
 }
 
 /* Responsive adjustments */
@@ -402,7 +460,17 @@
   }
   
   .project-card:hover, .project-card.hovered {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.01);
+  }
+  
+  .project-footer {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .github-link, .demo-link {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -410,4 +478,34 @@
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Alternative purple theme option */
+.purple-theme .projects-section {
+  background: linear-gradient(135deg, var(--purple-primary), #4527A0);
+}
+
+.purple-theme .section-header h2 span {
+  background: linear-gradient(90deg, var(--purple-accent), var(--purple-highlight));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.purple-theme .project-card {
+  background: linear-gradient(145deg, rgba(45, 27, 105, 0.9), rgba(69, 39, 160, 0.9));
+  border: 1px solid rgba(123, 104, 238, 0.3);
+}
+
+.purple-theme .project-card:hover, 
+.purple-theme .project-card.hovered {
+  border-color: rgba(255, 107, 139, 0.6);
+}
+
+.purple-theme .project-type {
+  background: linear-gradient(90deg, var(--purple-accent), var(--purple-highlight));
+}
+
+.purple-theme .project-overlay {
+  background: linear-gradient(45deg, rgba(255, 107, 139, 0.7), rgba(123, 104, 238, 0.8));
 }

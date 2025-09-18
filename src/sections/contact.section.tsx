@@ -29,7 +29,7 @@ export const Contact = () => {
       
       <div className="contact-container">
         <div className={`contact-header ${isVisible ? 'visible' : ''}`}>
-          <h2>Let's Create Something Amazing Together!</h2>
+          <h2>Let's Create Something <span className="gradient-text">Amazing</span> Together!</h2>
           <p className="contact-subtitle">
             DISCUSS A PROJECT OR JUST WANT TO SAY HI? MY INBOX IS OPEN FOR ALL.
           </p>
@@ -40,31 +40,31 @@ export const Contact = () => {
 
         <div className="contact-details">
           <div className="contact-info">
-            <div className="contact-item">
+            <div className="contact-item location-item">
               <div className="icon-wrapper">
                 <FaMapMarkerAlt className="contact-icon" />
               </div>
               <span>Remote · Worldwide</span>
             </div>
-            <div className="contact-item">
+            <div className="contact-item opportunity-item">
               <div className="icon-wrapper">
                 <div className="opportunity-indicator"></div>
               </div>
-              <span>Open for opportunities: YES!</span>
+              <span>Open for opportunities: <strong>YES!</strong></span>
             </div>
           </div>
 
           <div className="divider"></div>
 
           <div className="contact-grid">
-            <a href="mailto:kareithibrian2@gmail.com" className="contact-card">
+            <a href="mailto:kareithibrian2@gmail.com" className="contact-card email-card">
               <div className="icon-wrapper">
                 <FaEnvelope className="contact-icon" />
               </div>
-              <span>kareithibrian2@gmail.com</span>
+              <span className="email-text">kareithibrian2@gmail.com</span>
             </a>
 
-            <a href="tel:+254718593392" className="contact-card">
+            <a href="tel:+254718593392" className="contact-card phone-card">
               <div className="icon-wrapper">
                 <FaPhone className="contact-icon" />
               </div>
@@ -75,7 +75,7 @@ export const Contact = () => {
               href="https://github.com/Brian-Kareithi" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="contact-card"
+              className="contact-card github-card"
             >
               <div className="icon-wrapper">
                 <FaGithub className="contact-icon" />
@@ -84,10 +84,10 @@ export const Contact = () => {
             </a>
 
             <a 
-              href="https://linkedin.com/in/yourusername" 
+              href="https://linkedin.com/in/brian-kareithi-04007637b/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="contact-card"
+              className="contact-card linkedin-card"
             >
               <div className="icon-wrapper">
                 <FaLinkedin className="contact-icon" />
@@ -99,7 +99,7 @@ export const Contact = () => {
               href="https://www.instagram.com/kareithi._/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="contact-card"
+              className="contact-card instagram-card"
             >
               <div className="icon-wrapper">
                 <FaInstagram className="contact-icon" />

@@ -32,18 +32,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 1.5rem;
+  padding: 1.5rem 2rem;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  max-width: 1200px;
-  margin: 0 auto;
 }
-
 .nav-brand span {
-  font-size: 1.4rem;
+  font-size: 3rem; /* Increased greeting size */
   font-weight: 500;
   color: var(--color1);
   opacity: 0.9;
@@ -52,33 +49,29 @@
 
 .nav-buttons {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.5rem;
 }
 
 /* Hero Content */
 .hero-content {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
-  flex: 1;
-  z-index: 2;
-  margin-top: 5rem;
+  align-items: center;
+  padding: 0 1%;
+  flex-grow: 1;
+  z-index: 1;
+  margin: 0 auto;
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
   width: 100%;
-  box-sizing: border-box;
+  gap: 4rem; /* Increased gap between text and image */
 }
 
 .hero-text {
-  max-width: 55%;
-  z-index: 2;
-  margin-left: 0.5rem; /* Moved text closer to left edge */
+  max-width: 50%;
 }
 
 .greeting {
-  font-size: 1.8rem;
+  font-size: 2rem; /* Increased greeting size */
   margin-bottom: 0.8rem;
   color: var(--color1);
   opacity: 0.9;
@@ -126,7 +119,6 @@
   position: relative;
   width: 360px;
   height: 360px;
-  margin-right: 1rem; /* Moved image closer to center */
 }
 
 .image-container {
@@ -390,83 +382,25 @@
   background-color: rgba(167, 235, 242, 0.2);
 }
 
-/* Responsive Design - Tablet */
-@media (max-width: 1024px) {
-  .hero-content {
-    padding: 0 1rem;
-    margin-top: 4rem;
-  }
-  
-  .hero-text {
-    max-width: 50%;
-    margin-left: 0.3rem;
-  }
-  
-  .name {
-    font-size: 3.2rem;
-  }
-  
-  .role-text {
-    font-size: 1.8rem;
-  }
-  
-  .hero-image {
-    width: 320px;
-    height: 320px;
-  }
-  
-  .navigation-header {
-    padding: 1.2rem 1rem;
-  }
-}
-
-/* Responsive Design - Mobile Landscape */
-@media (max-width: 900px) and (orientation: landscape) {
-  .hero-content {
-    margin-top: 3rem;
-    gap: 1.5rem;
-  }
-  
-  .hero-text {
-    max-width: 50%;
-  }
-  
-  .name {
-    font-size: 2.8rem;
-  }
-  
-  .role-text {
-    font-size: 1.6rem;
-    min-height: 2.2rem;
-  }
-  
-  .hero-image {
-    width: 280px;
-    height: 280px;
-  }
-}
-
-/* Responsive Design - Mobile */
-@media (max-width: 768px) {
+/* Responsive Design */
+@media (max-width: 968px) {
   .hero-content {
     flex-direction: column;
     text-align: center;
-    gap: 2rem;
-    margin-top: 4rem;
-    padding: 0 1rem;
+    gap: 3rem; /* Increased gap for mobile */
+    margin-top: 1rem;
+    padding: 0 0.4rem;
   }
   
   .hero-text {
     max-width: 100%;
     order: 2;
-    margin-left: 0;
   }
   
   .hero-image {
     order: 1;
     width: 280px;
     height: 280px;
-    margin-right: 0;
   }
   
   .name {
@@ -479,20 +413,20 @@
   }
   
   .greeting {
-    font-size: 1.5rem;
+    font-size: 1.7rem; /* Adjusted for mobile */
   }
   
   .navigation-header {
     flex-direction: column;
     gap: 1rem;
-    padding: 1rem;
-    position: relative;
+    padding: 1rem 0.4rem;
+    margin-bottom: 1.5rem;
   }
   
   .nav-buttons {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.8rem;
+    gap: 0.5rem;
   }
   
   .bottom-bar {
@@ -508,13 +442,16 @@
     width: 55px;
     height: 55px;
   }
+  
+  .nav-brand span {
+    font-size: 1.4rem; /* Adjusted for mobile */
+  }
 }
 
-/* Responsive Design - Small Mobile */
-@media (max-width: 480px) {
+@media (max-width: 576px) {
   .hero-image {
-    width: 240px;
-    height: 240px;
+    width: 220px;
+    height: 220px;
   }
   
   .name {
@@ -522,12 +459,12 @@
   }
   
   .role-text {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     min-height: 2rem;
   }
   
   .greeting {
-    font-size: 1.3rem;
+    font-size: 1.4rem; /* Adjusted for small mobile */
   }
   
   .floating-btn div {
@@ -561,11 +498,11 @@
   }
   
   .navigation-header {
-    padding: 0.8rem;
+    padding: 0.8rem 0.3rem;
   }
   
   .nav-buttons {
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   
   .nav-btn > div {
@@ -575,40 +512,6 @@
   }
   
   .nav-brand span {
-    font-size: 1.2rem;
-  }
-  
-  .hero-content {
-    margin-top: 3rem;
-    padding: 0 0.5rem;
-  }
-}
-
-/* Responsive Design - Very Small Mobile */
-@media (max-width: 360px) {
-  .hero-image {
-    width: 200px;
-    height: 200px;
-  }
-  
-  .name {
-    font-size: 2.2rem;
-  }
-  
-  .role-text {
-    font-size: 1.2rem;
-  }
-  
-  .greeting {
-    font-size: 1.1rem;
-  }
-  
-  .nav-buttons {
-    gap: 0.4rem;
-  }
-  
-  .nav-btn > div {
-    width: 120px;
-    font-size: 0.8rem;
+    font-size: 1.2rem; /* Adjusted for small mobile */
   }
 }
