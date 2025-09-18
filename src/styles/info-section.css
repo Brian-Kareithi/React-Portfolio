@@ -33,14 +33,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 100;
+  width: 100%;
 }
 .nav-brand span {
-  font-size: 3rem; /* Increased greeting size */
+  font-size: 1.8rem;
   font-weight: 500;
   color: var(--color1);
   opacity: 0.9;
@@ -57,13 +55,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1%;
+  padding: 0 5%;
   flex-grow: 1;
   z-index: 1;
   margin: 0 auto;
   max-width: 1200px;
   width: 100%;
-  gap: 4rem; /* Increased gap between text and image */
+  gap: 4rem;
 }
 
 .hero-text {
@@ -71,7 +69,7 @@
 }
 
 .greeting {
-  font-size: 2rem; /* Increased greeting size */
+  font-size: 2rem;
   margin-bottom: 0.8rem;
   color: var(--color1);
   opacity: 0.9;
@@ -385,9 +383,9 @@
 /* Responsive Design */
 @media (max-width: 968px) {
   .hero-content {
-    flex-direction: column;
+    flex-direction: column-reverse; /* Changed to column-reverse to fix mobile layout */
     text-align: center;
-    gap: 3rem; /* Increased gap for mobile */
+    gap: 2rem;
     margin-top: 1rem;
     padding: 0 0.4rem;
   }
@@ -401,6 +399,7 @@
     order: 1;
     width: 280px;
     height: 280px;
+    margin-top: 1rem;
   }
   
   .name {
@@ -413,20 +412,22 @@
   }
   
   .greeting {
-    font-size: 1.7rem; /* Adjusted for mobile */
+    font-size: 1.7rem;
   }
   
   .navigation-header {
     flex-direction: column;
     gap: 1rem;
     padding: 1rem 0.4rem;
-    margin-bottom: 1.5rem;
+    position: relative;
+    margin-bottom: 0;
   }
   
   .nav-buttons {
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
+    margin-top: 1rem;
   }
   
   .bottom-bar {
@@ -444,7 +445,7 @@
   }
   
   .nav-brand span {
-    font-size: 1.4rem; /* Adjusted for mobile */
+    font-size: 1.4rem;
   }
 }
 
@@ -464,7 +465,7 @@
   }
   
   .greeting {
-    font-size: 1.4rem; /* Adjusted for small mobile */
+    font-size: 1.4rem;
   }
   
   .floating-btn div {
@@ -512,6 +513,6 @@
   }
   
   .nav-brand span {
-    font-size: 1.2rem; /* Adjusted for small mobile */
+    font-size: 1.2rem;
   }
 }
