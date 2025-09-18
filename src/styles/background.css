@@ -1,0 +1,128 @@
+.background-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background-color: hsla(200, 88%, 46%, 0.3);
+  z-index: -1;
+}
+
+/* Particles */
+.particles {
+  position: absolute;
+  inset: 0;
+}
+
+.particle {
+  position: absolute;
+  top: 100%;
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, var(--opacity));
+  animation: floatParticle var(--duration) linear infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes floatParticle {
+  from {
+    transform: translateY(0) scale(1);
+  }
+  to {
+    transform: translateY(calc(-1 * var(--distance))) scale(0.5);
+  }
+}
+
+/* Floating bubbles */
+.bubbles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -10rem;
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  animation: riseBubble var(--duration) ease-in infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes riseBubble {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(-120vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Decorative floating elements */
+.floating-element {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.25;
+  background: rgba(255, 255, 255, 0.25);
+  animation: floatDecor 12s ease-in-out infinite;
+}
+
+/* Left side */
+.floating-element.el-1 {
+  width: 120px;
+  height: 120px;
+  top: 15%;
+  left: 10%;
+  animation-delay: 0s;
+}
+.floating-element.el-2 {
+  width: 200px;
+  height: 200px;
+  bottom: 20%;
+  left: 5%;
+  animation-delay: 3s;
+}
+.floating-element.el-3 {
+  width: 150px;
+  height: 150px;
+  top: 60%;
+  left: 20%;
+  animation-delay: 6s;
+}
+
+/* Right side */
+.floating-element.el-4 {
+  width: 180px;
+  height: 180px;
+  top: 25%;
+  right: 12%;
+  animation-delay: 2s;
+}
+.floating-element.el-5 {
+  width: 220px;
+  height: 220px;
+  bottom: 25%;
+  right: 8%;
+  animation-delay: 5s;
+}
+.floating-element.el-6 {
+  width: 140px;
+  height: 140px;
+  top: 70%;
+  right: 18%;
+  animation-delay: 8s;
+}
+
+@keyframes floatDecor {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-25px) translateX(20px);
+  }
+}

@@ -1,19 +1,32 @@
 import { useEffect, useState } from 'react';
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { IoMailOutline } from 'react-icons/io5';
+import { Background } from '../components/background';
 import { FloatingButton } from '../components/floating-button';
 import { GlowLink } from '../components/glow-box-link';
+
+// Roles moved outside to avoid unnecessary re-renders
+const roles = ['Fullstack Developer', 'Grey Hat', 'Cybersecurity Enthusiast', 'Gamer'];
 
 const NavBrand = () => {
   const [greeting, setGreeting] = useState("");
 
   useEffect(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) {
-      setGreeting("Good Morning ☀️");
-    } else {
-      setGreeting("Good Evening 🌙");
-    }
+    const updateGreeting = () => {
+      const hour = new Date().getHours();
+      if (hour < 12) {
+        setGreeting("Good Morning ☀️");
+      } else if (hour < 18) {
+        setGreeting("Good Afternoon 🌤️");
+      } else {
+        setGreeting("Good Evening 🌙");
+      }
+    };
+
+    updateGreeting();
+    const interval = setInterval(updateGreeting, 60 * 1000); // update every minute
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -27,37 +40,39 @@ export const InfoSection = () => {
   const [currentRole, setCurrentRole] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(150);
-
-  const roles = ['Software Developer', 'Cybersecurity Enthusiast', 'Gamer'];
 
   useEffect(() => {
-    const handleTyping = () => {
-      const current = currentRole % roles.length;
-      const fullText = roles[current];
+    const fullText = roles[currentRole % roles.length];
 
-      if (isDeleting) {
-        setDisplayText(fullText.substring(0, displayText.length - 1));
-        setTypingSpeed(typingSpeed / 1.5);
-      } else {
-        setDisplayText(fullText.substring(0, displayText.length + 1));
-      }
+    const handleTyping = () => {
+      setDisplayText(prev => {
+        if (isDeleting) {
+          return prev.substring(0, prev.length - 1);
+        } else {
+          return fullText.substring(0, prev.length + 1);
+        }
+      });
 
       if (!isDeleting && displayText === fullText) {
         setTimeout(() => setIsDeleting(true), 1000);
       } else if (isDeleting && displayText === '') {
         setIsDeleting(false);
-        setCurrentRole((currentRole + 1) % roles.length);
-        setTypingSpeed(150);
+        setCurrentRole(prev => (prev + 1) % roles.length);
       }
     };
 
-    const timer = setTimeout(handleTyping, typingSpeed);
+    const timer = setTimeout(
+      handleTyping,
+      isDeleting ? 75 : 150
+    );
+
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, currentRole, roles, typingSpeed]);
+  }, [displayText, isDeleting, currentRole]);
 
   return (
     <div className='hero-section'>
+      <Background />
+      
       {/* Navigation Header */}
       <nav className="navigation-header">
         <NavBrand />
@@ -69,33 +84,12 @@ export const InfoSection = () => {
           <FloatingButton label='Contact' className='nav-btn' href='/#contact' />
         </div>
       </nav>
-      
-      <div className="hero-background"></div>
-      
-      {/* Animated particles */}
-      <div className="particles">
-        {[...Array(30)].map((_, i) => (
-          <div 
-            key={i} 
-            className="particle" 
-            style={{
-              '--delay': Math.random() * 5 + 's',
-              '--size': Math.random() * 6 + 2 + 'px',
-              '--distance': Math.random() * 30 + 10 + 'vmax',
-              '--duration': Math.random() * 10 + 10 + 's',
-              '--opacity': Math.random() * 0.5 + 0.1,
-              '--left': Math.random() * 100 + '%',
-            } as React.CSSProperties}
-          ></div>
-        ))}
-      </div>
-      
+
       <div className="hero-content">
         <div className="hero-text">
           <p className="greeting">Hi, I am</p>
           <h1 className="name">Brian Kareithi</h1>
           <p className="role-text">
-            <span className="static-text">Aspiring </span>
             <span className="animated-text">{displayText}</span>
             <span className="cursor">|</span>
           </p>
@@ -104,11 +98,11 @@ export const InfoSection = () => {
         {/* Hero Image */}
         <div className="hero-image">
           <div className="image-container">
-            <img 
+            <img
               src="https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg"
-              alt="Brian Kareithi" 
+              alt="Brian Kareithi"
               onError={(e) => {
-                const target = e.target as HTMLImageElement;
+                const target = e.currentTarget;
                 target.style.display = 'none';
                 const next = target.nextElementSibling as HTMLElement;
                 if (next) next.style.display = 'block';
@@ -118,10 +112,6 @@ export const InfoSection = () => {
               <span>BK</span>
             </div>
           </div>
-          {/* Decorative elements */}
-          <div className="floating-element el-1"></div>
-          <div className="floating-element el-2"></div>
-          <div className="floating-element el-3"></div>
         </div>
       </div>
 
@@ -130,14 +120,14 @@ export const InfoSection = () => {
         <div className="social-icons-wrapper">
           <GlowLink
             href='https://github.com/Brian-Kareithi'
-            color='rgba(255, 255, 255, 0.4)'
+            color='#A7EBF2'
             icon={<FaGithub size={28} />}
             aria-label='github'
             className="social-icon rgb-effect"
           />
           <GlowLink
             href='https://www.linkedin.com/in/brian-kareithi-04007637b/'
-            color='rgba(0, 160, 220, 0.6)'
+            color='#54ACBF'
             icon={<FaLinkedinIn size={28} />}
             aria-label='linkedin'
             className="social-icon rgb-effect"
@@ -145,7 +135,7 @@ export const InfoSection = () => {
           <GlowLink
             href='mailto:kareithibrian2@gmail.com'
             icon={<IoMailOutline size={30} />}
-            color='rgba(18, 122, 209, 0.7)'
+            color='#26658C'
             aria-label='mail'
             className="social-icon rgb-effect"
           />
