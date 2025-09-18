@@ -242,23 +242,24 @@ export const AboutMe = () => {
     >
       {/* Enhanced animated particles background */}
       <div className="particles-background">
-        {[...Array(50)].map((_, i) => (
+        {[...Array(80)].map((_, i) => (
           <div key={i} className="particle" style={{
             '--delay': Math.random() * 5 + 's',
-            '--size': Math.random() * 4 + 2 + 'px',
-            '--distance': Math.random() * 20 + 10 + 'vmax',
-            '--duration': Math.random() * 10 + 10 + 's',
-            '--opacity': Math.random() * 0.5 + 0.1,
+            '--size': Math.random() * 5 + 3 + 'px',
+            '--distance': Math.random() * 25 + 15 + 'vmax',
+            '--duration': Math.random() * 15 + 15 + 's',
+            '--opacity': Math.random() * 0.6 + 0.2,
             '--left': Math.random() * 100 + '%',
-            '--color': `hsl(${Math.random() * 60 + 200}, 70%, 70%)`,
+            '--color': `hsl(${Math.random() * 60 + 180}, 85%, 75%)`,
           } as React.CSSProperties}></div>
         ))}
       </div>
       
-      {/* Floating elements */}
-      <div className="floating-element el-1"></div>
-      <div className="floating-element el-2"></div>
-      <div className="floating-element el-3"></div>
+      {/* Floating elements with vibrant colors */}
+      <div className="floating-element el-1" style={{background: "radial-gradient(circle, #FF6B6B 0%, #FF8E53 50%, transparent 70%)"}}></div>
+      <div className="floating-element el-2" style={{background: "radial-gradient(circle, #4ECDC4 0%, #556270 50%, transparent 70%)"}}></div>
+      <div className="floating-element el-3" style={{background: "radial-gradient(circle, #FFD166 0%, #06D6A0 50%, transparent 70%)"}}></div>
+      <div className="floating-element el-4" style={{background: "radial-gradient(circle, #118AB2 0%, #073B4C 50%, transparent 70%)"}}></div>
       
       <div className="about-header">
         <SectionTitle
