@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaExternalLinkAlt, FaGithub, FaUsers } from "react-icons/fa";
+import { Background } from '../components/background';
 
 interface Project {
   title: string;
@@ -123,7 +124,7 @@ const projects: Project[] = [
 
 export const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [expandedProject, setExpandedProject] = useState<number | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -134,37 +135,20 @@ export const Projects = () => {
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "app": return "rgba(100, 255, 218, 0.8)";
-      case "webapp": return "rgba(59, 130, 246, 0.8)";
-      case "tool": return "rgba(245, 158, 11, 0.8)";
-      default: return "rgba(156, 163, 175, 0.8)";
+      case "app": return "#4A7FA7";
+      case "webapp": return "#1A3D63";
+      case "tool": return "#0A1931";
+      default: return "#B3CFE5";
     }
   };
 
   const handleProjectHover = (index: number | null) => {
-    setExpandedProject(index);
+    setHoveredProject(index);
   };
 
   return (
     <section id="projects" className="projects-section">
-      {/* Animated particles background */}
-      <div className="particles">
-        {[...Array(30)].map((_, i) => (
-          <div key={i} className="particle" style={{
-            '--delay': Math.random() * 5 + 's',
-            '--size': Math.random() * 4 + 2 + 'px',
-            '--distance': Math.random() * 20 + 10 + 'vmax',
-            '--duration': Math.random() * 10 + 10 + 's',
-            '--opacity': Math.random() * 0.5 + 0.1,
-            '--left': Math.random() * 100 + '%',
-          } as React.CSSProperties}></div>
-        ))}
-      </div>
-      
-      {/* Floating decorative elements */}
-      <div className="floating-element el-1"></div>
-      <div className="floating-element el-2"></div>
-      <div className="floating-element el-3"></div>
+      <Background />
       
       <div className="projects-container">
         <div className="section-header">
@@ -179,7 +163,7 @@ export const Projects = () => {
           {projects.map((project, index) => (
             <div 
               key={index} 
-              className={`project-card ${expandedProject === index ? 'expanded' : ''}`}
+              className={`project-card ${hoveredProject === index ? 'hovered' : ''}`}
               style={{ '--glow-color': getTypeColor(project.type) } as React.CSSProperties}
               onMouseEnter={() => handleProjectHover(index)}
               onMouseLeave={() => handleProjectHover(null)}

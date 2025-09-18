@@ -1,128 +1,156 @@
-/* TODO convert to rgb colors to apply opacity property */
+/* Converted to RGB colors to apply opacity property */
 :root {
-	--text: hsl(0, 0%, 100%);
-	--text-reverse: hsl(0, 0%, 0%);
-	--textDim: hsl(0, 0%, 60%);
-	--background: hsl(0, 0%, 0%);
-	--background-reverse: hsl(0, 0%, 100%);
-	--scroll-bar: 31, 195, 255;
-	--primary: 31, 195, 255;
-	--primaryBg: hsla(155, 100%, 65%, 1%);
-	--primaryHi: hsla(155, 100%, 75%, 25%);
-	--primaryFg: hsl(155, 100%, 85%);
-	--secondary: hsl(156, 51%, 14%);
-	--secondaryFg: hsl(156, 51%, 75%);
-	--secondaryBg: hsla(156, 51%, 14%, 5%);
-	--secondaryHi: hsla(156, 51%, 30%, 50%);
-	--accent: hsl(155, 100%, 94%);
-	--accentBg: hsla(155, 100%, 94%, 1%);
-	--accentHi: hsla(155, 100%, 100%, 25%);
+  --deep-navy: 10, 25, 49;        /* #0A1931 */
+  --light-blue: 179, 207, 229;    /* #B3CFE5 */
+  --medium-blue: 74, 127, 167;    /* #4A7FA7 */
+  --dark-blue: 26, 61, 99;        /* #1A3D63 */
+  --off-white: 246, 250, 253;     /* #F6FAFD */
+  
+  --text: var(--off-white);
+  --text-reverse: var(--deep-navy);
+  --textDim: 179, 207, 229;       /* Light blue with opacity */
+  --background: var(--deep-navy);
+  --background-reverse: var(--off-white);
+  --scroll-bar: var(--light-blue);
+  --primary: var(--medium-blue);
+  --primaryBg: var(--medium-blue);
+  --primaryHi: var(--light-blue);
+  --primaryFg: var(--light-blue);
+  --secondary: var(--dark-blue);
+  --secondaryFg: var(--light-blue);
+  --secondaryBg: var(--dark-blue);
+  --secondaryHi: 41, 97, 150;     /* Dark blue with higher brightness */
+  --accent: var(--light-blue);
+  --accentBg: var(--light-blue);
+  --accentHi: 214, 232, 247;      /* Lighter blue */
 }
 
 html {
-	scrollbar-width: none;
-	scroll-behavior: smooth !important;
+  scrollbar-width: none;
+  scroll-behavior: smooth !important;
 }
 
 * {
-	cursor: none !important;
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  cursor: none !important;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-	font-family: 'Fugaz One', sans-serif;
-	font-weight: 400;
-	font-style: normal;
-	background-color: var(--background);
-	color: var(--text);
-	cursor: none;
-	scroll-behavior: smooth;
+  font-family: 'Fugaz One', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: rgb(var(--background));
+  color: rgb(var(--text));
+  cursor: none;
+  scroll-behavior: smooth;
 }
 
 .container {
-	max-width: 1600px;
-	margin-inline: auto;
+  max-width: 1600px;
+  margin-inline: auto;
 }
 
 @keyframes anim {
-	0% {
-		transform: translateY(0px);
-	}
+  0% {
+    transform: translateY(0px);
+  }
 
-	50% {
-		transform: translateY(15px);
-	}
+  50% {
+    transform: translateY(15px);
+  }
 
-	100% {
-		transform: translateY(0px);
-	}
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 hr {
-	position: relative;
-	padding: 2.5rem 0;
-	border: none;
-	margin-top: 10px;
+  position: relative;
+  padding: 2.5rem 0;
+  border: none;
+  margin-top: 10px;
 }
 
 hr:before {
-	content: '\2044  \2217\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2217  \2044';
-	position: absolute;
-	top: 1.2rem;
-	right: 0;
-	left: 0;
-	font-size: 1.5em;
-	color: hsl(196, 100%, 56%);
-	text-align: center;
+  content: '\2044  \2217\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2013\2217  \2044';
+  position: absolute;
+  top: 1.2rem;
+  right: 0;
+  left: 0;
+  font-size: 1.5em;
+  color: rgb(var(--light-blue));
+  text-align: center;
 }
 
 /*
-	* ScrollBar Styling
+  * ScrollBar Styling
 */
 
 ::-webkit-scrollbar {
-	display: none;
+  display: none;
 }
 
 .scroll-bar {
-	--p: 0%;
-	position: fixed;
-	width: 7px;
-	height: 7px;
-	right: 0;
-	top: 0;
-	background: rgb(var(--scroll-bar));
-	border-radius: 50%;
+  --p: 0%;
+  position: fixed;
+  width: 7px;
+  height: 7px;
+  right: 0;
+  top: 0;
+  background: rgb(var(--scroll-bar));
+  border-radius: 50%;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(var(--light-blue), 0.5);
 }
 
-/*  TODO Remove before class if scroll tail is not needed */
+/* Scroll tail */
 .scroll-bar::before {
-	content: '';
-	position: absolute;
-	bottom: 50%;
-	left: 50%;
-	transform: translate(-50%, 0%);
-	width: 7px;
-	height: var(--p);
-	background: linear-gradient(0deg, rgb(var(--scroll-bar)), transparent);
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 7px;
+  height: var(--p);
+  background: linear-gradient(0deg, rgb(var(--scroll-bar)), transparent);
+  opacity: 0.7;
 }
 
 .heading {
-	color: hsl(196, 100%, 56%);
-	text-decoration: underline;
-	margin-bottom: 0.9rem;
+  color: rgb(var(--light-blue));
+  text-decoration: underline;
+  margin-bottom: 0.9rem;
+}
+
+/* Custom scrollbar for webkit browsers (hidden by default but can be enabled) */
+body::-webkit-scrollbar {
+  width: 8px;
+  display: none; /* Hidden by default but can be enabled if needed */
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(var(--dark-blue), 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgb(var(--medium-blue));
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--light-blue));
 }
 
 @media screen and (max-width: 700px) {
-	.scroll-bar {
-		display: none;
-	}
+  .scroll-bar {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 450px) {
-	p {
-		font-size: 1.5rem;
-	}
+  p {
+    font-size: 1.5rem;
+  }
 }

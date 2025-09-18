@@ -240,9 +240,9 @@ export const AboutMe = () => {
       className='about-me container'
       id='about-me'
     >
-      {/* Animated particles background */}
-      <div className="particles">
-        {[...Array(20)].map((_, i) => (
+      {/* Enhanced animated particles background */}
+      <div className="particles-background">
+        {[...Array(50)].map((_, i) => (
           <div key={i} className="particle" style={{
             '--delay': Math.random() * 5 + 's',
             '--size': Math.random() * 4 + 2 + 'px',
@@ -250,9 +250,15 @@ export const AboutMe = () => {
             '--duration': Math.random() * 10 + 10 + 's',
             '--opacity': Math.random() * 0.5 + 0.1,
             '--left': Math.random() * 100 + '%',
+            '--color': `hsl(${Math.random() * 60 + 200}, 70%, 70%)`,
           } as React.CSSProperties}></div>
         ))}
       </div>
+      
+      {/* Floating elements */}
+      <div className="floating-element el-1"></div>
+      <div className="floating-element el-2"></div>
+      <div className="floating-element el-3"></div>
       
       <div className="about-header">
         <SectionTitle
