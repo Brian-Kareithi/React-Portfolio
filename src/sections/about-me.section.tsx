@@ -4,6 +4,19 @@ const timeline = [
   {
     title: 'Experience',
     items: [
+            {
+        title: 'Software Developer Intern',
+        place: 'Steadfast Academy',
+        timePeriod: '2025 - Present',
+        icon: '🚀',
+        description: (
+          <ul>
+            <li>Developing scalable backend systems and APIs</li>
+            <li>Implementing database solutions and cloud infrastructure</li>
+            <li>Working with modern tech stack including Node.js and cloud services</li>
+          </ul>
+        ),
+      },
       {
         title: 'Backend Developer',
         place: 'Thee Entity Limited',
