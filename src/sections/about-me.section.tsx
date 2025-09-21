@@ -23,11 +23,13 @@ const timeline = [
         timePeriod: '2025 - Present',
         icon: '🚀',
         description: (
-          <ul>
-            <li>Developing scalable backend systems and APIs</li>
-            <li>Implementing database solutions and cloud infrastructure</li>
-            <li>Working with modern tech stack including Node.js and cloud services</li>
-          </ul>
+ <ul>
+  <li>Co-founded the company with two other members</li>
+  <li>Developing scalable backend systems and APIs</li>
+  <li>Implementing database solutions and cloud infrastructure</li>
+  <li>Working with modern tech stack including Node.js and cloud services</li>
+</ul>
+
         ),
       },
       {
