@@ -5,7 +5,7 @@ import { Background } from '../components/background';
 import { FloatingButton } from '../components/floating-button';
 import { GlowLink } from '../components/glow-box-link';
 
-// Roles moved outside to avoid unnecessary re-renders
+// Roles outside component to prevent re-renders
 const roles = ['Fullstack Developer', 'Grey Hat', 'Cybersecurity Enthusiast', 'Gamer'];
 
 const NavBrand = () => {
@@ -24,8 +24,7 @@ const NavBrand = () => {
     };
 
     updateGreeting();
-    const interval = setInterval(updateGreeting, 60 * 1000); // update every minute
-
+    const interval = setInterval(updateGreeting, 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -46,11 +45,8 @@ export const InfoSection = () => {
 
     const handleTyping = () => {
       setDisplayText(prev => {
-        if (isDeleting) {
-          return prev.substring(0, prev.length - 1);
-        } else {
-          return fullText.substring(0, prev.length + 1);
-        }
+        if (isDeleting) return prev.substring(0, prev.length - 1);
+        return fullText.substring(0, prev.length + 1);
       });
 
       if (!isDeleting && displayText === fullText) {
@@ -61,30 +57,26 @@ export const InfoSection = () => {
       }
     };
 
-    const timer = setTimeout(
-      handleTyping,
-      isDeleting ? 75 : 150
-    );
-
+    const timer = setTimeout(handleTyping, isDeleting ? 75 : 150);
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, currentRole]);
 
   return (
-    <div className='hero-section'>
+    <div className="hero-section">
       <Background />
-      
+
       {/* Navigation Header */}
       <nav className="navigation-header">
         <NavBrand />
-
         <div className="nav-buttons">
-          <FloatingButton label='About Me' className='nav-btn' href='/#about-me' />
-          <FloatingButton label='Tech Stack' className='nav-btn' href='/#tech-stack' />
-          <FloatingButton label='Projects' className='nav-btn' href='/#projects' />
-          <FloatingButton label='Contact' className='nav-btn' href='/#contact' />
+          <FloatingButton label="About Me" className="nav-btn" href="/#about-me" />
+          <FloatingButton label="Tech Stack" className="nav-btn" href="/#tech-stack" />
+          <FloatingButton label="Projects" className="nav-btn" href="/#projects" />
+          <FloatingButton label="Contact" className="nav-btn" href="/#contact" />
         </div>
       </nav>
 
+      {/* Hero Content */}
       <div className="hero-content">
         <div className="hero-text">
           <p className="greeting">Hi, I am</p>
@@ -105,7 +97,7 @@ export const InfoSection = () => {
                 const target = e.currentTarget;
                 target.style.display = 'none';
                 const next = target.nextElementSibling as HTMLElement;
-                if (next) next.style.display = 'block';
+                if (next) next.style.display = 'flex';
               }}
             />
             <div className="image-fallback" style={{ display: "none" }}>
@@ -116,28 +108,28 @@ export const InfoSection = () => {
       </div>
 
       {/* Bottom Social Icons */}
-      <div className='bottom-bar'>
+      <div className="bottom-bar">
         <div className="social-icons-wrapper">
           <GlowLink
-            href='https://github.com/Brian-Kareithi'
-            color='#A7EBF2'
+            href="https://github.com/Brian-Kareithi"
+            color="#A7EBF2"
             icon={<FaGithub size={28} />}
-            aria-label='github'
-            className="social-icon rgb-effect"
+            aria-label="github"
+            className="social-icon"
           />
           <GlowLink
-            href='https://www.linkedin.com/in/brian-kareithi-04007637b/'
-            color='#54ACBF'
+            href="https://www.linkedin.com/in/brian-kareithi-04007637b/"
+            color="#54ACBF"
             icon={<FaLinkedinIn size={28} />}
-            aria-label='linkedin'
-            className="social-icon rgb-effect"
+            aria-label="linkedin"
+            className="social-icon"
           />
           <GlowLink
-            href='mailto:kareithibrian2@gmail.com'
+            href="mailto:kareithibrian2@gmail.com"
             icon={<IoMailOutline size={30} />}
-            color='#26658C'
-            aria-label='mail'
-            className="social-icon rgb-effect"
+            color="#26658C"
+            aria-label="mail"
+            className="social-icon"
           />
         </div>
       </div>

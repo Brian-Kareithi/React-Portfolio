@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaDownload, FaEnvelope, FaGithub, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
+import { FaDownload, FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import { Background } from '../components/background';
 
 export const Contact = () => {
@@ -13,7 +13,6 @@ export const Contact = () => {
   }, []);
 
   const handleDownloadCV = () => {
-    // Create a link to download the CV from Supabase
     const link = document.createElement('a');
     link.href = 'https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/Brian%20Kareithi%20CV.pdf';
     link.target = '_blank';
@@ -29,28 +28,25 @@ export const Contact = () => {
       
       <div className="contact-container">
         <div className={`contact-header ${isVisible ? 'visible' : ''}`}>
-          <h2>Let's Create Something <span className="gradient-text">Amazing</span> Together!</h2>
+          <h2>Let's Connect</h2>
           <p className="contact-subtitle">
-            DISCUSS A PROJECT OR JUST WANT TO SAY HI? MY INBOX IS OPEN FOR ALL.
-          </p>
-          <p className="contact-tagline">
-            <strong>"Turning Ideas Into Digital Reality"</strong>
+            Open to new opportunities and collaborations. Feel free to reach out for project discussions or professional inquiries.
           </p>
         </div>
 
         <div className="contact-details">
           <div className="contact-info">
-            <div className="contact-item location-item">
+            <div className="contact-item">
               <div className="icon-wrapper">
                 <FaMapMarkerAlt className="contact-icon" />
               </div>
-              <span>Remote · Worldwide</span>
+              <span>Remote · Available Worldwide</span>
             </div>
-            <div className="contact-item opportunity-item">
+            <div className="contact-item">
               <div className="icon-wrapper">
                 <div className="opportunity-indicator"></div>
               </div>
-              <span>Open for opportunities: <strong>YES!</strong></span>
+              <span>Open for opportunities: <strong>Yes</strong></span>
             </div>
           </div>
 
@@ -61,14 +57,20 @@ export const Contact = () => {
               <div className="icon-wrapper">
                 <FaEnvelope className="contact-icon" />
               </div>
-              <span className="email-text">kareithibrian2@gmail.com</span>
+              <div className="contact-content">
+                <span className="contact-label">Email</span>
+                <span className="contact-value">kareithibrian2@gmail.com</span>
+              </div>
             </a>
 
             <a href="tel:+254718593392" className="contact-card phone-card">
               <div className="icon-wrapper">
                 <FaPhone className="contact-icon" />
               </div>
-              <span>+254 718 593 392</span>
+              <div className="contact-content">
+                <span className="contact-label">Phone</span>
+                <span className="contact-value">+254 718 593 392</span>
+              </div>
             </a>
 
             <a 
@@ -80,7 +82,10 @@ export const Contact = () => {
               <div className="icon-wrapper">
                 <FaGithub className="contact-icon" />
               </div>
-              <span>GitHub</span>
+              <div className="contact-content">
+                <span className="contact-label">GitHub</span>
+                <span className="contact-value">View Projects</span>
+              </div>
             </a>
 
             <a 
@@ -92,32 +97,26 @@ export const Contact = () => {
               <div className="icon-wrapper">
                 <FaLinkedin className="contact-icon" />
               </div>
-              <span>LinkedIn</span>
-            </a>
-
-            <a 
-              href="https://www.instagram.com/kareithi._/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="contact-card instagram-card"
-            >
-              <div className="icon-wrapper">
-                <FaInstagram className="contact-icon" />
+              <div className="contact-content">
+                <span className="contact-label">LinkedIn</span>
+                <span className="contact-value">Connect Professionally</span>
               </div>
-              <span>Instagram</span>
             </a>
 
             <button onClick={handleDownloadCV} className="contact-card cv-download">
               <div className="icon-wrapper">
                 <FaDownload className="contact-icon" />
               </div>
-              <span>Download CV</span>
+              <div className="contact-content">
+                <span className="contact-label">Resume</span>
+                <span className="contact-value">Download PDF</span>
+              </div>
             </button>
           </div>
         </div>
 
         <div className="footer-note">
-          <p>Made with  <span className="heart">❤</span>  by Kareithi | © {new Date().getFullYear()}</p>
+          <p>Brian Kareithi © {new Date().getFullYear()} | Cybersecurity Analyst & Full-Stack Developer</p>
         </div>
       </div>
     </section>
