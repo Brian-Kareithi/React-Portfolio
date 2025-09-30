@@ -14,6 +14,7 @@ import {
   FaWindows,
 } from 'react-icons/fa';
 import {
+  SiAndroid,
   SiAwsamplify,
   SiCanva,
   SiCplusplus,
@@ -22,11 +23,13 @@ import {
   SiFigma,
   SiFirebase,
   SiFlutter,
+  SiJavascript,
   SiKotlin,
   SiMui,
   SiMysql,
   SiPostgresql,
   SiProxmox,
+  SiPython,
   SiShadcnui,
   SiSupabase,
   SiTailwindcss,
@@ -92,6 +95,7 @@ const experienceLevels: Record<string, ExperienceLevel> = {
 interface TechItem {
   title: string;
   icon: ReactNode;
+  color: string;
 }
 
 interface TechCategory {
@@ -103,71 +107,71 @@ const techs: TechCategory[] = [
   {
     heading: 'Core Stack',
     items: [
-      { title: 'Next JS', icon: <TbBrandNextjs /> },
-      { title: 'React JS', icon: <FaReact /> },
-      { title: 'Node JS', icon: <FaNodeJs /> },
-      { title: 'TypeScript', icon: <BiLogoTypescript /> },
-      { title: 'Fastify', icon: <SiFastify /> },
-      { title: 'Express JS', icon: <SiExpress /> },
+      { title: 'Next JS', icon: <TbBrandNextjs />, color: '#000000' },
+      { title: 'React JS', icon: <FaReact />, color: '#61DAFB' },
+      { title: 'Node JS', icon: <FaNodeJs />, color: '#339933' },
+      { title: 'TypeScript', icon: <BiLogoTypescript />, color: '#3178C6' },
+      { title: 'Fastify', icon: <SiFastify />, color: '#000000' },
+      { title: 'Express JS', icon: <SiExpress />, color: '#000000' },
     ],
   },
   {
     heading: 'Languages',
     items: [
-      { title: 'Java', icon: <FaJava /> },
-      { title: 'Python', icon: <SiCplusplus /> },
-      { title: 'JavaScript', icon: <FaReact /> },
-      { title: 'Ruby', icon: <DiRuby /> },
-      { title: 'C++', icon: <SiCplusplus /> },
-      { title: 'Kotlin', icon: <SiKotlin /> },
-      { title: 'Flutter', icon: <SiFlutter /> },
+      { title: 'Java', icon: <FaJava />, color: '#ED8B00' },
+      { title: 'Python', icon: <SiPython />, color: '#3776AB' },
+      { title: 'JavaScript', icon: <SiJavascript />, color: '#F7DF1E' },
+      { title: 'Ruby', icon: <DiRuby />, color: '#CC342D' },
+      { title: 'C++', icon: <SiCplusplus />, color: '#00599C' },
+      { title: 'Kotlin', icon: <SiKotlin />, color: '#7F52FF' },
+      { title: 'Flutter', icon: <SiFlutter />, color: '#02569B' },
     ],
   },
   {
     heading: 'Frontend',
     items: [
-      { title: 'HTML5', icon: <FaHtml5 /> },
-      { title: 'CSS3', icon: <FaCss3 /> },
-      { title: 'Bootstrap', icon: <FaBootstrap /> },
-      { title: 'Tailwind', icon: <SiTailwindcss /> },
-      { title: 'Material UI', icon: <SiMui /> },
-      { title: 'ShadCn UI', icon: <SiShadcnui /> },
+      { title: 'HTML5', icon: <FaHtml5 />, color: '#E34F26' },
+      { title: 'CSS3', icon: <FaCss3 />, color: '#1572B6' },
+      { title: 'Bootstrap', icon: <FaBootstrap />, color: '#7952B3' },
+      { title: 'Tailwind', icon: <SiTailwindcss />, color: '#06B6D4' },
+      { title: 'Material UI', icon: <SiMui />, color: '#007FFF' },
+      { title: 'ShadCn UI', icon: <SiShadcnui />, color: '#000000' },
     ],
   },
   {
     heading: 'Databases',
     items: [
-      { title: 'MsSQL', icon: <DiMsqlServer /> },
-      { title: 'MySQL', icon: <SiMysql /> },
-      { title: 'PostgreSQL', icon: <SiPostgresql /> },
-      { title: 'MongoDB', icon: <DiMongodb /> },
-      { title: 'Firebase', icon: <SiFirebase /> },
-      { title: 'Supabase', icon: <SiSupabase /> },
+      { title: 'MsSQL', icon: <DiMsqlServer />, color: '#CC2927' },
+      { title: 'MySQL', icon: <SiMysql />, color: '#4479A1' },
+      { title: 'PostgreSQL', icon: <SiPostgresql />, color: '#4169E1' },
+      { title: 'MongoDB', icon: <DiMongodb />, color: '#47A248' },
+      { title: 'Firebase', icon: <SiFirebase />, color: '#FFCA28' },
+      { title: 'Supabase', icon: <SiSupabase />, color: '#3ECF8E' },
     ],
   },
   {
     heading: 'Platforms',
     items: [
-      { title: 'Windows', icon: <FaWindows /> },
-      { title: 'MacOS', icon: <FaApple /> },
-      { title: 'iOS', icon: <FaApple /> },
-      { title: 'Android', icon: <SiFlutter /> },
-      { title: 'Linux', icon: <FaLinux /> },
+      { title: 'Windows', icon: <FaWindows />, color: '#0078D4' },
+      { title: 'MacOS', icon: <FaApple />, color: '#000000' },
+      { title: 'iOS', icon: <FaApple />, color: '#000000' },
+      { title: 'Android', icon: <SiAndroid />, color: '#3DDC84' },
+      { title: 'Linux', icon: <FaLinux />, color: '#FCC624' },
     ],
   },
   {
     heading: 'DevOps',
     items: [
-      { title: 'AWS', icon: <SiAwsamplify /> },
-      { title: 'Docker', icon: <FaDocker /> },
-      { title: 'Proxmox', icon: <SiProxmox /> },
+      { title: 'AWS', icon: <SiAwsamplify />, color: '#FF9900' },
+      { title: 'Docker', icon: <FaDocker />, color: '#2496ED' },
+      { title: 'Proxmox', icon: <SiProxmox />, color: '#E57000' },
     ],
   },
   {
     heading: 'Design',
     items: [
-      { title: 'Figma', icon: <SiFigma /> },
-      { title: 'Canva', icon: <SiCanva /> },
+      { title: 'Figma', icon: <SiFigma />, color: '#F24E1E' },
+      { title: 'Canva', icon: <SiCanva />, color: '#00C4CC' },
     ],
   },
 ];
@@ -176,17 +180,20 @@ const techs: TechCategory[] = [
 interface TechBoxProps {
   icon: ReactNode;
   title: string;
+  color: string;
 }
 
-const TechBox: React.FC<TechBoxProps> = ({ icon, title }) => {
-  const [isHovered, setIsHovered] = useState(false);
+const TechBox: React.FC<TechBoxProps> = ({ icon, title, color }) => {
   const experience: ExperienceLevel = experienceLevels[title] || 'Intermediate';
 
   return (
     <div
       className="tech-box"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      style={
+        {
+          '--brand-color': color,
+        } as React.CSSProperties
+      }
     >
       <div className="tech-box-content">
         <div className="tech-icon-wrapper">
@@ -233,7 +240,7 @@ export const TechStack: React.FC = () => {
   return (
     <section className="tech-stack" id="tech-stack">
       <Background />
-      
+
       <div className="tech-stack-container">
         <div className="tech-stack-title">
           <SectionTitle title="Tech" subTitle="STACK" />
@@ -245,10 +252,11 @@ export const TechStack: React.FC = () => {
               <h3 className="tech-category-heading">{tech.heading}</h3>
               <div className="tech-row">
                 {tech.items.map((item, idx) => (
-                  <TechBox 
-                    key={idx} 
-                    icon={item.icon} 
+                  <TechBox
+                    key={idx}
+                    icon={item.icon}
                     title={item.title}
+                    color={item.color}
                   />
                 ))}
               </div>
