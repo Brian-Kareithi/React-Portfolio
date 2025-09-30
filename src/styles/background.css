@@ -2,35 +2,8 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background-color: hsla(200, 88%, 46%, 0.3);
+  background-color: #050816;
   z-index: -1;
-}
-
-/* Particles */
-.particles {
-  position: absolute;
-  inset: 0;
-}
-
-.particle {
-  position: absolute;
-  top: 100%;
-  left: var(--left);
-  width: var(--size);
-  height: var(--size);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, var(--opacity));
-  animation: floatParticle var(--duration) linear infinite;
-  animation-delay: var(--delay);
-}
-
-@keyframes floatParticle {
-  from {
-    transform: translateY(0) scale(1);
-  }
-  to {
-    transform: translateY(calc(-1 * var(--distance))) scale(0.5);
-  }
 }
 
 /* Floating bubbles */
@@ -46,7 +19,7 @@
   left: var(--left);
   width: var(--size);
   height: var(--size);
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(243, 241, 241, 0.15);
   border-radius: 50%;
   animation: riseBubble var(--duration) ease-in infinite;
   animation-delay: var(--delay);

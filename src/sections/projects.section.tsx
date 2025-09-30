@@ -5,7 +5,6 @@ import { Background } from '../components/background';
 interface Project {
   title: string;
   description: string;
-  detailedDescription: string;
   type: "app" | "webapp" | "tool";
   image: string;
   github: string;
@@ -18,8 +17,7 @@ interface Project {
 const projects: Project[] = [
   {
     title: "UMMA Vision",
-    description: "A comprehensive university portal for managing projects, activities, and resources with real-time collaboration features.",
-    detailedDescription: "Solving the problem of inefficient university portals by creating a modern, user-friendly platform that centralizes all academic resources, project management, and collaboration tools in one place. Currently under development with The Entity Limited.",
+    description: "Comprehensive university portal with real-time collaboration features",
     type: "webapp",
     image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/umma-vision.jpeg",
     github: "https://github.com/Brian-Kareithi/umma-vision",
@@ -30,8 +28,7 @@ const projects: Project[] = [
   },
   {
     title: "First Lady Scholarship App",
-    description: "Mobile application for scholarship management and school support systems with automated eligibility checking.",
-    detailedDescription: "Addressing the challenges in scholarship application processes by creating an intuitive mobile app that automates eligibility verification, document submission, and status tracking. Developed in collaboration with The Entity Limited.",
+    description: "Mobile scholarship management with automated eligibility checking",
     type: "app",
     image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/first-lady-scholarship.jpeg",
     github: "https://github.com/Brian-Kareithi/scholarship-app",
@@ -41,8 +38,7 @@ const projects: Project[] = [
   },
   {
     title: "Library Link",
-    description: "Mobile system providing access to past papers, revision materials, and digital library resources for students.",
-    detailedDescription: "Solving the problem of limited access to educational resources by creating a centralized platform where students can easily find past papers, revision materials, and library resources. Developed using Java in collaboration with Collins Lagat.",
+    description: "Mobile system for educational resources and past papers",
     type: "app",
     image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/library-link.jpeg",
     github: "https://github.com/Brian-Kareithi/library-link",
@@ -53,8 +49,7 @@ const projects: Project[] = [
   },
   {
     title: "Visitor Management System",
-    description: "Digital system for logging visitors, tracking guards on duty, and managing parking spots in organizations.",
-    detailedDescription: "A solo project addressing the inefficiencies in traditional visitor management. Replaced paper logbooks with a digital system that tracks visitors, security personnel, and parking availability in real-time, enhancing security and efficiency.",
+    description: "Digital system for visitor logging and security tracking",
     type: "webapp",
     image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/visitor-system.jpeg",
     github: "https://github.com/Brian-Kareithi/visitor-system",
@@ -64,8 +59,7 @@ const projects: Project[] = [
   },
   {
     title: "Cybershield Security Suite",
-    description: "Comprehensive cybersecurity software with threat detection, system architecture analysis, and vulnerability scanning.",
-    detailedDescription: "A solo project focused on protecting users from phishing attacks and online threats. Developed a comprehensive security tool that scans for vulnerabilities, detects threats in real-time, and provides detailed system architecture analysis.",
+    description: "Cybersecurity tool with threat detection and vulnerability scanning",
     type: "tool",
     image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/cybershield.jpeg",
     github: "https://github.com/Brian-Kareithi/cybershield",
@@ -76,8 +70,7 @@ const projects: Project[] = [
   },
   {
     title: "Prayer Times & Qibla Finder",
-    description: "Islamic application featuring Qibla compass, mosque locator, prayer times, and donation system integration.",
-    detailedDescription: "A solo project creating a comprehensive Islamic app that helps users find prayer times, locate the Qibla direction, find nearby mosques, and make donations. Designed with a focus on accuracy and user experience.",
+    description: "Islamic app with prayer times and mosque locator",
     type: "app",
     image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/prayer-app.jpeg",
     github: "https://github.com/Brian-Kareithi/prayer-app",
@@ -87,8 +80,7 @@ const projects: Project[] = [
   },
   {
     title: "Digital ID",
-    description: "Secure digital identity platform that allows users to store and manage all their identification documents in one place.",
-    detailedDescription: "Solving the problem of physical ID vulnerability by creating a secure digital platform where users can store, manage, and authenticate all their identification documents. Features advanced encryption and multi-factor authentication for maximum security.",
+    description: "Secure digital identity platform with advanced encryption",
     type: "app",
     image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/id.jpeg",
     github: "https://github.com/Brian-Kareithi/digital-id",
@@ -99,8 +91,7 @@ const projects: Project[] = [
   },
   {
     title: "Project Title Verifier",
-    description: "System that allows students' final year project titles to be verified by lecturers to ensure originality.",
-    detailedDescription: "Addressing the problem of duplicate or unoriginal project titles in academic institutions. Created a system where students can submit their project titles for verification, and lecturers can ensure the project has never been done before, promoting academic integrity.",
+    description: "System for verifying academic project originality",
     type: "webapp",
     image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/titleverifier.jpeg",
     github: "https://github.com/Brian-Kareithi/project-verifier",
@@ -110,8 +101,7 @@ const projects: Project[] = [
   },
   {
     title: "Car Services System",
-    description: "Comprehensive app for car management, including service booking, car washes, and spare rental options.",
-    detailedDescription: "A collaborative project solving the fragmentation in car maintenance services. Created a unified platform where car owners can book services, schedule washes, and even get spare rentals when their car is in the shop, all through one convenient application.",
+    description: "Comprehensive car maintenance and service booking app",
     type: "app",
     image: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/carservices.jpeg",
     github: "https://github.com/Brian-Kareithi/car-services",
@@ -124,7 +114,6 @@ const projects: Project[] = [
 
 export const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -140,10 +129,6 @@ export const Projects = () => {
       case "tool": return "#0A1931";
       default: return "#B3CFE5";
     }
-  };
-
-  const handleProjectHover = (index: number | null) => {
-    setHoveredProject(index);
   };
 
   return (
@@ -163,10 +148,8 @@ export const Projects = () => {
           {projects.map((project, index) => (
             <div 
               key={index} 
-              className={`project-card ${hoveredProject === index ? 'hovered' : ''}`}
+              className="project-card"
               style={{ '--glow-color': getTypeColor(project.type) } as React.CSSProperties}
-              onMouseEnter={() => handleProjectHover(index)}
-              onMouseLeave={() => handleProjectHover(null)}
             >
               <div className="project-image">
                 <img
@@ -187,23 +170,11 @@ export const Projects = () => {
                 </div>
                 {project.collaboration && (
                   <div className="collaboration-badge">
-                    <FaUsers /> Team Project
+                    <FaUsers /> Team
                   </div>
                 )}
                 <div className="project-status">
-                  {project.status === "in-progress" ? "In Development" : "Completed"}
-                </div>
-                <div className="project-overlay">
-                  <div className="project-links">
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
-                      <FaGithub />
-                    </a>
-                    {project.demo && (
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer" aria-label="Live demo">
-                        <FaExternalLinkAlt />
-                      </a>
-                    )}
-                  </div>
+                  {project.status === "in-progress" ? "In Progress" : "Completed"}
                 </div>
               </div>
               
@@ -211,22 +182,16 @@ export const Projects = () => {
                 <h3>{project.title}</h3>
                 <p className="project-description">{project.description}</p>
                 
-                <div className="project-details">
-                  <div className="problem-solving">
-                    <p>{project.detailedDescription}</p>
+                {project.techStack && (
+                  <div className="tech-tags">
+                    {project.techStack.slice(0, 3).map((tech, i) => (
+                      <span key={i} className="tech-tag">{tech}</span>
+                    ))}
+                    {project.techStack.length > 3 && (
+                      <span className="tech-tag">+{project.techStack.length - 3}</span>
+                    )}
                   </div>
-                  
-                  {project.techStack && (
-                    <div className="tech-stack">
-                      <h4>Tech Stack:</h4>
-                      <div className="tech-tags">
-                        {project.techStack.map((tech, i) => (
-                          <span key={i} className="tech-tag">{tech}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                )}
                 
                 <div className="project-footer">
                   <a 
@@ -236,7 +201,7 @@ export const Projects = () => {
                     className="github-link"
                   >
                     <FaGithub className="icon" />
-                    View Code
+                    Code
                   </a>
                   {project.demo && (
                     <a 
@@ -246,7 +211,7 @@ export const Projects = () => {
                       className="demo-link"
                     >
                       <FaExternalLinkAlt className="icon" />
-                      Live Demo
+                      Demo
                     </a>
                   )}
                 </div>
