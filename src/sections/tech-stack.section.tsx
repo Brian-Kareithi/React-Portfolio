@@ -188,7 +188,7 @@ const TechBox: React.FC<TechBoxProps> = ({ icon, title, color }) => {
 
   return (
     <div
-      className="tech-box"
+      className="tech-box group"
       style={
         {
           '--brand-color': color,
@@ -196,14 +196,14 @@ const TechBox: React.FC<TechBoxProps> = ({ icon, title, color }) => {
       }
     >
       <div className="tech-box-content">
-        <div className="tech-icon-wrapper">
-          <div className="tech-icon">{icon}</div>
-        </div>
-        <div className="tech-info">
-          <div className="tech-name">{title}</div>
-          <div className="tech-experience" data-level={experience}>
-            {experience}
+        <div className="tech-name">{title}</div>
+        <div className="tech-icon-container">
+          <div className="tech-icon-wrapper">
+            <div className="tech-icon">{icon}</div>
           </div>
+        </div>
+        <div className="tech-experience" data-level={experience}>
+          {experience}
         </div>
       </div>
       <div className="tech-glow"></div>
@@ -223,6 +223,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, subTitle }) => {
       <h2>
         {title} <span>{subTitle}</span>
       </h2>
+      <div className="title-decoration"></div>
     </div>
   );
 };
@@ -243,13 +244,17 @@ export const TechStack: React.FC = () => {
 
       <div className="tech-stack-container">
         <div className="tech-stack-title">
-          <SectionTitle title="Tech" subTitle="STACK" />
+          <SectionTitle title="Technical" subTitle="Expertise" />
+          <p className="section-subtitle">Technologies I work with to create exceptional digital experiences</p>
         </div>
 
         <div className={`tech-grid ${isVisible ? 'visible' : ''}`}>
           {techs.map((tech, index) => (
             <div className="tech-category" key={index}>
-              <h3 className="tech-category-heading">{tech.heading}</h3>
+              <div className="category-header">
+                <h3 className="tech-category-heading">{tech.heading}</h3>
+                <div className="category-line"></div>
+              </div>
               <div className="tech-row">
                 {tech.items.map((item, idx) => (
                   <TechBox
