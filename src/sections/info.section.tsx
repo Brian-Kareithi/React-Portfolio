@@ -2,38 +2,10 @@ import { useEffect, useState } from 'react';
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { IoMailOutline } from 'react-icons/io5';
 import { Background } from '../components/background';
-import { FloatingButton } from '../components/floating-button';
 import { GlowLink } from '../components/glow-box-link';
 
 // Roles outside component to prevent re-renders
 const roles = ['Fullstack Developer', 'Grey Hat', 'Cybersecurity Enthusiast', 'Gamer'];
-
-const NavBrand = () => {
-  const [greeting, setGreeting] = useState("");
-
-  useEffect(() => {
-    const updateGreeting = () => {
-      const hour = new Date().getHours();
-      if (hour < 12) {
-        setGreeting("Good Morning ☀️");
-      } else if (hour < 18) {
-        setGreeting("Good Afternoon 🌤️");
-      } else {
-        setGreeting("Good Evening 🌙");
-      }
-    };
-
-    updateGreeting();
-    const interval = setInterval(updateGreeting, 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="nav-brand">
-      <span>{greeting}</span>
-    </div>
-  );
-};
 
 export const InfoSection = () => {
   const [currentRole, setCurrentRole] = useState(0);
@@ -62,19 +34,8 @@ export const InfoSection = () => {
   }, [displayText, isDeleting, currentRole]);
 
   return (
-    <div className="hero-section">
+    <div className="hero-section" id="info">
       <Background />
-
-      {/* Navigation Header */}
-      <nav className="navigation-header">
-        <NavBrand />
-        <div className="nav-buttons">
-          <FloatingButton label="About Me" className="nav-btn" href="/#about-me" />
-          <FloatingButton label="Tech Stack" className="nav-btn" href="/#tech-stack" />
-          <FloatingButton label="Projects" className="nav-btn" href="/#projects" />
-          <FloatingButton label="Contact" className="nav-btn" href="/#contact" />
-        </div>
-      </nav>
 
       {/* Hero Content */}
       <div className="hero-content">

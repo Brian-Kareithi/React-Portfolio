@@ -13,28 +13,9 @@
   overflow: hidden;
   padding: 0;
   margin: 0;
-}
-
-/* Navigation */
-.navigation-header {
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 1.5rem 2rem;
-  z-index: 100;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.nav-brand span {
-  font-size: 1.8rem;
-  font-weight: 500;
-  color: var(--color1);
-}
-
-.nav-buttons {
-  display: flex;
-  gap: 0.5rem;
+  padding-top: 140px; /* Balanced base padding */
 }
 
 /* Hero Content */
@@ -45,7 +26,7 @@
   padding: 0 5%;
   flex-grow: 1;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1400px;
   width: 100%;
   gap: 4rem;
   box-sizing: border-box;
@@ -57,7 +38,7 @@
 }
 
 .greeting {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 0.8rem;
   color: var(--color1);
   font-weight: 500;
@@ -65,16 +46,20 @@
 }
 
 .name {
-  font-size: 3.8rem;
+  font-size: 4.5rem;
   margin-bottom: 1rem;
   color: var(--primaryFg);
   font-weight: 800;
   letter-spacing: 1px;
   line-height: 1.1;
+  background: linear-gradient(135deg, var(--color1) 0%, var(--color2) 50%, var(--color3) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .role-text {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: var(--color2);
   min-height: 2.8rem;
   font-weight: 600;
@@ -101,8 +86,8 @@
 /* Hero Image */
 .hero-image {
   position: relative;
-  width: 360px;
-  height: 360px;
+  width: 380px;
+  height: 380px;
   flex-shrink: 0;
 }
 
@@ -111,8 +96,18 @@
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid var(--color1);
-  box-shadow: 0 0 30px rgba(167, 235, 242, 0.3);
+  border: 4px solid var(--color1);
+  box-shadow: 
+    0 0 50px rgba(167, 235, 242, 0.4),
+    0 0 100px rgba(167, 235, 242, 0.2);
+  transition: all 0.3s ease;
+}
+
+.image-container:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 70px rgba(167, 235, 242, 0.6),
+    0 0 120px rgba(167, 235, 242, 0.3);
 }
 
 .image-container img {
@@ -123,7 +118,7 @@
 }
 
 .image-container:hover img {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .image-fallback {
@@ -134,23 +129,23 @@
   align-items: center;
   background: linear-gradient(135deg, var(--color3), var(--color2));
   color: var(--color1);
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: bold;
 }
 
 /* Social Icons */
 .bottom-bar {
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   justify-content: center;
-  margin-top: 1.5rem;
+  margin-top: auto;
   width: 100%;
   box-sizing: border-box;
 }
 
 .social-icons-wrapper {
   display: flex;
-  gap: 1.2rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -159,49 +154,104 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border: 2px solid var(--color1);
   border-radius: 50%;
-  background: transparent;
+  background: rgba(167, 235, 242, 0.1);
   color: var(--color1);
   text-decoration: none;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(167, 235, 242, 0.2);
 }
 
 .social-icon:hover {
-  transform: translateY(-4px) scale(1.05);
-  background: rgba(167, 235, 242, 0.1);
-  box-shadow: 0 8px 20px rgba(167, 235, 242, 0.3);
+  transform: translateY(-5px) scale(1.1);
+  background: rgba(167, 235, 242, 0.2);
+  box-shadow: 
+    0 8px 25px rgba(167, 235, 242, 0.4),
+    0 0 30px rgba(167, 235, 242, 0.3);
 }
 
 /* Large Desktop Screens (1440px and above) */
 @media screen and (min-width: 1440px) {
+  .hero-section {
+    padding-top: 160px;
+  }
+  
   .hero-content {
-    max-width: 1400px;
+    max-width: 1600px;
     gap: 6rem;
   }
   
   .name {
-    font-size: 4.5rem;
+    font-size: 5rem;
   }
   
   .hero-image {
-    width: 400px;
-    height: 400px;
+    width: 420px;
+    height: 420px;
+  }
+  
+  .greeting {
+    font-size: 2.8rem;
+  }
+  
+  .role-text {
+    font-size: 2.5rem;
   }
 }
 
 /* Medium Desktop Screens (1200px - 1439px) */
 @media screen and (max-width: 1200px) {
+  .hero-section {
+    padding-top: 150px;
+  }
+  
   .hero-content {
     gap: 3rem;
     padding: 0 3%;
   }
   
   .name {
+    font-size: 4rem;
+  }
+  
+  .hero-image {
+    width: 340px;
+    height: 340px;
+  }
+  
+  .greeting {
+    font-size: 2.2rem;
+  }
+  
+  .role-text {
+    font-size: 2rem;
+  }
+}
+
+/* Tablet Landscape (992px - 1199px) */
+@media screen and (max-width: 1199px) {
+  .hero-section {
+    padding-top: 140px;
+  }
+  
+  .hero-content {
+    gap: 2.5rem;
+  }
+  
+  .name {
     font-size: 3.5rem;
+  }
+  
+  .greeting {
+    font-size: 2rem;
+  }
+  
+  .role-text {
+    font-size: 1.8rem;
   }
   
   .hero-image {
@@ -210,38 +260,17 @@
   }
 }
 
-/* Tablet Landscape (992px - 1199px) */
-@media screen and (max-width: 1199px) {
-  .hero-content {
-    gap: 2.5rem;
-  }
-  
-  .name {
-    font-size: 3.2rem;
-  }
-  
-  .greeting {
-    font-size: 1.8rem;
-  }
-  
-  .role-text {
-    font-size: 1.8rem;
-  }
-  
-  .hero-image {
-    width: 300px;
-    height: 300px;
-  }
-}
-
 /* Tablet Portrait (768px - 991px) */
 @media screen and (max-width: 991px) {
+  .hero-section {
+    padding-top: 200px; /* Reduced from 280px */
+  }
+  
   .hero-content {
     flex-direction: column-reverse;
     text-align: center;
     gap: 2.5rem;
     padding: 0 2rem;
-    margin-top: 1rem;
   }
   
   .hero-text {
@@ -251,9 +280,44 @@
   
   .hero-image {
     order: 1;
-    width: 280px;
-    height: 280px;
+    width: 300px;
+    height: 300px;
     margin-bottom: 1rem;
+  }
+  
+  .name {
+    font-size: 3.5rem;
+  }
+  
+  .role-text {
+    font-size: 1.8rem;
+    min-height: 2.5rem;
+  }
+  
+  .greeting {
+    font-size: 2rem;
+  }
+  
+  .social-icon {
+    width: 65px;
+    height: 65px;
+  }
+}
+
+/* Large Mobile (576px - 767px) */
+@media screen and (max-width: 767px) {
+  .hero-section {
+    padding-top: 180px; /* Reduced from 260px */
+  }
+  
+  .hero-content {
+    padding: 0 1.5rem;
+    gap: 2rem;
+  }
+  
+  .hero-image {
+    width: 260px;
+    height: 260px;
   }
   
   .name {
@@ -262,36 +326,36 @@
   
   .role-text {
     font-size: 1.6rem;
-    min-height: 2.5rem;
+    min-height: 2.2rem;
   }
   
   .greeting {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
   }
   
-  .navigation-header {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem 2rem;
+  .social-icon {
+    width: 60px;
+    height: 60px;
   }
   
-  .nav-buttons {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
+  .social-icons-wrapper {
+    gap: 1.2rem;
   }
   
-  .nav-brand span {
-    font-size: 1.6rem;
-    text-align: center;
+  .bottom-bar {
+    padding: 1.5rem;
   }
 }
 
-/* Large Mobile (576px - 767px) */
-@media screen and (max-width: 767px) {
+/* Small Mobile (480px - 575px) */
+@media screen and (max-width: 575px) {
+  .hero-section {
+    padding-top: 160px; /* Reduced from 240px */
+  }
+  
   .hero-content {
-    padding: 0 1.5rem;
-    gap: 2rem;
+    padding: 0 1rem;
+    gap: 1.5rem;
   }
   
   .hero-image {
@@ -305,19 +369,11 @@
   
   .role-text {
     font-size: 1.5rem;
-    min-height: 2.2rem;
+    min-height: 2rem;
   }
   
   .greeting {
-    font-size: 1.5rem;
-  }
-  
-  .navigation-header {
-    padding: 1rem 1.5rem;
-  }
-  
-  .nav-brand span {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
   
   .social-icon {
@@ -328,14 +384,25 @@
   .social-icons-wrapper {
     gap: 1rem;
   }
+  
+  .bottom-bar {
+    padding: 1rem;
+  }
+  
+  .image-fallback {
+    font-size: 3rem;
+  }
 }
 
-/* Small Mobile (480px - 575px) */
-@media screen and (max-width: 575px) {
+/* Extra Small Mobile (320px - 479px) */
+@media screen and (max-width: 479px) {
+  .hero-section {
+    padding-top: 140px; /* Reduced from 220px */
+  }
+  
   .hero-content {
-    padding: 0 1rem;
-    gap: 1.5rem;
-    margin-top: 0.5rem;
+    padding: 0 0.8rem;
+    gap: 1.2rem;
   }
   
   .hero-image {
@@ -348,24 +415,12 @@
   }
   
   .role-text {
-    font-size: 1.3rem;
-    min-height: 2rem;
+    font-size: 1.4rem;
+    min-height: 1.8rem;
   }
   
   .greeting {
     font-size: 1.4rem;
-  }
-  
-  .navigation-header {
-    padding: 0.8rem 1rem;
-  }
-  
-  .nav-buttons {
-    gap: 0.4rem;
-  }
-  
-  .nav-brand span {
-    font-size: 1.3rem;
   }
   
   .social-icon {
@@ -377,16 +432,19 @@
     gap: 0.8rem;
   }
   
-  .bottom-bar {
-    padding: 0.8rem;
+  .image-fallback {
+    font-size: 2.8rem;
   }
 }
 
-/* Extra Small Mobile (320px - 479px) */
-@media screen and (max-width: 479px) {
+/* Very Small Screens (max-width: 319px) */
+@media screen and (max-width: 319px) {
+  .hero-section {
+    padding-top: 120px; /* Reduced from 200px */
+  }
+  
   .hero-content {
-    padding: 0 0.8rem;
-    gap: 1.2rem;
+    padding: 0 0.5rem;
   }
   
   .hero-image {
@@ -399,20 +457,11 @@
   }
   
   .role-text {
-    font-size: 1.2rem;
-    min-height: 1.8rem;
+    font-size: 1.3rem;
   }
   
   .greeting {
-    font-size: 1.2rem;
-  }
-  
-  .navigation-header {
-    padding: 0.6rem 0.8rem;
-  }
-  
-  .nav-brand span {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
   
   .social-icon {
@@ -423,76 +472,45 @@
   .social-icons-wrapper {
     gap: 0.6rem;
   }
-  
-  .image-fallback {
-    font-size: 2.5rem;
-  }
-}
-
-/* Very Small Screens (max-width: 319px) */
-@media screen and (max-width: 319px) {
-  .hero-content {
-    padding: 0 0.5rem;
-  }
-  
-  .hero-image {
-    width: 180px;
-    height: 180px;
-  }
-  
-  .name {
-    font-size: 2rem;
-  }
-  
-  .role-text {
-    font-size: 1.1rem;
-  }
-  
-  .greeting {
-    font-size: 1.1rem;
-  }
-  
-  .nav-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .social-icon {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .social-icons-wrapper {
-    gap: 0.5rem;
-  }
 }
 
 /* Height-based adjustments for very short screens */
-@media screen and (max-height: 600px) and (orientation: landscape) {
+@media screen and (max-height: 700px) and (orientation: landscape) {
   .hero-section {
-    min-height: 120vh;
+    padding-top: 120px;
   }
   
   .hero-content {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
   
   .hero-image {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
   }
   
   .name {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
   
   .greeting {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
   
   .role-text {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+  }
+  
+  .bottom-bar {
+    padding: 1rem;
+  }
+}
+
+/* Additional safety margin for very tall navbar on small screens */
+@media screen and (max-width: 767px) and (max-height: 600px) {
+  .hero-section {
+    padding-top: 200px;
   }
 }
 
@@ -501,9 +519,9 @@
   .hero-section {
     min-height: auto;
     page-break-after: always;
+    padding-top: 0;
   }
   
-  .navigation-header,
   .bottom-bar {
     display: none;
   }
