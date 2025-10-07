@@ -5,6 +5,7 @@ export function NavBar() {
   const [activeSection, setActiveSection] = useState('info');
   const [isScrolled, setIsScrolled] = useState(false);
   const [greeting, setGreeting] = useState({ text: '', icon: '' });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const sections = [
     { id: 'info', label: 'Home' },
@@ -39,7 +40,8 @@ export function NavBar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const scrolled = window.scrollY > 50;
+      setIsScrolled(scrolled);
 
       const sectionElements = sections.map(section => 
         document.getElementById(section.id)
@@ -72,31 +74,67 @@ export function NavBar() {
         behavior: 'smooth'
       });
     }
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="nav-container">
-        <div className="nav-greeting">
-          <span className="greeting-icon">{greeting.icon}</span>
-          <span className="greeting-text">{greeting.text}</span>
+    <>
+      <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+        <div className="nav-container">
+          <div className="nav-greeting">
+            <span className="greeting-icon">{greeting.icon}</span>
+            <span className="greeting-text">{greeting.text}</span>
+          </div>
+          
+          <div className="nav-buttons">
+            <ul className="nav-menu">
+              {sections.map((section) => (
+                <li key={section.id} className="nav-item">
+                  <button
+                    className={`nav-link ${activeSection === section.id ? 'active' : ''}`}
+                    onClick={() => scrollToSection(section.id)}
+                  >
+                    {section.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <button className="mobile-menu-toggle" onClick={toggleMobileMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
-        
-        <div className="nav-buttons">
-          <ul className="nav-menu">
-            {sections.map((section) => (
-              <li key={section.id} className="nav-item">
-                <button
-                  className={`nav-link ${activeSection === section.id ? 'active' : ''}`}
-                  onClick={() => scrollToSection(section.id)}
-                >
-                  {section.label}
-                </button>
-              </li>
-            ))}
-          </ul>
+      </nav>
+
+      {/* Mobile Side Menu */}
+      <div className={`mobile-side-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+        <div className="mobile-menu-header">
+          <span className="mobile-greeting">{greeting.icon} {greeting.text}</span>
+          <button className="mobile-close-btn" onClick={toggleMobileMenu}>×</button>
         </div>
+        <ul className="mobile-nav-menu">
+          {sections.map((section) => (
+            <li key={section.id} className="mobile-nav-item">
+              <button
+                className={`mobile-nav-link ${activeSection === section.id ? 'active' : ''}`}
+                onClick={() => scrollToSection(section.id)}
+              >
+                {section.label}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-    </nav>
+
+      {/* Overlay */}
+      {isMobileMenuOpen && <div className="mobile-overlay" onClick={toggleMobileMenu}></div>}
+    </>
   );
 }
