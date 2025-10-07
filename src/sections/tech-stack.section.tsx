@@ -35,7 +35,6 @@ import {
   SiTailwindcss,
 } from 'react-icons/si';
 import { TbBrandNextjs } from 'react-icons/tb';
-import { Background } from '../components/background';
 
 // Define experience level types
 type ExperienceLevel = 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
@@ -107,12 +106,12 @@ const techs: TechCategory[] = [
   {
     heading: 'Core Stack',
     items: [
-      { title: 'Next JS', icon: <TbBrandNextjs />, color: '#000000' },
+      { title: 'Next JS', icon: <TbBrandNextjs />, color: '#ffffff' },
       { title: 'React JS', icon: <FaReact />, color: '#61DAFB' },
       { title: 'Node JS', icon: <FaNodeJs />, color: '#339933' },
       { title: 'TypeScript', icon: <BiLogoTypescript />, color: '#3178C6' },
-      { title: 'Fastify', icon: <SiFastify />, color: '#000000' },
-      { title: 'Express JS', icon: <SiExpress />, color: '#000000' },
+      { title: 'Fastify', icon: <SiFastify />, color: '#ffffff' },
+      { title: 'Express JS', icon: <SiExpress />, color: '#ffffff' },
     ],
   },
   {
@@ -135,7 +134,7 @@ const techs: TechCategory[] = [
       { title: 'Bootstrap', icon: <FaBootstrap />, color: '#7952B3' },
       { title: 'Tailwind', icon: <SiTailwindcss />, color: '#06B6D4' },
       { title: 'Material UI', icon: <SiMui />, color: '#007FFF' },
-      { title: 'ShadCn UI', icon: <SiShadcnui />, color: '#000000' },
+      { title: 'ShadCn UI', icon: <SiShadcnui />, color: '#ffffff' },
     ],
   },
   {
@@ -153,8 +152,8 @@ const techs: TechCategory[] = [
     heading: 'Platforms',
     items: [
       { title: 'Windows', icon: <FaWindows />, color: '#0078D4' },
-      { title: 'MacOS', icon: <FaApple />, color: '#000000' },
-      { title: 'iOS', icon: <FaApple />, color: '#000000' },
+      { title: 'MacOS', icon: <FaApple />, color: '#ffffff' },
+      { title: 'iOS', icon: <FaApple />, color: '#ffffff' },
       { title: 'Android', icon: <SiAndroid />, color: '#3DDC84' },
       { title: 'Linux', icon: <FaLinux />, color: '#FCC624' },
     ],
@@ -240,7 +239,12 @@ export const TechStack: React.FC = () => {
 
   return (
     <section className="tech-stack" id="tech-stack">
-      <Background />
+      <div className="liquid-background">
+        <div className="liquid-shape liquid-shape-1"></div>
+        <div className="liquid-shape liquid-shape-2"></div>
+        <div className="liquid-shape liquid-shape-3"></div>
+        <div className="liquid-shape liquid-shape-4"></div>
+      </div>
 
       <div className="tech-stack-container">
         <div className="tech-stack-title">
