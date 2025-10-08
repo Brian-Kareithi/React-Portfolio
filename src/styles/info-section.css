@@ -133,7 +133,7 @@
   font-weight: bold;
 }
 
-/* Social Icons */
+/* Liquid Glass Social Icons - Matching Navbar Style */
 .bottom-bar {
   padding: 2rem;
   display: flex;
@@ -151,27 +151,152 @@
 }
 
 .social-icon {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 70px;
   height: 70px;
-  border: 2px solid var(--color1);
-  border-radius: 50%;
-  background: rgba(167, 235, 242, 0.1);
-  color: var(--color1);
+  border-radius: 12px;
   text-decoration: none;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(167, 235, 242, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  
+  /* Liquid Glass Background */
+  background: rgba(167, 235, 242, 0.08);
+  border: 1px solid rgba(167, 235, 242, 0.25);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 4px 20px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(167, 235, 242, 0.1);
+}
+
+/* Liquid shine effect */
+.social-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.7s ease;
+  border-radius: 12px;
+}
+
+.social-icon:hover::before {
+  left: 100%;
+}
+
+/* Liquid reflection effect */
+.social-icon::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(167, 235, 242, 0.1) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  transform: rotate(45deg);
+}
+
+.social-icon:hover::after {
+  opacity: 1;
 }
 
 .social-icon:hover {
-  transform: translateY(-5px) scale(1.1);
-  background: rgba(167, 235, 242, 0.2);
+  transform: translateY(-5px) scale(1.05);
+  background: rgba(167, 235, 242, 0.12);
+  border: 1px solid rgba(167, 235, 242, 0.4);
   box-shadow: 
-    0 8px 25px rgba(167, 235, 242, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    0 0 20px rgba(167, 235, 242, 0.3),
+    0 0 30px rgba(167, 235, 242, 0.2);
+}
+
+/* Icon styling */
+.social-icon svg {
+  position: relative;
+  z-index: 2;
+  color: var(--color1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover svg {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 10px rgba(167, 235, 242, 0.8));
+}
+
+/* Individual color variations for each icon with navbar-like styling */
+.social-icon:nth-child(1) {
+  background: rgba(167, 235, 242, 0.07);
+  border: 1px solid rgba(167, 235, 242, 0.2);
+}
+
+.social-icon:nth-child(1):hover {
+  background: rgba(167, 235, 242, 0.12);
+  border: 1px solid rgba(167, 235, 242, 0.4);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    0 0 20px rgba(167, 235, 242, 0.4),
     0 0 30px rgba(167, 235, 242, 0.3);
+}
+
+.social-icon:nth-child(2) {
+  background: rgba(84, 172, 191, 0.07);
+  border: 1px solid rgba(84, 172, 191, 0.2);
+}
+
+.social-icon:nth-child(2):hover {
+  background: rgba(84, 172, 191, 0.12);
+  border: 1px solid rgba(84, 172, 191, 0.4);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    0 0 20px rgba(84, 172, 191, 0.4),
+    0 0 30px rgba(84, 172, 191, 0.3);
+}
+
+.social-icon:nth-child(3) {
+  background: rgba(38, 101, 140, 0.07);
+  border: 1px solid rgba(38, 101, 140, 0.2);
+}
+
+.social-icon:nth-child(3):hover {
+  background: rgba(38, 101, 140, 0.12);
+  border: 1px solid rgba(38, 101, 140, 0.4);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    0 0 20px rgba(38, 101, 140, 0.4),
+    0 0 30px rgba(38, 101, 140, 0.3);
+}
+
+/* Active state for when clicked */
+.social-icon:active {
+  transform: translateY(-2px) scale(1.02);
+  transition: all 0.1s ease;
 }
 
 /* Large Desktop Screens (1440px and above) */

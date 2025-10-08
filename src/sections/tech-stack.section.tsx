@@ -195,16 +195,17 @@ const TechBox: React.FC<TechBoxProps> = ({ icon, title, color }) => {
       }
     >
       <div className="tech-box-content">
-        <div className="tech-name">{title}</div>
         <div className="tech-icon-container">
           <div className="tech-icon-wrapper">
             <div className="tech-icon">{icon}</div>
           </div>
         </div>
+        <div className="tech-name">{title}</div>
         <div className="tech-experience" data-level={experience}>
           {experience}
         </div>
       </div>
+      <div className="liquid-shine"></div>
       <div className="tech-glow"></div>
     </div>
   );
@@ -254,7 +255,10 @@ export const TechStack: React.FC = () => {
 
         <div className={`tech-grid ${isVisible ? 'visible' : ''}`}>
           {techs.map((tech, index) => (
-            <div className="tech-category" key={index}>
+            <div 
+              className={`tech-category ${index === techs.length - 1 ? 'last-category' : ''}`} 
+              key={index}
+            >
               <div className="category-header">
                 <h3 className="tech-category-heading">{tech.heading}</h3>
                 <div className="category-line"></div>
