@@ -76,21 +76,21 @@ export const InfoSection = () => {
             color="#A7EBF2"
             icon={<FaGithub size={28} />}
             aria-label="github"
-            className="social-icon"
+            className="social-icon liquid-glass"
           />
           <GlowLink
             href="https://www.linkedin.com/in/brian-kareithi-04007637b/"
             color="#54ACBF"
             icon={<FaLinkedinIn size={28} />}
             aria-label="linkedin"
-            className="social-icon"
+            className="social-icon liquid-glass"
           />
           <GlowLink
             href="mailto:kareithibrian2@gmail.com"
             icon={<IoMailOutline size={30} />}
             color="#26658C"
             aria-label="mail"
-            className="social-icon"
+            className="social-icon liquid-glass"
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-/* CSS Variables for professional color scheme */
+/* CSS Variables for liquid glass theme */
 :root {
   --pearl-white: #F8F9FA;
   --off-white: #E9ECEF;
@@ -8,7 +8,11 @@
   --deep-blue: #011C40;
   --accent-blue: #A7EBF2;
   --secondary-blue: #54ACBF;
-  --card-bg: rgba(2, 56, 89, 0.7);
+  --tertiary-blue: #26658C;
+  --card-bg: rgba(2, 56, 89, 0.4);
+  --glass-bg: rgba(167, 235, 242, 0.08);
+  --glass-border: rgba(167, 235, 242, 0.2);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
 }
 
 .contact-section {
@@ -18,6 +22,7 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
+  background: transparent;
 }
 
 .contact-container {
@@ -28,6 +33,12 @@
   width: 100%;
 }
 
+.contact-content-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* Liquid Glass Header */
 .contact-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -45,27 +56,62 @@
   font-size: 2.8rem;
   font-weight: 800;
   margin-bottom: 1rem;
-  color: var(--pearl-white);
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--secondary-blue) 50%, var(--tertiary-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 15px rgba(167, 235, 242, 0.3);
 }
 
 .contact-subtitle {
   font-size: 1.2rem;
-  color: var(--off-white);
+  color: var(--accent-blue);
   line-height: 1.6;
   max-width: 600px;
   margin: 0 auto;
   font-weight: 500;
+  text-shadow: 0 2px 8px rgba(167, 235, 242, 0.2);
 }
 
-.contact-details {
-  background: var(--card-bg);
-  border-radius: 16px;
+/* Liquid Glass Main Panel */
+.liquid-glass-panel {
+  background: var(--glass-bg);
+  border-radius: 20px;
   padding: 2.5rem;
   margin-bottom: 2rem;
-  border: 1px solid rgba(167, 235, 242, 0.2);
-  backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(167, 235, 242, 0.05);
+  position: relative;
+  overflow: hidden;
 }
 
+.liquid-glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.liquid-glass-panel:hover::before {
+  left: 100%;
+}
+
+/* Contact Info Section */
 .contact-info {
   display: flex;
   justify-content: center;
@@ -74,115 +120,253 @@
   flex-wrap: wrap;
 }
 
-.contact-item {
+.contact-item.liquid-glass-card {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.5rem;
-  background: rgba(1, 28, 64, 0.5);
+  background: rgba(1, 28, 64, 0.3);
   border-radius: 12px;
-  border: 1px solid rgba(167, 235, 242, 0.2);
-  transition: all 0.3s ease;
+  border: 1px solid var(--glass-border);
+  transition: all 0.4s ease;
   color: var(--pearl-white);
   font-weight: 500;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
 }
 
-.contact-item:hover {
-  background: rgba(1, 28, 64, 0.7);
+.contact-item.liquid-glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(167, 235, 242, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.contact-item.liquid-glass-card:hover::before {
+  left: 100%;
+}
+
+.contact-item.liquid-glass-card:hover {
+  background: rgba(1, 28, 64, 0.5);
   border-color: rgba(167, 235, 242, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.2),
+    0 0 15px rgba(167, 235, 242, 0.2);
+}
+
+/* Liquid Glass Icons */
+.icon-wrapper.liquid-glass-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: rgba(167, 235, 242, 0.15);
+  border: 1px solid rgba(167, 235, 242, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-wrapper.liquid-glass-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.contact-item.liquid-glass-card:hover .icon-wrapper.liquid-glass-icon::before {
+  left: 100%;
 }
 
 .contact-icon {
   font-size: 1.2rem;
   color: var(--accent-blue);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s ease;
 }
 
+.contact-item.liquid-glass-card:hover .contact-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(167, 235, 242, 0.6));
+}
+
+/* Opportunity Indicator */
 .opportunity-indicator {
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background-color: #00C851;
   animation: pulse 2s infinite;
+  box-shadow: 0 0 10px rgba(0, 200, 81, 0.5);
 }
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 200, 81, 0.4);
+    box-shadow: 0 0 0 0 rgba(0, 200, 81, 0.6);
   }
   70% {
-    box-shadow: 0 0 0 8px rgba(0, 200, 81, 0);
+    box-shadow: 0 0 0 10px rgba(0, 200, 81, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(0, 200, 81, 0);
   }
 }
 
-.divider {
+/* Liquid Divider */
+.liquid-divider {
   height: 1px;
-  background: rgba(167, 235, 242, 0.2);
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(167, 235, 242, 0.4), 
+    transparent
+  );
   margin: 2rem 0;
+  position: relative;
 }
 
+.liquid-divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(167, 235, 242, 0.6), 
+    transparent
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Contact Grid with Liquid Glass Cards */
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
-.contact-card {
+.contact-card.liquid-glass-card {
   display: flex;
   align-items: center;
   gap: 1rem;
   padding: 1.5rem;
-  background: rgba(1, 28, 64, 0.5);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(167, 235, 242, 0.2);
+  background: rgba(1, 28, 64, 0.3);
+  border-radius: 16px;
+  transition: all 0.4s ease;
+  border: 1px solid var(--glass-border);
   text-decoration: none;
   color: var(--pearl-white);
   cursor: pointer;
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
 }
 
-.contact-card:hover {
-  background: rgba(1, 28, 64, 0.7);
+.liquid-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.contact-card.liquid-glass-card:hover .liquid-shine {
+  left: 100%;
+}
+
+.contact-card.liquid-glass-card:hover {
+  background: rgba(1, 28, 64, 0.5);
   border-color: rgba(167, 235, 242, 0.4);
-  transform: translateY(-2px);
+  transform: translateY(-5px);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(167, 235, 242, 0.3),
+    0 0 30px rgba(167, 235, 242, 0.2);
 }
 
+/* Individual card hover effects */
 .email-card:hover {
-  border-color: rgba(255, 107, 53, 0.4);
+  border-color: rgba(255, 107, 53, 0.6);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 107, 53, 0.4),
+    0 0 30px rgba(255, 107, 53, 0.3);
 }
 
 .phone-card:hover {
-  border-color: rgba(0, 212, 255, 0.4);
+  border-color: rgba(0, 212, 255, 0.6);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 212, 255, 0.4),
+    0 0 30px rgba(0, 212, 255, 0.3);
 }
 
 .github-card:hover {
-  border-color: rgba(138, 43, 226, 0.4);
+  border-color: rgba(138, 43, 226, 0.6);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(138, 43, 226, 0.4),
+    0 0 30px rgba(138, 43, 226, 0.3);
 }
 
 .linkedin-card:hover {
-  border-color: rgba(0, 119, 255, 0.4);
+  border-color: rgba(0, 119, 255, 0.6);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 119, 255, 0.4),
+    0 0 30px rgba(0, 119, 255, 0.3);
 }
 
 .cv-download:hover {
-  border-color: rgba(0, 200, 81, 0.4);
-}
-
-.icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  background: rgba(167, 235, 242, 0.1);
+  border-color: rgba(0, 200, 81, 0.6);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 200, 81, 0.4),
+    0 0 30px rgba(0, 200, 81, 0.3);
 }
 
 .contact-content {
   display: flex;
   flex-direction: column;
   flex: 1;
+  position: relative;
+  z-index: 2;
 }
 
 .contact-label {
@@ -190,19 +374,54 @@
   font-weight: 600;
   color: var(--accent-blue);
   margin-bottom: 0.25rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .contact-value {
   font-size: 1rem;
   font-weight: 500;
   color: var(--pearl-white);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.footer-note {
+/* Liquid Glass Footer */
+.liquid-glass-footer {
   text-align: center;
-  padding-top: 2rem;
-  color: var(--off-white);
+  padding: 1.5rem 2rem;
+  color: var(--accent-blue);
   font-weight: 500;
+  background: var(--glass-bg);
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(15px);
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.8s ease;
+}
+
+.liquid-glass-footer:hover::before {
+  left: 100%;
+}
+
+.liquid-glass-footer p {
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(167, 235, 242, 0.3);
 }
 
 /* Responsive adjustments */
@@ -221,11 +440,11 @@
     grid-template-columns: 1fr;
   }
   
-  .contact-details {
+  .liquid-glass-panel {
     padding: 1.5rem;
   }
   
-  .contact-card {
+  .contact-card.liquid-glass-card {
     padding: 1.2rem;
   }
 }
@@ -239,11 +458,11 @@
     font-size: 1rem;
   }
   
-  .contact-item {
+  .contact-item.liquid-glass-card {
     padding: 0.8rem 1rem;
   }
   
-  .icon-wrapper {
+  .icon-wrapper.liquid-glass-icon {
     width: 40px;
     height: 40px;
   }
@@ -254,5 +473,9 @@
   
   .contact-value {
     font-size: 0.9rem;
+  }
+  
+  .liquid-glass-footer {
+    padding: 1rem 1.5rem;
   }
 }

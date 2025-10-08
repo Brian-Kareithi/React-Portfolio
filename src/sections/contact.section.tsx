@@ -34,88 +34,95 @@ export const Contact = () => {
           </p>
         </div>
 
-        <div className="contact-details">
-          <div className="contact-info">
-            <div className="contact-item">
-              <div className="icon-wrapper">
-                <FaMapMarkerAlt className="contact-icon" />
+        <div className="contact-content-wrapper">
+          <div className="contact-details liquid-glass-panel">
+            <div className="contact-info">
+              <div className="contact-item liquid-glass-card">
+                <div className="icon-wrapper liquid-glass-icon">
+                  <FaMapMarkerAlt className="contact-icon" />
+                </div>
+                <span>Remote · Available Worldwide</span>
               </div>
-              <span>Remote · Available Worldwide</span>
+              <div className="contact-item liquid-glass-card">
+                <div className="icon-wrapper liquid-glass-icon">
+                  <div className="opportunity-indicator"></div>
+                </div>
+                <span>Open for opportunities: <strong>Yes</strong></span>
+              </div>
             </div>
-            <div className="contact-item">
-              <div className="icon-wrapper">
-                <div className="opportunity-indicator"></div>
-              </div>
-              <span>Open for opportunities: <strong>Yes</strong></span>
+
+            <div className="liquid-divider"></div>
+
+            <div className="contact-grid">
+              <a href="mailto:kareithibrian2@gmail.com" className="contact-card liquid-glass-card email-card">
+                <div className="icon-wrapper liquid-glass-icon">
+                  <FaEnvelope className="contact-icon" />
+                </div>
+                <div className="contact-content">
+                  <span className="contact-label">Email</span>
+                  <span className="contact-value">kareithibrian2@gmail.com</span>
+                </div>
+                <div className="liquid-shine"></div>
+              </a>
+
+              <a href="tel:+254718593392" className="contact-card liquid-glass-card phone-card">
+                <div className="icon-wrapper liquid-glass-icon">
+                  <FaPhone className="contact-icon" />
+                </div>
+                <div className="contact-content">
+                  <span className="contact-label">Phone</span>
+                  <span className="contact-value">+254 718 593 392</span>
+                </div>
+                <div className="liquid-shine"></div>
+              </a>
+
+              <a 
+                href="https://github.com/Brian-Kareithi" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="contact-card liquid-glass-card github-card"
+              >
+                <div className="icon-wrapper liquid-glass-icon">
+                  <FaGithub className="contact-icon" />
+                </div>
+                <div className="contact-content">
+                  <span className="contact-label">GitHub</span>
+                  <span className="contact-value">View Projects</span>
+                </div>
+                <div className="liquid-shine"></div>
+              </a>
+
+              <a 
+                href="https://linkedin.com/in/brian-kareithi-04007637b/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="contact-card liquid-glass-card linkedin-card"
+              >
+                <div className="icon-wrapper liquid-glass-icon">
+                  <FaLinkedin className="contact-icon" />
+                </div>
+                <div className="contact-content">
+                  <span className="contact-label">LinkedIn</span>
+                  <span className="contact-value">Connect Professionally</span>
+                </div>
+                <div className="liquid-shine"></div>
+              </a>
+
+              <button onClick={handleDownloadCV} className="contact-card liquid-glass-card cv-download">
+                <div className="icon-wrapper liquid-glass-icon">
+                  <FaDownload className="contact-icon" />
+                </div>
+                <div className="contact-content">
+                  <span className="contact-label">Resume</span>
+                  <span className="contact-value">Download PDF</span>
+                </div>
+                <div className="liquid-shine"></div>
+              </button>
             </div>
-          </div>
-
-          <div className="divider"></div>
-
-          <div className="contact-grid">
-            <a href="mailto:kareithibrian2@gmail.com" className="contact-card email-card">
-              <div className="icon-wrapper">
-                <FaEnvelope className="contact-icon" />
-              </div>
-              <div className="contact-content">
-                <span className="contact-label">Email</span>
-                <span className="contact-value">kareithibrian2@gmail.com</span>
-              </div>
-            </a>
-
-            <a href="tel:+254718593392" className="contact-card phone-card">
-              <div className="icon-wrapper">
-                <FaPhone className="contact-icon" />
-              </div>
-              <div className="contact-content">
-                <span className="contact-label">Phone</span>
-                <span className="contact-value">+254 718 593 392</span>
-              </div>
-            </a>
-
-            <a 
-              href="https://github.com/Brian-Kareithi" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="contact-card github-card"
-            >
-              <div className="icon-wrapper">
-                <FaGithub className="contact-icon" />
-              </div>
-              <div className="contact-content">
-                <span className="contact-label">GitHub</span>
-                <span className="contact-value">View Projects</span>
-              </div>
-            </a>
-
-            <a 
-              href="https://linkedin.com/in/brian-kareithi-04007637b/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="contact-card linkedin-card"
-            >
-              <div className="icon-wrapper">
-                <FaLinkedin className="contact-icon" />
-              </div>
-              <div className="contact-content">
-                <span className="contact-label">LinkedIn</span>
-                <span className="contact-value">Connect Professionally</span>
-              </div>
-            </a>
-
-            <button onClick={handleDownloadCV} className="contact-card cv-download">
-              <div className="icon-wrapper">
-                <FaDownload className="contact-icon" />
-              </div>
-              <div className="contact-content">
-                <span className="contact-label">Resume</span>
-                <span className="contact-value">Download PDF</span>
-              </div>
-            </button>
           </div>
         </div>
 
-        <div className="footer-note">
+        <div className="footer-note liquid-glass-footer">
           <p>Brian Kareithi © {new Date().getFullYear()} | Cybersecurity Analyst & Full-Stack Developer</p>
         </div>
       </div>
