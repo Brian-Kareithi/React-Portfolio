@@ -188,25 +188,17 @@ const TechBox: React.FC<TechBoxProps> = ({ icon, title, color }) => {
   return (
     <div
       className="tech-box group"
-      style={
-        {
-          '--brand-color': color,
-        } as React.CSSProperties
-      }
+      style={{ '--brand-color': color } as React.CSSProperties}
     >
       <div className="tech-box-content">
         <div className="tech-icon-container">
-          <div className="tech-icon-wrapper">
-            <div className="tech-icon">{icon}</div>
-          </div>
+          <div className="tech-icon">{icon}</div>
         </div>
         <div className="tech-name">{title}</div>
         <div className="tech-experience" data-level={experience}>
           {experience}
         </div>
       </div>
-      <div className="liquid-shine"></div>
-      <div className="tech-glow"></div>
     </div>
   );
 };
@@ -240,13 +232,6 @@ export const TechStack: React.FC = () => {
 
   return (
     <section className="tech-stack" id="tech-stack">
-      <div className="liquid-background">
-        <div className="liquid-shape liquid-shape-1"></div>
-        <div className="liquid-shape liquid-shape-2"></div>
-        <div className="liquid-shape liquid-shape-3"></div>
-        <div className="liquid-shape liquid-shape-4"></div>
-      </div>
-
       <div className="tech-stack-container">
         <div className="tech-stack-title">
           <SectionTitle title="Technical" subTitle="Expertise" />

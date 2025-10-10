@@ -30,7 +30,7 @@ export const Contact = () => {
         <div className={`contact-header ${isVisible ? 'visible' : ''}`}>
           <h2>Let's Connect</h2>
           <p className="contact-subtitle">
-            Open to new opportunities and collaborations. Feel free to reach out for project discussions or professional inquiries.
+            Open to new opportunities and collaborations
           </p>
         </div>
 
@@ -41,13 +41,13 @@ export const Contact = () => {
                 <div className="icon-wrapper liquid-glass-icon">
                   <FaMapMarkerAlt className="contact-icon" />
                 </div>
-                <span>Remote · Available Worldwide</span>
+                <span>Remote · Worldwide</span>
               </div>
               <div className="contact-item liquid-glass-card">
                 <div className="icon-wrapper liquid-glass-icon">
                   <div className="opportunity-indicator"></div>
                 </div>
-                <span>Open for opportunities: <strong>Yes</strong></span>
+                <span>Available For Opportunities: <strong>Yes</strong></span>
               </div>
             </div>
 
@@ -62,7 +62,6 @@ export const Contact = () => {
                   <span className="contact-label">Email</span>
                   <span className="contact-value">kareithibrian2@gmail.com</span>
                 </div>
-                <div className="liquid-shine"></div>
               </a>
 
               <a href="tel:+254718593392" className="contact-card liquid-glass-card phone-card">
@@ -73,7 +72,6 @@ export const Contact = () => {
                   <span className="contact-label">Phone</span>
                   <span className="contact-value">+254 718 593 392</span>
                 </div>
-                <div className="liquid-shine"></div>
               </a>
 
               <a 
@@ -89,7 +87,6 @@ export const Contact = () => {
                   <span className="contact-label">GitHub</span>
                   <span className="contact-value">View Projects</span>
                 </div>
-                <div className="liquid-shine"></div>
               </a>
 
               <a 
@@ -103,9 +100,8 @@ export const Contact = () => {
                 </div>
                 <div className="contact-content">
                   <span className="contact-label">LinkedIn</span>
-                  <span className="contact-value">Connect Professionally</span>
+                  <span className="contact-value">Connect</span>
                 </div>
-                <div className="liquid-shine"></div>
               </a>
 
               <button onClick={handleDownloadCV} className="contact-card liquid-glass-card cv-download">
@@ -116,14 +112,13 @@ export const Contact = () => {
                   <span className="contact-label">Resume</span>
                   <span className="contact-value">Download PDF</span>
                 </div>
-                <div className="liquid-shine"></div>
               </button>
             </div>
           </div>
         </div>
 
         <div className="footer-note liquid-glass-footer">
-          <p>Brian Kareithi © {new Date().getFullYear()} | Cybersecurity Analyst & Full-Stack Developer</p>
+          <p>Brian Kareithi © {new Date().getFullYear()} | Cybersecurity & Full-Stack Developer</p>
         </div>
       </div>
     </section>
