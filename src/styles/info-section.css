@@ -133,7 +133,7 @@
   font-weight: bold;
 }
 
-/* Liquid Glass Social Icons - Matching Navbar Style */
+/* Circular Liquid Glass Social Icons - White Theme */
 .bottom-bar {
   padding: 2rem;
   display: flex;
@@ -157,21 +157,21 @@
   justify-content: center;
   width: 70px;
   height: 70px;
-  border-radius: 12px;
+  border-radius: 50%;
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   overflow: hidden;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   
-  /* Liquid Glass Background */
-  background: rgba(167, 235, 242, 0.08);
-  border: 1px solid rgba(167, 235, 242, 0.25);
+  /* White Glass Background */
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
     inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-    0 4px 20px rgba(0, 0, 0, 0.15),
-    0 0 0 1px rgba(167, 235, 242, 0.1);
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
 /* Liquid shine effect */
@@ -185,11 +185,11 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.4),
     transparent
   );
   transition: left 0.7s ease;
-  border-radius: 12px;
+  border-radius: 50%;
 }
 
 .social-icon:hover::before {
@@ -206,12 +206,12 @@
   height: 200%;
   background: radial-gradient(
     circle at center,
-    rgba(167, 235, 242, 0.1) 0%,
+    rgba(255, 255, 255, 0.2) 0%,
     transparent 70%
   );
   opacity: 0;
   transition: opacity 0.4s ease;
-  transform: rotate(45deg);
+  border-radius: 50%;
 }
 
 .social-icon:hover::after {
@@ -220,77 +220,52 @@
 
 .social-icon:hover {
   transform: translateY(-5px) scale(1.05);
-  background: rgba(167, 235, 242, 0.12);
-  border: 1px solid rgba(167, 235, 242, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-    0 8px 30px rgba(0, 0, 0, 0.25),
-    0 0 20px rgba(167, 235, 242, 0.3),
-    0 0 30px rgba(167, 235, 242, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 8px 30px rgba(0, 0, 0, 0.15),
+    0 0 20px rgba(255, 255, 255, 0.3),
+    0 0 30px rgba(255, 255, 255, 0.2);
 }
 
-/* Icon styling */
+/* Icon styling - White theme */
 .social-icon svg {
   position: relative;
   z-index: 2;
-  color: var(--color1);
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  color: rgba(255, 255, 255, 0.9); /* Bright white */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
   transition: all 0.3s ease;
+  width: 28px;
+  height: 28px;
 }
 
 .social-icon:hover svg {
   transform: scale(1.15);
-  filter: drop-shadow(0 0 10px rgba(167, 235, 242, 0.8));
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8));
+  color: rgba(255, 255, 255, 1); /* Pure white on hover */
 }
 
-/* Individual color variations for each icon with navbar-like styling */
-.social-icon:nth-child(1) {
-  background: rgba(167, 235, 242, 0.07);
-  border: 1px solid rgba(167, 235, 242, 0.2);
-}
-
-.social-icon:nth-child(1):hover {
-  background: rgba(167, 235, 242, 0.12);
-  border: 1px solid rgba(167, 235, 242, 0.4);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-    0 8px 30px rgba(0, 0, 0, 0.25),
-    0 0 20px rgba(167, 235, 242, 0.4),
-    0 0 30px rgba(167, 235, 242, 0.3);
-}
-
-.social-icon:nth-child(2) {
-  background: rgba(84, 172, 191, 0.07);
-  border: 1px solid rgba(84, 172, 191, 0.2);
-}
-
-.social-icon:nth-child(2):hover {
-  background: rgba(84, 172, 191, 0.12);
-  border: 1px solid rgba(84, 172, 191, 0.4);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-    0 8px 30px rgba(0, 0, 0, 0.25),
-    0 0 20px rgba(84, 172, 191, 0.4),
-    0 0 30px rgba(84, 172, 191, 0.3);
-}
-
+/* Remove individual color variations - use uniform white theme */
+.social-icon:nth-child(1),
+.social-icon:nth-child(2),
 .social-icon:nth-child(3) {
-  background: rgba(38, 101, 140, 0.07);
-  border: 1px solid rgba(38, 101, 140, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
+.social-icon:nth-child(1):hover,
+.social-icon:nth-child(2):hover,
 .social-icon:nth-child(3):hover {
-  background: rgba(38, 101, 140, 0.12);
-  border: 1px solid rgba(38, 101, 140, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-    0 8px 30px rgba(0, 0, 0, 0.25),
-    0 0 20px rgba(38, 101, 140, 0.4),
-    0 0 30px rgba(38, 101, 140, 0.3);
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 8px 30px rgba(0, 0, 0, 0.15),
+    0 0 20px rgba(255, 255, 255, 0.3),
+    0 0 30px rgba(255, 255, 255, 0.2);
 }
 
 /* Active state for when clicked */
@@ -325,6 +300,16 @@
   
   .role-text {
     font-size: 2.5rem;
+  }
+  
+  .social-icon {
+    width: 75px;
+    height: 75px;
+  }
+  
+  .social-icon svg {
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -427,6 +412,11 @@
     width: 65px;
     height: 65px;
   }
+  
+  .social-icon svg {
+    width: 26px;
+    height: 26px;
+  }
 }
 
 /* Large Mobile (576px - 767px) */
@@ -461,6 +451,11 @@
   .social-icon {
     width: 60px;
     height: 60px;
+  }
+  
+  .social-icon svg {
+    width: 24px;
+    height: 24px;
   }
   
   .social-icons-wrapper {
@@ -504,6 +499,11 @@
   .social-icon {
     width: 55px;
     height: 55px;
+  }
+  
+  .social-icon svg {
+    width: 22px;
+    height: 22px;
   }
   
   .social-icons-wrapper {
@@ -553,6 +553,11 @@
     height: 50px;
   }
   
+  .social-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
   .social-icons-wrapper {
     gap: 0.8rem;
   }
@@ -594,6 +599,11 @@
     height: 45px;
   }
   
+  .social-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  
   .social-icons-wrapper {
     gap: 0.6rem;
   }
@@ -629,6 +639,11 @@
   
   .bottom-bar {
     padding: 1rem;
+  }
+  
+  .social-icon {
+    width: 55px;
+    height: 55px;
   }
 }
 
