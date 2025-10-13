@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaDownload, FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
+import { FaDownload, FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaPhone, FaSteam } from "react-icons/fa";
 import { Background } from '../components/background';
 
 export const Contact = () => {
@@ -43,11 +43,11 @@ export const Contact = () => {
                 </div>
                 <span>Remote · Worldwide</span>
               </div>
-              <div className="contact-item liquid-glass-card">
+              <div className="contact-item liquid-glass-card opportunity-item">
                 <div className="icon-wrapper liquid-glass-icon">
                   <div className="opportunity-indicator"></div>
                 </div>
-                <span>Available For Opportunities: <strong>Yes</strong></span>
+                <span>Available For Opportunities: <strong className="opportunity-text">Yes</strong></span>
               </div>
             </div>
 
@@ -101,6 +101,21 @@ export const Contact = () => {
                 <div className="contact-content">
                   <span className="contact-label">LinkedIn</span>
                   <span className="contact-value">Connect</span>
+                </div>
+              </a>
+
+              <a 
+                href="https://steamcommunity.com/profiles/76561199676892005/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="contact-card liquid-glass-card steam-card"
+              >
+                <div className="icon-wrapper liquid-glass-icon">
+                  <FaSteam className="contact-icon" />
+                </div>
+                <div className="contact-content">
+                  <span className="contact-label">Steam</span>
+                  <span className="contact-value">Gaming Profile</span>
                 </div>
               </a>
 

@@ -1,40 +1,28 @@
-/* LUNA Color Palette Variables */
+/* Updated Contact Section Styling - Navbar Inspired */
 :root {
-  --luna-white: #F8F9FA;
-  --luna-white-90: rgba(248, 249, 250, 0.9);
-  --luna-white-80: rgba(248, 249, 250, 0.8);
-  --luna-white-70: rgba(248, 249, 250, 0.7);
-  --luna-white-60: rgba(248, 249, 250, 0.6);
-  --luna-white-50: rgba(248, 249, 250, 0.5);
-  --luna-white-40: rgba(248, 249, 250, 0.4);
-  --luna-white-30: rgba(248, 249, 250, 0.3);
-  --luna-white-20: rgba(248, 249, 250, 0.2);
-  --luna-white-10: rgba(248, 249, 250, 0.1);
-  --luna-white-5: rgba(248, 249, 250, 0.05);
-  
-  --luna-accent: #A7EBF2;
-  --luna-secondary: #54ACBF;
-  --luna-tertiary: #0c3046;
-  --luna-dark: #0A1931;
-  --luna-deep: #011C40;
-  
-  --glass-blur: blur(20px);
-  --glass-border: 1px solid var(--luna-white-20);
-  --glass-shadow: 0 8px 32px rgba(1, 28, 64, 0.3);
+  --primary-white: #F8F9FA;
+  --primary-accent: #A7EBF2;
+  --secondary-accent: #54ACBF;
+  --dark-bg: #0A1931;
+  --darker-bg: #011C40;
+  --card-bg: rgba(2, 56, 89, 0.6);
+  --border-glow: rgba(167, 235, 242, 0.3);
+  --available-green: #4ADE80;
+  --available-glow: rgba(74, 222, 128, 0.4);
 }
 
 .contact-section {
-  padding: 3rem 1rem;
+  padding: 4rem 2rem;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, var(--luna-deep) 0%, var(--luna-dark) 50%, var(--luna-deep) 100%);
+  background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 50%, var(--darker-bg) 100%);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Luna background texture */
+/* Subtle background texture inspired by navbar */
 .contact-section::before {
   content: '';
   position: absolute;
@@ -43,27 +31,26 @@
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 20% 80%, rgba(167, 235, 242, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(84, 172, 191, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(38, 101, 140, 0.04) 0%, transparent 50%);
+    radial-gradient(circle at 15% 85%, rgba(167, 235, 242, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(84, 172, 191, 0.02) 0%, transparent 40%);
   pointer-events: none;
 }
 
 .contact-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   position: relative;
   z-index: 2;
   width: 100%;
 }
 
-/* Luna Header */
+/* Clean Header - Navbar Inspired */
 .contact-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.6s ease-out;
 }
 
 .contact-header.visible {
@@ -72,135 +59,135 @@
 }
 
 .contact-header h2 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   font-weight: 700;
-  margin-bottom: 0.8rem;
-  background: linear-gradient(135deg, var(--luna-accent) 0%, var(--luna-secondary) 50%, var(--luna-tertiary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.3px;
-  line-height: 1.1;
+  margin-bottom: 1rem;
+  color: var(--primary-white);
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 10px rgba(167, 235, 242, 0.1);
 }
 
 .contact-subtitle {
-  font-size: 1.1rem;
-  color: var(--luna-accent);
-  line-height: 1.5;
+  font-size: 1.2rem;
+  color: var(--primary-accent);
+  line-height: 1.6;
   max-width: 500px;
   margin: 0 auto;
   font-weight: 400;
-  letter-spacing: -0.1px;
+  letter-spacing: 0.2px;
 }
 
-/* Luna Liquid Glass Panel */
-.liquid-glass-panel {
-  background: rgba(167, 235, 242, 0.08);
-  border-radius: 20px;
-  padding: 2rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid rgba(167, 235, 242, 0.2);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+/* Clean Glass Panel - Simplified like navbar */
+.contact-details {
+  background: rgba(2, 56, 89, 0.4);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(167, 235, 242, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   box-shadow: 
-    var(--glass-shadow),
-    inset 0 1px 0 var(--luna-white-10),
-    inset 0 -1px 0 rgba(1, 28, 64, 0.2);
-  position: relative;
-  overflow: hidden;
+    0 8px 32px rgba(1, 28, 64, 0.2),
+    inset 0 1px 0 rgba(248, 249, 250, 0.1);
 }
 
-/* Luna gradient overlay */
-.liquid-glass-panel::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(167, 235, 242, 0.03) 0%,
-    rgba(84, 172, 191, 0.02) 50%,
-    rgba(38, 101, 140, 0.01) 100%
-  );
-  pointer-events: none;
-}
-
-/* Contact Info Section - Luna Style */
+/* Contact Info - Clean horizontal layout */
 .contact-info {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 2rem;
+  margin-bottom: 2rem;
   flex-wrap: wrap;
 }
 
-.contact-item.liquid-glass-card {
+.contact-item {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 1rem 1.5rem;
-  background: rgba(2, 56, 89, 0.4);
-  border-radius: 14px;
-  border: 1px solid rgba(167, 235, 242, 0.2);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  color: var(--luna-white);
+  gap: 1rem;
+  padding: 1.2rem 1.8rem;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid rgba(167, 235, 242, 0.1);
+  transition: all 0.3s ease;
+  color: var(--primary-white);
   font-weight: 500;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  font-size: 0.95rem;
-  letter-spacing: -0.1px;
+  font-size: 1rem;
 }
 
-.contact-item.liquid-glass-card:hover {
-  background: rgba(2, 56, 89, 0.6);
-  border-color: rgba(167, 235, 242, 0.4);
-  transform: translateY(-2px) scale(1.02);
+.contact-item:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(1, 28, 64, 0.3);
+}
+
+/* Available for Opportunities - Green Glow */
+.opportunity-item {
+  position: relative;
+  border: 1px solid rgba(74, 222, 128, 0.2) !important;
+  background: rgba(2, 56, 89, 0.7) !important;
+  animation: opportunityGlow 3s ease-in-out infinite;
+}
+
+.opportunity-item:hover {
+  border-color: var(--available-green) !important;
   box-shadow: 
-    0 8px 25px rgba(1, 28, 64, 0.4),
-    0 0 0 1px rgba(167, 235, 242, 0.1);
+    0 8px 25px var(--available-glow),
+    0 0 15px rgba(74, 222, 128, 0.2) !important;
 }
 
-/* Luna Icons */
-.icon-wrapper.liquid-glass-icon {
+@keyframes opportunityGlow {
+  0%, 100% {
+    box-shadow: 
+      0 4px 15px rgba(74, 222, 128, 0.2),
+      0 0 0 1px rgba(74, 222, 128, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 4px 20px rgba(74, 222, 128, 0.4),
+      0 0 0 1px rgba(74, 222, 128, 0.2);
+  }
+}
+
+.opportunity-text {
+  color: var(--available-green);
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
+}
+
+/* Clean Icons */
+.icon-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(167, 235, 242, 0.15);
-  border: 1px solid rgba(167, 235, 242, 0.3);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: rgba(167, 235, 242, 0.1);
+  border: 1px solid rgba(167, 235, 242, 0.2);
+  transition: all 0.3s ease;
 }
 
 .contact-icon {
-  font-size: 1.1rem;
-  color: var(--luna-accent);
-  transition: all 0.4s ease;
-  filter: drop-shadow(0 2px 4px rgba(1, 28, 64, 0.4));
+  font-size: 1.2rem;
+  color: var(--primary-accent);
+  transition: all 0.3s ease;
 }
 
-.contact-item.liquid-glass-card:hover .contact-icon {
-  transform: scale(1.15);
-  color: var(--luna-white);
-  filter: drop-shadow(0 4px 8px rgba(167, 235, 242, 0.3));
+.contact-item:hover .contact-icon {
+  transform: scale(1.1);
+  color: var(--primary-white);
 }
 
-/* Luna Opportunity Indicator */
+/* Opportunity Indicator - Green Glowing */
 .opportunity-indicator {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--luna-accent) 0%, var(--luna-secondary) 100%);
+  background: var(--available-green);
   position: relative;
-  animation: lunaPulse 2s ease-in-out infinite;
+  animation: greenPulse 2s ease-in-out infinite;
 }
 
-.opportunity-indicator::before {
+.opportunity-indicator::after {
   content: '';
   position: absolute;
   top: -2px;
@@ -208,95 +195,67 @@
   right: -2px;
   bottom: -2px;
   border-radius: 50%;
-  background: rgba(167, 235, 242, 0.3);
-  animation: lunaPulseRing 2s ease-in-out infinite;
+  background: rgba(74, 222, 128, 0.4);
+  animation: greenPulseRing 2s ease-in-out infinite;
 }
 
-@keyframes lunaPulse {
+@keyframes greenPulse {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(167, 235, 242, 0.7);
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
   }
   50% {
     transform: scale(1.1);
-    box-shadow: 0 0 0 4px rgba(167, 235, 242, 0);
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0);
   }
 }
 
-@keyframes lunaPulseRing {
+@keyframes greenPulseRing {
   0% {
     transform: scale(1);
     opacity: 1;
   }
   100% {
-    transform: scale(1.5);
+    transform: scale(1.8);
     opacity: 0;
   }
 }
 
-/* Luna Liquid Divider */
+/* Clean Divider */
 .liquid-divider {
   height: 1px;
   background: linear-gradient(90deg, 
     transparent 0%, 
-    rgba(167, 235, 242, 0.4) 50%, 
+    rgba(167, 235, 242, 0.3) 50%, 
     transparent 100%
   );
-  margin: 1.5rem 0;
-  position: relative;
+  margin: 2rem 0;
 }
 
-.liquid-divider::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(167, 235, 242, 0.2) 50%, 
-    transparent 100%
-  );
-  animation: lunaShine 3s ease-in-out infinite;
-}
-
-@keyframes lunaShine {
-  0%, 100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-/* Luna Contact Grid */
+/* Clean Contact Grid - Now 3x2 layout */
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
-.contact-card.liquid-glass-card {
+.contact-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
   padding: 1.5rem;
-  background: rgba(2, 56, 89, 0.4);
-  border-radius: 16px;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  border: 1px solid rgba(167, 235, 242, 0.2);
+  background: var(--card-bg);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(167, 235, 242, 0.1);
   text-decoration: none;
-  color: var(--luna-white);
+  color: var(--primary-white);
   cursor: pointer;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   position: relative;
   overflow: hidden;
 }
 
-/* Luna card hover effect */
-.contact-card.liquid-glass-card::before {
+.contact-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -306,60 +265,50 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(167, 235, 242, 0.1),
+    rgba(167, 235, 242, 0.05),
     transparent
   );
   transition: left 0.6s ease;
 }
 
-.contact-card.liquid-glass-card:hover::before {
+.contact-card:hover::before {
   left: 100%;
 }
 
-.contact-card.liquid-glass-card:hover {
-  background: rgba(2, 56, 89, 0.6);
-  border-color: rgba(167, 235, 242, 0.4);
-  transform: translateY(-4px) scale(1.02);
+.contact-card:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-3px);
   box-shadow: 
-    0 15px 35px rgba(1, 28, 64, 0.5),
-    0 0 0 1px rgba(167, 235, 242, 0.1),
-    0 0 25px rgba(167, 235, 242, 0.1);
+    0 12px 30px rgba(1, 28, 64, 0.3),
+    0 0 0 1px rgba(167, 235, 242, 0.1);
 }
 
-/* Luna individual card colors using the palette */
+/* Individual card hover effects */
 .email-card:hover {
-  border-color: rgba(167, 235, 242, 0.6);
-  box-shadow: 
-    0 15px 35px rgba(167, 235, 242, 0.2),
-    0 0 0 1px rgba(167, 235, 242, 0.2);
+  border-color: rgba(167, 235, 242, 0.4);
 }
 
 .phone-card:hover {
-  border-color: rgba(84, 172, 191, 0.6);
-  box-shadow: 
-    0 15px 35px rgba(84, 172, 191, 0.2),
-    0 0 0 1px rgba(84, 172, 191, 0.2);
+  border-color: rgba(84, 172, 191, 0.4);
 }
 
 .github-card:hover {
-  border-color: rgba(38, 101, 140, 0.6);
-  box-shadow: 
-    0 15px 35px rgba(38, 101, 140, 0.2),
-    0 0 0 1px rgba(38, 101, 140, 0.2);
+  border-color: rgba(38, 101, 140, 0.4);
 }
 
 .linkedin-card:hover {
-  border-color: rgba(2, 56, 89, 0.6);
+  border-color: rgba(2, 56, 89, 0.4);
+}
+
+.steam-card:hover {
+  border-color: rgba(28, 40, 65, 0.6);
   box-shadow: 
-    0 15px 35px rgba(2, 56, 89, 0.2),
-    0 0 0 1px rgba(2, 56, 89, 0.2);
+    0 12px 30px rgba(28, 40, 65, 0.3),
+    0 0 0 1px rgba(28, 40, 65, 0.2);
 }
 
 .cv-download:hover {
-  border-color: rgba(167, 235, 242, 0.6);
-  box-shadow: 
-    0 15px 35px rgba(167, 235, 242, 0.2),
-    0 0 0 1px rgba(167, 235, 242, 0.2);
+  border-color: rgba(167, 235, 242, 0.4);
 }
 
 .contact-content {
@@ -369,67 +318,47 @@
 }
 
 .contact-label {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: var(--luna-accent);
-  margin-bottom: 0.3rem;
+  color: var(--primary-accent);
+  margin-bottom: 0.4rem;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
 .contact-value {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 500;
-  color: var(--luna-white);
-  letter-spacing: -0.1px;
+  color: var(--primary-white);
 }
 
-/* Luna Footer */
-.liquid-glass-footer {
+/* Clean Footer */
+.footer-note {
   text-align: center;
-  padding: 1.5rem 2rem;
-  color: var(--luna-accent);
+  padding: 1.8rem 2rem;
+  color: var(--primary-accent);
   font-weight: 500;
-  background: rgba(167, 235, 242, 0.08);
-  border-radius: 16px;
-  border: 1px solid rgba(167, 235, 242, 0.2);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  margin-top: 2rem;
-  position: relative;
-  overflow: hidden;
-  font-size: 0.9rem;
-  letter-spacing: -0.1px;
+  background: rgba(2, 56, 89, 0.4);
+  border-radius: 14px;
+  border: 1px solid rgba(167, 235, 242, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  margin-top: 2.5rem;
+  font-size: 0.95rem;
 }
 
-.liquid-glass-footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(167, 235, 242, 0.03) 0%,
-    rgba(84, 172, 191, 0.02) 100%
-  );
-}
-
-.liquid-glass-footer p {
+.footer-note p {
   margin: 0;
-  position: relative;
-  z-index: 1;
 }
 
-/* Luna focus states */
-.contact-card.liquid-glass-card:focus-visible {
-  outline: 2px solid var(--luna-accent);
+/* Focus states */
+.contact-card:focus-visible {
+  outline: 2px solid var(--primary-accent);
   outline-offset: 2px;
 }
 
 button:focus-visible {
-  outline: 2px solid var(--luna-accent);
+  outline: 2px solid var(--primary-accent);
   outline-offset: 2px;
 }
 
@@ -437,9 +366,42 @@ button:focus-visible {
 @media (max-width: 768px) {
   .contact-section {
     padding: 2rem 1rem;
-    min-height: 90vh;
   }
   
+  .contact-header h2 {
+    font-size: 2.2rem;
+  }
+  
+  .contact-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .contact-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-details {
+    padding: 2rem;
+    border-radius: 14px;
+  }
+  
+  .contact-card {
+    padding: 1.3rem;
+    border-radius: 12px;
+  }
+  
+  .contact-item {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
   .contact-header h2 {
     font-size: 2rem;
   }
@@ -448,65 +410,31 @@ button:focus-visible {
     font-size: 1rem;
   }
   
-  .contact-info {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-  }
-  
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .liquid-glass-panel {
-    padding: 1.5rem;
-    border-radius: 18px;
-  }
-  
-  .contact-card.liquid-glass-card {
-    padding: 1.2rem;
-    border-radius: 14px;
-  }
-  
-  .contact-item.liquid-glass-card {
+  .contact-item {
     padding: 0.9rem 1.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-header h2 {
-    font-size: 1.8rem;
+    font-size: 0.95rem;
   }
   
-  .contact-subtitle {
-    font-size: 0.9rem;
-  }
-  
-  .contact-item.liquid-glass-card {
-    padding: 0.8rem 1rem;
-    font-size: 0.9rem;
-  }
-  
-  .icon-wrapper.liquid-glass-icon {
-    width: 40px;
-    height: 40px;
+  .icon-wrapper {
+    width: 42px;
+    height: 42px;
   }
   
   .contact-icon {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
   
   .contact-value {
+    font-size: 1rem;
+  }
+  
+  .footer-note {
+    padding: 1.5rem;
     font-size: 0.9rem;
   }
   
-  .liquid-glass-footer {
-    padding: 1.2rem 1.5rem;
-    font-size: 0.85rem;
-  }
-  
-  .liquid-glass-panel {
-    padding: 1.2rem;
+  .contact-details {
+    padding: 1.5rem;
   }
 }
 
@@ -516,5 +444,10 @@ button:focus-visible {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  
+  .opportunity-indicator,
+  .opportunity-item {
+    animation: none !important;
   }
 }
