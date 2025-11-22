@@ -226,7 +226,7 @@ export default function TechStack() {
   }, []);
 
   return (
-    <section className="min-h-screen w-full py-20 px-4 relative" id="tech-stack">
+    <section className="min-h-screen w-full py-20 px-4 relative" id="techstack">
       <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <div className="text-center mb-16">
@@ -243,7 +243,9 @@ export default function TechStack() {
           {techs.map((category, index) => (
             <div 
               key={index}
-              className="border border-white/20 bg-white/5 backdrop-blur-xl rounded-2xl p-6 shadow-2xl shadow-blue-500/10 hover:shadow-blue-500/20 transition-all duration-500 hover:scale-[1.02] hover:border-white/30"
+              className={`border border-white/20 bg-white/5 backdrop-blur-xl rounded-2xl p-6 shadow-2xl shadow-blue-500/10 hover:shadow-blue-500/20 transition-all duration-500 hover:scale-[1.02] hover:border-white/30 ${
+                category.heading === 'Design' ? 'md:col-start-2 lg:col-start-2' : ''
+              }`}
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <h3 className="text-xl font-bold text-blue-300 mb-4 text-center pb-3 border-b border-white/20 bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent">

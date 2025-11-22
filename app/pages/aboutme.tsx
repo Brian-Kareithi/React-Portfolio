@@ -19,18 +19,18 @@ const timeline: TimelineSection[] = [
     title: 'Professional Journey',
     items: [
       {
-        title: 'Software Developer Intern',
+        title: 'Frontend Developer',
         place: 'Steadfast Academy',
         timePeriod: '2025 - Present',
         icon: '🚀',
-        description: 'Architected and deployed scalable backend systems serving 10,000+ users, improving API response times by 40% through optimized database queries and caching strategies. Led migration from monolithic to microservices architecture.'
+        description: 'Architected and deployed scalable frontend systems serving 10,000+ users, improving UI performance by 40% through optimized components and state management. Led migration from legacy frontend to modern React architecture.'
       },
       {
         title: 'Co-Founder & Backend Developer',
         place: 'Thee Entity Limited',
         timePeriod: '2025 - Present',
         icon: '💼',
-        description: 'Established tech startup from ground up, designing cloud-native solutions that reduced client infrastructure costs by 60%. Implemented CI/CD pipelines cutting deployment time from 2 hours to 15 minutes.'
+        description: 'Established tech startup from ground up, designing cloud-native solutions that reduced client infrastructure costs by 60%. Implemented CI/CD pipelines cutting deployment time from 2 hours to 15 minutes. Successfully shipped 2 major projects to production.'
       },
       {
         title: 'Information Security Specialist',
@@ -63,14 +63,35 @@ const timeline: TimelineSection[] = [
         place: 'Cisco',
         timePeriod: '2023',
         icon: '🌐',
-        description: 'Designed and secured enterprise networks serving 500+ devices. Reduced network downtime by 80% through proactive monitoring and automated failover systems. Implemented zero-trust architecture principles.'
+        description: 'Designed and secured enterprise networks serving 500+ devices. Reduced network downtime by 80% through proactive monitoring and automated failover systems.'
       },
       {
         title: 'Google Cybersecurity Professional',
         place: 'Google',
         timePeriod: '2023',
         icon: '🛡️',
-        description: 'Developed comprehensive SIEM strategies processing 1M+ events daily. Created automated incident response playbooks that improved security team efficiency by 45%. Specialized in cloud security hardening.'
+        description: 'Developed comprehensive SIEM strategies processing 1M+ events daily. Created automated incident response playbooks that improved security team efficiency by 45%.'
+      },
+      {
+        title: 'AWS Cloud Practitioner',
+        place: 'Amazon Web Services',
+        timePeriod: '2023',
+        icon: '☁️',
+        description: 'Certified in cloud services and infrastructure. Implemented scalable solutions on AWS reducing operational costs by 30% through optimized resource allocation.'
+      },
+      {
+        title: 'CompTIA Security+',
+        place: 'CompTIA',
+        timePeriod: '2022',
+        icon: '🔐',
+        description: 'Validated baseline security skills and knowledge. Applied security principles across various environments and compliance requirements.'
+      },
+      {
+        title: 'Microsoft Azure Fundamentals',
+        place: 'Microsoft',
+        timePeriod: '2022',
+        icon: '🔷',
+        description: 'Demonstrated foundational knowledge of cloud services and how Microsoft Azure provides those services.'
       },
     ],
   },
@@ -82,7 +103,7 @@ const timeline: TimelineSection[] = [
         place: 'Umma University',
         timePeriod: '2021 - Present',
         icon: '🎓',
-        description: 'Maintained 3.8 GPA while leading Cybersecurity Club of 200+ members. Organized 15+ workshops on ethical hacking and secure coding practices. Research focus on AI-powered threat detection systems.'
+        description: 'Maintained excellent academic performance while leading Cybersecurity Club of 200+ members. Organized 15+ workshops on ethical hacking and secure coding practices. Research focus on AI-powered threat detection systems.'
       },
       {
         title: 'KCSE - Science & Technology',
@@ -90,6 +111,13 @@ const timeline: TimelineSection[] = [
         timePeriod: '2017 - 2020',
         icon: '📚',
         description: 'Graduated with distinction in STEM subjects. Led school tech team to national competitions, winning 3 innovation awards. Developed early passion for problem-solving through technology.'
+      },
+      {
+        title: 'KCPE',
+        place: 'Lily Academy',
+        timePeriod: '2013 - 2016',
+        icon: '✏️',
+        description: 'Built strong foundation in mathematics and sciences. Showed early aptitude for logical thinking and problem-solving. Participated in science fairs and coding clubs.'
       },
     ],
   },
@@ -102,7 +130,7 @@ export default function AboutMe() {
     <section 
       ref={sectionRef}
       className="min-h-screen w-full py-20 px-4 relative"
-      id="about-me"
+      id="aboutme"
     >
       <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
@@ -144,9 +172,9 @@ export default function AboutMe() {
                 <div className="text-xs text-gray-300 mt-1">Incident Reduction</div>
               </div>
               <div className="border border-white/20 bg-white/5 backdrop-blur-lg rounded-2xl p-6 text-center hover:border-purple-400/60 hover:bg-purple-500/10 transition-all duration-300 hover:scale-105 group">
-                <div className="text-3xl font-bold text-purple-300 mb-2 group-hover:text-purple-200 transition-colors">3.8</div>
-                <div className="text-sm font-semibold text-white uppercase tracking-wide">GPA</div>
-                <div className="text-xs text-gray-300 mt-1">Academic Excellence</div>
+                <div className="text-3xl font-bold text-purple-300 mb-2 group-hover:text-purple-200 transition-colors">2</div>
+                <div className="text-sm font-semibold text-white uppercase tracking-wide">Projects</div>
+                <div className="text-xs text-gray-300 mt-1">Officially Shipped</div>
               </div>
             </div>
           </div>
@@ -163,7 +191,11 @@ export default function AboutMe() {
                 {section.title}
               </h3>
               
-              <div className="space-y-6">
+              <div className={`grid gap-6 ${
+                section.title === 'Certifications & Expertise' 
+                  ? 'grid-cols-1 md:grid-cols-2' 
+                  : 'grid-cols-1'
+              }`}>
                 {section.items.map((item, itemIndex) => (
                   <div 
                     key={itemIndex}
