@@ -42,10 +42,10 @@ export default function HomePage() {
       {/* ===== HERO SECTION ===== */}
       <section
         id="home"
-        className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 flex flex-col items-center justify-center min-h-screen pt-20 pb-32 lg:pt-32 lg:pb-20"
+        className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 flex flex-col items-center justify-between min-h-screen pt-20 pb-8 lg:pt-32 lg:pb-12"
       >
-        {/* Content Container */}
-        <div className="flex flex-col lg:flex-row items-center justify-center w-full gap-8 lg:gap-12">
+        {/* Main Content Container */}
+        <div className="flex flex-col lg:flex-row items-center justify-center w-full gap-8 lg:gap-12 flex-1">
           {/* Text Container */}
           <div className="flex-1 text-center lg:text-left order-2 lg:order-1 mt-8 lg:mt-0">
             <p className="text-white text-base sm:text-lg font-light mb-2 drop-shadow-lg">Hi, I am</p>
@@ -79,8 +79,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ===== SOCIAL ICONS - Only in Home Section ===== */}
-        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-20 flex gap-4 sm:gap-6">
+        {/* ===== SOCIAL ICONS - At Bottom of Home Section ===== */}
+        <div className="flex justify-center gap-4 sm:gap-6 mt-8 lg:mt-12">
           <a
             href="https://github.com/Brian-Kareithi"
             className="bg-white/10 hover:bg-white/20 p-2 sm:p-3 rounded-full border border-white/20 hover:border-white/40 transition-all shadow-lg hover:shadow-xl hover:shadow-blue-500/20"
