@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
@@ -11,7 +10,7 @@ export default function Navbar() {
   const sections = [
     { id: 'home', label: 'Home' },
     { id: 'aboutme', label: 'About Me' },
-    { id: 'teckstack', label: 'Tech Stack' },
+    { id: 'techstack', label: 'Tech Stack' },  
     { id: 'projects', label: 'Projects' },
     { id: 'contact', label: 'Contact' }
   ];
@@ -41,7 +40,6 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Dock immediately when scrolling starts (scrollY > 0)
       const scrolled = window.scrollY > 0;
       setIsScrolled(scrolled);
 
@@ -64,28 +62,19 @@ export default function Navbar() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    // Set initial state based on current scroll position
     handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, [sections]);
 
   const scrollToSection = (sectionId: string) => {
-    if (sectionId === 'home') {
-      // Scroll to top of page for home
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offsetTop = element.offsetTop - 50;
       window.scrollTo({
-        top: 0,
+        top: offsetTop,
         behavior: 'smooth'
       });
-    } else {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        const offsetTop = element.offsetTop - 80;
-        window.scrollTo({
-          top: offsetTop,
-          behavior: 'smooth'
-        });
-      }
     }
     setIsMobileMenuOpen(false);
   };
@@ -96,16 +85,16 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Liquid Glass Navbar */}
+      {/* Enhanced Translucent Navbar */}
       <nav className={`
         fixed z-50 
         transition-all duration-500 ease-out
         ${isScrolled 
-          ? 'w-full top-0 left-0 right-0 rounded-none border-b border-white/20' 
+          ? 'w-full top-0 left-0 right-0 rounded-none border-b border-white/10' 
           : 'w-[95%] top-4 left-[2.5%] right-[2.5%] rounded-2xl'
         }
-        backdrop-blur-xl bg-white/10 border border-white/20
-        shadow-2xl hover:shadow-2xl
+        backdrop-blur-md bg-white/5 border border-white/10
+        shadow-lg hover:shadow-xl
       `}>
         <div className="flex items-center justify-between w-full px-8 py-4">
           {/* Greeting Text - Left side */}
@@ -115,15 +104,15 @@ export default function Navbar() {
           </div>
           
           {/* Desktop Navigation - Right side */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-1">
             {sections.map((section) => (
               <button
                 key={section.id}
                 className={`
                   px-5 py-2.5 rounded-lg font-medium transition-all duration-300
                   ${activeSection === section.id 
-                    ? 'bg-white/20 text-white font-bold shadow-lg' 
-                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                    ? 'bg-white/15 text-white font-semibold shadow-md' 
+                    : 'text-white/80 hover:text-white hover:bg-white/5'
                   }
                 `}
                 onClick={() => scrollToSection(section.id)}
@@ -149,13 +138,13 @@ export default function Navbar() {
       <div className={`
         fixed top-0 right-0 h-full w-80 z-50
         transform transition-transform duration-500 ease-in-out
-        backdrop-blur-2xl bg-white/30 border-l border-white/20
+        backdrop-blur-xl bg-white/10 border-l border-white/10
         shadow-2xl
         ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}
       `}>
         <div className="flex flex-col h-full">
           {/* Mobile Menu Header */}
-          <div className="flex items-center justify-between p-6 border-b border-white/20">
+          <div className="flex items-center justify-between p-6 border-b border-white/10">
             <div className="flex items-center space-x-2 text-white">
               <span className="text-xl">{greeting.icon}</span>
               <span className="font-medium text-lg">{greeting.text}</span>
@@ -176,8 +165,8 @@ export default function Navbar() {
                   className={`
                     w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300
                     ${activeSection === section.id 
-                      ? 'bg-white/20 text-white font-bold shadow-lg' 
-                      : 'text-white/80 hover:text-white hover:bg-white/10'
+                      ? 'bg-white/15 text-white font-semibold shadow-md' 
+                      : 'text-white/80 hover:text-white hover:bg-white/5'
                     }
                   `}
                   onClick={() => scrollToSection(section.id)}
@@ -193,7 +182,7 @@ export default function Navbar() {
       {/* Backdrop for mobile menu */}
       {isMobileMenuOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
+          className="fixed inset-0 z-40 bg-black/10 backdrop-blur-sm"
           onClick={toggleMobileMenu}
         />
       )}

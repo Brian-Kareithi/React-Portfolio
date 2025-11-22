@@ -8,7 +8,7 @@ interface Particle {
   vy: number;
   radius: number;
   color: string;
-  depth: number; // New property for parallax effect
+  depth: number;
 }
 
 const DynamicBackground = () => {
@@ -16,7 +16,9 @@ const DynamicBackground = () => {
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number | undefined>(undefined);
   const scrollYRef = useRef<number>(0);
+  const targetScrollYRef = useRef<number>(0);
   const lastScrollYRef = useRef<number>(0);
+  const scrollLerpRef = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,9 +27,22 @@ const DynamicBackground = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Handle scroll events for parallax effect
+    // Smooth scroll handling with requestAnimationFrame
     const handleScroll = () => {
-      scrollYRef.current = window.scrollY;
+      targetScrollYRef.current = window.scrollY;
+    };
+
+    // Smooth scroll animation
+    const smoothScrollUpdate = () => {
+      const currentScroll = scrollYRef.current;
+      const targetScroll = targetScrollYRef.current;
+      
+      // Very subtle easing for smooth movement (0.03 is very slow, almost imperceptible)
+      scrollYRef.current = currentScroll + (targetScroll - currentScroll) * 0.03;
+      
+      // Track the actual movement for parallax
+      scrollLerpRef.current = scrollYRef.current - lastScrollYRef.current;
+      lastScrollYRef.current = scrollYRef.current;
     };
 
     // Set canvas size
@@ -59,26 +74,27 @@ const DynamicBackground = () => {
     const animate = () => {
       if (!ctx || !canvas) return;
 
+      // Update smooth scroll position
+      smoothScrollUpdate();
+
       // Clear canvas with transparent background
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const particles = particlesRef.current;
-      const currentScrollY = scrollYRef.current;
-      const scrollDelta = (currentScrollY - lastScrollYRef.current) * 0.1; // Reduced sensitivity
-      lastScrollYRef.current = currentScrollY;
+      const scrollDelta = scrollLerpRef.current * 0.05; // Very subtle parallax effect
 
       // Update and draw particles
       for (let i = 0; i < particles.length; i++) {
         const particle = particles[i];
 
-        // Apply parallax scrolling effect based on depth - MOVING IN OPPOSITE DIRECTION
-        // Particles with lower depth (closer) move faster in opposite direction, higher depth (further) move slower
-        const parallaxFactor = particle.depth * 2; // Adjust this multiplier to control parallax strength
-        particle.y -= scrollDelta * parallaxFactor; // Changed to negative for opposite direction
+        // Apply very subtle parallax scrolling effect based on depth
+        // Using a much smaller multiplier for barely noticeable movement
+        const parallaxFactor = particle.depth * 0.8; // Reduced from 2.0 to 0.8
+        particle.y -= scrollDelta * parallaxFactor;
 
-        // Update position with regular movement
-        particle.x += particle.vx * 0.8;
-        particle.y += particle.vy * 0.8;
+        // Update position with regular movement (slightly reduced)
+        particle.x += particle.vx * 0.6;
+        particle.y += particle.vy * 0.6;
 
         // Handle particles going out of bounds due to scrolling
         // Wrap around vertically for continuous effect
@@ -96,12 +112,12 @@ const DynamicBackground = () => {
           particle.x = particle.x <= 0 ? 0 : canvas.width;
         }
 
-        // Add subtle randomness to movement
-        particle.vx += (Math.random() - 0.5) * 0.08;
-        particle.vy += (Math.random() - 0.5) * 0.08;
+        // Add very subtle randomness to movement
+        particle.vx += (Math.random() - 0.5) * 0.05;
+        particle.vy += (Math.random() - 0.5) * 0.05;
 
-        // Limit velocity
-        const maxSpeed = 1.8;
+        // Limit velocity (reduced for smoother movement)
+        const maxSpeed = 1.2;
         const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
         if (speed > maxSpeed) {
           particle.vx = (particle.vx / speed) * maxSpeed;
@@ -109,9 +125,9 @@ const DynamicBackground = () => {
         }
 
         // Adjust particle appearance based on depth
-        const depthAlpha = 0.3 + (particle.depth * 0.3); // Deeper particles are more visible
+        const depthAlpha = 0.3 + (particle.depth * 0.3);
         const depthColor = `rgba(255, 255, 255, ${depthAlpha})`;
-        const depthRadius = particle.radius * (0.8 + particle.depth * 0.4); // Deeper particles are slightly larger
+        const depthRadius = particle.radius * (0.8 + particle.depth * 0.4);
 
         // Draw particle with glow effect
         ctx.beginPath();
@@ -177,7 +193,7 @@ const DynamicBackground = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-50 pointer-events-none">
+    <div className="fixed inset-0 -z-50 pointer-events-none overflow-hidden">
       {/* Solid background color */}
       <div className="absolute inset-0 bg-[#0f172a]" />
       
@@ -195,21 +211,56 @@ const DynamicBackground = () => {
       {/* Subtle gradient overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10" />
       
-      {/* Gradient Orbs with parallax effect - MOVING IN OPPOSITE DIRECTION */}
-      <div 
-        className="absolute top-1/4 -left-10 w-48 h-48 sm:w-72 sm:h-72 bg-purple-500/20 rounded-full blur-3xl animate-float"
-        style={{
-          transform: `translateY(${-scrollYRef.current * 0.3}px)`, // Negative for opposite direction
-        }}
-      ></div>
-      <div 
-        className="absolute bottom-1/4 -right-10 w-64 h-64 sm:w-96 sm:h-96 bg-blue-500/20 rounded-full blur-3xl animate-float-delayed"
-        style={{
-          transform: `translateY(${-scrollYRef.current * 0.2}px)`, // Negative for opposite direction
-        }}
-      ></div>
+      {/* Gradient Orbs with very subtle parallax effect */}
+      <ParallaxOrb 
+        className="absolute top-1/4 -left-10 w-48 h-48 sm:w-72 sm:h-72 bg-purple-500/20 rounded-full blur-3xl"
+        depth={0.3}
+        scrollYRef={scrollYRef}
+      />
+      <ParallaxOrb 
+        className="absolute bottom-1/4 -right-10 w-64 h-64 sm:w-96 sm:h-96 bg-blue-500/20 rounded-full blur-3xl"
+        depth={0.2}
+        scrollYRef={scrollYRef}
+      />
     </div>
   );
+};
+
+// Separate component for parallax orbs with smooth movement
+const ParallaxOrb = ({ 
+  className, 
+  depth, 
+  scrollYRef 
+}: { 
+  className: string; 
+  depth: number;
+  scrollYRef: React.RefObject<number>;
+}) => {
+  const orbRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const orb = orbRef.current;
+    if (!orb) return;
+
+    let animationFrameId: number;
+    
+    const updateOrbPosition = () => {
+      // Use the same smooth scroll value with very subtle parallax
+      const translateY = -scrollYRef.current * depth * 0.1; // Reduced multiplier
+      orb.style.transform = `translateY(${translateY}px)`;
+      animationFrameId = requestAnimationFrame(updateOrbPosition);
+    };
+
+    updateOrbPosition();
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [depth, scrollYRef]);
+
+  return <div ref={orbRef} className={className} />;
 };
 
 export default DynamicBackground;
