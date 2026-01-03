@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import DynamicBackground from "./components/DynamicBackground";
+import LoadingScreen from "./components/LoadingScreen";
 import Navbar from "./components/NavBar";
 import ScrollBar from "./components/ScrollBar";
-import LoadingScreen from "./components/LoadingScreen";
 
 import "./globals.css";
 
