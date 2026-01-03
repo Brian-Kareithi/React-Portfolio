@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {isLoading && <LoadingScreen />}
         <DynamicBackground />
         
-        <div className={`transition-opacity duration-600 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`transition-opacity duration-600 ${isLoading ? 'opacity-0' : 'opacity-90'}`}>
           <Navbar />
           <ScrollBar />
         </div>
