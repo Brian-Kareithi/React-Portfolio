@@ -35,7 +35,8 @@ export default function HomePage() {
   }, [displayText, isDeleting, currentRole]);
 
   return (
-    <main className="relative flex flex-col items-center justify-start min-h-screen overflow-x-hidden scroll-smooth">
+    <section id="HomePage" className="min-h-screen flex items-end justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-b from-black to-blue-1000">
+      
       <DynamicBackground />
       <Navbar />
 
@@ -105,6 +106,6 @@ export default function HomePage() {
           </a>
         </div>
       </section>
-    </main>
+    </section>
   );
 }

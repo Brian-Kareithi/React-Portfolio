@@ -114,10 +114,10 @@ const projects: Project[] = [
 export default function Projects() {
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "app": return "#3B82F6";
-      case "webapp": return "#8B5CF6";
-      case "tool": return "#10B981";
-      default: return "#6B7280";
+      case "app": return "bg-blue-100 text-blue-800";
+      case "webapp": return "bg-purple-100 text-purple-800";
+      case "tool": return "bg-green-100 text-green-800";
+      default: return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -126,36 +126,36 @@ export default function Projects() {
   };
 
   return (
-    <section className="min-h-screen w-full py-20 px-4 relative" id="projects">
-      <div className="max-w-7xl mx-auto w-full">
+    <section className="min-h-screen w-full py-16 px-4 bg-gray-900" id="projects">
+      <div className="max-w-6xl mx-auto w-full">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-4 text-white bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
             My Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto rounded-full mb-6"></div>
-          <p className="text-xl text-gray-200 max-w-2xl mx-auto mb-4">
+          <div className="w-20 h-1 bg-gray-300 mx-auto mb-6"></div>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-4">
             A showcase of my work - some were collaborative efforts with other talented developers
           </p>
-          <div className="flex items-center justify-center gap-2 text-purple-300">
-            <FaUsers className="text-lg" />
-            <span className="text-sm font-medium">Indicates collaborative project</span>
+          <div className="flex items-center justify-center gap-2 text-gray-500">
+            <FaUsers className="text-base" />
+            <span className="text-sm">Indicates collaborative project</span>
           </div>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div 
               key={index}
-              className="border border-white/20 bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden shadow-2xl shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-500 hover:border-purple-400/60 group"
+              className="border border-gray-200 bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
             >
               {/* Project Image */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-48 bg-gray-100 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
@@ -164,57 +164,51 @@ export default function Projects() {
                   }}
                 />
                 <div 
-                  className="image-fallback hidden absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 items-center justify-center text-white text-2xl font-bold"
+                  className="image-fallback hidden absolute inset-0 bg-gray-200 items-center justify-center text-gray-400 text-2xl font-bold"
                 >
                   {project.title.charAt(0)}
                 </div>
                 
-                {/* Project Type Badge */}
-                <div 
-                  className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold text-white backdrop-blur-sm border border-white/20"
-                  style={{ backgroundColor: `${getTypeColor(project.type)}80` }}
-                >
-                  {project.type.toUpperCase()}
-                </div>
-                
-                {/* Collaboration Badge */}
-                {project.collaboration && (
-                  <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-blue-500/80 backdrop-blur-sm text-xs font-bold text-white flex items-center gap-1 border border-blue-400/30">
-                    <FaUsers className="text-xs" />
-                    Team
-                  </div>
-                )}
-                
                 {/* Status Badge */}
-                <div className={`absolute bottom-3 right-3 px-3 py-1 rounded-full text-xs font-bold text-white backdrop-blur-sm border border-white/20 ${getStatusColor(project.status || 'completed')}`}>
+                <div className={`absolute bottom-3 right-3 px-3 py-1 rounded-full text-xs font-medium text-white ${project.status === "in-progress" ? "bg-yellow-500" : "bg-green-500"}`}>
                   {project.status === "in-progress" ? "In Progress" : "Completed"}
                 </div>
               </div>
               
               {/* Project Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">
-                  {project.title}
-                </h3>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-lg font-bold text-gray-900">
+                    {project.title}
+                  </h3>
+                  <div className="flex items-center gap-2">
+                    <span className={`px-2 py-1 rounded text-xs font-medium ${getTypeColor(project.type)}`}>
+                      {project.type}
+                    </span>
+                    {project.collaboration && (
+                      <FaUsers className="text-blue-500 text-sm" />
+                    )}
+                  </div>
+                </div>
                 
-                <p className="text-gray-200 mb-4 leading-relaxed">
+                <p className="text-gray-600 mb-4 text-sm leading-relaxed">
                   {project.description}
                 </p>
                 
                 {/* Tech Stack */}
                 {project.techStack && (
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.techStack.slice(0, 3).map((tech, i) => (
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.techStack.slice(0, 4).map((tech, i) => (
                       <span 
                         key={i}
-                        className="px-2 py-1 border border-white/20 rounded-full text-xs text-gray-200 backdrop-blur-sm"
+                        className="px-2 py-1 bg-gray-100 border border-gray-200 rounded text-xs text-gray-700"
                       >
                         {tech}
                       </span>
                     ))}
-                    {project.techStack.length > 3 && (
-                      <span className="px-2 py-1 border border-white/20 rounded-full text-xs text-gray-300 backdrop-blur-sm">
-                        +{project.techStack.length - 3}
+                    {project.techStack.length > 4 && (
+                      <span className="px-2 py-1 bg-gray-100 border border-gray-200 rounded text-xs text-gray-500">
+                        +{project.techStack.length - 4}
                       </span>
                     )}
                   </div>
@@ -226,9 +220,9 @@ export default function Projects() {
                     href={project.github} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 border border-white/20 hover:border-purple-400 rounded-lg text-white transition-all duration-300 hover:scale-105 flex-1 justify-center backdrop-blur-sm hover:bg-purple-500/10"
+                    className="flex items-center gap-2 px-4 py-2 border border-gray-300 hover:border-gray-400 rounded-lg text-gray-700 hover:text-gray-900 transition-all duration-200 flex-1 justify-center hover:bg-gray-50"
                   >
-                    <FaGithub className="text-lg" />
+                    <FaGithub className="text-base" />
                     <span className="text-sm font-medium">Code</span>
                   </a>
                   
@@ -237,7 +231,7 @@ export default function Projects() {
                       href={project.demo} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-purple-600/80 hover:bg-purple-700/80 border border-purple-500/50 rounded-lg text-white transition-all duration-300 hover:scale-105 flex-1 justify-center backdrop-blur-sm"
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-900 hover:bg-black text-white rounded-lg transition-all duration-200 flex-1 justify-center"
                     >
                       <FaExternalLinkAlt className="text-sm" />
                       <span className="text-sm font-medium">Demo</span>
@@ -251,18 +245,18 @@ export default function Projects() {
 
         {/* Footer */}
         <div className="text-center mt-16">
-          <div className="border border-white/20 bg-white/5 backdrop-blur-xl rounded-2xl p-8 max-w-2xl mx-auto shadow-2xl shadow-purple-500/10">
-            <p className="text-gray-200 mb-4 text-lg">
+          <div className="border border-gray-200 bg-gray-50 rounded-xl p-8 max-w-2xl mx-auto">
+            <p className="text-gray-700 mb-4">
               It's impossible to list all my projects here - this page would be way too long! But these are some of my favorites.
             </p>
-            <p className="text-gray-200 mb-6 text-lg">
+            <p className="text-gray-600 mb-6">
               I'm constantly experimenting with new technologies and building solutions to real-world problems.
             </p>
             <a 
               href="https://github.com/Brian-Kareithi" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-3 bg-gradient-to-r from-purple-600/80 to-pink-600/80 hover:from-purple-700 hover:to-pink-700 rounded-xl text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-purple-400/30"
+              className="inline-flex items-center gap-3 px-8 py-3 bg-gray-900 hover:bg-black text-white rounded-lg font-medium transition-colors duration-200"
             >
               <FaGithub className="text-xl" />
               Explore More on GitHub
