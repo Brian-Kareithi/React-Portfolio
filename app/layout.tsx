@@ -5,6 +5,7 @@ import DynamicBackground from "./components/DynamicBackground";
 import Navbar from "./components/NavBar";
 import ScrollBar from "./components/ScrollBar";
 import LoadingScreen from "./components/LoadingScreen";
+
 import "./globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
