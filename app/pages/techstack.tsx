@@ -1,10 +1,8 @@
 "use client";
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { BiLogoTypescript } from 'react-icons/bi';
 import { DiMongodb, DiMsqlServer, DiRuby } from 'react-icons/di';
 import {
-  FaApple,
-  FaBootstrap,
   FaCss3,
   FaDocker,
   FaHtml5,
@@ -15,23 +13,13 @@ import {
   FaWindows,
 } from 'react-icons/fa';
 import {
-  SiAndroid,
-  SiAwsamplify,
-  SiCanva,
-  SiCplusplus,
   SiExpress,
   SiFastify,
-  SiFigma,
   SiFirebase,
-  SiFlutter,
   SiJavascript,
-  SiKotlin,
-  SiMui,
   SiMysql,
   SiPostgresql,
-  SiProxmox,
   SiPython,
-  SiShadcnui,
   SiSupabase,
   SiTailwindcss,
 } from 'react-icons/si';
@@ -40,6 +28,7 @@ import { TbBrandNextjs } from 'react-icons/tb';
 interface TechItem {
   title: string;
   icon: ReactNode;
+  level: 'proficient' | 'advanced' | 'intermediate' | 'familiar';
 }
 
 interface TechCategory {
@@ -51,110 +40,64 @@ interface TechCategory {
 const techs: TechCategory[] = [
   {
     heading: 'Frontend',
-    description: 'Building responsive and dynamic user interfaces.',
+    description: 'Modern frontend technologies and frameworks',
     items: [
-      { title: 'HTML5', icon: <FaHtml5 /> },
-      { title: 'CSS3', icon: <FaCss3 /> },
-      { title: 'JavaScript', icon: <SiJavascript /> },
-      { title: 'TypeScript', icon: <BiLogoTypescript /> },
-      { title: 'React.js', icon: <FaReact /> },
-      { title: 'Next.js', icon: <TbBrandNextjs /> },
-      { title: 'Tailwind CSS', icon: <SiTailwindcss /> },
-      { title: 'Bootstrap', icon: <FaBootstrap /> },
-      { title: 'Material UI', icon: <SiMui /> },
-      { title: 'ShadCn UI', icon: <SiShadcnui /> },
-    ],
-  },
-  {
-    heading: 'Database',
-    description: 'Managing and designing efficient data storage solutions.',
-    items: [
-      { title: 'MongoDB', icon: <DiMongodb /> },
-      { title: 'MySQL', icon: <SiMysql /> },
-      { title: 'PostgreSQL', icon: <SiPostgresql /> },
-      { title: 'MsSQL', icon: <DiMsqlServer /> },
-      { title: 'Firebase', icon: <SiFirebase /> },
-      { title: 'Supabase', icon: <SiSupabase /> },
-      { title: 'Redis', icon: <span className="text-lg">🔴</span> },
-      { title: 'SQLite', icon: <span className="text-lg">🗃️</span> },
-    ],
-  },
-  {
-    heading: 'Tools',
-    description: 'Design, coding, and productivity tools.',
-    items: [
-      { title: 'Figma', icon: <SiFigma /> },
-      { title: 'Canva', icon: <SiCanva /> },
-      { title: 'VS Code', icon: <span className="text-lg">💻</span> },
-      { title: 'Git', icon: <span className="text-lg">📐</span> },
-      { title: 'NPM', icon: <span className="text-lg">📦</span> },
-      { title: 'ESLint', icon: <span className="text-lg">✅</span> },
-      { title: 'Prettier', icon: <span className="text-lg">✨</span> },
-      { title: 'Postman', icon: <span className="text-lg">📮</span> },
-      { title: 'Terminal', icon: <span className="text-lg">⌨️</span> },
-      { title: 'Jira', icon: <span className="text-lg">📊</span> },
+      { title: 'HTML5', icon: <FaHtml5 />, level: 'proficient' },
+      { title: 'CSS3', icon: <FaCss3 />, level: 'proficient' },
+      { title: 'JavaScript', icon: <SiJavascript />, level: 'proficient' },
+      { title: 'TypeScript', icon: <BiLogoTypescript />, level: 'advanced' },
+      { title: 'React', icon: <FaReact />, level: 'proficient' },
+      { title: 'Next.js', icon: <TbBrandNextjs />, level: 'advanced' },
+      { title: 'Tailwind CSS', icon: <SiTailwindcss />, level: 'proficient' },
     ],
   },
   {
     heading: 'Backend',
-    description: 'Creating robust APIs and server-side applications.',
+    description: 'Server-side and API development',
     items: [
-      { title: 'Node.js', icon: <FaNodeJs /> },
-      { title: 'Express.js', icon: <SiExpress /> },
-      { title: 'Fastify', icon: <SiFastify /> },
-      { title: 'Java', icon: <FaJava /> },
-      { title: 'Python', icon: <SiPython /> },
-      { title: 'Ruby', icon: <DiRuby /> },
-      { title: 'C++', icon: <SiCplusplus /> },
-      { title: 'Flutter', icon: <SiFlutter /> },
-      { title: 'Kotlin', icon: <SiKotlin /> },
-      { title: 'GraphQL', icon: <span className="text-lg">📈</span> },
+      { title: 'Node.js', icon: <FaNodeJs />, level: 'proficient' },
+      { title: 'Express', icon: <SiExpress />, level: 'proficient' },
+      { title: 'Fastify', icon: <SiFastify />, level: 'intermediate' },
+      { title: 'Python', icon: <SiPython />, level: 'advanced' },
+      { title: 'Java', icon: <FaJava />, level: 'intermediate' },
+      { title: 'Ruby', icon: <DiRuby />, level: 'familiar' },
     ],
   },
   {
-    heading: 'DevOps',
-    description: 'Deployments, CI/CD, and server management.',
+    heading: 'Database',
+    description: 'Data storage and management systems',
     items: [
-      { title: 'Docker', icon: <FaDocker /> },
-      { title: 'GitHub', icon: <span className="text-lg">🚀</span> },
-      { title: 'AWS', icon: <SiAwsamplify /> },
-      { title: 'Vercel', icon: <span className="text-lg">▲</span> },
-      { title: 'Netlify', icon: <span className="text-lg">🌐</span> },
-      { title: 'Proxmox', icon: <SiProxmox /> },
-      { title: 'Linux', icon: <FaLinux /> },
-      { title: 'Windows', icon: <FaWindows /> },
-      { title: 'MacOS', icon: <FaApple /> },
-      { title: 'Android', icon: <SiAndroid /> },
+      { title: 'MongoDB', icon: <DiMongodb />, level: 'proficient' },
+      { title: 'PostgreSQL', icon: <SiPostgresql />, level: 'advanced' },
+      { title: 'MySQL', icon: <SiMysql />, level: 'proficient' },
+      { title: 'MsSQL', icon: <DiMsqlServer />, level: 'intermediate' },
+      { title: 'Firebase', icon: <SiFirebase />, level: 'intermediate' },
+      { title: 'Supabase', icon: <SiSupabase />, level: 'familiar' },
     ],
   },
   {
-    heading: 'Fundamentals',
-    description: 'Core web development concepts and best practices.',
+    heading: 'DevOps & Tools',
+    description: 'Deployment, infrastructure, and development tools',
     items: [
-      { title: 'Responsive Design', icon: <span className="text-lg">📱</span> },
-      { title: 'Cross Browser', icon: <span className="text-lg">🌐</span> },
-      { title: 'Performance Optimization', icon: <span className="text-lg">⚡</span> },
-      { title: 'Component Driven', icon: <span className="text-lg">🧩</span> },
-      { title: 'REST APIs', icon: <span className="text-lg">🔌</span> },
-      { title: 'Web Security', icon: <span className="text-lg">🔒</span> },
-      { title: 'Testing', icon: <span className="text-lg">🧪</span> },
-      { title: 'SEO', icon: <span className="text-lg">🔍</span> },
-      { title: 'Accessibility', icon: <span className="text-lg">♿</span> },
-      { title: 'Clean Code', icon: <span className="text-lg">📝</span> },
+      { title: 'Docker', icon: <FaDocker />, level: 'intermediate' },
+      { title: 'Linux', icon: <FaLinux />, level: 'proficient' },
+      { title: 'Git', icon: <span className="text-sm">Git</span>, level: 'proficient' },
+      { title: 'Windows Server', icon: <FaWindows />, level: 'intermediate' },
+      { title: 'AWS', icon: <span className="text-sm">AWS</span>, level: 'intermediate' },
+      { title: 'CI/CD', icon: <span className="text-sm">CI/CD</span>, level: 'intermediate' },
     ],
   },
 ];
 
-const TechStack = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
+const levelConfig = {
+  proficient: { label: 'Proficient', color: 'border-blue-500 bg-blue-500/10 text-blue-400' },
+  advanced: { label: 'Advanced', color: 'border-green-500 bg-green-500/10 text-green-400' },
+  intermediate: { label: 'Intermediate', color: 'border-yellow-500 bg-yellow-500/10 text-yellow-400' },
+  familiar: { label: 'Familiar', color: 'border-gray-500 bg-gray-500/10 text-gray-400' },
+};
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
+const TechStack = () => {
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
 
   const toggleCategory = (heading: string) => {
     setExpandedCategories(prev => ({
@@ -164,197 +107,134 @@ const TechStack = () => {
   };
 
   const getVisibleItems = (items: TechItem[], heading: string) => {
-    return expandedCategories[heading] ? items : items.slice(0, 6);
+    return expandedCategories[heading] ? items : items.slice(0, 4);
   };
 
   return (
-    <section className="min-h-screen w-full py-12 px-4 relative bg-gray-900" id="techstack">
-      <div className="max-w-7xl mx-auto w-full">
+    <section className="w-full py-12 px-4 relative" id="techstack">
+      <div className="max-w-6xl mx-auto w-full">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-            Tech Stack
+        <div className="text-center mb-12">
+          <h1 className="text-3xl font-bold mb-3 text-white">
+            Technical Stack
           </h1>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            From frontend frameworks to backend systems, databases, DevOps, and key development principles
+          <p className="text-gray-400 max-w-2xl mx-auto text-sm">
+            A curated selection of technologies I work with, categorized by proficiency
           </p>
         </div>
 
-        {/* Grid Layout - 3 columns on desktop, 1 on mobile */}
-        <div className={`grid grid-cols-1 lg:grid-cols-3 gap-6 ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-700`}>
-          {/* Column 1 */}
-          <div className="space-y-6">
-            {/* Frontend Card */}
-            <div className="border border-gray-700 bg-gray-800/50 rounded-xl p-6 hover:border-gray-600 transition-all duration-300">
-              <div className="mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">Frontend</h3>
-                <p className="text-gray-400 text-sm">Building responsive and dynamic user interfaces.</p>
-                <div className="w-full h-px bg-gray-700 mt-4"></div>
+        {/* Legend */}
+        <div className="mb-8">
+          <div className="text-sm text-gray-500 mb-3 text-center">Proficiency Levels</div>
+          <div className="flex flex-wrap justify-center gap-3">
+            {Object.entries(levelConfig).map(([key, config]) => (
+              <div key={key} className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${config.color.split(' ')[0]}`}></div>
+                <span className="text-xs text-gray-400">{config.label}</span>
               </div>
-              
-              <div className="grid grid-cols-2 gap-3">
-                {getVisibleItems(techs[0].items, techs[0].heading).map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-3 border border-gray-700 bg-gray-800/30 rounded-lg hover:border-gray-600 hover:bg-gray-800 transition-all duration-300">
-                    <div className="text-xl text-blue-400">{item.icon}</div>
-                    <div className="text-white font-medium text-sm">{item.title}</div>
-                  </div>
-                ))}
-              </div>
-              
-              {techs[0].items.length > 6 && (
-                <button 
-                  onClick={() => toggleCategory(techs[0].heading)}
-                  className="w-full mt-4 py-2 text-sm text-blue-400 hover:text-blue-300 border border-gray-700 rounded-lg hover:border-blue-500 transition-all duration-300"
-                >
-                  {expandedCategories[techs[0].heading] ? 'Show Less' : 'Show More'}
-                </button>
-              )}
-            </div>
-
-            {/* Database Card */}
-            <div className="border border-gray-700 bg-gray-800/50 rounded-xl p-6 hover:border-gray-600 transition-all duration-300">
-              <div className="mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">Database</h3>
-                <p className="text-gray-400 text-sm">Managing and designing efficient data storage solutions.</p>
-                <div className="w-full h-px bg-gray-700 mt-4"></div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-3">
-                {getVisibleItems(techs[1].items, techs[1].heading).map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-3 border border-gray-700 bg-gray-800/30 rounded-lg hover:border-gray-600 hover:bg-gray-800 transition-all duration-300">
-                    <div className="text-xl text-green-400">{item.icon}</div>
-                    <div className="text-white font-medium text-sm">{item.title}</div>
-                  </div>
-                ))}
-              </div>
-              
-              {techs[1].items.length > 6 && (
-                <button 
-                  onClick={() => toggleCategory(techs[1].heading)}
-                  className="w-full mt-4 py-2 text-sm text-green-400 hover:text-green-300 border border-gray-700 rounded-lg hover:border-green-500 transition-all duration-300"
-                >
-                  {expandedCategories[techs[1].heading] ? 'Show Less' : 'Show More'}
-                </button>
-              )}
-            </div>
+            ))}
           </div>
+        </div>
 
-          {/* Column 2 */}
-          <div className="space-y-6">
-            {/* Tools Card */}
-            <div className="border border-gray-700 bg-gray-800/50 rounded-xl p-6 hover:border-gray-600 transition-all duration-300">
-              <div className="mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">Tools</h3>
-                <p className="text-gray-400 text-sm">Design, coding, and productivity tools.</p>
-                <div className="w-full h-px bg-gray-700 mt-4"></div>
+        {/* Compact Grid - 2 columns on desktop, 1 on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {techs.map((category) => (
+            <div key={category.heading} className="border border-white/10 bg-white/5 rounded-lg p-4 hover:border-white/20 transition-all duration-200">
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-lg font-semibold text-white">{category.heading}</h3>
+                  <span className="text-xs text-gray-500 bg-white/5 px-2 py-1 rounded">
+                    {category.items.length} items
+                  </span>
+                </div>
+                <p className="text-sm text-gray-400 mb-4">{category.description}</p>
+                <div className="w-full h-px bg-white/10 mb-4"></div>
               </div>
               
-              <div className="grid grid-cols-2 gap-3">
-                {getVisibleItems(techs[2].items, techs[2].heading).map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-3 border border-gray-700 bg-gray-800/30 rounded-lg hover:border-gray-600 hover:bg-gray-800 transition-all duration-300">
-                    <div className="text-xl text-purple-400">{item.icon}</div>
-                    <div className="text-white font-medium text-sm">{item.title}</div>
-                  </div>
-                ))}
+              <div className="space-y-2">
+                {getVisibleItems(category.items, category.heading).map((item, idx) => {
+                  const level = levelConfig[item.level];
+                  return (
+                    <div key={idx} className="flex items-center justify-between p-3 border border-white/5 bg-white/2 rounded hover:bg-white/5 transition-all duration-200">
+                      <div className="flex items-center gap-3">
+                        <div className="text-lg text-white/80">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium text-white">{item.title}</div>
+                          <div className={`text-xs px-2 py-0.5 rounded-full border ${level.color} mt-1`}>
+                            {level.label}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
               
-              {techs[2].items.length > 6 && (
+              {category.items.length > 4 && (
                 <button 
-                  onClick={() => toggleCategory(techs[2].heading)}
-                  className="w-full mt-4 py-2 text-sm text-purple-400 hover:text-purple-300 border border-gray-700 rounded-lg hover:border-purple-500 transition-all duration-300"
+                  onClick={() => toggleCategory(category.heading)}
+                  className="w-full mt-4 py-2 text-xs text-white/70 hover:text-white border border-white/10 rounded hover:border-white/20 transition-all duration-200"
                 >
-                  {expandedCategories[techs[2].heading] ? 'Show Less' : 'Show More'}
+                  {expandedCategories[category.heading] ? 'Show Less' : `Show ${category.items.length - 4} More`}
                 </button>
               )}
             </div>
+          ))}
+        </div>
 
-            {/* Backend Card */}
-            <div className="border border-gray-700 bg-gray-800/50 rounded-xl p-6 hover:border-gray-600 transition-all duration-300">
-              <div className="mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">Backend</h3>
-                <p className="text-gray-400 text-sm">Creating robust APIs and server-side applications.</p>
-                <div className="w-full h-px bg-gray-700 mt-4"></div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-3">
-                {getVisibleItems(techs[3].items, techs[3].heading).map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-3 border border-gray-700 bg-gray-800/30 rounded-lg hover:border-gray-600 hover:bg-gray-800 transition-all duration-300">
-                    <div className="text-xl text-orange-400">{item.icon}</div>
-                    <div className="text-white font-medium text-sm">{item.title}</div>
-                  </div>
-                ))}
-              </div>
-              
-              {techs[3].items.length > 6 && (
-                <button 
-                  onClick={() => toggleCategory(techs[3].heading)}
-                  className="w-full mt-4 py-2 text-sm text-orange-400 hover:text-orange-300 border border-gray-700 rounded-lg hover:border-orange-500 transition-all duration-300"
-                >
-                  {expandedCategories[techs[3].heading] ? 'Show Less' : 'Show More'}
-                </button>
-              )}
+        {/* Summary Stats */}
+        <div className="mt-12">
+          <div className="border border-white/10 bg-white/5 rounded-lg p-6">
+            <div className="text-center mb-6">
+              <h3 className="text-lg font-semibold text-white mb-2">Stack Summary</h3>
+              <p className="text-sm text-gray-400">
+                Distribution of technologies by proficiency level
+              </p>
             </div>
-          </div>
-
-          {/* Column 3 */}
-          <div className="space-y-6">
-            {/* DevOps Card */}
-            <div className="border border-gray-700 bg-gray-800/50 rounded-xl p-6 hover:border-gray-600 transition-all duration-300">
-              <div className="mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">DevOps</h3>
-                <p className="text-gray-400 text-sm">Deployments, CI/CD, and server management.</p>
-                <div className="w-full h-px bg-gray-700 mt-4"></div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-3">
-                {getVisibleItems(techs[4].items, techs[4].heading).map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-3 border border-gray-700 bg-gray-800/30 rounded-lg hover:border-gray-600 hover:bg-gray-800 transition-all duration-300">
-                    <div className="text-xl text-red-400">{item.icon}</div>
-                    <div className="text-white font-medium text-sm">{item.title}</div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {Object.entries(
+                techs.flatMap(cat => cat.items).reduce((acc, item) => {
+                  acc[item.level] = (acc[item.level] || 0) + 1;
+                  return acc;
+                }, {} as Record<string, number>)
+              ).map(([level, count]) => {
+                const total = techs.flatMap(cat => cat.items).length;
+                const percentage = Math.round((count / total) * 100);
+                const config = levelConfig[level as keyof typeof levelConfig];
+                
+                return (
+                  <div key={level} className="text-center p-4 border border-white/10 rounded">
+                    <div className={`text-2xl font-bold mb-2 ${config.color.split(' ')[2]}`}>
+                      {count}
+                    </div>
+                    <div className="text-sm font-medium text-white mb-1">
+                      {config.label}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {percentage}% of stack
+                    </div>
                   </div>
-                ))}
-              </div>
-              
-              {techs[4].items.length > 6 && (
-                <button 
-                  onClick={() => toggleCategory(techs[4].heading)}
-                  className="w-full mt-4 py-2 text-sm text-red-400 hover:text-red-300 border border-gray-700 rounded-lg hover:border-red-500 transition-all duration-300"
-                >
-                  {expandedCategories[techs[4].heading] ? 'Show Less' : 'Show More'}
-                </button>
-              )}
+                );
+              })}
             </div>
-
-            {/* Fundamentals Card */}
-            <div className="border border-gray-700 bg-gray-800/50 rounded-xl p-6 hover:border-gray-600 transition-all duration-300">
-              <div className="mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">Fundamentals</h3>
-                <p className="text-gray-400 text-sm">Core web development concepts and best practices.</p>
-                <div className="w-full h-px bg-gray-700 mt-4"></div>
+            
+            <div className="mt-6 pt-6 border-t border-white/10">
+              <div className="text-sm text-gray-400 text-center">
+                Total technologies: {techs.flatMap(cat => cat.items).length} across {techs.length} categories
               </div>
-              
-              <div className="grid grid-cols-2 gap-3">
-                {getVisibleItems(techs[5].items, techs[5].heading).map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-3 border border-gray-700 bg-gray-800/30 rounded-lg hover:border-gray-600 hover:bg-gray-800 transition-all duration-300">
-                    <div className="text-xl text-cyan-400">{item.icon}</div>
-                    <div className="text-white font-medium text-sm">{item.title}</div>
-                  </div>
-                ))}
-              </div>
-              
-              {techs[5].items.length > 6 && (
-                <button 
-                  onClick={() => toggleCategory(techs[5].heading)}
-                  className="w-full mt-4 py-2 text-sm text-cyan-400 hover:text-cyan-300 border border-gray-700 rounded-lg hover:border-cyan-500 transition-all duration-300"
-                >
-                  {expandedCategories[techs[5].heading] ? 'Show Less' : 'Show More'}
-                </button>
-              )}
             </div>
           </div>
         </div>
 
-      
+        {/* Footer Note */}
+        <div className="mt-8 text-center">
+          <p className="text-xs text-gray-500">
+            Technologies are regularly evaluated and updated based on project requirements and industry trends
+          </p>
+        </div>
       </div>
     </section>
   );
