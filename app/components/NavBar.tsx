@@ -85,7 +85,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Liquid Glass Navbar */}
+      {/* Transparent Glass Navbar */}
       <nav className={`
         fixed z-50 
         transition-all duration-500 ease-out
@@ -93,24 +93,19 @@ export default function Navbar() {
           ? 'w-full top-0 left-0 right-0 rounded-none' 
           : 'w-[95%] top-4 left-[2.5%] right-[2.5%] rounded-2xl'
         }
-        backdrop-blur-[2px]
-        bg-gradient-to-br from-white/[0.12] via-white/[0.08] to-white/[0.04]
-        border border-white/20
-        shadow-[0_8px_32px_0_rgba(255,255,255,0.07)]
+        backdrop-blur-[1px]
+        bg-white/[0.02]
+        border border-white/30
         before:absolute before:inset-0 before:rounded-inherit
-        before:bg-gradient-to-br before:from-white/[0.15] before:via-transparent before:to-transparent
-        before:content-[''] before:-z-10 before:opacity-0 hover:before:opacity-100
+        before:bg-gradient-to-br before:from-white/[0.05] before:via-transparent before:to-transparent
+        before:content-[''] before:-z-10 before:opacity-0 hover:before:opacity-50
         before:transition-opacity before:duration-500
-        after:absolute after:inset-0 after:rounded-inherit
-        after:bg-gradient-to-tr after:from-transparent after:via-transparent after:to-white/[0.1]
-        after:content-[''] after:-z-10 after:opacity-0 hover:after:opacity-100
-        after:transition-opacity after:duration-500
       `}>
-        <div className="flex items-center justify-between w-full px-8 py-4">
+        <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-3">
           {/* Greeting Text - Left side */}
-          <div className="flex items-center space-x-2 text-white">
-            <span className="text-lg drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">{greeting.icon}</span>
-            <span className="font-medium hidden sm:block text-white/95 drop-shadow-[0_0_4px_rgba(255,255,255,0.2)]">
+          <div className="flex items-center space-x-2">
+            <span className="text-base md:text-lg">{greeting.icon}</span>
+            <span className="font-medium hidden sm:block text-white text-sm md:text-base">
               {greeting.text}
             </span>
           </div>
@@ -121,28 +116,24 @@ export default function Navbar() {
               <button
                 key={section.id}
                 className={`
-                  relative px-5 py-2.5 rounded-xl font-medium transition-all duration-300
-                  overflow-hidden
+                  relative px-3 md:px-4 lg:px-5 py-2 rounded-xl font-medium transition-all duration-300
+                  overflow-hidden text-sm md:text-base
                   ${activeSection === section.id 
                     ? 'text-white' 
-                    : 'text-white/90 hover:text-white'
+                    : 'text-white/80 hover:text-white'
                   }
                   before:absolute before:inset-0 before:rounded-xl
-                  before:bg-gradient-to-r before:from-white/[0.15] before:via-white/[0.08] before:to-white/[0.15]
+                  before:bg-white/[0.03]
                   before:content-[''] before:opacity-0 hover:before:opacity-100
                   before:transition-opacity before:duration-300
-                  after:absolute after:inset-0 after:rounded-xl
-                  after:bg-gradient-to-br after:from-transparent after:via-white/[0.05] after:to-transparent
-                  after:content-[''] after:opacity-0 hover:after:opacity-100
-                  after:transition-opacity after:duration-300
                 `}
                 onClick={() => scrollToSection(section.id)}
               >
-                <span className="relative z-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">
+                <span className="relative z-10">
                   {section.label}
                 </span>
                 {activeSection === section.id && (
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-[1px] bg-white/40" />
                 )}
               </button>
             ))}
@@ -152,108 +143,109 @@ export default function Navbar() {
           <button 
             className="md:hidden flex flex-col space-y-1.5 p-2 group"
             onClick={toggleMobileMenu}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
             <span className={`
-              w-6 h-[1.5px] bg-gradient-to-r from-white/90 to-white/70 
+              w-5 h-[1.5px] bg-white/90 
               rounded-full transition-all duration-300 
-              ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}
+              ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}
               group-hover:bg-white
             `}></span>
             <span className={`
-              w-6 h-[1.5px] bg-gradient-to-r from-white/90 to-white/70 
+              w-5 h-[1.5px] bg-white/90 
               rounded-full transition-all duration-300 
               ${isMobileMenuOpen ? 'opacity-0' : ''}
               group-hover:bg-white
             `}></span>
             <span className={`
-              w-6 h-[1.5px] bg-gradient-to-r from-white/90 to-white/70 
+              w-5 h-[1.5px] bg-white/90 
               rounded-full transition-all duration-300 
-              ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}
+              ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}
               group-hover:bg-white
             `}></span>
           </button>
         </div>
       </nav>
 
-      {/* Liquid Glass Mobile Side Menu */}
+      {/* Responsive Mobile Side Menu - Only visible on mobile */}
       <div className={`
-        fixed top-0 right-0 h-full w-80 z-50
+        fixed top-0 right-0 h-full z-50
         transform transition-transform duration-500 ease-in-out
-        backdrop-blur-[3px]
-        bg-gradient-to-b from-white/[0.08] via-white/[0.06] to-white/[0.04]
-        border-l border-white/15
-        shadow-[0_0_60px_rgba(255,255,255,0.1)]
+        backdrop-blur-[2px]
+        bg-white/[0.03]
+        border-l border-white/30
         before:absolute before:inset-0
-        before:bg-gradient-to-tr before:from-white/[0.12] before:via-transparent before:to-transparent
-        before:content-[''] before:-z-10 before:opacity-50
-        after:absolute after:inset-0
-        after:bg-gradient-to-bl after:from-transparent after:via-transparent after:to-white/[0.08]
-        after:content-[''] after:-z-10 after:opacity-50
+        before:bg-gradient-to-tr before:from-white/[0.08] before:via-transparent before:to-transparent
+        before:content-[''] before:-z-10
+        md:hidden
+        w-full max-w-xs
         ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}
       `}>
         <div className="flex flex-col h-full">
           {/* Mobile Menu Header */}
-          <div className="flex items-center justify-between p-6 border-b border-white/15">
+          <div className="flex items-center justify-between p-5 border-b border-white/20">
             <div className="flex items-center space-x-3">
-              <span className="text-2xl drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]">
+              <span className="text-2xl">
                 {greeting.icon}
               </span>
-              <span className="font-medium text-lg text-white/95 drop-shadow-[0_0_6px_rgba(255,255,255,0.3)]">
+              <span className="font-medium text-white text-lg">
                 {greeting.text}
               </span>
             </div>
             <button 
-              className="text-white/90 text-2xl p-2 hover:bg-white/10 rounded-xl transition-all duration-300
-                       hover:text-white hover:scale-110 hover:rotate-90"
+              className="text-white/90 text-3xl p-1 hover:bg-white/5 rounded-xl transition-all duration-300
+                       hover:text-white hover:scale-110 hover:rotate-90 ml-2"
               onClick={toggleMobileMenu}
+              aria-label="Close menu"
             >
               ×
             </button>
           </div>
 
           {/* Mobile Navigation */}
-          <ul className="flex-1 p-6 space-y-3">
+          <ul className="flex-1 p-5 space-y-3">
             {sections.map((section) => (
               <li key={section.id}>
                 <button
                   className={`
-                    relative w-full text-left px-4 py-4 rounded-xl font-medium 
-                    transition-all duration-300 overflow-hidden
+                    relative w-full text-left px-5 py-4 rounded-xl font-medium 
+                    transition-all duration-300 overflow-hidden text-base
                     ${activeSection === section.id 
                       ? 'text-white' 
-                      : 'text-white/90 hover:text-white'
+                      : 'text-white/80 hover:text-white'
                     }
                     before:absolute before:inset-0 before:rounded-xl
-                    before:bg-gradient-to-r before:from-white/[0.12] before:via-white/[0.08] before:to-white/[0.12]
+                    before:bg-white/[0.03]
                     before:content-[''] before:opacity-0 hover:before:opacity-100
                     before:transition-opacity before:duration-300
-                    after:absolute after:inset-0 after:rounded-xl
-                    after:bg-gradient-to-br after:from-transparent after:via-white/[0.06] after:to-transparent
-                    after:content-[''] after:opacity-0 hover:after:opacity-100
-                    after:transition-opacity after:duration-300
                   `}
                   onClick={() => scrollToSection(section.id)}
                 >
-                  <span className="relative z-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+                  <span className="relative z-10">
                     {section.label}
                   </span>
                   {activeSection === section.id && (
-                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[2px] h-3/5 
-                                  bg-gradient-to-b from-transparent via-white/60 to-transparent" />
+                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[2px] h-3/5 bg-white/40" />
                   )}
                 </button>
               </li>
             ))}
           </ul>
+
+          {/* Menu Footer */}
+          <div className="p-5 pt-0">
+            <div className="text-center text-white/60 text-sm">
+              Navigate through sections
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Liquid Glass Backdrop for mobile menu */}
+      {/* Backdrop for mobile menu */}
       {isMobileMenuOpen && (
         <div 
-          className="fixed inset-0 z-40 
-                    backdrop-blur-[1px]
-                    bg-gradient-to-br from-white/[0.03] via-transparent to-white/[0.02]
+          className="fixed inset-0 z-40 md:hidden
+                    bg-black/[0.15]
                     transition-all duration-500"
           onClick={toggleMobileMenu}
         />
