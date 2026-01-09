@@ -59,7 +59,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="min-h-screen w-full bg-black flex items-center justify-center py-8" id="contact">
+    <section className="min-h-screen w-full bg-gradient-to-b  to-black flex items-center justify-center py-8" id="contact">
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         {/* Header - Compact */}
         <div className="text-center mb-10">
