@@ -111,7 +111,7 @@ const TechStack = () => {
   };
 
   return (
-    <section className="w-full py-12 px-4 relative" id="techstack">
+    <section className="w-full py-12 px-4 relative bg-gradient-to-b from-black to-blue-1000" id="techstack">
       <div className="max-w-6xl mx-auto w-full">
         {/* Header */}
         <div className="text-center mb-12">
