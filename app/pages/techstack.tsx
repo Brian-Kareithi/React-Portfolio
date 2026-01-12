@@ -119,7 +119,7 @@ const TechStack = () => {
             Technical Stack
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-sm">
-            A curated selection of technologies I work with, categorized by proficiency
+            A curated selection of technologies I enjoy to work with, categorized by proficiency
           </p>
         </div>
 
@@ -232,7 +232,7 @@ const TechStack = () => {
         {/* Footer Note */}
         <div className="mt-8 text-center">
           <p className="text-xs text-gray-500">
-            Technologies are regularly evaluated and updated based on project requirements and industry trends
+           "If a role requires me to familiarise myself with a certain tool i will go out of my way to make it happen"
           </p>
         </div>
       </div>

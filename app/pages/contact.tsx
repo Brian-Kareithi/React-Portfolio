@@ -63,9 +63,6 @@ export default function Contact() {
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         {/* Header - Compact */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-900/20 rounded-full mb-4 border border-blue-700/30">
-            <FaEnvelope className="text-xl text-blue-400" />
-          </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-3 text-white tracking-tight">
             Get In Touch
           </h1>
@@ -191,7 +188,7 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="John Doe"
+                      placeholder="Dwane Johnson"
                       required
                       className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 text-xs focus:outline-none focus:border-blue-500 focus:bg-gray-800 focus:ring-1 focus:ring-blue-900/50 transition-all duration-200"
                     />
@@ -206,7 +203,7 @@ export default function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="john@example.com"
+                      placeholder="dwane@gmail.com"
                       required
                       className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 text-xs focus:outline-none focus:border-blue-500 focus:bg-gray-800 focus:ring-1 focus:ring-blue-900/50 transition-all duration-200"
                     />
