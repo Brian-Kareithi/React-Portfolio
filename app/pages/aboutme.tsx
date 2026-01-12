@@ -217,7 +217,7 @@ export default function AboutMe() {
             <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-white/60 to-transparent mx-auto"></div>
           </div>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            A systematic progression through formal education, technical certifications, 
+            A systematic progression of me through formal education, technical certifications, 
             and professional experience demonstrating continuous growth and specialization.
           </p>
         </div>
@@ -246,15 +246,15 @@ export default function AboutMe() {
                   My professional journey represents a deliberate progression from foundational 
                   education through specialized certification to practical application. Each phase 
                   builds upon previous knowledge, creating a comprehensive skill set that spans 
-                  technical implementation, strategic planning, and entrepreneurial initiative.
+                  technical implementation, strategic planning, and entrepreneurial initiative, skill set you cant find inside anyone else.
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center p-4 border border-white/10 rounded-lg">
-                    <div className="text-2xl font-bold text-white">8+</div>
+                    <div className="text-2xl font-bold text-white">5+</div>
                     <div className="text-sm text-gray-400 mt-1">Years in Tech</div>
                   </div>
                   <div className="text-center p-4 border border-white/10 rounded-lg">
-                    <div className="text-2xl font-bold text-white">6</div>
+                    <div className="text-2xl font-bold text-white"> Over 6</div>
                     <div className="text-sm text-gray-400 mt-1">Certifications</div>
                   </div>
                   <div className="text-center p-4 border border-white/10 rounded-lg">
@@ -380,8 +380,8 @@ export default function AboutMe() {
               <div className="pl-12 relative">
                 <div className="text-5xl text-white/20 font-serif mb-2">"</div>
                 <p className="text-xl text-gray-300 italic leading-relaxed mb-6">
-                  I understand that was a comprehensive review of my professional chronology. 
-                  The subsequent sections will provide more concise overviews of specific technical 
+                  I understand that was a comprehensive review of my professional Journey. 
+                  The subsequent sections will provide more concise overviews of my specific technical 
                   competencies and project implementations.
                 </p>
                 <div className="text-5xl text-white/20 font-serif text-right">"</div>
