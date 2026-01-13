@@ -95,11 +95,11 @@ export default function Navbar() {
         }
         backdrop-blur-[1px]
         bg-white/[0.02]
-        border border-white/30
         before:absolute before:inset-0 before:rounded-inherit
         before:bg-gradient-to-br before:from-white/[0.05] before:via-transparent before:to-transparent
         before:content-[''] before:-z-10 before:opacity-0 hover:before:opacity-50
         before:transition-opacity before:duration-500
+        ${isScrolled ? '' : 'border border-white/30'}
       `}>
         <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-3">
           {/* Greeting Text - Left side */}
