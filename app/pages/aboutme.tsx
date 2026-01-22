@@ -129,7 +129,7 @@ const timeline: TimelineItem[] = [
     metrics: ['50+ projects delivered', '100% client satisfaction rate', 'Full-stack architecture expertise']
   },
   {
-    title: 'Frontend Developer',
+    title: 'Frontend Developer and ICT Support',
     institution: 'Steadfast Academy',
     period: '2025 - Present',
     year: 2025,
