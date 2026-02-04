@@ -83,6 +83,18 @@ export default function Navbar() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Close mobile menu on window resize (when switching to desktop)
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobileMenuOpen]);
+
   return (
     <>
       {/* Transparent Glass Navbar */}
@@ -167,7 +179,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Responsive Mobile Side Menu - Only visible on mobile */}
+      {/* Responsive Mobile Side Menu - Fixed to stay within screen bounds */}
       <div className={`
         fixed top-0 right-0 h-full z-50
         transform transition-transform duration-500 ease-in-out
@@ -178,7 +190,7 @@ export default function Navbar() {
         before:bg-gradient-to-tr before:from-white/[0.08] before:via-transparent before:to-transparent
         before:content-[''] before:-z-10
         md:hidden
-        w-full max-w-xs
+        w-[85vw] max-w-[300px] min-w-[250px]
         ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}
       `}>
         <div className="flex flex-col h-full">
@@ -202,38 +214,40 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Navigation */}
-          <ul className="flex-1 p-5 space-y-3">
-            {sections.map((section) => (
-              <li key={section.id}>
-                <button
-                  className={`
-                    relative w-full text-left px-5 py-4 rounded-xl font-medium 
-                    transition-all duration-300 overflow-hidden text-base
-                    ${activeSection === section.id 
-                      ? 'text-white' 
-                      : 'text-white/80 hover:text-white'
-                    }
-                    before:absolute before:inset-0 before:rounded-xl
-                    before:bg-white/[0.03]
-                    before:content-[''] before:opacity-0 hover:before:opacity-100
-                    before:transition-opacity before:duration-300
-                  `}
-                  onClick={() => scrollToSection(section.id)}
-                >
-                  <span className="relative z-10">
-                    {section.label}
-                  </span>
-                  {activeSection === section.id && (
-                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[2px] h-3/5 bg-white/40" />
-                  )}
-                </button>
-              </li>
-            ))}
-          </ul>
+          {/* Mobile Navigation - Scrollable if content overflows */}
+          <div className="flex-1 overflow-y-auto">
+            <ul className="p-5 space-y-3">
+              {sections.map((section) => (
+                <li key={section.id}>
+                  <button
+                    className={`
+                      relative w-full text-left px-4 py-4 rounded-xl font-medium 
+                      transition-all duration-300 overflow-hidden text-base
+                      ${activeSection === section.id 
+                        ? 'text-white' 
+                        : 'text-white/80 hover:text-white'
+                      }
+                      before:absolute before:inset-0 before:rounded-xl
+                      before:bg-white/[0.03]
+                      before:content-[''] before:opacity-0 hover:before:opacity-100
+                      before:transition-opacity before:duration-300
+                    `}
+                    onClick={() => scrollToSection(section.id)}
+                  >
+                    <span className="relative z-10">
+                      {section.label}
+                    </span>
+                    {activeSection === section.id && (
+                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[2px] h-3/5 bg-white/40" />
+                    )}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           {/* Menu Footer */}
-          <div className="p-5 pt-0">
+          <div className="p-5 pt-0 mt-auto">
             <div className="text-center text-white/60 text-sm">
               Navigate through sections
             </div>
@@ -241,7 +255,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Backdrop for mobile menu */}
+      {/* Backdrop for mobile menu - Fixed to cover entire screen */}
       {isMobileMenuOpen && (
         <div 
           className="fixed inset-0 z-40 md:hidden

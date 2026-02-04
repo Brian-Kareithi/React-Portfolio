@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface TimelineItem {
   title: string;
@@ -164,106 +165,223 @@ const timeline: TimelineItem[] = [
   },
 ];
 
-// Sort timeline by year
-const sortedTimeline = [...timeline].sort((a, b) => a.year - b.year);
+// Group timeline by category
+const groupedTimeline = timeline.reduce((acc, item) => {
+  if (!acc[item.category]) {
+    acc[item.category] = [];
+  }
+  acc[item.category].push(item);
+  return acc;
+}, {} as Record<string, TimelineItem[]>);
+
+// Sort each category by year
+Object.keys(groupedTimeline).forEach(category => {
+  groupedTimeline[category].sort((a, b) => a.year - b.year);
+});
 
 // Category configuration
 const categoryConfig = {
   education: {
     label: 'Education',
-    color: 'border-blue-400/40 bg-blue-400/10',
-    textColor: 'text-blue-400',
-    icon: '🎓'
+    icon: '🎓',
+    color: '#3b82f6', // blue-500
+    bgColor: 'rgba(59, 130, 246, 0.1)',
+    borderColor: 'rgba(59, 130, 246, 0.3)'
   },
   certification: {
-    label: 'Certification',
-    color: 'border-green-400/40 bg-green-400/10',
-    textColor: 'text-green-400',
-    icon: '📜'
+    label: 'Certifications',
+    icon: '📜',
+    color: '#10b981', // emerald-500
+    bgColor: 'rgba(16, 185, 129, 0.1)',
+    borderColor: 'rgba(16, 185, 129, 0.3)'
   },
   professional: {
     label: 'Professional',
-    color: 'border-purple-400/40 bg-purple-400/10',
-    textColor: 'text-purple-400',
-    icon: '💼'
+    icon: '💼',
+    color: '#8b5cf6', // violet-500
+    bgColor: 'rgba(139, 92, 246, 0.1)',
+    borderColor: 'rgba(139, 92, 246, 0.3)'
   },
   entrepreneurial: {
     label: 'Entrepreneurial',
-    color: 'border-amber-400/40 bg-amber-400/10',
-    textColor: 'text-amber-400',
-    icon: '🚀'
+    icon: '🚀',
+    color: '#f59e0b', // amber-500
+    bgColor: 'rgba(245, 158, 11, 0.1)',
+    borderColor: 'rgba(245, 158, 11, 0.3)'
   }
 };
 
+// Tabs for navigation
+const tabs = Object.keys(categoryConfig) as Array<keyof typeof categoryConfig>;
+
 export default function AboutMe() {
+  const [activeTab, setActiveTab] = useState<keyof typeof categoryConfig>('education');
+  const [activeSubTab, setActiveSubTab] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const tabsContainerRef = useRef<HTMLDivElement>(null);
+
+  const activeCategory = categoryConfig[activeTab];
+  const activeItems = groupedTimeline[activeTab] || [];
+  const activeTabIndex = tabs.indexOf(activeTab);
+
+  // Reset sub-tab when main tab changes
+  useEffect(() => {
+    setActiveSubTab(0);
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
+    }
+  }, [activeTab]);
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey) {
+        const currentIndex = tabs.indexOf(activeTab);
+        switch (e.key) {
+          case 'ArrowRight':
+            e.preventDefault();
+            setActiveTab(tabs[(currentIndex + 1) % tabs.length]);
+            break;
+          case 'ArrowLeft':
+            e.preventDefault();
+            setActiveTab(tabs[(currentIndex - 1 + tabs.length) % tabs.length]);
+            break;
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeTab]);
+
+  // Navigation functions
+  const goToNextTab = () => {
+    const nextIndex = (activeTabIndex + 1) % tabs.length;
+    setActiveTab(tabs[nextIndex]);
+  };
+
+  const goToPrevTab = () => {
+    const prevIndex = (activeTabIndex - 1 + tabs.length) % tabs.length;
+    setActiveTab(tabs[prevIndex]);
+  };
 
   return (
     <section 
       ref={sectionRef}
-      className="min-h-screen w-full py-16 md:py-24 px-4 relative bg-gradient-to-b  to-black"
+      className="min-h-screen w-full py-12 md:py-16 px-4 relative bg-gradient-to-b from-gray-900 to-black"
       id="aboutme"
     >
-      <div className="max-w-6xl mx-auto w-full">
-        {/* Professional Header */}
-        <div className="text-center mb-20">
-          <div className="mb-6">
-            <div className="inline-block px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm mb-4">
-              <span className="text-sm font-medium text-white/80 tracking-wider">PROFESSIONAL CHRONOLOGY</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Academic & Professional<br />Trajectory
-            </h1>
-            <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-white/60 to-transparent mx-auto"></div>
+      <div className="max-w-7xl mx-auto w-full">
+        {/* Header Section */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-700 bg-gray-800/50 backdrop-blur-sm mb-4">
+            <span className="text-xs font-medium text-gray-300 tracking-wider">CAREER CHRONICLE</span>
+            <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
+            <span className="text-xs font-medium text-gray-400 hidden sm:inline">PRESS ALT + ARROWS TO NAVIGATE</span>
+            <span className="text-xs font-medium text-gray-400 sm:hidden">SWIPE OR USE ARROWS</span>
           </div>
+          
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Professional Journey
+          </h1>
+          
+          <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-gray-600 to-transparent mx-auto mb-6"></div>
+          
           <p className="text-gray-400 max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            A systematic progression of me through formal education, technical certifications, 
-            and professional experience demonstrating continuous growth and specialization.
+            A structured overview of my academic foundation, technical certifications, 
+            and professional experience demonstrating deliberate growth and specialization.
           </p>
         </div>
 
-        {/* Executive Summary */}
-        <div className="mb-16">
-          <div className="border border-white/20 bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8">
-            <div className="flex flex-col md:flex-row items-start gap-8">
-              <div className="md:w-1/3">
-                <h3 className="text-2xl font-bold text-white mb-4">Brian Kareithi</h3>
-                <div className="space-y-2">
-                  <div className="text-sm text-gray-400 uppercase tracking-wider font-medium">
-                    Specializations
+        {/* Executive Summary Card */}
+        <div className="mb-12">
+          <div className="border border-gray-800 bg-gray-900/50 backdrop-blur-sm rounded-lg p-6">
+            <div className="flex flex-col lg:flex-row items-start gap-8">
+              {/* Left Profile Section */}
+              <div className="lg:w-2/5">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-gray-700 flex items-center justify-center">
+                    <span className="text-2xl">👨‍💻</span>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {['Cybersecurity', 'Cloud Architecture', 'Full-Stack Development', 'Enterprise Security'].map((spec) => (
-                      <span key={spec} className="px-3 py-1 bg-white/10 border border-white/20 rounded-full text-sm text-white/90">
-                        {spec}
-                      </span>
-                    ))}
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Brian Kareithi</h3>
+                    <p className="text-gray-400 text-sm">Cybersecurity & Full-Stack Developer</p>
                   </div>
                 </div>
+                
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 text-center">
+                    <div className="text-xl font-bold text-white">5+</div>
+                    <div className="text-xs text-gray-400 mt-1">Years in Tech</div>
+                  </div>
+                  <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 text-center">
+                    <div className="text-xl font-bold text-white">6</div>
+                    <div className="text-xs text-gray-400 mt-1">Certifications</div>
+                  </div>
+                  <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 text-center">
+                    <div className="text-xl font-bold text-white">3</div>
+                    <div className="text-xs text-gray-400 mt-1">Sectors</div>
+                  </div>
+                  <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 text-center">
+                    <div className="text-xl font-bold text-white">50+</div>
+                    <div className="text-xs text-gray-400 mt-1">Projects</div>
+                  </div>
+                </div>
+                
+                <div className="flex flex-wrap gap-2">
+                  {['Cybersecurity', 'Cloud Architecture', 'Full-Stack Development', 'Enterprise Security'].map((spec) => (
+                    <span 
+                      key={spec} 
+                      className="px-3 py-1.5 bg-gray-800/50 border border-gray-700 rounded-full text-sm text-gray-300 hover:border-gray-600 transition-colors"
+                    >
+                      {spec}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <div className="md:w-2/3">
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  My professional journey represents a deliberate progression from foundational 
-                  education through specialized certification to practical application. Each phase 
-                  builds upon previous knowledge, creating a comprehensive skill set that spans 
-                  technical implementation, strategic planning, and entrepreneurial initiative, skill set you cant find inside anyone else.
-                </p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="text-center p-4 border border-white/10 rounded-lg">
-                    <div className="text-2xl font-bold text-white">5+</div>
-                    <div className="text-sm text-gray-400 mt-1">Years in Tech</div>
+              
+              {/* Right Description Section */}
+              <div className="lg:w-3/5">
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-white mb-3">Professional Philosophy</h4>
+                  <p className="text-gray-300 leading-relaxed">
+                    My career represents a deliberate progression from foundational education through 
+                    specialized certification to practical application. Each phase builds upon previous 
+                    knowledge, creating a comprehensive skill set that spans technical implementation, 
+                    strategic planning, and entrepreneurial initiative.
+                  </p>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded bg-blue-500/10 border border-blue-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs text-blue-400">✓</span>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-white mb-1">Continuous Learning</h5>
+                      <p className="text-gray-400 text-sm">Systematic knowledge acquisition through formal education and industry certifications</p>
+                    </div>
                   </div>
-                  <div className="text-center p-4 border border-white/10 rounded-lg">
-                    <div className="text-2xl font-bold text-white"> Over 6</div>
-                    <div className="text-sm text-gray-400 mt-1">Certifications</div>
+                  
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded bg-green-500/10 border border-green-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs text-green-400">✓</span>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-white mb-1">Practical Application</h5>
+                      <p className="text-gray-400 text-sm">Real-world implementation across public, private, and entrepreneurial sectors</p>
+                    </div>
                   </div>
-                  <div className="text-center p-4 border border-white/10 rounded-lg">
-                    <div className="text-2xl font-bold text-white">3</div>
-                    <div className="text-sm text-gray-400 mt-1">Sectors</div>
-                  </div>
-                  <div className="text-center p-4 border border-white/10 rounded-lg">
-                    <div className="text-2xl font-bold text-white">50+</div>
-                    <div className="text-sm text-gray-400 mt-1">Projects</div>
+                  
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded bg-purple-500/10 border border-purple-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs text-purple-400">✓</span>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-white mb-1">Future-Oriented</h5>
+                      <p className="text-gray-400 text-sm">Focus on scalable solutions and mentorship for next-generation professionals</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -271,141 +389,365 @@ export default function AboutMe() {
           </div>
         </div>
 
-        {/* Timeline Section */}
-        <div className="relative">
-          {/* Vertical Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 md:-translate-x-1/2 w-px h-full bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
-          
-          {/* Timeline Items */}
-          <div className="space-y-12">
-            {sortedTimeline.map((item, index) => {
-              const category = categoryConfig[item.category];
-              const isLeft = index % 2 === 0;
+        {/* VS Code Inspired Tabbed Layout */}
+        <div className="mb-16">
+          {/* Tab Bar Container */}
+          <div className="border border-gray-800 bg-gray-900/80 backdrop-blur-sm rounded-t-lg overflow-hidden">
+            {/* Desktop Tabs Navigation */}
+            <div className="hidden md:flex border-b border-gray-800">
+              {tabs.map((tab) => {
+                const config = categoryConfig[tab];
+                const isActive = activeTab === tab;
+                
+                return (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`
+                      relative px-6 py-3 text-sm font-medium transition-all duration-200
+                      border-r border-gray-800 flex items-center gap-2 group
+                      ${isActive 
+                        ? 'text-white bg-gray-800/50' 
+                        : 'text-gray-400 hover:text-gray-300 hover:bg-gray-800/30'
+                      }
+                    `}
+                    style={{
+                      borderBottom: isActive ? `2px solid ${config.color}` : '2px solid transparent'
+                    }}
+                  >
+                    <span className="text-base">{config.icon}</span>
+                    <span>{config.label}</span>
+                    <span className="text-xs text-gray-500">
+                      ({groupedTimeline[tab]?.length || 0})
+                    </span>
+                    
+                    {/* Active indicator */}
+                    {isActive && (
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-gray-600 to-transparent opacity-50"></div>
+                    )}
+                  </button>
+                );
+              })}
               
-              return (
-                <div 
-                  key={index}
-                  className={`flex flex-col md:flex-row items-start relative ${
-                    isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
+              {/* Spacer to fill remaining space */}
+              <div className="flex-1 border-b border-gray-800"></div>
+            </div>
+
+            {/* Mobile Tabs Navigation */}
+            <div className="md:hidden flex items-center justify-between border-b border-gray-800 bg-gray-900/50 px-4 py-3">
+              {/* Previous Button */}
+              <button
+                onClick={goToPrevTab}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-700 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800/30 transition-all"
+                aria-label="Previous category"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span className="hidden xs:inline">Prev</span>
+              </button>
+
+              {/* Current Tab Display */}
+              <div className="flex flex-col items-center">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-lg">{activeCategory.icon}</span>
+                  <span className="text-sm font-semibold text-white">{activeCategory.label}</span>
+                  <span className="text-xs text-gray-500 bg-gray-800/50 px-2 py-0.5 rounded">
+                    {activeItems.length}
+                  </span>
+                </div>
+                <div className="text-xs text-gray-500">
+                  {activeTabIndex + 1} of {tabs.length}
+                </div>
+              </div>
+
+              {/* Next Button */}
+              <button
+                onClick={goToNextTab}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-700 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800/30 transition-all"
+                aria-label="Next category"
+              >
+                <span className="hidden xs:inline">Next</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Mobile Tab Indicators */}
+            <div className="md:hidden flex justify-center gap-1 py-2 border-b border-gray-800 bg-gray-900/30">
+              {tabs.map((tab, index) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    activeTab === tab 
+                      ? 'bg-blue-500 scale-125' 
+                      : 'bg-gray-700 hover:bg-gray-600'
                   }`}
-                >
-                  {/* Timeline Node */}
-                  <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full border-2 border-white/30 bg-black z-10"></div>
-                  
-                  {/* Content Container */}
-                  <div className={`w-full md:w-5/12 ml-12 md:ml-0 ${
-                    isLeft ? 'md:pr-12' : 'md:pl-12 md:text-right'
-                  }`}>
-                    <div className="border border-white/10 bg-white/5 backdrop-blur-sm rounded-xl p-6 hover:bg-white/10 transition-all duration-300">
-                      {/* Category Badge */}
-                      <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border ${category.color} mb-4`}>
-                        <span className="text-xs">{category.icon}</span>
-                        <span className={`text-xs font-medium ${category.textColor}`}>
-                          {category.label}
-                        </span>
+                  aria-label={`Go to ${categoryConfig[tab].label}`}
+                />
+              ))}
+            </div>
+
+            {/* Content Area */}
+            <div className="flex flex-col lg:flex-row min-h-[600px]">
+              {/* Left Sidebar - Subtabs (Desktop) */}
+              <div className="hidden lg:block w-64 border-r border-gray-800 bg-gray-900/50">
+                <div className="p-4 border-b border-gray-800">
+                  <h3 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
+                    <span className="text-lg">{activeCategory.icon}</span>
+                    {activeCategory.label}
+                  </h3>
+                  <p className="text-xs text-gray-400">
+                    {activeItems.length} items • Sorted by year
+                  </p>
+                </div>
+                
+                <div className="p-2">
+                  {activeItems.map((item, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setActiveSubTab(index)}
+                      className={`
+                        w-full text-left px-3 py-2.5 rounded-lg mb-1 transition-all duration-200
+                        flex items-center justify-between group
+                        ${activeSubTab === index 
+                          ? 'bg-gray-800/70 border border-gray-700' 
+                          : 'hover:bg-gray-800/40'
+                        }
+                      `}
+                    >
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className={`text-xs font-medium ${activeSubTab === index ? 'text-white' : 'text-gray-400'}`}>
+                            {item.year}
+                          </span>
+                          <span className="text-xs text-gray-500">•</span>
+                          <span className="text-xs text-gray-500 truncate">{item.institution}</span>
+                        </div>
+                        <div className={`text-sm font-medium truncate ${activeSubTab === index ? 'text-white' : 'text-gray-300'}`}>
+                          {item.title}
+                        </div>
                       </div>
-                      
-                      {/* Title & Institution */}
-                      <h4 className="text-xl font-bold text-white mb-2">
-                        {item.title}
-                      </h4>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-sm text-gray-400">{item.institution}</span>
-                        <span className="text-xs text-white/60 bg-white/5 px-2 py-1 rounded">
-                          {item.period}
-                        </span>
-                      </div>
-                      
-                      {/* Description */}
-                      <p className="text-gray-300 mb-4 leading-relaxed text-sm">
-                        {item.description}
-                      </p>
-                      
-                      {/* Significance */}
-                      {item.significance && (
-                        <div className="mb-4">
-                          <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">
-                            Significance
+                      {activeSubTab === index && (
+                        <div className="w-2 h-2 rounded-full bg-blue-500 ml-2 flex-shrink-0"></div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile Subtabs Navigation */}
+              <div className="lg:hidden border-b border-gray-800 bg-gray-900/50">
+                <div className="flex items-center justify-between px-4 py-3">
+                  <button
+                    onClick={() => setActiveSubTab(Math.max(0, activeSubTab - 1))}
+                    disabled={activeSubTab === 0}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-700 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-800 transition-colors"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span className="hidden sm:inline">Previous</span>
+                  </button>
+
+                  <div className="text-center">
+                    <div className="text-sm font-semibold text-white mb-1">
+                      Item {activeSubTab + 1} of {activeItems.length}
+                    </div>
+                    <div className="text-xs text-gray-400">
+                      {activeItems[activeSubTab]?.title.substring(0, 30)}...
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setActiveSubTab(Math.min(activeItems.length - 1, activeSubTab + 1))}
+                    disabled={activeSubTab === activeItems.length - 1}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-700 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-800 transition-colors"
+                  >
+                    <span className="hidden sm:inline">Next</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Mobile Subtabs Dots */}
+                <div className="flex justify-center gap-1.5 pb-3">
+                  {activeItems.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setActiveSubTab(index)}
+                      className={`w-1.5 h-1.5 rounded-full transition-all ${
+                        activeSubTab === index 
+                          ? 'bg-blue-500 scale-125' 
+                          : 'bg-gray-700 hover:bg-gray-600'
+                      }`}
+                      aria-label={`Go to item ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Main Content */}
+              <div 
+                ref={contentRef}
+                className="flex-1 overflow-y-auto max-h-[600px]"
+              >
+                {activeItems.length > 0 && activeSubTab < activeItems.length && (
+                  <div className="p-6 md:p-8">
+                    <div className="mb-8">
+                      <div className="flex flex-wrap items-center gap-3 mb-4">
+                        <span className="text-3xl">{activeCategory.icon}</span>
+                        <div>
+                          <h2 className="text-2xl font-bold text-white">
+                            {activeItems[activeSubTab].title}
+                          </h2>
+                          <div className="flex items-center gap-3 mt-1">
+                            <span className="text-gray-400 text-sm">
+                              {activeItems[activeSubTab].institution}
+                            </span>
+                            <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
+                            <span className="text-gray-500 text-sm bg-gray-800/50 px-2 py-1 rounded">
+                              {activeItems[activeSubTab].period}
+                            </span>
                           </div>
-                          <p className="text-sm text-white/80">
-                            {item.significance}
+                        </div>
+                      </div>
+                      
+                      <div className="mb-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border mb-4"
+                          style={{
+                            backgroundColor: activeCategory.bgColor,
+                            borderColor: activeCategory.borderColor
+                          }}
+                        >
+                          <span className="text-xs font-medium" style={{ color: activeCategory.color }}>
+                            {activeCategory.label.toUpperCase()}
+                          </span>
+                        </div>
+                        
+                        <p className="text-gray-300 leading-relaxed mb-6">
+                          {activeItems[activeSubTab].description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Significance & Metrics */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                      {activeItems[activeSubTab].significance && (
+                        <div className="border border-gray-800 rounded-lg p-5 bg-gray-900/30">
+                          <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                            <span className="inline-block w-2 h-2 rounded-full bg-blue-500 mr-2"></span>
+                            Strategic Significance
+                          </h4>
+                          <p className="text-white text-lg">
+                            {activeItems[activeSubTab].significance}
                           </p>
                         </div>
                       )}
                       
-                      {/* Metrics */}
-                      {item.metrics && (
-                        <div className="border-t border-white/10 pt-4">
-                          <div className="text-xs text-gray-500 uppercase tracking-wider mb-2">
-                            Key Metrics
-                          </div>
-                          <ul className={`space-y-1 ${isLeft ? '' : 'md:text-right'}`}>
-                            {item.metrics.map((metric, i) => (
-                              <li key={i} className="text-sm text-gray-300 flex items-center gap-2">
-                                <span className="w-1 h-1 bg-white/40 rounded-full"></span>
-                                {metric}
+                      {activeItems[activeSubTab].metrics && (
+                        <div className="border border-gray-800 rounded-lg p-5 bg-gray-900/30">
+                          <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                            <span className="inline-block w-2 h-2 rounded-full bg-green-500 mr-2"></span>
+                            Key Metrics & Achievements
+                          </h4>
+                          <ul className="space-y-2.5">
+                            {activeItems[activeSubTab].metrics!.map((metric, i) => (
+                              <li key={i} className="flex items-start gap-3">
+                                <span className="w-1.5 h-1.5 rounded-full bg-gray-600 mt-2 flex-shrink-0"></span>
+                                <span className="text-gray-300">{metric}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
                       )}
-                      
-                      {/* Year Indicator */}
-                      <div className="mt-4 pt-4 border-t border-white/10">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-gray-500 font-medium">
-                            Commencement Year
-                          </span>
-                          <span className="text-sm text-white font-semibold">
-                            {item.year}
-                          </span>
+                    </div>
+
+                    {/* Desktop Year Navigation */}
+                    <div className="hidden md:block mt-8 pt-6 border-t border-gray-800">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <span className="text-sm text-gray-500">Item</span>
+                          <div className="text-lg font-semibold text-white">
+                            {activeSubTab + 1} of {activeItems.length}
+                          </div>
+                        </div>
+                        
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => setActiveSubTab(Math.max(0, activeSubTab - 1))}
+                            disabled={activeSubTab === 0}
+                            className="px-4 py-2 rounded-lg border border-gray-700 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-800 transition-colors"
+                          >
+                            ← Previous
+                          </button>
+                          <button
+                            onClick={() => setActiveSubTab(Math.min(activeItems.length - 1, activeSubTab + 1))}
+                            disabled={activeSubTab === activeItems.length - 1}
+                            className="px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors"
+                          >
+                            Next →
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Empty space for alternating layout */}
-                  <div className="hidden md:block md:w-5/12"></div>
-                </div>
-              );
-            })}
+                )}
+              </div>
+            </div>
+          </div>
+          
+          {/* Bottom Status Bar */}
+          <div className="bg-gray-900 border border-gray-800 border-t-0 rounded-b-lg px-4 py-2 flex items-center justify-between text-xs text-gray-500">
+            <div className="flex items-center gap-4">
+              <span className="flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                <span className="hidden sm:inline">Active:</span>
+                <span className="font-medium text-gray-300">{categoryConfig[activeTab].label}</span>
+              </span>
+              <span className="hidden md:inline">
+                Items: {activeItems.length}
+              </span>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="hidden md:inline">
+                Press ALT + ←/→ to switch tabs
+              </span>
+              <span>
+                Item: {activeSubTab + 1}/{activeItems.length}
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Closing Remark - Refined */}
-        <div className="mt-24">
-          <div className="max-w-3xl mx-auto">
-            <div className="relative">
-              <div className="absolute inset-0 border-l-2 border-white/20 ml-6"></div>
-              <div className="pl-12 relative">
-                <div className="text-5xl text-white/20 font-serif mb-2">"</div>
-                <p className="text-xl text-gray-300 italic leading-relaxed mb-6">
-                  I understand that was a comprehensive review of my professional Journey. 
-                  The subsequent sections will provide more concise overviews of my specific technical 
-                  competencies and project implementations.
+        {/* Footer Summary */}
+        <div className="max-w-4xl mx-auto">
+          <div className="border border-gray-800 rounded-lg p-6 bg-gray-900/30">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-10 h-10 rounded-full bg-gray-800/50 border border-gray-700 flex items-center justify-center flex-shrink-0">
+                <span className="text-xl">💡</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Key Insights</h3>
+                <p className="text-gray-400">
+                  This structured view demonstrates a methodical progression from foundational education 
+                  through specialized certification to practical application across multiple sectors.
                 </p>
-                <div className="text-5xl text-white/20 font-serif text-right">"</div>
               </div>
             </div>
             
-            {/* Key Takeaways */}
-            <div className="mt-12 grid md:grid-cols-3 gap-6">
-              <div className="border border-white/10 rounded-xl p-6">
-                <h4 className="text-lg font-semibold text-white mb-3">Progressive Learning</h4>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="p-4 border border-gray-800 rounded-lg">
+                <h4 className="font-semibold text-white mb-2">Progressive Development</h4>
                 <p className="text-gray-400 text-sm">
-                  Each certification and role demonstrates cumulative knowledge acquisition and application.
+                  Each phase builds upon previous knowledge, demonstrating cumulative growth
                 </p>
               </div>
-              <div className="border border-white/10 rounded-xl p-6">
-                <h4 className="text-lg font-semibold text-white mb-3">Diverse Experience</h4>
+              <div className="p-4 border border-gray-800 rounded-lg">
+                <h4 className="font-semibold text-white mb-2">Diverse Experience</h4>
                 <p className="text-gray-400 text-sm">
-                  Experience spans public sector, private enterprise, and entrepreneurial ventures.
+                  Exposure across public sector, private enterprise, and entrepreneurial ventures
                 </p>
               </div>
-              <div className="border border-white/10 rounded-xl p-6">
-                <h4 className="text-lg font-semibold text-white mb-3">Future Orientation</h4>
+              <div className="p-4 border border-gray-800 rounded-lg">
+                <h4 className="font-semibold text-white mb-2">Strategic Focus</h4>
                 <p className="text-gray-400 text-sm">
-                  Current focus on scalable solutions and mentorship for next-generation professionals.
+                  Current emphasis on scalable solutions and professional mentorship
                 </p>
               </div>
             </div>
