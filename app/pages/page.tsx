@@ -6,7 +6,7 @@ import { IoMailOutline } from "react-icons/io5";
 import DynamicBackground from "../components/DynamicBackground";
 import Navbar from "../components/NavBar";
 
-const roles = ["Fullstack Developer", "Grey Hat", "Cybersecurity Enthusiast", "Gamer"];
+const roles = ["Fullstack Developer", "Grey Hat", "Cybersecurity and Robotics Enthusiast", "Gamer"];
 
 export default function HomePage() {
   const [currentRole, setCurrentRole] = useState(0);

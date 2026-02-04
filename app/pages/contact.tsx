@@ -163,6 +163,16 @@ export default function Contact() {
                     <div className="text-xs text-blue-300">Professional profile</div>
                   </div>
                 </a>
+<a 
+  href="/niche"
+  className="flex items-center gap-2 px-4 py-2.5 bg-blue-800 hover:bg-blue-700 text-white rounded-lg transition-all duration-200 hover:shadow-lg group border border-blue-700"
+>
+  <FaPaperPlane className="text-lg" />
+  <div className="flex-1">
+    <div className="font-medium text-sm">Personal Niche</div>
+    <div className="text-xs text-blue-300">See My Technical Passions & DIY Projects</div>
+  </div>
+</a>
               </div>
             </div>
           </div>
