@@ -195,7 +195,7 @@ const DynamicBackground = () => {
   return (
     <div className="fixed inset-0 -z-50 pointer-events-none overflow-hidden">
       {/* Solid background color */}
-      <div className="absolute inset-0 bg-[#0f172a]" />
+      <div className="absolute inset-0" style={{ backgroundColor: "var(--color-bg-primary)" }} />
       
       {/* Particle canvas */}
       <canvas 
@@ -209,18 +209,22 @@ const DynamicBackground = () => {
       />
       
       {/* Subtle gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10" />
+      <div className="absolute inset-0" style={{
+        background: "linear-gradient(to bottom right, var(--color-accent-glow), transparent, transparent)",
+      }} />
       
       {/* Gradient Orbs with very subtle parallax effect */}
       <ParallaxOrb 
-        className="absolute top-1/4 -left-10 w-48 h-48 sm:w-72 sm:h-72 bg-purple-500/20 rounded-full blur-3xl"
+        className="absolute top-1/4 -left-10 w-48 h-48 sm:w-72 sm:h-72 rounded-full blur-3xl"
         depth={0.3}
         scrollYRef={scrollYRef}
+        color="var(--color-accent-secondary)"
       />
       <ParallaxOrb 
-        className="absolute bottom-1/4 -right-10 w-64 h-64 sm:w-96 sm:h-96 bg-blue-500/20 rounded-full blur-3xl"
+        className="absolute bottom-1/4 -right-10 w-64 h-64 sm:w-96 sm:h-96 rounded-full blur-3xl"
         depth={0.2}
         scrollYRef={scrollYRef}
+        color="var(--color-accent)"
       />
     </div>
   );
@@ -230,11 +234,13 @@ const DynamicBackground = () => {
 const ParallaxOrb = ({ 
   className, 
   depth, 
-  scrollYRef 
+  scrollYRef,
+  color
 }: { 
   className: string; 
   depth: number;
   scrollYRef: React.RefObject<number>;
+  color: string;
 }) => {
   const orbRef = useRef<HTMLDivElement>(null);
   
@@ -245,8 +251,7 @@ const ParallaxOrb = ({
     let animationFrameId: number;
     
     const updateOrbPosition = () => {
-      // Use the same smooth scroll value with very subtle parallax
-      const translateY = -scrollYRef.current * depth * 0.1; // Reduced multiplier
+      const translateY = -scrollYRef.current * depth * 0.1;
       orb.style.transform = `translateY(${translateY}px)`;
       animationFrameId = requestAnimationFrame(updateOrbPosition);
     };
@@ -260,7 +265,13 @@ const ParallaxOrb = ({
     };
   }, [depth, scrollYRef]);
 
-  return <div ref={orbRef} className={className} />;
+  return (
+    <div
+      ref={orbRef}
+      className={className}
+      style={{ backgroundColor: color, opacity: 0.08 }}
+    />
+  );
 };
 
 export default DynamicBackground;

@@ -1,44 +1,21 @@
 "use client";
-
-import { useEffect, useState } from "react";
-import DynamicBackground from "./components/DynamicBackground";
-import Navbar from "./components/NavBar";
-import ScrollBar from "./components/ScrollBar";
+import { useEffect, useState, useCallback } from "react";
+import Navbar from "@/app/components/NavBar";
+import ScrollBar from "@/app/components/ScrollBar";
+import Footer from "@/app/components/Footer";
+import { ThemeProvider } from "@/app/components/ThemeProvider";
+import LoadingScreen from "@/app/components/LoadingScreen";
 import "./globals.css";
-
-// LoadingScreen component defined in the same file
-const LoadingScreen = ({ isLoading }: { isLoading: boolean }) => {
-  if (!isLoading) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
-      <div className="relative">
-        {/* Responsive spinning dot */}
-        <div className="
-          absolute inset-0 m-auto 
-          w-5 h-5 
-          sm:w-7 sm:h-7 
-          md:w-8 md:h-8 
-          lg:w-10 lg:h-10 
-          xl:w-12 xl:h-12
-          bg-blue-500 
-          rounded-full 
-          animate-pulse
-        "></div>
-      </div>
-    </div>
-  );
-};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+  const handleFinishLoading = useCallback(() => {
+    setIsLoading(false);
+  }, []);
 
-    return () => clearTimeout(timer);
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", "dark");
   }, []);
 
   return (
@@ -48,18 +25,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="description" content="Brian Kareithi - Fullstack Developer & Cybersecurity Enthusiast" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>BK</text></svg>" />
       </head>
-      <body className="relative text-white overflow-x-hidden bg-black">
-        <LoadingScreen isLoading={isLoading} />
-        
-        <div className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
-          <DynamicBackground />
-          <Navbar />
-          <ScrollBar />
-        </div>
+      <body className="relative overflow-x-hidden">
+        <ThemeProvider>
+          {isLoading && <LoadingScreen onFinish={handleFinishLoading} />}
 
-        <main className={`relative z-10 transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
-          {children}
-        </main>
+          <div className={`transition-opacity duration-700 ${isLoading ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+            <Navbar />
+            <ScrollBar />
+          </div>
+
+          <main className={`relative transition-opacity duration-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
+            {children}
+          </main>
+
+          <div className={`transition-opacity duration-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
