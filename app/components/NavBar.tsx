@@ -1,212 +1,175 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useTheme } from "@/app/components/ThemeProvider";
+import { FiSun, FiMoon } from "react-icons/fi";
+
+const sections = [
+  { id: "home", label: "Home", path: "/" },
+  { id: "about", label: "About", path: "/about" },
+  { id: "techstack", label: "Tech Stack", path: "/techstack" },
+  { id: "projects", label: "Projects", path: "/projects" },
+  { id: "contact", label: "Contact", path: "/contact" },
+  { id: "niche", label: "Niche", path: "/niche" },
+];
 
 export default function Navbar() {
-  const [activeSection, setActiveSection] = useState('home');
+  const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [greeting, setGreeting] = useState({ text: '', icon: '' });
+  const [greeting, setGreeting] = useState({ text: "", icon: "" });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
-  const sections = [
-    { id: 'home', label: 'Home' },
-    { id: 'aboutme', label: 'About Me' },
-    { id: 'techstack', label: 'Tech Stack' },  
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' }
-  ];
+  useEffect(() => {
+    const current = sections.find((s) => s.path === pathname);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (current) setActiveSection(current.id);
+  }, [pathname]);
 
   useEffect(() => {
     const updateGreeting = () => {
       const hour = new Date().getHours();
-      let text = '';
-      let icon = '';
+      let text = "";
+      let icon = "";
 
-      if (hour >= 5 && hour < 12) {
-        text = 'Good Morning';
-        icon = '☀️';
-      } else if (hour >= 12 && hour < 17) {
-        text = 'Good Afternoon';
-        icon = '🌤️';
-      } else {
-        text = 'Good Evening';
-        icon = '🌙';
-      }
+      if (hour >= 5 && hour < 12) { text = "Good Morning"; icon = "☀️"; }
+      else if (hour >= 12 && hour < 17) { text = "Good Afternoon"; icon = "🌤️"; }
+      else { text = "Good Evening"; icon = "🌙"; }
 
       setGreeting({ text, icon });
     };
-
     updateGreeting();
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.scrollY > 0;
-      setIsScrolled(scrolled);
-
-      const sectionElements = sections.map(section => 
-        document.getElementById(section.id)
-      );
-      
-      const current = sectionElements.find((section) => {
-        if (!section) return false;
-        const rect = section.getBoundingClientRect();
-        return rect.top <= 100 && rect.bottom >= 100;
-      });
-
-      if (current) {
-        const currentIndex = sectionElements.indexOf(current);
-        if (currentIndex !== -1) {
-          setActiveSection(sections[currentIndex].id);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 0);
+    window.addEventListener("scroll", handleScroll);
     handleScroll();
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [sections]);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offsetTop = element.offsetTop - 50;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-    }
+  const navigateTo = (path: string) => {
+    router.push(path);
     setIsMobileMenuOpen(false);
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-  // Close mobile menu on window resize (when switching to desktop)
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768 && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
+      if (window.innerWidth >= 768 && isMobileMenuOpen) setIsMobileMenuOpen(false);
     };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isMobileMenuOpen]);
 
   return (
     <>
-      {/* Transparent Glass Navbar */}
-      <nav className={`
-        fixed z-50 
-        transition-all duration-500 ease-out
-        ${isScrolled 
-          ? 'w-full top-0 left-0 right-0 rounded-none' 
-          : 'w-[95%] top-4 left-[2.5%] right-[2.5%] rounded-2xl'
-        }
-        backdrop-blur-[1px]
-        bg-white/[0.02]
-        before:absolute before:inset-0 before:rounded-inherit
-        before:bg-gradient-to-br before:from-white/[0.05] before:via-transparent before:to-transparent
-        before:content-[''] before:-z-10 before:opacity-0 hover:before:opacity-50
-        before:transition-opacity before:duration-500
-        ${isScrolled ? '' : 'border border-white/30'}
-      `}>
+      <nav
+        className={`
+          fixed z-50
+          transition-all duration-500 ease-out
+          ${isScrolled ? "w-full top-0 left-0 right-0 rounded-none" : "w-[95%] top-4 left-[2.5%] right-[2.5%] rounded-2xl"}
+          backdrop-blur-[1px]
+          before:absolute before:inset-0 before:rounded-inherit
+          before:bg-gradient-to-br before:from-white/[0.03] before:via-transparent before:to-transparent
+          before:content-[''] before:-z-10 before:opacity-0 hover:before:opacity-50
+          before:transition-opacity before:duration-500
+          ${isScrolled ? "" : "border"}
+        `}
+        style={{
+          backgroundColor: isScrolled ? "var(--color-bg-secondary)" : "var(--color-bg-card)",
+          borderColor: "var(--color-border)",
+        }}
+      >
         <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-3">
-          {/* Greeting Text - Left side */}
           <div className="flex items-center space-x-2">
             <span className="text-base md:text-lg">{greeting.icon}</span>
-            <span className="font-medium hidden sm:block text-white text-sm md:text-base">
+            <span className="font-medium hidden sm:block text-sm md:text-base"
+              style={{ color: "var(--color-text-primary)" }}>
               {greeting.text}
             </span>
           </div>
-          
-          {/* Desktop Navigation - Right side */}
+
           <div className="hidden md:flex items-center space-x-1">
             {sections.map((section) => (
               <button
                 key={section.id}
-                className={`
-                  relative px-3 md:px-4 lg:px-5 py-2 rounded-xl font-medium transition-all duration-300
-                  overflow-hidden text-sm md:text-base
-                  ${activeSection === section.id 
-                    ? 'text-white' 
-                    : 'text-white/80 hover:text-white'
-                  }
-                  before:absolute before:inset-0 before:rounded-xl
-                  before:bg-white/[0.03]
-                  before:content-[''] before:opacity-0 hover:before:opacity-100
-                  before:transition-opacity before:duration-300
-                `}
-                onClick={() => scrollToSection(section.id)}
+                className="relative px-3 md:px-4 lg:px-5 py-2 rounded-xl font-medium transition-all duration-300 overflow-hidden text-sm md:text-base"
+                style={{
+                  color: activeSection === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
+                }}
+                onClick={() => navigateTo(section.path)}
               >
-                <span className="relative z-10">
-                  {section.label}
-                </span>
+                <span className="relative z-10">{section.label}</span>
                 {activeSection === section.id && (
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-[1px] bg-white/40" />
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-[1px]"
+                    style={{ backgroundColor: "var(--color-accent)" }} />
                 )}
               </button>
             ))}
+
+            <button
+              onClick={toggleTheme}
+              className="ml-2 p-2 rounded-xl transition-all duration-300"
+              style={{ color: "var(--color-text-secondary)" }}
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
+            </button>
           </div>
 
-          {/* Mobile Menu Toggle - Right side */}
-          <button 
-            className="md:hidden flex flex-col space-y-1.5 p-2 group"
-            onClick={toggleMobileMenu}
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            <span className={`
-              w-5 h-[1.5px] bg-white/90 
-              rounded-full transition-all duration-300 
-              ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}
-              group-hover:bg-white
-            `}></span>
-            <span className={`
-              w-5 h-[1.5px] bg-white/90 
-              rounded-full transition-all duration-300 
-              ${isMobileMenuOpen ? 'opacity-0' : ''}
-              group-hover:bg-white
-            `}></span>
-            <span className={`
-              w-5 h-[1.5px] bg-white/90 
-              rounded-full transition-all duration-300 
-              ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}
-              group-hover:bg-white
-            `}></span>
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-xl transition-all duration-300"
+              style={{ color: "var(--color-text-secondary)" }}
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
+            </button>
+
+            <button className="flex flex-col space-y-1.5 p-2 group" onClick={toggleMobileMenu}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}>
+              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}
+                style={{ backgroundColor: "var(--color-text-primary)" }} />
+              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`}
+                style={{ backgroundColor: "var(--color-text-primary)" }} />
+              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}
+                style={{ backgroundColor: "var(--color-text-primary)" }} />
+            </button>
+          </div>
         </div>
       </nav>
 
-      {/* Responsive Mobile Side Menu - Fixed to stay within screen bounds */}
-      <div className={`
-        fixed top-0 right-0 h-full z-50
-        transform transition-transform duration-500 ease-in-out
-        backdrop-blur-[2px]
-        bg-white/[0.03]
-        border-l border-white/30
-        before:absolute before:inset-0
-        before:bg-gradient-to-tr before:from-white/[0.08] before:via-transparent before:to-transparent
-        before:content-[''] before:-z-10
-        md:hidden
-        w-[85vw] max-w-[300px] min-w-[250px]
-        ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}
-      `}>
+      <div
+        className={`
+          fixed top-0 right-0 h-full z-50
+          transform transition-transform duration-500 ease-in-out
+          backdrop-blur-[2px]
+          md:hidden
+          w-[85vw] max-w-[300px] min-w-[250px]
+          ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
+        `}
+        style={{
+          backgroundColor: "var(--color-bg-secondary)",
+          borderLeft: "1px solid var(--color-border)",
+        }}
+      >
         <div className="flex flex-col h-full">
-          {/* Mobile Menu Header */}
-          <div className="flex items-center justify-between p-5 border-b border-white/20">
+          <div className="flex items-center justify-between p-5 border-b"
+            style={{ borderColor: "var(--color-border)" }}>
             <div className="flex items-center space-x-3">
-              <span className="text-2xl">
-                {greeting.icon}
-              </span>
-              <span className="font-medium text-white text-lg">
+              <span className="text-2xl">{greeting.icon}</span>
+              <span className="font-medium text-lg" style={{ color: "var(--color-text-primary)" }}>
                 {greeting.text}
               </span>
             </div>
-            <button 
-              className="text-white/90 text-3xl p-1 hover:bg-white/5 rounded-xl transition-all duration-300
-                       hover:text-white hover:scale-110 hover:rotate-90 ml-2"
+            <button
+              className="text-3xl p-1 rounded-xl transition-all duration-300 hover:scale-110 hover:rotate-90 ml-2"
+              style={{ color: "var(--color-text-secondary)" }}
               onClick={toggleMobileMenu}
               aria-label="Close menu"
             >
@@ -214,31 +177,21 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Navigation - Scrollable if content overflows */}
           <div className="flex-1 overflow-y-auto">
             <ul className="p-5 space-y-3">
               {sections.map((section) => (
                 <li key={section.id}>
                   <button
-                    className={`
-                      relative w-full text-left px-4 py-4 rounded-xl font-medium 
-                      transition-all duration-300 overflow-hidden text-base
-                      ${activeSection === section.id 
-                        ? 'text-white' 
-                        : 'text-white/80 hover:text-white'
-                      }
-                      before:absolute before:inset-0 before:rounded-xl
-                      before:bg-white/[0.03]
-                      before:content-[''] before:opacity-0 hover:before:opacity-100
-                      before:transition-opacity before:duration-300
-                    `}
-                    onClick={() => scrollToSection(section.id)}
+                    className="relative w-full text-left px-4 py-4 rounded-xl font-medium transition-all duration-300 overflow-hidden text-base"
+                    style={{
+                      color: activeSection === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
+                    }}
+                    onClick={() => navigateTo(section.path)}
                   >
-                    <span className="relative z-10">
-                      {section.label}
-                    </span>
+                    <span className="relative z-10">{section.label}</span>
                     {activeSection === section.id && (
-                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[2px] h-3/5 bg-white/40" />
+                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[2px] h-3/5"
+                        style={{ backgroundColor: "var(--color-accent)" }} />
                     )}
                   </button>
                 </li>
@@ -246,21 +199,19 @@ export default function Navbar() {
             </ul>
           </div>
 
-          {/* Menu Footer */}
           <div className="p-5 pt-0 mt-auto">
-            <div className="text-center text-white/60 text-sm">
+            <div className="text-center text-sm"
+              style={{ color: "var(--color-text-muted)" }}>
               Navigate through sections
             </div>
           </div>
         </div>
       </div>
 
-      {/* Backdrop for mobile menu - Fixed to cover entire screen */}
       {isMobileMenuOpen && (
-        <div 
-          className="fixed inset-0 z-40 md:hidden
-                    bg-black/[0.15]
-                    transition-all duration-500"
+        <div
+          className="fixed inset-0 z-40 md:hidden transition-all duration-500"
+          style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
           onClick={toggleMobileMenu}
         />
       )}
