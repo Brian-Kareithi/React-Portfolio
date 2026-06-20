@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 
 interface TimelineItem {
   title: string;
@@ -76,6 +77,7 @@ export default function About() {
   return (
     <section id="about" className="min-h-screen w-full py-28 md:py-36 px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
+      <ScrollReveal>
       <div className="absolute top-0 left-0 w-1/3 h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent))` }} />
       <div className="max-w-7xl mx-auto w-full">
@@ -275,6 +277,7 @@ export default function About() {
           ))}
         </div>
       </div>
+      </ScrollReveal>
     </section>
   );
 }

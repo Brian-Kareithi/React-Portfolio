@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import emailjs from "@emailjs/browser";
+import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Contact() {
@@ -42,6 +43,7 @@ export default function Contact() {
   return (
     <section id="contact" className="min-h-screen w-full py-28 md:py-36 px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
+      <ScrollReveal>
       <div className="absolute top-0 left-0 w-1/3 h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent-secondary))` }} />
       <div className="max-w-6xl mx-auto w-full">
@@ -236,6 +238,7 @@ export default function Contact() {
           ))}
         </div>
       </div>
+      </ScrollReveal>
     </section>
   );
 }

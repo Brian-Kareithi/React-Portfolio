@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ExternalLink, Github, ChevronDown, ChevronUp } from "lucide-react";
+import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 
 interface Project {
   title: string;
@@ -93,6 +94,7 @@ export default function Projects() {
   return (
     <section id="projects" className="min-h-screen w-full py-28 md:py-36 px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
+      <ScrollReveal>
       <div className="absolute top-0 left-0 w-1/3 h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent))` }} />
       <div className="max-w-7xl mx-auto w-full">
@@ -335,6 +337,7 @@ export default function Projects() {
           </a>
         </div>
       </div>
+      </ScrollReveal>
     </section>
   );
 }

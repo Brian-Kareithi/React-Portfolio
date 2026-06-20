@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
 import { FiArrowDown } from "react-icons/fi";
+import { Background } from "@/app/components/ui/Background";
 import AboutSection from "@/app/about/page";
 import TechStackSection from "@/app/techstack/page";
 import ProjectsSection from "@/app/projects/page";
@@ -35,21 +36,12 @@ function HeroSection() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <Background />
       <div className="absolute top-0 left-0 w-full h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent), transparent)` }} />
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen pt-20 pb-16">
         <div className="flex flex-col lg:flex-row items-center justify-center w-full gap-12 lg:gap-20">
           <div className="flex-1 text-center lg:text-left order-2 lg:order-1 mt-8 lg:mt-0">
-            <div className="inline-flex items-center gap-2 px-4 py-2 border-l-2 mb-6 text-sm font-medium tracking-wider"
-              style={{
-                borderColor: "var(--color-accent)",
-                color: "var(--color-text-muted)",
-                backgroundColor: "var(--color-bg-card)",
-              }}>
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse"
-                style={{ backgroundColor: "var(--color-accent)" }} />
-              Available for opportunities
-            </div>
             <p className="text-sm sm:text-base font-medium tracking-[0.15em] uppercase mb-3"
               style={{ color: "var(--color-text-muted)" }}>
               Hi, I am
