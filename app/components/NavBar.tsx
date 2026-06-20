@@ -1,20 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/app/components/ThemeProvider";
 import { FiSun, FiMoon } from "react-icons/fi";
 
 const sections = [
-  { id: "home", label: "Home", path: "/" },
-  { id: "about", label: "About", path: "/about" },
-  { id: "techstack", label: "Tech Stack", path: "/techstack" },
-  { id: "projects", label: "Projects", path: "/projects" },
-  { id: "contact", label: "Contact", path: "/contact" },
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "techstack", label: "Tech Stack" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+  { id: "niche", label: "Niche", route: true },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [greeting, setGreeting] = useState({ text: "", icon: "" });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -48,7 +50,6 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = sections.map((s) => s.id);
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -60,9 +61,11 @@ export default function Navbar() {
       { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" }
     );
 
-    for (const id of sectionIds) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
+    for (const s of sections) {
+      if (!s.route) {
+        const el = document.getElementById(s.id);
+        if (el) observer.observe(el);
+      }
     }
 
     return () => observer.disconnect();
@@ -70,6 +73,11 @@ export default function Navbar() {
 
   const navigateTo = (sectionId: string) => {
     setIsMobileMenuOpen(false);
+    const section = sections.find((s) => s.id === sectionId);
+    if (section?.route) {
+      router.push(`/${sectionId}`);
+      return;
+    }
     const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
