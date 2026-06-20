@@ -18,22 +18,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    /* eslint-disable react-hooks/set-state-in-effect */
     setMounted(true);
-    const saved = localStorage.getItem("portfolio-theme") as Theme | null;
-    if (saved) {
-      setTheme(saved);
-      document.documentElement.setAttribute("data-theme", saved);
-    } else {
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
-    /* eslint-enable react-hooks/set-state-in-effect */
+    document.documentElement.setAttribute("data-theme", "dark");
   }, []);
 
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    localStorage.setItem("portfolio-theme", next);
     document.documentElement.setAttribute("data-theme", next);
   };
 

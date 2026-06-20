@@ -83,7 +83,7 @@ export default function Niche() {
   }, []);
 
   return (
-    <section className="min-h-screen w-full py-24 md:py-32 px-4 relative"
+    <section id="niche" className="min-h-screen w-full py-24 md:py-32 px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-7xl mx-auto w-full">
