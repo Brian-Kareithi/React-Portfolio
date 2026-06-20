@@ -8,7 +8,6 @@ import AboutSection from "@/app/about/page";
 import TechStackSection from "@/app/techstack/page";
 import ProjectsSection from "@/app/projects/page";
 import ContactSection from "@/app/contact/page";
-import NicheSection from "@/app/niche/page";
 
 const roles = ["Fullstack Developer", "Grey Hat", "Cybersecurity and Robotics Enthusiast", "Gamer"];
 
@@ -134,7 +133,6 @@ export default function Home() {
       <TechStackSection />
       <ProjectsSection />
       <ContactSection />
-      <NicheSection />
     </>
   );
 }

@@ -116,7 +116,7 @@ export default function TechStack() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
           {techs.map((category) => (
             <div key={category.heading}
-              className="p-8 transition-all duration-300 hover:-translate-y-1"
+              className="stagger-item p-8 transition-all duration-300 hover:-translate-y-1"
               style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-lg font-bold tracking-tight"
@@ -134,7 +134,7 @@ export default function TechStack() {
                 {category.items.map((item, idx) => {
                   return (
                     <div key={idx}
-                      className="flex items-center gap-2 px-3 py-2 text-sm transition-all duration-200 hover:-translate-y-0.5"
+                      className="stagger-item flex items-center gap-2 px-3 py-2 text-sm transition-all duration-200 hover:-translate-y-0.5"
                       style={{
                         border: "1px solid var(--color-border)",
                         backgroundColor: "var(--color-surface)",
@@ -164,7 +164,7 @@ export default function TechStack() {
               const percentage = Math.round((count / total) * 100);
               const config = levelConfig[level as keyof typeof levelConfig];
               return (
-                <div key={level} className="text-center">
+                <div key={level} className="stagger-item text-center">
                   <div className="text-2xl font-bold mb-1"
                     style={{ color: "var(--color-accent)" }}>
                     {count}

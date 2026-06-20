@@ -109,7 +109,7 @@ export default function About() {
             { label: "Projects", value: "50+" },
           ].map((stat) => (
             <div key={stat.label}
-              className="text-center py-8 px-4 transition-all duration-300 hover:-translate-y-1 border-l-2"
+              className="stagger-item text-center py-8 px-4 transition-all duration-300 hover:-translate-y-1 border-l-2"
               style={{
                 borderColor: "var(--color-accent)",
                 backgroundColor: "var(--color-bg-card)",
@@ -130,7 +130,7 @@ export default function About() {
           <div className="flex border-b" style={{ borderColor: "var(--color-border)" }}>
             {tabs.map((tab) => (
               <button key={tab} onClick={() => setActiveTab(tab)}
-                className="flex-1 px-5 py-4 text-xs font-medium tracking-wider uppercase transition-all duration-300"
+                className="stagger-item flex-1 px-5 py-4 text-xs font-medium tracking-wider uppercase transition-all duration-300"
                 style={{
                   color: activeTab === tab ? "var(--color-accent)" : "var(--color-text-muted)",
                   backgroundColor: activeTab === tab ? "var(--color-bg-card)" : "transparent",
@@ -262,7 +262,7 @@ export default function About() {
             { title: "Diverse Experience", desc: "Exposure across public sector, private enterprise, and entrepreneurial ventures" },
             { title: "Strategic Focus", desc: "Current emphasis on scalable solutions and professional mentorship" },
           ].map((item) => (
-            <div key={item.title} className="p-6 transition-all duration-300 hover:-translate-y-1"
+            <div key={item.title} className="stagger-item p-6 transition-all duration-300 hover:-translate-y-1"
               style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
               <div className="w-8 h-px mb-4" style={{ backgroundColor: "var(--color-accent)" }} />
               <h4 className="font-semibold mb-2 text-sm"
