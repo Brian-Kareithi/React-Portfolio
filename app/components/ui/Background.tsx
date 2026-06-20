@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as random from "maath/random";
 import { Points as ThreePoints } from "three";
+import { useTheme } from "@/app/components/ThemeProvider";
 
 function Stars({ count = 5000, radius = 1.5, ...props }: { count?: number; radius?: number }) {
   const ref = useRef<ThreePoints>(null);
@@ -40,6 +41,10 @@ function Stars({ count = 5000, radius = 1.5, ...props }: { count?: number; radiu
 }
 
 export function Background() {
+  const { theme } = useTheme();
+
+  if (theme === "light") return null;
+
   return (
     <div className="absolute inset-0 h-full w-full overflow-hidden pointer-events-none">
       <Canvas
