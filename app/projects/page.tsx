@@ -123,7 +123,7 @@ export default function Projects() {
             { label: "Active", value: stats.active },
             { label: "Technologies", value: `${stats.techs}+` },
           ].map((stat) => (
-            <div key={stat.label} className="text-center px-8 py-6 transition-all duration-300 hover:-translate-y-1"
+            <div key={stat.label} className="stagger-item text-center px-8 py-6 transition-all duration-300 hover:-translate-y-1"
               style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
               <div className="text-2xl font-bold" style={{ color: "var(--color-accent)" }}>
                 {stat.value}
@@ -141,7 +141,7 @@ export default function Projects() {
             const isExpanded = expanded === index;
             return (
               <div key={index}
-                className="transition-all duration-300 hover:-translate-y-0.5"
+                className="stagger-item transition-all duration-300 hover:-translate-y-0.5"
                 style={{
                   border: "1px solid var(--color-border)",
                   backgroundColor: "var(--color-bg-card)",

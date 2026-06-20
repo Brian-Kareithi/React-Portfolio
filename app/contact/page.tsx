@@ -81,7 +81,7 @@ export default function Contact() {
                 { icon: FaPhone, label: "Phone", value: "+254 718 593 392", href: "tel:+254718593392" },
                 { icon: FaMapMarkerAlt, label: "Location", value: "Nairobi, Kenya", href: "#" },
               ].map((item) => (
-                <div key={item.label} className="flex items-center gap-4 py-4 transition-all duration-200 hover:-translate-y-0.5"
+                <div key={item.label} className="stagger-item flex items-center gap-4 py-4 transition-all duration-200 hover:-translate-y-0.5"
                   style={{ borderBottom: "1px solid var(--color-border)" }}>
                   <div className="w-10 h-10 flex items-center justify-center"
                     style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-surface)" }}>
@@ -112,7 +112,7 @@ export default function Contact() {
                   { icon: FaLinkedin, href: "https://linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
                 ].map((item) => (
                   <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
-                    className="p-3 transition-all duration-200 hover:-translate-y-0.5"
+                    className="stagger-item p-3 transition-all duration-200 hover:-translate-y-0.5"
                     style={{
                       border: "1px solid var(--color-border)",
                       color: "var(--color-text-secondary)",
@@ -134,12 +134,12 @@ export default function Contact() {
 
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {[
-                  { name: "name", label: "Name", placeholder: "John Doe" },
-                  { name: "email", label: "Email", placeholder: "john@example.com", type: "email" },
-                ].map((field) => (
-                  <div key={field.name}>
-                    <input
+                  {[
+                    { name: "name", label: "Name", placeholder: "John Doe" },
+                    { name: "email", label: "Email", placeholder: "john@example.com", type: "email" },
+                  ].map((field) => (
+                    <div key={field.name} className="stagger-item">
+                      <input
                       type={field.type || "text"}
                       name={field.name}
                       value={(formData as Record<string, string>)[field.name]}

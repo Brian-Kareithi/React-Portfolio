@@ -10,7 +10,6 @@ const sections = [
   { id: "techstack", label: "Tech Stack", path: "/techstack" },
   { id: "projects", label: "Projects", path: "/projects" },
   { id: "contact", label: "Contact", path: "/contact" },
-  { id: "niche", label: "Niche", path: "/niche" },
 ];
 
 export default function Navbar() {

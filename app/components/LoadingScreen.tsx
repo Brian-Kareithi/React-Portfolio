@@ -21,7 +21,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       }`}
       style={{ backgroundColor: "#1A120D" }}
     >
-      <div className="relative w-16 h-16">
+      <div className="relative w-16 h-16 animate-rotate-loading">
         {Array.from({ length: DOT_COUNT }).map((_, i) => (
           <div
             key={i}
