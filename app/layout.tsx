@@ -5,7 +5,6 @@ import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import LoadingScreen from "@/app/components/LoadingScreen";
-import { LiquidBackground } from "@/app/components/ui/LiquidBackground";
 import "./globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -36,7 +35,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           <main className={`relative transition-opacity duration-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
-            <LiquidBackground />
             {children}
           </main>
 

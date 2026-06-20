@@ -75,7 +75,8 @@ export default function About() {
   }, [activeTab]);
 
   return (
-    <section id="about" className="min-h-screen w-full py-28 md:py-36 px-4 relative">
+    <section id="about" className="min-h-screen w-full py-28 md:py-36 px-4 relative"
+      style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="absolute top-0 left-0 w-1/3 h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent))` }} />
