@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Wifi, CloudUpload, Server, Cpu, Shield, Activity, HardDrive, Smartphone, Zap, ChevronRight, Terminal, Brain, Database, Network, Home, Lock, Clock } from "lucide-react";
 import Link from "next/link";
+import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 
 const niches = [
   {
@@ -84,7 +85,7 @@ export default function Niche() {
   return (
     <section className="min-h-screen w-full py-24 md:py-32 px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
-      
+      <ScrollReveal>
       <div className="max-w-7xl mx-auto w-full">
         <div className="text-center mb-16 animate-fade-in-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium mb-6 border"
@@ -398,6 +399,7 @@ export default function Niche() {
           </Link>
         </div>
       </div>
+      </ScrollReveal>
     </section>
   );
 }

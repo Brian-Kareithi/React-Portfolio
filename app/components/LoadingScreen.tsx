@@ -19,24 +19,13 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       }`}
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
-      <div className="relative w-24 h-24 sm:w-28 sm:h-28">
-        <div
-          className="absolute inset-0 rounded-full animate-spin-slow"
-          style={{
-            border: "2px solid transparent",
-            borderTopColor: "var(--color-accent)",
-            borderRightColor: "var(--color-accent-secondary)",
-          }}
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span
-            className="text-3xl sm:text-4xl font-bold tracking-tight"
-            style={{ color: "var(--color-text-primary)" }}
-          >
-            BK
-          </span>
-        </div>
-      </div>
+      <div className="w-16 h-16 rounded-full animate-spin-slow"
+        style={{
+          border: "2px solid transparent",
+          borderTopColor: "var(--color-accent)",
+          borderRightColor: "var(--color-accent-secondary)",
+        }}
+      />
     </div>
   );
 }
