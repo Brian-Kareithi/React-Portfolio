@@ -35,7 +35,8 @@ function HeroSection() {
   }, [displayText, isDeleting, currentRole]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden"
+      style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <Background />
       <div className="absolute top-0 left-0 w-full h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent), transparent)` }} />
