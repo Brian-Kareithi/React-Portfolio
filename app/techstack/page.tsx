@@ -88,64 +88,63 @@ export default function TechStack() {
   }, {} as Record<string, number>);
 
   return (
-    <section id="techstack" className="min-h-screen w-full py-28 md:py-36 px-4 relative"
+    <section id="techstack" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3 xs:px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="absolute top-0 left-0 w-1/3 h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent-secondary))` }} />
       <div className="max-w-6xl mx-auto w-full">
-        <div className="text-center mb-20 animate-fade-in-up">
-          <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-3"
+        <div className="text-center mb-12 xs:mb-16 sm:mb-20 animate-fade-in-up">
+          <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.3em] uppercase mb-2 xs:mb-3"
             style={{ color: "var(--color-text-muted)" }}>
             Toolbox
           </p>
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-            <h2 className="text-4xl md:text-5xl font-bold leading-tight"
+          <div className="flex items-center justify-center gap-2 xs:gap-3 mb-4 xs:mb-6">
+            <div className="w-6 xs:w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold leading-tight"
               style={{ color: "var(--color-text-primary)" }}>
               Technical Stack
             </h2>
-            <div className="w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
+            <div className="w-6 xs:w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
           </div>
-          <p className="max-w-2xl mx-auto text-sm leading-relaxed"
+          <p className="max-w-2xl mx-auto text-xs xs:text-sm leading-relaxed px-2 xs:px-0"
             style={{ color: "var(--color-text-secondary)" }}>
             Technologies I work with, categorized by proficiency
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 xs:gap-4 mb-12 xs:mb-16">
           {techs.map((category) => (
             <div key={category.heading}
-              className="stagger-item p-8 transition-all duration-300 hover:-translate-y-1"
-              style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
+              className="stagger-item p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 glass"
+              style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-lg font-bold tracking-tight"
+                <h3 className="text-base xs:text-lg font-bold tracking-tight"
                   style={{ color: "var(--color-text-primary)" }}>
                   {category.heading}
                 </h3>
-                <span className="text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
+                <span className="text-[10px] xs:text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
                   {String(category.items.length).padStart(2, "0")}
                 </span>
               </div>
-              <p className="text-sm mb-6" style={{ color: "var(--color-text-muted)" }}>
+              <p className="text-xs xs:text-sm mb-4 xs:mb-5 sm:mb-6" style={{ color: "var(--color-text-muted)" }}>
                 {category.description}
               </p>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1 xs:gap-1.5">
                 {category.items.map((item, idx) => {
                   return (
                     <div key={idx}
-                      className="stagger-item flex items-center gap-2 px-3 py-2 text-sm transition-all duration-200 hover:-translate-y-0.5"
+                      className="stagger-item flex items-center gap-1.5 xs:gap-2 px-2 xs:px-3 py-1.5 xs:py-2 text-[11px] xs:text-sm transition-all duration-200 hover:-translate-y-0.5 glass-sm"
                       style={{
-                        border: "1px solid var(--color-border)",
-                        backgroundColor: "var(--color-surface)",
+                        borderColor: "var(--color-glass-border)",
                       }}>
-                      <span className="text-base" style={{ color: "var(--color-text-secondary)" }}>
+                      <span className="text-sm xs:text-base" style={{ color: "var(--color-text-secondary)" }}>
                         {item.icon}
                       </span>
                       <span className="font-medium" style={{ color: "var(--color-text-primary)" }}>
                         {item.title}
                       </span>
-                      <span className="text-[9px] tracking-wider uppercase ml-1"
+                      <span className="text-[8px] xs:text-[9px] tracking-wider uppercase ml-0.5 xs:ml-1"
                         style={{ color: "var(--color-text-muted)" }}>
                         {levelConfig[item.level].label}
                       </span>
@@ -157,23 +156,23 @@ export default function TechStack() {
           ))}
         </div>
 
-        <div className="text-center py-10"
-          style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
-          <div className="flex justify-center gap-10 mb-6">
+        <div className="text-center py-6 xs:py-8 sm:py-10 px-3 xs:px-4 glass"
+          style={{ borderColor: "var(--color-glass-border-strong)" }}>
+          <div className="flex justify-center gap-4 xs:gap-6 sm:gap-10 mb-4 xs:mb-6 flex-wrap">
             {Object.entries(levelCounts).map(([level, count]) => {
               const percentage = Math.round((count / total) * 100);
               const config = levelConfig[level as keyof typeof levelConfig];
               return (
                 <div key={level} className="stagger-item text-center">
-                  <div className="text-2xl font-bold mb-1"
+                  <div className="text-xl xs:text-2xl font-bold mb-1"
                     style={{ color: "var(--color-accent)" }}>
                     {count}
                   </div>
-                  <div className="text-[9px] tracking-[0.2em] uppercase"
+                  <div className="text-[8px] xs:text-[9px] tracking-[0.2em] uppercase"
                     style={{ color: "var(--color-text-muted)" }}>
                     {config.label}
                   </div>
-                  <div className="text-xs font-mono mt-1 opacity-50"
+                  <div className="text-[10px] xs:text-xs font-mono mt-1 opacity-50"
                     style={{ color: "var(--color-text-muted)" }}>
                     {percentage}%
                   </div>
@@ -181,7 +180,7 @@ export default function TechStack() {
               );
             })}
           </div>
-          <div className="text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
+          <div className="text-[10px] xs:text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
             {total} technologies across {techs.length} categories
           </div>
         </div>

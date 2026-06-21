@@ -123,8 +123,8 @@ export default function Projects() {
             { label: "Active", value: stats.active },
             { label: "Technologies", value: `${stats.techs}+` },
           ].map((stat) => (
-            <div key={stat.label} className="stagger-item text-center px-8 py-6 transition-all duration-300 hover:-translate-y-1"
-              style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
+            <div key={stat.label} className="stagger-item text-center px-8 py-6 transition-all duration-300 hover:-translate-y-1 glass"
+              style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="text-2xl font-bold" style={{ color: "var(--color-accent)" }}>
                 {stat.value}
               </div>
@@ -141,10 +141,9 @@ export default function Projects() {
             const isExpanded = expanded === index;
             return (
               <div key={index}
-                className="stagger-item transition-all duration-300 hover:-translate-y-0.5"
+                className="stagger-item transition-all duration-300 hover:-translate-y-0.5 glass"
                 style={{
-                  border: "1px solid var(--color-border)",
-                  backgroundColor: "var(--color-bg-card)",
+                  borderColor: "var(--color-glass-border-strong)",
                 }}>
                 <div className="p-6 md:p-8 cursor-pointer"
                   onClick={() => setExpanded(isExpanded ? null : index)}>
@@ -214,7 +213,7 @@ export default function Projects() {
                     style={{ borderColor: "var(--color-border)" }}>
                     <div className="pt-6 space-y-8">
                       <div className="grid md:grid-cols-2 gap-6">
-                        <div className="p-5" style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-surface)" }}>
+                        <div className="p-5 glass-sm" style={{ borderColor: "var(--color-glass-border)" }}>
                           <p className="text-[9px] font-medium tracking-[0.15em] uppercase mb-3"
                             style={{ color: "var(--color-accent)" }}>
                             Problem
@@ -224,7 +223,7 @@ export default function Projects() {
                             {project.problem}
                           </p>
                         </div>
-                        <div className="p-5" style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-surface)" }}>
+                        <div className="p-5 glass-sm" style={{ borderColor: "var(--color-glass-border)" }}>
                           <p className="text-[9px] font-medium tracking-[0.15em] uppercase mb-3"
                             style={{ color: "var(--color-text-muted)" }}>
                             Solution
@@ -237,7 +236,7 @@ export default function Projects() {
                       </div>
 
                       <div className="grid md:grid-cols-2 gap-6">
-                        <div className="p-5" style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-surface)" }}>
+                        <div className="p-5 glass-sm" style={{ borderColor: "var(--color-glass-border)" }}>
                           <p className="text-[9px] font-medium tracking-[0.15em] uppercase mb-3"
                             style={{ color: "var(--color-accent)" }}>
                             Objectives
@@ -252,7 +251,7 @@ export default function Projects() {
                             ))}
                           </ul>
                         </div>
-                        <div className="p-5" style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-surface)" }}>
+                        <div className="p-5 glass-sm" style={{ borderColor: "var(--color-glass-border)" }}>
                           <p className="text-[9px] font-medium tracking-[0.15em] uppercase mb-3"
                             style={{ color: "var(--color-text-muted)" }}>
                             Impact
@@ -320,8 +319,8 @@ export default function Projects() {
           })}
         </div>
 
-        <div className="mt-16 text-center py-10"
-          style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
+        <div className="mt-16 text-center py-10 glass"
+          style={{ borderColor: "var(--color-glass-border-strong)" }}>
           <p className="text-sm mb-6" style={{ color: "var(--color-text-muted)" }}>
             Additional projects, prototypes, and experimental work are available upon request.
           </p>

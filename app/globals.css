@@ -1,6 +1,44 @@
 @import "tailwindcss";
 
+@custom-variant xs (@media (width >= 375px));
+
+@utility glass {
+  background-color: var(--color-glass-bg);
+  backdrop-filter: blur(var(--glass-blur, 12px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 12px));
+  border: 1px solid var(--color-glass-border);
+}
+
+@utility glass-sm {
+  background-color: var(--color-glass-bg);
+  backdrop-filter: blur(var(--glass-blur-sm, 8px));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm, 8px));
+  border: 1px solid var(--color-glass-border);
+}
+
+@utility glass-lg {
+  background-color: var(--color-glass-bg);
+  backdrop-filter: blur(var(--glass-blur-lg, 20px));
+  -webkit-backdrop-filter: blur(var(--glass-blur-lg, 20px));
+  border: 1px solid var(--color-glass-border);
+}
+
+@utility glass-nav {
+  background-color: var(--color-glass-nav-bg);
+  backdrop-filter: blur(var(--glass-blur-nav, 16px));
+  -webkit-backdrop-filter: blur(var(--glass-blur-nav, 16px));
+  border: 1px solid var(--color-glass-border);
+}
+
 [data-theme="dark"] {
+  --color-glass-bg: rgba(26, 18, 13, 0.6);
+  --color-glass-nav-bg: rgba(26, 18, 13, 0.75);
+  --color-glass-border: rgba(245, 232, 210, 0.08);
+  --color-glass-border-strong: rgba(245, 232, 210, 0.12);
+  --glass-blur: 12px;
+  --glass-blur-sm: 8px;
+  --glass-blur-lg: 20px;
+  --glass-blur-nav: 16px;
   --color-bg-primary: #1A120D;
   --color-bg-secondary: #241912;
   --color-bg-tertiary: #2C1D11;
@@ -18,7 +56,14 @@
 }
 
 [data-theme="light"] {
-  --color-bg-primary: #E8DFCF;
+  --color-glass-bg: rgba(232, 223, 207, 0.6);
+  --color-glass-nav-bg: rgba(232, 223, 207, 0.75);
+  --color-glass-border: rgba(26, 15, 10, 0.08);
+  --color-glass-border-strong: rgba(26, 15, 10, 0.12);
+  --glass-blur: 12px;
+  --glass-blur-sm: 8px;
+  --glass-blur-lg: 20px;
+  --glass-blur-nav: 16px;
   --color-bg-secondary: #F0E8DB;
   --color-bg-tertiary: #DDD2BE;
   --color-bg-card: rgba(26, 15, 10, 0.06);

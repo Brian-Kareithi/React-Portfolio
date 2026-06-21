@@ -39,40 +39,38 @@ function HeroSection() {
       <Background />
       <div className="absolute top-0 left-0 w-full h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent), transparent)` }} />
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen pt-20 pb-16">
-        <div className="flex flex-col lg:flex-row items-center justify-center w-full gap-12 lg:gap-20">
-          <div className="flex-1 text-center lg:text-left order-2 lg:order-1 mt-8 lg:mt-0">
-            <p className="text-sm sm:text-base font-medium tracking-[0.15em] uppercase mb-3"
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen pt-16 xs:pt-20 pb-12 xs:pb-16">
+        <div className="flex flex-col lg:flex-row items-center justify-center w-full gap-8 xs:gap-10 sm:gap-12 lg:gap-20">
+          <div className="flex-1 text-center lg:text-left order-2 lg:order-1 mt-6 xs:mt-8 lg:mt-0">
+            <p className="text-[10px] xs:text-xs sm:text-sm md:text-base font-medium tracking-[0.15em] uppercase mb-2 xs:mb-3"
               style={{ color: "var(--color-text-muted)" }}>
               Hi, I am
             </p>
-            <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tight leading-[1.05] mb-4"
+            <h1 className="text-[2.5rem] xs:text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05] mb-3 xs:mb-4"
               style={{ color: "var(--color-text-primary)" }}>
               Brian<br />Kareithi
             </h1>
-            <div className="h-10 sm:h-12 mt-3 mb-10">
-              <p className="text-xl sm:text-2xl lg:text-3xl font-light tracking-wide"
+            <div className="h-8 xs:h-10 sm:h-12 mt-2 xs:mt-3 mb-6 xs:mb-8 sm:mb-10">
+              <p className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl font-light tracking-wide"
                 style={{ color: "var(--color-text-secondary)" }}>
                 <span>{displayText}</span>
                 <span className="ml-1 font-semibold animate-pulse" style={{ color: "var(--color-accent)" }}>|</span>
               </p>
             </div>
 
-            <div className="flex justify-center lg:justify-start gap-3">
+            <div className="flex justify-center lg:justify-start gap-2 xs:gap-3">
               {[
                 { href: "https://github.com/Brian-Kareithi", icon: FaGithub, label: "GitHub" },
                 { href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", icon: FaLinkedinIn, label: "LinkedIn" },
                 { href: "mailto:kareithibrian2@gmail.com", icon: IoMailOutline, label: "Email" },
               ].map(({ href, icon: Icon, label }) => (
                 <a key={label} href={href}
-                  className="p-3.5 transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                  className="p-3 xs:p-3.5 transition-all duration-300 hover:scale-110 hover:-translate-y-1 glass-sm"
                   style={{
-                    backgroundColor: "var(--color-bg-card)",
-                    border: "1px solid var(--color-border)",
                     color: "var(--color-text-secondary)",
                   }}
                   target="_blank" rel="noopener noreferrer" aria-label={label}>
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-4 h-4 xs:w-5 xs:h-5" />
                 </a>
               ))}
             </div>
@@ -80,16 +78,16 @@ function HeroSection() {
 
           <div className="flex-1 flex justify-center order-1 lg:order-2">
             <div className="relative group">
-              <div className="absolute -inset-8 rounded-sm transition-all duration-700 opacity-0 group-hover:opacity-100"
+              <div className="absolute -inset-6 xs:-inset-8 rounded-sm transition-all duration-700 opacity-0 group-hover:opacity-100"
                 style={{ background: "var(--color-accent-glow)" }} />
-              <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
-                <div className="absolute -inset-4 rounded-sm animate-spin-slow"
+              <div className="relative w-40 h-40 xs:w-48 xs:h-48 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
+                <div className="absolute -inset-3 xs:-inset-4 rounded-sm animate-spin-slow"
                   style={{
                     border: "1px solid transparent",
                     borderTopColor: "var(--color-accent)",
                     borderRightColor: "var(--color-accent-secondary)",
                   }} />
-                <div className="absolute -inset-2 rounded-sm"
+                <div className="absolute -inset-1.5 xs:-inset-2 rounded-sm"
                   style={{ border: "1px solid var(--color-border)" }} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -104,7 +102,7 @@ function HeroSection() {
                     if (next) next.style.display = "flex";
                   }}
                 />
-                <div className="hidden absolute inset-0 rounded-sm items-center justify-center text-3xl sm:text-5xl font-bold"
+                <div className="hidden absolute inset-0 rounded-sm items-center justify-center text-2xl xs:text-3xl sm:text-5xl font-bold"
                   style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-secondary)" }}>
                   <span style={{ color: "var(--color-text-primary)" }}>BK</span>
                 </div>
@@ -113,12 +111,12 @@ function HeroSection() {
           </div>
         </div>
 
-        <div className="absolute bottom-10 flex flex-col items-center gap-2 animate-float">
-          <span className="text-[10px] tracking-[0.2em] uppercase font-medium"
+        <div className="absolute bottom-8 xs:bottom-10 flex flex-col items-center gap-2 animate-float">
+          <span className="text-[9px] xs:text-[10px] tracking-[0.2em] uppercase font-medium"
             style={{ color: "var(--color-text-muted)" }}>
             Scroll
           </span>
-          <FiArrowDown className="w-4 h-4" style={{ color: "var(--color-text-muted)" }} />
+          <FiArrowDown className="w-3 h-3 xs:w-4 xs:h-4" style={{ color: "var(--color-text-muted)" }} />
         </div>
       </div>
     </section>

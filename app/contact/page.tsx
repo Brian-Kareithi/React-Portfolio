@@ -68,8 +68,8 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-px mb-16"
           style={{ backgroundColor: "var(--color-border)" }}>
-          <div className="lg:col-span-2 p-8 md:p-10"
-            style={{ backgroundColor: "var(--color-bg-primary)" }}>
+          <div className="lg:col-span-2 p-6 xs:p-8 md:p-10 glass"
+            style={{ borderColor: "var(--color-glass-border-strong)" }}>
             <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-8"
               style={{ color: "var(--color-text-muted)" }}>
               Information
@@ -83,8 +83,8 @@ export default function Contact() {
               ].map((item) => (
                 <div key={item.label} className="stagger-item flex items-center gap-4 py-4 transition-all duration-200 hover:-translate-y-0.5"
                   style={{ borderBottom: "1px solid var(--color-border)" }}>
-                  <div className="w-10 h-10 flex items-center justify-center"
-                    style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-surface)" }}>
+                  <div className="w-10 h-10 flex items-center justify-center glass-sm"
+                    style={{ borderColor: "var(--color-glass-border)" }}>
                     <item.icon className="w-4 h-4" style={{ color: "var(--color-accent)" }} />
                   </div>
                   <div>
@@ -112,11 +112,10 @@ export default function Contact() {
                   { icon: FaLinkedin, href: "https://linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
                 ].map((item) => (
                   <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
-                    className="stagger-item p-3 transition-all duration-200 hover:-translate-y-0.5"
+                    className="stagger-item p-3 transition-all duration-200 hover:-translate-y-0.5 glass-sm"
                     style={{
-                      border: "1px solid var(--color-border)",
+                      borderColor: "var(--color-glass-border)",
                       color: "var(--color-text-secondary)",
-                      backgroundColor: "var(--color-surface)",
                     }}>
                     <item.icon className="w-4 h-4" />
                   </a>
@@ -125,8 +124,8 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="lg:col-span-3 p-8 md:p-10"
-            style={{ backgroundColor: "var(--color-bg-primary)" }}>
+          <div className="lg:col-span-3 p-6 xs:p-8 md:p-10 glass"
+            style={{ borderColor: "var(--color-glass-border-strong)" }}>
             <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-8"
               style={{ color: "var(--color-text-muted)" }}>
               Send a Message
@@ -148,10 +147,9 @@ export default function Contact() {
                       onBlur={() => setActiveField(null)}
                       placeholder={field.placeholder}
                       required
-                      className="w-full px-4 py-3.5 text-sm outline-none transition-all duration-200"
+                      className="w-full px-4 py-3.5 text-sm outline-none transition-all duration-200 glass-sm"
                       style={{
-                        backgroundColor: "var(--color-bg-card)",
-                        border: `1px solid ${activeField === field.name ? "var(--color-accent)" : "var(--color-border)"}`,
+                        borderColor: activeField === field.name ? "var(--color-accent)" : "var(--color-glass-border)",
                         color: "var(--color-text-primary)",
                       }}
                     />
@@ -164,10 +162,9 @@ export default function Contact() {
                 onBlur={() => setActiveField(null)}
                 placeholder="Subject"
                 required
-                className="w-full px-4 py-3.5 text-sm outline-none transition-all duration-200"
+                className="w-full px-4 py-3.5 text-sm outline-none transition-all duration-200 glass-sm"
                 style={{
-                  backgroundColor: "var(--color-bg-card)",
-                  border: `1px solid ${activeField === "subject" ? "var(--color-accent)" : "var(--color-border)"}`,
+                  borderColor: activeField === "subject" ? "var(--color-accent)" : "var(--color-glass-border)",
                   color: "var(--color-text-primary)",
                 }} />
 
@@ -176,10 +173,9 @@ export default function Contact() {
                 onBlur={() => setActiveField(null)}
                 placeholder="Tell me about your project..."
                 required rows={6}
-                className="w-full px-4 py-3.5 text-sm outline-none transition-all duration-200 resize-none"
+                className="w-full px-4 py-3.5 text-sm outline-none transition-all duration-200 resize-none glass-sm"
                 style={{
-                  backgroundColor: "var(--color-bg-card)",
-                  border: `1px solid ${activeField === "message" ? "var(--color-accent)" : "var(--color-border)"}`,
+                  borderColor: activeField === "message" ? "var(--color-accent)" : "var(--color-glass-border)",
                   color: "var(--color-text-primary)",
                 }} />
 
@@ -218,8 +214,8 @@ export default function Contact() {
             { title: "Open To", desc: "Freelance projects, full-time positions, research collaborations, and speaking engagements.", icon: "02" },
             { title: "Preferred Stack", desc: "React, Next.js, Node.js, TypeScript, PostgreSQL, and cloud-native architectures.", icon: "03" },
           ].map((item) => (
-            <div key={item.title} className="p-6 transition-all duration-300 hover:-translate-y-1"
-              style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
+            <div key={item.title} className="p-6 transition-all duration-300 hover:-translate-y-1 glass"
+              style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="flex items-center justify-between mb-3">
                 <div className="w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
                 <span className="text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
