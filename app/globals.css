@@ -41,14 +41,14 @@
   --glass-blur-nav: 16px;
   --color-bg-primary: #0C1519;
   --color-bg-secondary: #162127;
-  --color-bg-tertiary: #1F2C33;
+  --color-bg-tertiary: #1E2A30;
   --color-bg-card: rgba(207, 157, 123, 0.04);
-  --color-bg-card-hover: rgba(207, 157, 123, 0.08);
-  --color-text-primary: #CF9D7B;
-  --color-text-secondary: #B8896A;
-  --color-text-muted: #6B5B4F;
-  --color-border: rgba(114, 75, 57, 0.4);
-  --color-border-hover: rgba(207, 157, 123, 0.3);
+  --color-bg-card-hover: rgba(207, 157, 123, 0.07);
+  --color-text-primary: #F0E8D8;
+  --color-text-secondary: #C8BEA8;
+  --color-text-muted: #8A7A6A;
+  --color-border: rgba(114, 75, 57, 0.45);
+  --color-border-hover: rgba(207, 157, 123, 0.35);
   --color-accent: #CF9D7B;
   --color-accent-secondary: #724B39;
   --color-accent-glow: rgba(207, 157, 123, 0.06);
@@ -67,16 +67,16 @@
   --color-bg-primary: #F5EDE4;
   --color-bg-secondary: #EDE0D4;
   --color-bg-tertiary: #E0D0C0;
-  --color-bg-card: rgba(58, 53, 52, 0.06);
-  --color-bg-card-hover: rgba(58, 53, 52, 0.1);
-  --color-text-primary: #0C1519;
-  --color-text-secondary: #3A3534;
-  --color-text-muted: #6B5B4F;
+  --color-bg-card: rgba(58, 53, 52, 0.05);
+  --color-bg-card-hover: rgba(58, 53, 52, 0.09);
+  --color-text-primary: #1A1512;
+  --color-text-secondary: #4A3F38;
+  --color-text-muted: #8A7A6A;
   --color-border: rgba(114, 75, 57, 0.2);
   --color-border-hover: rgba(114, 75, 57, 0.35);
   --color-accent: #724B39;
   --color-accent-secondary: #3A3534;
-  --color-accent-glow: rgba(114, 75, 57, 0.08);
+  --color-accent-glow: rgba(114, 75, 57, 0.07);
   --color-surface: rgba(58, 53, 52, 0.04);
 }
 
