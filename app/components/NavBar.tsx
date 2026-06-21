@@ -98,7 +98,7 @@ export default function Navbar() {
     <>
       <nav
         className={`
-          fixed z-50 glass-nav
+          fixed z-[60] glass-nav
           transition-all duration-500 ease-out
           ${isScrolled ? "w-full top-0 left-0 right-0 rounded-none" : "w-[95%] top-2 xs:top-4 left-[2.5%] right-[2.5%] rounded-2xl"}
           before:absolute before:inset-0 before:rounded-inherit
@@ -188,14 +188,6 @@ export default function Navbar() {
                 {greeting.text}
               </span>
             </div>
-            <button
-              className="flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300 hover:scale-110 hover:rotate-90 ml-2 flex-shrink-0"
-              style={{ color: "var(--color-text-secondary)" }}
-              onClick={toggleMobileMenu}
-              aria-label="Close menu"
-            >
-              <span className="text-2xl leading-none">×</span>
-            </button>
           </div>
 
           <div className="flex-1 overflow-y-auto">
