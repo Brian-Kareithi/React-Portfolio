@@ -21,11 +21,11 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       }`}
       style={{ backgroundColor: "#1A120D" }}
     >
-      <div className="relative w-16 h-16 animate-rotate-loading">
+      <div className="relative w-12 h-12 xs:w-16 xs:h-16 animate-rotate-loading">
         {Array.from({ length: DOT_COUNT }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 rounded-full bg-white/80"
+            className="absolute w-1.5 h-1.5 xs:w-2 xs:h-2 rounded-full bg-white/80"
             style={{
               top: `${50 - 50 * Math.cos((2 * Math.PI * i) / DOT_COUNT)}%`,
               left: `${50 + 50 * Math.sin((2 * Math.PI * i) / DOT_COUNT)}%`,

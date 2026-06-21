@@ -6,10 +6,9 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative z-10 border-t py-8 px-4"
+      className="relative z-10 border-t py-8 px-4 glass"
       style={{
-        backgroundColor: "var(--color-bg-secondary)",
-        borderColor: "var(--color-border)",
+        borderColor: "var(--color-glass-border-strong)",
       }}
     >
       <div className="max-w-6xl mx-auto">
@@ -33,11 +32,10 @@ export default function Footer() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg transition-all duration-200 hover:scale-110"
+                className="p-2 rounded-lg transition-all duration-200 hover:scale-110 glass-sm"
                 style={{
                   color: "var(--color-text-secondary)",
-                  backgroundColor: "var(--color-bg-tertiary)",
-                  border: "1px solid var(--color-border)",
+                  borderColor: "var(--color-glass-border)",
                 }}
                 aria-label={label}
               >

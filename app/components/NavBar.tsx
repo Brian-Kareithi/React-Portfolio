@@ -98,22 +98,16 @@ export default function Navbar() {
     <>
       <nav
         className={`
-          fixed z-50
+          fixed z-50 glass-nav
           transition-all duration-500 ease-out
-          ${isScrolled ? "w-full top-0 left-0 right-0 rounded-none" : "w-[95%] top-4 left-[2.5%] right-[2.5%] rounded-2xl"}
-          backdrop-blur-[1px]
+          ${isScrolled ? "w-full top-0 left-0 right-0 rounded-none" : "w-[95%] top-2 xs:top-4 left-[2.5%] right-[2.5%] rounded-2xl"}
           before:absolute before:inset-0 before:rounded-inherit
           before:bg-gradient-to-br before:from-white/[0.03] before:via-transparent before:to-transparent
           before:content-[''] before:-z-10 before:opacity-0 hover:before:opacity-50
           before:transition-opacity before:duration-500
-          ${isScrolled ? "" : "border"}
         `}
-        style={{
-          backgroundColor: isScrolled ? "var(--color-bg-secondary)" : "var(--color-bg-card)",
-          borderColor: "var(--color-border)",
-        }}
       >
-        <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-3">
+        <div className="flex items-center justify-between w-full px-3 xs:px-4 sm:px-6 md:px-8 py-2.5 xs:py-3">
           <div className="flex items-center space-x-2">
             <span className="text-base md:text-lg">{greeting.icon}</span>
             <span className="font-medium hidden sm:block text-sm md:text-base"
@@ -160,13 +154,13 @@ export default function Navbar() {
               {theme === "dark" ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
             </button>
 
-            <button className="flex flex-col space-y-1.5 p-2 group" onClick={toggleMobileMenu}
+            <button className="flex flex-col items-center justify-center w-10 h-10 group" onClick={toggleMobileMenu}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}>
-              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}
+              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-[3px]" : ""}`}
                 style={{ backgroundColor: "var(--color-text-primary)" }} />
-              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`}
+              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 mt-[4px] ${isMobileMenuOpen ? "opacity-0" : ""}`}
                 style={{ backgroundColor: "var(--color-text-primary)" }} />
-              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}
+              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 mt-[4px] ${isMobileMenuOpen ? "-rotate-45 -translate-y-[3px]" : ""}`}
                 style={{ backgroundColor: "var(--color-text-primary)" }} />
             </button>
           </div>
@@ -175,43 +169,41 @@ export default function Navbar() {
 
       <div
         className={`
-          fixed top-0 right-0 h-full z-50
+          fixed top-0 right-0 h-full z-50 glass-lg
           transform transition-transform duration-500 ease-in-out
-          backdrop-blur-[2px]
           md:hidden
-          w-[85vw] max-w-[300px] min-w-[250px]
+          w-[80vw] max-w-[320px] min-w-[260px]
           ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
         `}
         style={{
-          backgroundColor: "var(--color-bg-secondary)",
-          borderLeft: "1px solid var(--color-border)",
+          borderLeft: "1px solid var(--color-glass-border-strong)",
         }}
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-5 border-b"
+          <div className="flex items-center justify-between p-4 xs:p-5 border-b"
             style={{ borderColor: "var(--color-border)" }}>
-            <div className="flex items-center space-x-3">
-              <span className="text-2xl">{greeting.icon}</span>
-              <span className="font-medium text-lg" style={{ color: "var(--color-text-primary)" }}>
+            <div className="flex items-center space-x-3 min-w-0">
+              <span className="text-xl xs:text-2xl flex-shrink-0">{greeting.icon}</span>
+              <span className="font-medium text-sm xs:text-lg truncate" style={{ color: "var(--color-text-primary)" }}>
                 {greeting.text}
               </span>
             </div>
             <button
-              className="text-3xl p-1 rounded-xl transition-all duration-300 hover:scale-110 hover:rotate-90 ml-2"
+              className="flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300 hover:scale-110 hover:rotate-90 ml-2 flex-shrink-0"
               style={{ color: "var(--color-text-secondary)" }}
               onClick={toggleMobileMenu}
               aria-label="Close menu"
             >
-              ×
+              <span className="text-2xl leading-none">×</span>
             </button>
           </div>
 
           <div className="flex-1 overflow-y-auto">
-            <ul className="p-5 space-y-3">
+            <ul className="p-4 xs:p-5 space-y-2 xs:space-y-3">
               {sections.map((section) => (
                 <li key={section.id}>
                   <button
-                    className="relative w-full text-left px-4 py-4 rounded-xl font-medium transition-all duration-300 overflow-hidden text-base"
+                    className="relative w-full text-left px-3 xs:px-4 py-3.5 xs:py-4 rounded-xl font-medium transition-all duration-300 overflow-hidden text-sm xs:text-base min-h-[48px] hover:glass-sm"
                     style={{
                       color: activeSection === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
                     }}
@@ -228,8 +220,8 @@ export default function Navbar() {
             </ul>
           </div>
 
-          <div className="p-5 pt-0 mt-auto">
-            <div className="text-center text-sm"
+          <div className="p-4 xs:p-5 pt-0 mt-auto">
+            <div className="text-center text-xs xs:text-sm"
               style={{ color: "var(--color-text-muted)" }}>
               Navigate through sections
             </div>
@@ -240,7 +232,7 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 z-40 md:hidden transition-all duration-500"
-          style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
+          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
           onClick={toggleMobileMenu}
         />
       )}

@@ -75,33 +75,33 @@ export default function About() {
   }, [activeTab]);
 
   return (
-    <section id="about" className="min-h-screen w-full py-28 md:py-36 px-4 relative"
+    <section id="about" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3 xs:px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="absolute top-0 left-0 w-1/3 h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent))` }} />
       <div className="max-w-7xl mx-auto w-full">
-        <div className="text-center mb-20 animate-fade-in-up">
-          <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-3"
+        <div className="text-center mb-12 xs:mb-16 sm:mb-20 animate-fade-in-up">
+          <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.3em] uppercase mb-2 xs:mb-3"
             style={{ color: "var(--color-text-muted)" }}>
             Career Chronicle
           </p>
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-            <h2 className="text-4xl md:text-5xl font-bold leading-tight"
+          <div className="flex items-center justify-center gap-2 xs:gap-3 mb-4 xs:mb-6">
+            <div className="w-6 xs:w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold leading-tight"
               style={{ color: "var(--color-text-primary)" }}>
               Professional Journey
             </h2>
-            <div className="w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
+            <div className="w-6 xs:w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
           </div>
-          <p className="max-w-2xl mx-auto text-sm leading-relaxed"
+          <p className="max-w-2xl mx-auto text-xs xs:text-sm leading-relaxed px-2 xs:px-0"
             style={{ color: "var(--color-text-secondary)" }}>
             Academic foundation, technical certifications, and professional experience
             demonstrating deliberate growth and specialization.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 mb-12 xs:mb-16 sm:mb-20">
           {[
             { label: "Years in Tech", value: "5+" },
             { label: "Certifications", value: "6" },
@@ -109,16 +109,15 @@ export default function About() {
             { label: "Projects", value: "50+" },
           ].map((stat) => (
             <div key={stat.label}
-              className="stagger-item text-center py-8 px-4 transition-all duration-300 hover:-translate-y-1 border-l-2"
+              className="stagger-item text-center py-6 xs:py-8 px-2 xs:px-4 transition-all duration-300 hover:-translate-y-1 border-l-2 glass"
               style={{
                 borderColor: "var(--color-accent)",
-                backgroundColor: "var(--color-bg-card)",
               }}>
-              <div className="text-3xl font-bold mb-1"
+              <div className="text-2xl xs:text-3xl font-bold mb-1"
                 style={{ color: "var(--color-accent)" }}>
                 {stat.value}
               </div>
-              <div className="text-[10px] tracking-[0.2em] uppercase"
+              <div className="text-[9px] xs:text-[10px] tracking-[0.2em] uppercase"
                 style={{ color: "var(--color-text-muted)" }}>
                 {stat.label}
               </div>
@@ -127,17 +126,16 @@ export default function About() {
         </div>
 
         <div className="border" style={{ borderColor: "var(--color-border)" }}>
-          <div className="flex border-b" style={{ borderColor: "var(--color-border)" }}>
+          <div className="flex border-b overflow-x-auto" style={{ borderColor: "var(--color-border)" }}>
             {tabs.map((tab) => (
               <button key={tab} onClick={() => setActiveTab(tab)}
-                className="stagger-item flex-1 px-5 py-4 text-xs font-medium tracking-wider uppercase transition-all duration-300"
+                className={`stagger-item flex-1 px-2 xs:px-3 sm:px-5 py-3 xs:py-4 text-[10px] xs:text-xs font-medium tracking-wider uppercase transition-all duration-300 whitespace-nowrap ${activeTab === tab ? "glass-sm" : ""}`}
                 style={{
                   color: activeTab === tab ? "var(--color-accent)" : "var(--color-text-muted)",
-                  backgroundColor: activeTab === tab ? "var(--color-bg-card)" : "transparent",
                 }}>
-                <span className="mr-2">{categoryConfig[tab].icon}</span>
+                <span className="mr-1 xs:mr-2">{categoryConfig[tab].icon}</span>
                 {categoryConfig[tab].label}
-                <span className="ml-2 text-[10px] font-mono" style={{ opacity: 0.5 }}>
+                <span className="ml-1 xs:ml-2 text-[9px] xs:text-[10px] font-mono" style={{ opacity: 0.5 }}>
                   {String(groupedTimeline[tab]?.length || 0).padStart(2, "0")}
                 </span>
               </button>
@@ -168,62 +166,60 @@ export default function About() {
               ))}
             </div>
 
-            <div className="flex-1 min-h-[500px] p-8 md:p-10" ref={contentRef}>
+            <div className="flex-1 min-h-[400px] xs:min-h-[450px] sm:min-h-[500px] p-4 xs:p-5 sm:p-8 md:p-10" ref={contentRef}>
               {activeItems.length > 0 && activeSubTab < activeItems.length && (
                 <div className="animate-fade-in-up">
-                  <div className="flex items-center gap-4 mb-2">
-                    <span className="font-mono text-xs" style={{ color: "var(--color-text-muted)" }}>
+                  <div className="flex items-center gap-3 xs:gap-4 mb-2">
+                    <span className="font-mono text-[10px] xs:text-xs" style={{ color: "var(--color-text-muted)" }}>
                       {activeItems[activeSubTab].period}
                     </span>
                     <div className="h-px flex-1" style={{ backgroundColor: "var(--color-border)" }} />
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3"
+                  <h3 className="text-xl xs:text-2xl sm:text-3xl font-bold mb-2 xs:mb-3"
                     style={{ color: "var(--color-text-primary)" }}>
                     {activeItems[activeSubTab].title}
                   </h3>
-                  <p className="text-sm tracking-wider uppercase mb-6"
+                  <p className="text-[10px] xs:text-xs sm:text-sm tracking-wider uppercase mb-4 xs:mb-6"
                     style={{ color: "var(--color-text-muted)" }}>
                     {activeItems[activeSubTab].institution}
                   </p>
-                  <div className="w-12 h-px mb-8"
+                  <div className="w-10 xs:w-12 h-px mb-6 xs:mb-8"
                     style={{ backgroundColor: "var(--color-accent)" }} />
-                  <p className="leading-relaxed text-base mb-10"
+                  <p className="leading-relaxed text-sm xs:text-base mb-6 xs:mb-8 sm:mb-10"
                     style={{ color: "var(--color-text-secondary)" }}>
                     {activeItems[activeSubTab].description}
                   </p>
 
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 xs:gap-4 sm:gap-6">
                     {activeItems[activeSubTab].significance && (
-                      <div className="p-6 transition-all duration-300 hover:-translate-y-0.5"
+                      <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 glass"
                         style={{
-                          border: "1px solid var(--color-border)",
-                          backgroundColor: "var(--color-bg-card)",
+                          borderColor: "var(--color-glass-border-strong)",
                         }}>
-                        <p className="text-[10px] font-medium tracking-[0.15em] uppercase mb-3"
+                        <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.15em] uppercase mb-2 xs:mb-3"
                           style={{ color: "var(--color-accent)" }}>
                           Significance
                         </p>
-                        <p className="font-medium text-base"
+                        <p className="font-medium text-sm xs:text-base"
                           style={{ color: "var(--color-text-primary)" }}>
                           {activeItems[activeSubTab].significance}
                         </p>
                       </div>
                     )}
                     {activeItems[activeSubTab].metrics && (
-                      <div className="p-6 transition-all duration-300 hover:-translate-y-0.5"
+                      <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 glass"
                         style={{
-                          border: "1px solid var(--color-border)",
-                          backgroundColor: "var(--color-bg-card)",
+                          borderColor: "var(--color-glass-border-strong)",
                         }}>
-                        <p className="text-[10px] font-medium tracking-[0.15em] uppercase mb-3"
+                        <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.15em] uppercase mb-2 xs:mb-3"
                           style={{ color: "var(--color-text-muted)" }}>
                           Key Metrics
                         </p>
-                        <ul className="space-y-2">
+                        <ul className="space-y-1.5 xs:space-y-2">
                           {activeItems[activeSubTab].metrics!.map((metric, i) => (
-                            <li key={i} className="flex items-start gap-2 text-sm"
+                            <li key={i} className="flex items-start gap-2 text-xs xs:text-sm"
                               style={{ color: "var(--color-text-secondary)" }}>
-                              <span className="mt-1" style={{ color: "var(--color-accent)" }}>—</span>
+                              <span className="mt-0.5 xs:mt-1 flex-shrink-0" style={{ color: "var(--color-accent)" }}>—</span>
                               {metric}
                             </li>
                           ))}
@@ -232,22 +228,22 @@ export default function About() {
                     )}
                   </div>
 
-                  <div className="md:hidden flex items-center justify-between mt-8 pt-6"
+                  <div className="md:hidden flex items-center justify-between mt-6 xs:mt-8 pt-4 xs:pt-6"
                     style={{ borderTop: "1px solid var(--color-border)" }}>
                     <button onClick={() => setActiveSubTab(Math.max(0, activeSubTab - 1))}
                       disabled={activeSubTab === 0}
-                      className="text-sm flex items-center gap-1 disabled:opacity-30 transition-all"
+                      className="flex items-center gap-1 text-xs xs:text-sm disabled:opacity-30 transition-all min-h-[44px] justify-center"
                       style={{ color: "var(--color-text-secondary)" }}>
-                      <ChevronLeft className="w-4 h-4" /> Previous
+                      <ChevronLeft className="w-3.5 h-3.5 xs:w-4 xs:h-4" /> <span className="hidden xs:inline">Previous</span>
                     </button>
-                    <span className="text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
+                    <span className="text-[10px] xs:text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
                       {String(activeSubTab + 1).padStart(2, "0")}/{String(activeItems.length).padStart(2, "0")}
                     </span>
                     <button onClick={() => setActiveSubTab(Math.min(activeItems.length - 1, activeSubTab + 1))}
                       disabled={activeSubTab === activeItems.length - 1}
-                      className="text-sm flex items-center gap-1 disabled:opacity-30 transition-all"
+                      className="flex items-center gap-1 text-xs xs:text-sm disabled:opacity-30 transition-all min-h-[44px] justify-center"
                       style={{ color: "var(--color-text-secondary)" }}>
-                      Next <ChevronRight className="w-4 h-4" />
+                      <span className="hidden xs:inline">Next</span> <ChevronRight className="w-3.5 h-3.5 xs:w-4 xs:h-4" />
                     </button>
                   </div>
                 </div>
@@ -256,20 +252,20 @@ export default function About() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 mt-12">
+        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2 xs:gap-3 sm:gap-4 mt-8 xs:mt-10 sm:mt-12">
           {[
             { title: "Progressive Development", desc: "Each phase builds upon previous knowledge, demonstrating cumulative growth" },
             { title: "Diverse Experience", desc: "Exposure across public sector, private enterprise, and entrepreneurial ventures" },
             { title: "Strategic Focus", desc: "Current emphasis on scalable solutions and professional mentorship" },
           ].map((item) => (
-            <div key={item.title} className="stagger-item p-6 transition-all duration-300 hover:-translate-y-1"
-              style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
-              <div className="w-8 h-px mb-4" style={{ backgroundColor: "var(--color-accent)" }} />
-              <h4 className="font-semibold mb-2 text-sm"
+            <div key={item.title} className="stagger-item p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 glass"
+              style={{ borderColor: "var(--color-glass-border-strong)" }}>
+              <div className="w-6 xs:w-8 h-px mb-3 xs:mb-4" style={{ backgroundColor: "var(--color-accent)" }} />
+              <h4 className="font-semibold mb-1.5 xs:mb-2 text-xs xs:text-sm"
                 style={{ color: "var(--color-text-primary)" }}>
                 {item.title}
               </h4>
-              <p className="text-sm leading-relaxed"
+              <p className="text-xs xs:text-sm leading-relaxed"
                 style={{ color: "var(--color-text-secondary)" }}>
                 {item.desc}
               </p>
