@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative z-10 border-t py-8 px-4 glass"
+      className="relative z-10 border-t py-8 px-4 liquid-glass"
       style={{
         borderColor: "var(--color-glass-border-strong)",
       }}
@@ -32,7 +32,7 @@ export default function Footer() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg transition-all duration-200 hover:scale-110 glass-sm"
+                className="p-2 rounded-lg transition-all duration-200 hover:scale-110 liquid-glass"
                 style={{
                   color: "var(--color-text-secondary)",
                   borderColor: "var(--color-glass-border)",

@@ -107,7 +107,7 @@ export default function Niche() {
         </div>
 
         <div className="mb-20">
-          <div className="border rounded-2xl p-6 md:p-8 transition-all duration-300 glass"
+          <div className="border rounded-2xl p-6 md:p-8 transition-all duration-300 liquid-card"
             style={{ borderColor: "var(--color-glass-border-strong)" }}>
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
               <div>
@@ -133,7 +133,7 @@ export default function Niche() {
                 { label: "Backup Status", value: automationStatus.backupRunning ? "Running" : "Idle", active: automationStatus.backupRunning, icon: CloudUpload, color: "#8b5cf6" },
                 { label: "Home Server", value: automationStatus.serverOnline ? "Online" : "Offline", active: automationStatus.serverOnline, icon: Server, color: "#f59e0b" },
               ].map((item, idx) => (
-                <div key={idx} className="border rounded-xl p-5 transition-all duration-300 hover:scale-[1.03] glass-sm"
+                <div key={idx} className="border rounded-xl p-5 transition-all duration-300 hover:scale-[1.03] liquid-card hover:liquid-card-hover"
                   style={{
                     borderColor: item.active ? `${item.color}50` : "var(--color-glass-border)",
                   }}>
@@ -153,7 +153,7 @@ export default function Niche() {
               ))}
             </div>
 
-            <div className="border rounded-xl p-6 glass-sm"
+            <div className="border rounded-xl p-6 liquid-card"
               style={{ borderColor: "var(--color-glass-border)" }}>
               <h4 className="font-semibold mb-6 flex items-center gap-2"
                 style={{ color: "var(--color-text-primary)" }}>
@@ -190,7 +190,7 @@ export default function Niche() {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {niches.map((niche) => (
-              <div key={niche.id} className="group border rounded-xl p-6 transition-all duration-500 hover:scale-[1.03] glass"
+              <div key={niche.id} className="group border rounded-xl p-6 transition-all duration-500 hover:scale-[1.03] liquid-card hover:liquid-card-hover"
                 style={{ borderColor: "var(--color-glass-border-strong)" }}>
                 <div className="flex items-start gap-3 mb-4">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center"
@@ -235,7 +235,7 @@ export default function Niche() {
                 {niche.stats && (
                   <div className="grid grid-cols-3 gap-2 mb-4">
                     {niche.stats.map((stat, idx) => (
-                      <div key={idx} className="text-center p-3 rounded-lg border glass-sm"
+                      <div key={idx} className="text-center p-3 rounded-lg border liquid-card"
                         style={{ borderColor: "var(--color-glass-border)" }}>
                         <div className="text-lg font-bold" style={{ color: niche.color }}>{stat.value}</div>
                         <div className="text-xs" style={{ color: "var(--color-text-muted)" }}>{stat.label}</div>
@@ -267,7 +267,7 @@ export default function Niche() {
         </div>
 
         <div className="mb-20">
-          <div className="border rounded-2xl p-6 md:p-8 glass"
+          <div className="border rounded-2xl p-6 md:p-8 liquid-card"
             style={{ borderColor: "var(--color-glass-border-strong)" }}>
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
               <div>
@@ -285,7 +285,7 @@ export default function Niche() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {services.map((service, idx) => (
-                <div key={idx} className="border rounded-xl p-5 transition-all duration-300 hover:scale-[1.03] glass-sm"
+                <div key={idx} className="border rounded-xl p-5 transition-all duration-300 hover:scale-[1.03] liquid-card hover:liquid-card-hover"
                   style={{ borderColor: "var(--color-glass-border)" }}>
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
@@ -330,7 +330,7 @@ export default function Niche() {
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {techStack.map((tech, idx) => (
-              <div key={idx} className="group border rounded-xl p-6 text-center transition-all duration-300 hover:scale-[1.05] glass"
+              <div key={idx} className="group border rounded-xl p-6 text-center transition-all duration-300 hover:scale-[1.05] liquid-card hover:liquid-card-hover"
                 style={{ borderColor: "var(--color-glass-border-strong)" }}>
                 <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"
                   style={{ backgroundColor: "var(--color-bg-tertiary)", border: "1px solid var(--color-border)" }}>
@@ -347,7 +347,7 @@ export default function Niche() {
           </div>
         </div>
 
-          <div className="border rounded-2xl p-6 md:p-8 glass"
+          <div className="border rounded-2xl p-6 md:p-8 liquid-card"
             style={{ borderColor: "var(--color-glass-border-strong)" }}>
           <div className="flex flex-col lg:flex-row items-start gap-8">
             <div className="lg:w-1/3">
@@ -365,7 +365,7 @@ export default function Niche() {
             <div className="lg:w-2/3">
               <div className="grid sm:grid-cols-2 gap-4">
                 {philosophy.map((item, idx) => (
-                  <div key={idx} className="border rounded-xl p-5 transition-all duration-300 hover:scale-[1.03] glass-sm"
+<div key={idx} className="border rounded-xl p-5 transition-all duration-300 hover:scale-[1.03] liquid-card hover:liquid-card-hover"
                     style={{ borderColor: "var(--color-glass-border)" }}>
                     <h4 className="font-semibold mb-2 flex items-center gap-2"
                       style={{ color: "var(--color-text-primary)" }}>

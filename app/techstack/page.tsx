@@ -116,7 +116,7 @@ export default function TechStack() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 xs:gap-4 mb-12 xs:mb-16">
           {techs.map((category) => (
             <div key={category.heading}
-              className="stagger-item p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 glass"
+              className="stagger-item p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 liquid-card hover:liquid-card-hover rounded-xl"
               style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-base xs:text-lg font-bold tracking-tight"
@@ -134,7 +134,7 @@ export default function TechStack() {
                 {category.items.map((item, idx) => {
                   return (
                     <div key={idx}
-                      className="stagger-item flex items-center gap-1.5 xs:gap-2 px-2 xs:px-3 py-1.5 xs:py-2 text-[11px] xs:text-sm transition-all duration-200 hover:-translate-y-0.5 glass-sm"
+                      className="stagger-item flex items-center gap-1.5 xs:gap-2 px-2 xs:px-3 py-1.5 xs:py-2 text-[11px] xs:text-sm transition-all duration-200 hover:-translate-y-0.5 liquid-card"
                       style={{
                         borderColor: "var(--color-glass-border)",
                       }}>
@@ -156,7 +156,7 @@ export default function TechStack() {
           ))}
         </div>
 
-        <div className="text-center py-6 xs:py-8 sm:py-10 px-3 xs:px-4 glass"
+        <div className="text-center py-6 xs:py-8 sm:py-10 px-3 xs:px-4 liquid-card rounded-xl"
           style={{ borderColor: "var(--color-glass-border-strong)" }}>
           <div className="flex justify-center gap-4 xs:gap-6 sm:gap-10 mb-4 xs:mb-6 flex-wrap">
             {Object.entries(levelCounts).map(([level, count]) => {

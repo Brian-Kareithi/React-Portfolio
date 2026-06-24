@@ -109,7 +109,7 @@ export default function About() {
             { label: "Projects", value: "50+" },
           ].map((stat) => (
             <div key={stat.label}
-              className="stagger-item text-center py-6 xs:py-8 px-2 xs:px-4 transition-all duration-300 hover:-translate-y-1 border-l-2 glass"
+              className="stagger-item text-center py-6 xs:py-8 px-2 xs:px-4 transition-all duration-300 hover:-translate-y-1 border-l-2 liquid-card hover:liquid-card-hover rounded-xl"
               style={{
                 borderColor: "var(--color-accent)",
               }}>
@@ -129,7 +129,7 @@ export default function About() {
           <div className="flex border-b overflow-x-auto" style={{ borderColor: "var(--color-border)" }}>
             {tabs.map((tab) => (
               <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`stagger-item flex-1 px-2 xs:px-3 sm:px-5 py-3 xs:py-4 text-[10px] xs:text-xs font-medium tracking-wider uppercase transition-all duration-300 whitespace-nowrap ${activeTab === tab ? "glass-sm" : ""}`}
+                className={`stagger-item flex-1 px-2 xs:px-3 sm:px-5 py-3 xs:py-4 text-[10px] xs:text-xs font-medium tracking-wider uppercase transition-all duration-300 whitespace-nowrap ${activeTab === tab ? "liquid-card" : ""}`}
                 style={{
                   color: activeTab === tab ? "var(--color-accent)" : "var(--color-text-muted)",
                 }}>
@@ -192,7 +192,7 @@ export default function About() {
 
                   <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 xs:gap-4 sm:gap-6">
                     {activeItems[activeSubTab].significance && (
-                      <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 glass"
+                      <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 liquid-card hover:liquid-card-hover rounded-xl"
                         style={{
                           borderColor: "var(--color-glass-border-strong)",
                         }}>
@@ -207,7 +207,7 @@ export default function About() {
                       </div>
                     )}
                     {activeItems[activeSubTab].metrics && (
-                      <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 glass"
+                      <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 liquid-card hover:liquid-card-hover rounded-xl"
                         style={{
                           borderColor: "var(--color-glass-border-strong)",
                         }}>
@@ -258,7 +258,7 @@ export default function About() {
             { title: "Diverse Experience", desc: "Exposure across public sector, private enterprise, and entrepreneurial ventures" },
             { title: "Strategic Focus", desc: "Current emphasis on scalable solutions and professional mentorship" },
           ].map((item) => (
-            <div key={item.title} className="stagger-item p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 glass"
+            <div key={item.title} className="stagger-item p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 liquid-card hover:liquid-card-hover rounded-xl"
               style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="w-6 xs:w-8 h-px mb-3 xs:mb-4" style={{ backgroundColor: "var(--color-accent)" }} />
               <h4 className="font-semibold mb-1.5 xs:mb-2 text-xs xs:text-sm"

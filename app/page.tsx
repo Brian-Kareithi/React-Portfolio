@@ -66,7 +66,7 @@ function HeroSection() {
                 { href: "mailto:kareithibrian2@gmail.com", icon: IoMailOutline, label: "Email" },
               ].map(({ href, icon: Icon, label }) => (
                 <a key={label} href={href}
-                  className="p-3 xs:p-3.5 transition-all duration-300 hover:scale-110 hover:-translate-y-1 glass-sm"
+                  className="p-3 xs:p-3.5 transition-all duration-300 hover:scale-110 hover:-translate-y-1 liquid-glass"
                   style={{
                     color: "var(--color-text-secondary)",
                   }}
