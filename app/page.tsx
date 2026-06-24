@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
 import { FiArrowDown } from "react-icons/fi";
-import { Background } from "@/app/components/ui/Background";
 import AboutSection from "@/app/about/page";
 import TechStackSection from "@/app/techstack/page";
 import ProjectsSection from "@/app/projects/page";
@@ -36,7 +35,6 @@ function HeroSection() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <Background />
       <div className="absolute top-0 left-0 w-full h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent), transparent)` }} />
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen pt-16 xs:pt-20 pb-12 xs:pb-16">
