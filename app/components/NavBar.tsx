@@ -195,7 +195,7 @@ export default function Navbar() {
               {sections.map((section) => (
                 <li key={section.id}>
                   <button
-                    className="relative w-full text-left px-3 xs:px-4 py-3.5 xs:py-4 rounded-xl font-medium transition-all duration-300 overflow-hidden text-sm xs:text-base min-h-[48px] hover:glass-sm"
+                    className="relative w-full text-left px-3 xs:px-4 py-3.5 xs:py-4 rounded-xl font-medium transition-all duration-300 overflow-hidden text-sm xs:text-base min-h-[48px] hover:liquid-glass"
                     style={{
                       color: activeSection === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
                     }}
