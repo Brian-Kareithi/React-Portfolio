@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import Navbar from "@/app/components/NavBar";
 import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
@@ -14,18 +14,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     setIsLoading(false);
   }, []);
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }, []);
-
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
         <title>Brian Kareithi</title>
         <meta name="description" content="Brian Kareithi - Fullstack Developer & Cybersecurity Enthusiast" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>BK</text></svg>" />
       </head>
-      <body className="relative overflow-x-hidden">
+      <body className="relative overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>
           {isLoading && <LoadingScreen onFinish={handleFinishLoading} />}
 

@@ -2,11 +2,16 @@
 import { useState, useRef, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
-import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaUser, FaPaperPlane } from "react-icons/fa";
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formData, setFormData] = useState({ 
+    name: "", 
+    email: "", 
+    subject: "", 
+    message: "" 
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [activeField, setActiveField] = useState<string | null>(null);
@@ -23,17 +28,33 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("idle");
+    
     try {
+      // Get current time
+      const currentTime = new Date().toLocaleString('en-US', { 
+        dateStyle: 'medium', 
+        timeStyle: 'short' 
+      });
+
       await emailjs.send(
-        "service_v3qq6rr",
-        "template_xzhm8p7",
-        { from_name: formData.name, from_email: formData.email, subject: formData.subject, message: formData.message, to_email: "kareithibrian2@gmail.com" },
-        "Qpn7vRC-rFaXswyIE"
+        "service_16tnvzd", // Your service ID
+        "template_g2pvfu2", // Your template ID
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          time: currentTime,
+          to_email: "kareithibrian2@gmail.com"
+        },
+        "Qpn7vRC-rFaXswyIE" // Your public key
       );
+      
       setSubmitStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
       setTimeout(() => setSubmitStatus("idle"), 5000);
-    } catch {
+    } catch (error) {
+      console.error("EmailJS Error:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -133,74 +154,127 @@ export default function Contact() {
 
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  {[
-                    { name: "name", label: "Name", placeholder: "John Doe" },
-                    { name: "email", label: "Email", placeholder: "john@example.com", type: "email" },
-                  ].map((field) => (
-                    <div key={field.name} className="stagger-item">
-                      <input
-                      type={field.type || "text"}
-                      name={field.name}
-                      value={(formData as Record<string, string>)[field.name]}
-                      onChange={handleChange}
-                      onFocus={() => setActiveField(field.name)}
-                      onBlur={() => setActiveField(null)}
-                      placeholder={field.placeholder}
-                      required
-                      className="w-full px-4 py-3.5 text-sm outline-none transition-all duration-200 glass-sm"
-                      style={{
-                        borderColor: activeField === field.name ? "var(--color-accent)" : "var(--color-glass-border)",
-                        color: "var(--color-text-primary)",
-                      }}
-                    />
+                {/* Name Field with Icon */}
+                <div className="stagger-item relative">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10">
+                    <FaUser className="w-4 h-4" style={{ color: "var(--color-text-muted)" }} />
                   </div>
-                ))}
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    onFocus={() => setActiveField("name")}
+                    onBlur={() => setActiveField(null)}
+                    placeholder="John Doe"
+                    required
+                    className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-200 glass-sm"
+                    style={{
+                      borderColor: activeField === "name" ? "var(--color-accent)" : "var(--color-glass-border)",
+                      color: "var(--color-text-primary)",
+                    }}
+                  />
+                </div>
+
+                {/* Email Field with Icon */}
+                <div className="stagger-item relative">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10">
+                    <FaEnvelope className="w-4 h-4" style={{ color: "var(--color-text-muted)" }} />
+                  </div>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onFocus={() => setActiveField("email")}
+                    onBlur={() => setActiveField(null)}
+                    placeholder="john@example.com"
+                    required
+                    className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-200 glass-sm"
+                    style={{
+                      borderColor: activeField === "email" ? "var(--color-accent)" : "var(--color-glass-border)",
+                      color: "var(--color-text-primary)",
+                    }}
+                  />
+                </div>
               </div>
 
-              <input type="text" name="subject" value={formData.subject} onChange={handleChange}
-                onFocus={() => setActiveField("subject")}
-                onBlur={() => setActiveField(null)}
-                placeholder="Subject"
-                required
-                className="w-full px-4 py-3.5 text-sm outline-none transition-all duration-200 glass-sm"
-                style={{
-                  borderColor: activeField === "subject" ? "var(--color-accent)" : "var(--color-glass-border)",
-                  color: "var(--color-text-primary)",
-                }} />
+              {/* Subject Field with Icon */}
+              <div className="stagger-item relative">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10">
+                  <FaPaperPlane className="w-4 h-4" style={{ color: "var(--color-text-muted)" }} />
+                </div>
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  onFocus={() => setActiveField("subject")}
+                  onBlur={() => setActiveField(null)}
+                  placeholder="Subject"
+                  required
+                  className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-200 glass-sm"
+                  style={{
+                    borderColor: activeField === "subject" ? "var(--color-accent)" : "var(--color-glass-border)",
+                    color: "var(--color-text-primary)",
+                  }}
+                />
+              </div>
 
-              <textarea name="message" value={formData.message} onChange={handleChange}
-                onFocus={() => setActiveField("message")}
-                onBlur={() => setActiveField(null)}
-                placeholder="Tell me about your project..."
-                required rows={6}
-                className="w-full px-4 py-3.5 text-sm outline-none transition-all duration-200 resize-none glass-sm"
-                style={{
-                  borderColor: activeField === "message" ? "var(--color-accent)" : "var(--color-glass-border)",
-                  color: "var(--color-text-primary)",
-                }} />
+              {/* Message Field with Icon */}
+              <div className="stagger-item relative">
+                <div className="absolute left-3 top-4 z-10">
+                  <FaPaperPlane className="w-4 h-4" style={{ color: "var(--color-text-muted)" }} />
+                </div>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  onFocus={() => setActiveField("message")}
+                  onBlur={() => setActiveField(null)}
+                  placeholder="Tell me about your project..."
+                  required
+                  rows={6}
+                  className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-200 resize-none glass-sm"
+                  style={{
+                    borderColor: activeField === "message" ? "var(--color-accent)" : "var(--color-glass-border)",
+                    color: "var(--color-text-primary)",
+                  }}
+                />
+              </div>
 
               <button type="submit" disabled={isSubmitting}
-                className="w-full py-3.5 text-sm font-medium tracking-wider uppercase transition-all duration-200 hover:-translate-y-0.5"
+                className="w-full py-3.5 text-sm font-medium tracking-wider uppercase transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-2"
                 style={{
                   border: "1px solid var(--color-accent)",
                   color: "var(--color-accent)",
                   backgroundColor: "transparent",
                   opacity: isSubmitting ? 0.5 : 1,
                 }}>
-                {isSubmitting ? "Sending..." : submitStatus === "success" ? "Sent Successfully" : "Send Message"}
+                {isSubmitting ? (
+                  "Sending..."
+                ) : submitStatus === "success" ? (
+                  "✓ Sent Successfully"
+                ) : (
+                  <>
+                    <FaPaperPlane className="w-4 h-4" />
+                    Send Message
+                  </>
+                )}
               </button>
 
               <div className="min-h-[60px]">
                 {submitStatus === "success" && (
-                  <div className="p-4 text-sm animate-fade-in-up"
+                  <div className="p-4 text-sm animate-fade-in-up flex items-center gap-2"
                     style={{ border: "1px solid var(--color-accent)", color: "var(--color-accent)" }}>
+                    <span>✓</span>
                     Message sent! I typically respond within 24 hours.
                   </div>
                 )}
                 {submitStatus === "error" && (
                   <div className="p-4 text-sm animate-fade-in-up"
                     style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>
-                    Something went wrong. Please try again or email me directly.
+                    ⚠️ Something went wrong. Please try again or email me directly.
                   </div>
                 )}
               </div>

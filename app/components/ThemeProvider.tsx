@@ -19,13 +19,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    document.documentElement.setAttribute("data-theme", "dark");
+    document.documentElement.classList.add("dark");
   }, []);
 
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    document.documentElement.setAttribute("data-theme", next);
+    document.documentElement.classList.toggle("dark");
   };
 
   if (!mounted) {
