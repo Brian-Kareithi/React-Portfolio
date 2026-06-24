@@ -169,13 +169,16 @@ export default function Navbar() {
 
       <div
         className={`
-          fixed top-0 right-0 h-full z-50 glass-lg
+          fixed top-0 right-0 h-full z-50
           transform transition-transform duration-500 ease-in-out
           md:hidden
-          w-[80vw] max-w-[320px] min-w-[260px]
+          w-[85vw] xs:w-[80vw] max-w-[320px] min-w-[240px]
           ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
         `}
         style={{
+          backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 50%, transparent)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
           borderLeft: "1px solid var(--color-glass-border-strong)",
         }}
       >
@@ -224,7 +227,7 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 z-40 md:hidden transition-all duration-500"
-          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+          style={{ backgroundColor: "color-mix(in srgb, var(--color-text-primary) 30%, transparent)" }}
           onClick={toggleMobileMenu}
         />
       )}
