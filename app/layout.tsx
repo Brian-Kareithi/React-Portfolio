@@ -5,6 +5,7 @@ import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import LoadingScreen from "@/app/components/LoadingScreen";
+import { Background } from "@/app/components/ui/Background";
 import "./globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -27,18 +28,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="relative overflow-x-hidden">
         <ThemeProvider>
+          <Background />
           {isLoading && <LoadingScreen onFinish={handleFinishLoading} />}
 
-          <div className={`transition-opacity duration-700 ${isLoading ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+          <div className={`relative z-10 transition-opacity duration-700 ${isLoading ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
             <Navbar />
             <ScrollBar />
           </div>
 
-          <main className={`relative transition-opacity duration-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
+          <main className={`relative z-10 transition-opacity duration-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
             {children}
           </main>
 
-          <div className={`transition-opacity duration-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
+          <div className={`relative z-10 transition-opacity duration-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
             <Footer />
           </div>
         </ThemeProvider>
