@@ -30,7 +30,7 @@ function Stars({ count = 5000, radius = 1.5, ...props }: { count?: number; radiu
       <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
         <PointMaterial
           transparent
-          color="#8b5cf6"
+          color="#ffffff"
           size={0.002}
           sizeAttenuation={true}
           depthWrite={false}
@@ -56,7 +56,6 @@ export function Background() {
         }}
         dpr={[1, 2]}
       >
-        <ambientLight intensity={0.5} />
         <Stars />
         <Stars />
       </Canvas>

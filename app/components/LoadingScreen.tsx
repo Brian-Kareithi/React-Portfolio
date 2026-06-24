@@ -19,7 +19,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-700 ${
         phase === "fading" ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
-      style={{ backgroundColor: "#1A120D" }}
+      style={{ backgroundColor: "#020601" }}
     >
       <div className="relative w-12 h-12 xs:w-16 xs:h-16 animate-rotate-loading">
         {Array.from({ length: DOT_COUNT }).map((_, i) => (
