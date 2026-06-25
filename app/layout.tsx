@@ -5,6 +5,7 @@ import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import LoadingScreen from "@/app/components/LoadingScreen";
+import CustomCursor from "@/app/components/CustomCursor";
 import "./globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="relative overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>
+          <CustomCursor />
           {isLoading && <LoadingScreen onFinish={handleFinishLoading} />}
 
           <div className={`transition-opacity duration-700 ${isLoading ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
