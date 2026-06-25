@@ -66,7 +66,7 @@ const projects: Project[] = [
       "One of the few applications I actively use myself on a daily basis — a continuously evolving project driven by real-world requirements rather than theoretical use cases.",
     ],
     stack: ["Kotlin", "Android SDK", "Room Database", "MPAndroidChart"],
-    repo: "https://github.com/Brian-Kareithi/fitness-tracker",
+    repo: "https://github.com/Brian-Kareithi/Physical-Fitness",
     repoType: "public",
   },
   {
@@ -80,7 +80,7 @@ const projects: Project[] = [
       "Direct integration with self-hosted Jellyfin server, optimized for my personal ecosystem.",
     ],
     stack: ["React Native", "Expo", "Jellyfin API", "TypeScript"],
-    repo: "https://github.com/Brian-Kareithi/jellyfin-client",
+    repo: "https://github.com/Brian-Kareithi/Jellyfin-Mobile",
     repoType: "public",
   },
   {
@@ -99,7 +99,26 @@ const projects: Project[] = [
       "Budget-aware search",
     ],
     stack: ["React", "Node.js", "MongoDB", "Google Maps API"],
-    repo: "https://github.com/Brian-Kareithi/house-hunters",
+    repo: "https://github.com/Brian-Kareithi/House-Hunters-Frontend",
+    repoType: "public",
+  },
+  {
+    title: "House Hunters Backend",
+    type: "Backend API",
+    status: "archived",
+    description: "Backend API for the House Hunters student housing discovery platform.",
+    details: [
+      "RESTful API providing property data, user management, and search functionality.",
+      "Built with Node.js and MongoDB for scalability and flexibility.",
+      "Supports location-based queries and preference filtering.",
+    ],
+    highlights: [
+      "RESTful API architecture",
+      "MongoDB database integration",
+      "Location-based search endpoints",
+    ],
+    stack: ["Node.js", "Express", "MongoDB", "JWT"],
+    repo: "https://github.com/Brian-Kareithi/House-Hunters-Backend",
     repoType: "public",
   },
   {
@@ -145,7 +164,7 @@ const projects: Project[] = [
       "Privacy-first printing workflow",
     ],
     stack: ["React", "Node.js", "Express", "SQLite", "QR Code API"],
-    repo: "https://github.com/Brian-Kareithi/quickprint",
+    repo: "https://github.com/Thee-Entity/QuickPrint-Client",
     repoType: "public",
   },
 ];
@@ -214,41 +233,16 @@ export default function Projects() {
                   ))}
                 </div>
               </div>
-              <div className="flex-1 p-4 liquid-card rounded-lg"
-                style={{ borderColor: "var(--color-glass-border)" }}>
-                <div className="flex items-center gap-2 mb-2">
-                  <h4 className="text-sm font-bold" style={{ color: "var(--color-text-primary)" }}>
-                    Portfolio V1
-                  </h4>
-                </div>
-                <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                  Built with Vite. Focused on performance, simplicity, and clean UI design. Represents my earlier approach to personal branding and frontend development.
-                </p>
-                <div className="flex flex-wrap gap-1.5 mt-3">
-                  {["React", "Vite", "CSS"].map((tech) => (
-                    <span key={tech} className="text-[9px] font-mono px-2 py-0.5"
-                      style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
             <p className="text-xs mb-4" style={{ color: "var(--color-text-muted)" }}>
-              You are viewing V2. Compare both implementations to observe the progression in design and engineering decisions.
+              You are viewing V2. This represents the latest iteration with improved architecture and design decisions.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href="https://kareithi.vercel.app/" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 text-xs font-medium transition-all duration-200 hover:-translate-y-0.5"
-                style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}>
-                <ExternalLink className="w-3 h-3" />
-                View Portfolio V1
-              </a>
               <a href="https://portfoliov2-ruby.vercel.app/" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 text-xs font-medium transition-all duration-200 hover:-translate-y-0.5"
                 style={{ border: "1px solid var(--color-accent)", color: "var(--color-accent)" }}>
                 <ExternalLink className="w-3 h-3" />
-                View Portfolio V2
+                View Source
               </a>
             </div>
           </div>
