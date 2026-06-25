@@ -155,9 +155,10 @@ export default function Contact() {
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {/* Name Field with Icon */}
-                <div className="stagger-item relative">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10">
-                    <FaUser className="w-4 h-4" style={{ color: "var(--color-text-muted)" }} />
+                <div className="stagger-item relative group">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10 transition-all duration-300 group-focus-within:text-accent"
+                    style={{ color: activeField === "name" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
+                    <FaUser className="w-3.5 h-3.5" />
                   </div>
                   <input
                     type="text"
@@ -166,20 +167,23 @@ export default function Contact() {
                     onChange={handleChange}
                     onFocus={() => setActiveField("name")}
                     onBlur={() => setActiveField(null)}
-                    placeholder="John Doe"
+                    placeholder="Sean Combs"
                     required
-                    className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-200 glass-sm"
+                    className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-300 rounded-xl"
                     style={{
-                      borderColor: activeField === "name" ? "var(--color-accent)" : "var(--color-glass-border)",
+                      backgroundColor: "var(--color-bg-secondary)",
+                      border: `1px solid ${activeField === "name" ? "var(--color-accent)" : "var(--color-border)"}`,
+                      boxShadow: activeField === "name" ? "0 0 0 3px var(--color-accent-glow)" : "none",
                       color: "var(--color-text-primary)",
                     }}
                   />
                 </div>
 
                 {/* Email Field with Icon */}
-                <div className="stagger-item relative">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10">
-                    <FaEnvelope className="w-4 h-4" style={{ color: "var(--color-text-muted)" }} />
+                <div className="stagger-item relative group">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10 transition-all duration-300"
+                    style={{ color: activeField === "email" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
+                    <FaEnvelope className="w-3.5 h-3.5" />
                   </div>
                   <input
                     type="email"
@@ -188,11 +192,13 @@ export default function Contact() {
                     onChange={handleChange}
                     onFocus={() => setActiveField("email")}
                     onBlur={() => setActiveField(null)}
-                    placeholder="john@example.com"
+                    placeholder="sean@badboyrecords.com"
                     required
-                    className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-200 glass-sm"
+                    className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-300 rounded-xl"
                     style={{
-                      borderColor: activeField === "email" ? "var(--color-accent)" : "var(--color-glass-border)",
+                      backgroundColor: "var(--color-bg-secondary)",
+                      border: `1px solid ${activeField === "email" ? "var(--color-accent)" : "var(--color-border)"}`,
+                      boxShadow: activeField === "email" ? "0 0 0 3px var(--color-accent-glow)" : "none",
                       color: "var(--color-text-primary)",
                     }}
                   />
@@ -200,9 +206,10 @@ export default function Contact() {
               </div>
 
               {/* Subject Field with Icon */}
-              <div className="stagger-item relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10">
-                  <FaPaperPlane className="w-4 h-4" style={{ color: "var(--color-text-muted)" }} />
+              <div className="stagger-item relative group">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10 transition-all duration-300"
+                  style={{ color: activeField === "subject" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
+                  <FaPaperPlane className="w-3.5 h-3.5" />
                 </div>
                 <input
                   type="text"
@@ -211,20 +218,23 @@ export default function Contact() {
                   onChange={handleChange}
                   onFocus={() => setActiveField("subject")}
                   onBlur={() => setActiveField(null)}
-                  placeholder="Subject"
+                  placeholder="Sean Combs — Business Inquiry"
                   required
-                  className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-200 glass-sm"
+                  className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-300 rounded-xl"
                   style={{
-                    borderColor: activeField === "subject" ? "var(--color-accent)" : "var(--color-glass-border)",
+                    backgroundColor: "var(--color-bg-secondary)",
+                    border: `1px solid ${activeField === "subject" ? "var(--color-accent)" : "var(--color-border)"}`,
+                    boxShadow: activeField === "subject" ? "0 0 0 3px var(--color-accent-glow)" : "none",
                     color: "var(--color-text-primary)",
                   }}
                 />
               </div>
 
               {/* Message Field with Icon */}
-              <div className="stagger-item relative">
-                <div className="absolute left-3 top-4 z-10">
-                  <FaPaperPlane className="w-4 h-4" style={{ color: "var(--color-text-muted)" }} />
+              <div className="stagger-item relative group">
+                <div className="absolute left-4 top-4 z-10 transition-all duration-300"
+                  style={{ color: activeField === "message" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
+                  <FaPaperPlane className="w-3.5 h-3.5" />
                 </div>
                 <textarea
                   name="message"
@@ -232,32 +242,40 @@ export default function Contact() {
                   onChange={handleChange}
                   onFocus={() => setActiveField("message")}
                   onBlur={() => setActiveField(null)}
-                  placeholder="Tell me about your project..."
+                  placeholder="Tell me about your project, just like Sean would..."
                   required
                   rows={6}
-                  className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-200 resize-none glass-sm"
+                  className="w-full pl-10 pr-4 py-3.5 text-sm outline-none transition-all duration-300 rounded-xl resize-none"
                   style={{
-                    borderColor: activeField === "message" ? "var(--color-accent)" : "var(--color-glass-border)",
+                    backgroundColor: "var(--color-bg-secondary)",
+                    border: `1px solid ${activeField === "message" ? "var(--color-accent)" : "var(--color-border)"}`,
+                    boxShadow: activeField === "message" ? "0 0 0 3px var(--color-accent-glow)" : "none",
                     color: "var(--color-text-primary)",
                   }}
                 />
               </div>
 
               <button type="submit" disabled={isSubmitting}
-                className="w-full py-3.5 text-sm font-medium tracking-wider uppercase transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                className="w-full py-3.5 text-sm font-semibold tracking-wider uppercase transition-all duration-300 rounded-xl flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-[0.98]"
                 style={{
-                  border: "1px solid var(--color-accent)",
-                  color: "var(--color-accent)",
-                  backgroundColor: "transparent",
-                  opacity: isSubmitting ? 0.5 : 1,
+                  backgroundColor: "var(--color-accent)",
+                  color: "var(--color-text-light)",
+                  opacity: isSubmitting ? 0.6 : 1,
+                  boxShadow: !isSubmitting ? "0 4px 16px var(--color-accent-glow)" : "none",
                 }}>
                 {isSubmitting ? (
-                  "Sending..."
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Sending...
+                  </span>
                 ) : submitStatus === "success" ? (
-                  "✓ Sent Successfully"
+                  <span className="flex items-center gap-2">
+                    <span className="text-lg">✓</span>
+                    Sent Successfully
+                  </span>
                 ) : (
                   <>
-                    <FaPaperPlane className="w-4 h-4" />
+                    <FaPaperPlane className="w-3.5 h-3.5" />
                     Send Message
                   </>
                 )}
@@ -265,16 +283,26 @@ export default function Contact() {
 
               <div className="min-h-[60px]">
                 {submitStatus === "success" && (
-                  <div className="p-4 text-sm animate-fade-in-up flex items-center gap-2"
-                    style={{ border: "1px solid var(--color-accent)", color: "var(--color-accent)" }}>
-                    <span>✓</span>
+                  <div className="p-4 text-sm animate-fade-in-up rounded-xl flex items-center gap-3"
+                    style={{
+                      border: "1px solid var(--color-accent)",
+                      backgroundColor: "color-mix(in srgb, var(--color-accent) 8%, transparent)",
+                      color: "var(--color-accent)",
+                    }}>
+                    <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
+                      style={{ backgroundColor: "var(--color-accent)", color: "var(--color-text-light)" }}>✓</span>
                     Message sent! I typically respond within 24 hours.
                   </div>
                 )}
                 {submitStatus === "error" && (
-                  <div className="p-4 text-sm animate-fade-in-up"
-                    style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>
-                    ⚠️ Something went wrong. Please try again or email me directly.
+                  <div className="p-4 text-sm animate-fade-in-up rounded-xl flex items-center gap-3"
+                    style={{
+                      border: "1px solid var(--color-border)",
+                      backgroundColor: "var(--color-bg-secondary)",
+                      color: "var(--color-text-muted)",
+                    }}>
+                    <span className="text-base">⚠️</span>
+                    Something went wrong. Please try again or email me directly.
                   </div>
                 )}
               </div>
