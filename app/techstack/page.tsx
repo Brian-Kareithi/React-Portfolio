@@ -1,16 +1,37 @@
 "use client";
 import { ReactNode } from "react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
-import { BiLogoTypescript } from "react-icons/bi";
-import { DiMongodb, DiMsqlServer, DiRuby } from "react-icons/di";
-import { FaCss3, FaDocker, FaHtml5, FaJava, FaLinux, FaNodeJs, FaReact, FaWindows } from "react-icons/fa";
-import { SiExpress, SiFastify, SiFirebase, SiJavascript, SiMysql, SiPostgresql, SiPython, SiSupabase, SiTailwindcss } from "react-icons/si";
-import { TbBrandNextjs } from "react-icons/tb";
+import { 
+  BiLogoTypescript, 
+  BiLogoJava, 
+  BiLogoPython, 
+  BiLogoJavascript,
+  BiLogoReact,
+  BiLogoNodejs,
+  BiLogoHtml5,
+  BiLogoCss3,
+  BiLogoFlutter,
+  BiLogoVuejs,
+  BiLogoFigma
+} from "react-icons/bi";
+import { 
+  SiKotlin,
+  SiCplusplus, 
+  SiDotnet, 
+  SiNextdotjs, 
+  SiMongodb, 
+  SiFirebase, 
+  SiDocker, 
+  SiAmazonwebservices, 
+  SiProxmox
+} from "react-icons/si";
+import { FaApple, FaWindows, FaLinux, FaAndroid } from "react-icons/fa";
+import { DiMongodb } from "react-icons/di";
 
 interface TechItem {
   title: string;
   icon: ReactNode;
-  level: "proficient" | "advanced" | "intermediate" | "familiar";
+  level: "expert" | "advanced" | "intermediate" | "familiar";
 }
 
 interface TechCategory {
@@ -21,58 +42,65 @@ interface TechCategory {
 
 const techs: TechCategory[] = [
   {
-    heading: "Frontend",
-    description: "Modern frontend technologies and frameworks",
+    heading: "Languages",
+    description: "Programming languages I work with",
     items: [
-      { title: "HTML5", icon: <FaHtml5 />, level: "proficient" },
-      { title: "CSS3", icon: <FaCss3 />, level: "proficient" },
-      { title: "JavaScript", icon: <SiJavascript />, level: "proficient" },
+      { title: "JavaScript", icon: <BiLogoJavascript />, level: "advanced" },
       { title: "TypeScript", icon: <BiLogoTypescript />, level: "advanced" },
-      { title: "React", icon: <FaReact />, level: "proficient" },
-      { title: "Next.js", icon: <TbBrandNextjs />, level: "advanced" },
-      { title: "Tailwind CSS", icon: <SiTailwindcss />, level: "proficient" },
+      { title: "Python", icon: <BiLogoPython />, level: "intermediate" },
+      { title: "Java", icon: <BiLogoJava />, level: "intermediate" },
+      { title: "C#", icon: <SiDotnet />, level: "advanced" },
+      { title: "C++", icon: <SiCplusplus />, level: "advanced" },
+      { title: "Kotlin", icon: <SiKotlin />, level: "advanced" },
+      { title: "HTML5", icon: <BiLogoHtml5 />, level: "advanced" },
+      { title: "CSS3", icon: <BiLogoCss3 />, level: "advanced" },
     ],
   },
   {
-    heading: "Backend",
-    description: "Server-side and API development",
+    heading: "Frameworks & Libraries",
+    description: "Frontend and backend frameworks",
     items: [
-      { title: "Node.js", icon: <FaNodeJs />, level: "proficient" },
-      { title: "Express", icon: <SiExpress />, level: "proficient" },
-      { title: "Fastify", icon: <SiFastify />, level: "intermediate" },
-      { title: "Python", icon: <SiPython />, level: "advanced" },
-      { title: "Java", icon: <FaJava />, level: "intermediate" },
-      { title: "Ruby", icon: <DiRuby />, level: "familiar" },
+      { title: "React", icon: <BiLogoReact />, level: "advanced" },
+      { title: "Next.js", icon: <SiNextdotjs />, level: "advanced" },
+      { title: "Node.js", icon: <BiLogoNodejs />, level: "advanced" },
+      { title: "Flutter", icon: <BiLogoFlutter />, level: "advanced" },
+      { title: "Vue.js", icon: <BiLogoVuejs />, level: "intermediate" },
     ],
   },
   {
-    heading: "Database",
-    description: "Data storage and management systems",
+    heading: "Operating Systems",
+    description: "Platforms and OS environments",
     items: [
-      { title: "MongoDB", icon: <DiMongodb />, level: "proficient" },
-      { title: "PostgreSQL", icon: <SiPostgresql />, level: "advanced" },
-      { title: "MySQL", icon: <SiMysql />, level: "proficient" },
-      { title: "MsSQL", icon: <DiMsqlServer />, level: "intermediate" },
-      { title: "Firebase", icon: <SiFirebase />, level: "intermediate" },
-      { title: "Supabase", icon: <SiSupabase />, level: "familiar" },
+      { title: "Windows 10", icon: <FaWindows />, level: "expert" },
+      { title: "Windows 11", icon: <FaWindows />, level: "expert" },
+      { title: "macOS", icon: <FaApple />, level: "intermediate" },
+      { title: "iOS", icon: <FaApple />, level: "expert" },
+      { title: "Android", icon: <FaAndroid />, level: "advanced" },
+      { title: "Linux", icon: <FaLinux />, level: "advanced" },
+    ],
+  },
+  {
+    heading: "Databases & Cloud",
+    description: "Data storage and cloud platforms",
+    items: [
+      { title: "MongoDB", icon: <DiMongodb />, level: "intermediate" },
+      { title: "Firebase", icon: <SiFirebase />, level: "advanced" },
+      { title: "AWS", icon: <SiAmazonwebservices />, level: "intermediate" },
     ],
   },
   {
     heading: "DevOps & Tools",
-    description: "Deployment, infrastructure, and development tools",
+    description: "Development, deployment, and virtualization tools",
     items: [
-      { title: "Docker", icon: <FaDocker />, level: "intermediate" },
-      { title: "Linux", icon: <FaLinux />, level: "proficient" },
-      { title: "Git", icon: <span className="text-sm font-mono">&gt;_</span>, level: "proficient" },
-      { title: "Windows Server", icon: <FaWindows />, level: "intermediate" },
-      { title: "AWS", icon: <span className="text-sm font-mono">AWS</span>, level: "intermediate" },
-      { title: "CI/CD", icon: <span className="text-sm font-mono">CI/CD</span>, level: "intermediate" },
+      { title: "Docker", icon: <SiDocker />, level: "advanced" },
+      { title: "Proxmox", icon: <SiProxmox />, level: "advanced" },
+      { title: "Figma", icon: <BiLogoFigma />, level: "advanced" },
     ],
   },
 ];
 
 const levelConfig = {
-  proficient: { label: "Proficient" },
+  expert: { label: "Expert" },
   advanced: { label: "Advanced" },
   intermediate: { label: "Intermediate" },
   familiar: { label: "Familiar" },
@@ -86,6 +114,10 @@ export default function TechStack() {
     acc[item.level] = (acc[item.level] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
+
+  // Sort levels for display
+  const levelOrder = ["expert", "advanced", "intermediate", "familiar"];
+  const sortedLevels = levelOrder.filter(level => levelCounts[level]);
 
   return (
     <section id="techstack" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3 xs:px-4 relative"
@@ -113,7 +145,7 @@ export default function TechStack() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 xs:gap-4 mb-12 xs:mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 mb-12 xs:mb-16">
           {techs.map((category) => (
             <div key={category.heading}
               className="stagger-item p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 liquid-card hover:liquid-card-hover rounded-xl"
@@ -159,7 +191,8 @@ export default function TechStack() {
         <div className="text-center py-6 xs:py-8 sm:py-10 px-3 xs:px-4 liquid-card rounded-xl"
           style={{ borderColor: "var(--color-glass-border-strong)" }}>
           <div className="flex justify-center gap-4 xs:gap-6 sm:gap-10 mb-4 xs:mb-6 flex-wrap">
-            {Object.entries(levelCounts).map(([level, count]) => {
+            {sortedLevels.map((level) => {
+              const count = levelCounts[level];
               const percentage = Math.round((count / total) * 100);
               const config = levelConfig[level as keyof typeof levelConfig];
               return (
