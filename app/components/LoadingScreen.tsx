@@ -25,13 +25,13 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
         {Array.from({ length: DOT_COUNT }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-1.5 h-1.5 xs:w-2 xs:h-2 rounded-full bg-white/80"
+            className="absolute w-1 h-1 xs:w-1.5 xs:h-1.5 rounded-full bg-white/80"
             style={{
               top: `${50 - 50 * Math.cos((2 * Math.PI * i) / DOT_COUNT)}%`,
               left: `${50 + 50 * Math.sin((2 * Math.PI * i) / DOT_COUNT)}%`,
               transform: "translate(-50%, -50%)",
-              animation: `spin-dot 1.2s ease-in-out infinite`,
-              animationDelay: `${(i * 1.2) / DOT_COUNT}s`,
+              animation: `spin-dot 1.44s ease-in-out infinite`,
+              animationDelay: `${(i * 1.44) / DOT_COUNT}s`,
             }}
           />
         ))}

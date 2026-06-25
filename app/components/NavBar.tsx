@@ -71,11 +71,25 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, [pathname]);
 
+  useEffect(() => {
+    if (pathname === "/" && window.location.hash) {
+      const id = window.location.hash.replace("#", "");
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 150);
+    }
+  }, [pathname]);
+
   const navigateTo = (sectionId: string) => {
     setIsMobileMenuOpen(false);
     const section = sections.find((s) => s.id === sectionId);
     if (section?.route) {
       router.push(`/${sectionId}`);
+      return;
+    }
+    if (pathname !== "/") {
+      router.push(`/#${sectionId}`);
       return;
     }
     const el = document.getElementById(sectionId);
