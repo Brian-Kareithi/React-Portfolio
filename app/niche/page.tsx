@@ -93,16 +93,16 @@ export default function Niche() {
   };
 
   return (
-    <section id="niche" className="min-h-screen w-full py-24 md:py-32 px-4 relative"
+    <section id="niche" className="min-h-screen w-full pt-16 md:pt-20 pb-24 md:pb-32 px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
 
         {/* Minimal Header */}
-        <div className="mb-20 text-center">
+        <div className="mb-8 text-center">
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight"
             style={{ color: "var(--color-text-primary)" }}>
-            /niche
+            Fun
           </h1>
           <div className="w-6 h-px mx-auto mt-3 mb-4" style={{ backgroundColor: "var(--color-accent)" }} />
           <p className="max-w-lg mx-auto text-xs md:text-sm leading-relaxed"

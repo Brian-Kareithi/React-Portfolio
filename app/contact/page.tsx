@@ -62,7 +62,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="min-h-screen w-full py-24 md:py-32 px-4 relative"
+    <section id="contact" className="min-h-screen w-full pt-24 md:pt-32 pb-8 md:pb-10 px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
         <div className="absolute top-0 left-0 w-1/3 h-px"
@@ -88,7 +88,7 @@ export default function Contact() {
           </div>
 
           <StaggerReveal staggerDelay={120}>
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-10">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-6">
             {/* Information Container */}
             <div className="lg:col-span-2 p-4 md:p-5 rounded-xl relative overflow-hidden"
               style={{
@@ -410,7 +410,7 @@ export default function Contact() {
 
           {/* Bottom Info Cards */}
           <StaggerReveal staggerDelay={120}>
-          <div className="grid md:grid-cols-3 gap-3">
+          <div className="grid md:grid-cols-3 gap-3 mb-0">
             {[
               { 
                 icon: FaClock,
