@@ -15,16 +15,41 @@ export default function Footer() {
     >
       <div className="max-w-4xl mx-auto flex flex-col items-center gap-4">
         <div className="flex items-center gap-3">
-          <a href="/niche"
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium tracking-wider uppercase transition-all duration-300 hover:scale-105"
-            style={{
-              color: "var(--color-accent)",
-              border: "1px solid var(--color-accent)",
-              boxShadow: "0 0 12px var(--color-accent-glow)",
-            }}>
-            <FiHexagon className="w-3.5 h-3.5" />
-            Niche
-          </a>
+          <div className="relative group">
+            <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 pointer-events-none transition-all duration-300 ease-out
+                          opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0">
+              <div className="px-2 py-1 rounded text-[10px] font-medium whitespace-nowrap"
+                style={{
+                  color: "var(--color-text-primary)",
+                  backgroundColor: "var(--color-bg-secondary)",
+                  border: "1px solid var(--color-border)",
+                }}>
+                Click me
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0"
+                  style={{
+                    borderLeft: "4px solid transparent",
+                    borderRight: "4px solid transparent",
+                    borderTop: "4px solid var(--color-border)",
+                  }} />
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 -mt-px"
+                  style={{
+                    borderLeft: "3px solid transparent",
+                    borderRight: "3px solid transparent",
+                    borderTop: "3px solid var(--color-bg-secondary)",
+                  }} />
+              </div>
+            </div>
+            <a href="/niche"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium tracking-wider uppercase transition-all duration-300 hover:scale-105"
+              style={{
+                color: "var(--color-accent)",
+                border: "1px solid var(--color-accent)",
+                boxShadow: "0 0 12px var(--color-accent-glow)",
+              }}>
+              <FiHexagon className="w-3.5 h-3.5" />
+              Niche
+            </a>
+          </div>
           {[
             { href: "https://github.com/Brian-Kareithi", icon: FaGithub, label: "GitHub" },
             { href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", icon: FaLinkedinIn, label: "LinkedIn" },
