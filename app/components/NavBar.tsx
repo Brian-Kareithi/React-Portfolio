@@ -10,7 +10,6 @@ const sections = [
   { id: "techstack", label: "Tech Stack" },
   { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
-  { id: "niche", label: "Niche", route: true },
 ];
 
 export default function Navbar() {
@@ -62,10 +61,8 @@ export default function Navbar() {
     );
 
     for (const s of sections) {
-      if (!s.route) {
-        const el = document.getElementById(s.id);
-        if (el) observer.observe(el);
-      }
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
     }
 
     return () => observer.disconnect();
@@ -83,11 +80,6 @@ export default function Navbar() {
 
   const navigateTo = (sectionId: string) => {
     setIsMobileMenuOpen(false);
-    const section = sections.find((s) => s.id === sectionId);
-    if (section?.route) {
-      router.push(`/${sectionId}`);
-      return;
-    }
     if (pathname !== "/") {
       router.push(`/#${sectionId}`);
       return;

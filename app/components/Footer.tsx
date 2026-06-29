@@ -1,18 +1,70 @@
 "use client";
 import { FaGithub, FaLinkedinIn, FaEnvelope, FaHeart } from "react-icons/fa";
+import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
+import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
+import InstagramStories from "@/app/components/InstagramStories";
+
+const stories = [
+  {
+    emoji: "🔧",
+    label: "Home Lab",
+    title: "Home Lab & Robotics",
+    content: "From self-hosted servers and media streaming to home automation and robotics — I build systems that serve real life, not just demos.",
+  },
+  {
+    emoji: "🖥️",
+    label: "My Gear",
+    title: "The Setup",
+    content: "HP 745 G7 & 820 G3 laptops, custom HP tower server (2TB + 16GB), ThinkVision monitors, Newmen peripherals, ORAIMO audio, Galaxy A05s, and a full ESP32 kit for tinkering.",
+  },
+  {
+    emoji: "🤖",
+    label: "Robotics",
+    title: "Robotics & Embedded",
+    content: "Line-following robots with computer vision, home surveillance drone prototypes, automated plant watering systems — powered by ESP32 and C++.",
+  },
+  {
+    emoji: "📡",
+    label: "Services",
+    title: "Self-Hosted Services",
+    content: "Nextcloud for cloud storage, Plex & Jellyfin for media, Pi-hole for network-wide ad blocking, Home Assistant for automation, and a personal Git server.",
+  },
+];
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer
-      className="relative z-10 border-t py-8 px-4 liquid-glass"
+      className="relative z-10 border-t pt-12 pb-6 px-4"
       style={{
         borderColor: "var(--color-glass-border-strong)",
+        backgroundColor: "var(--color-bg-primary)",
       }}
     >
+      <ScrollReveal>
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* Stories */}
+        <div className="mb-10 text-center">
+          <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.3em] uppercase mb-4"
+            style={{ color: "var(--color-text-muted)" }}>
+            Explore the Lab
+          </p>
+          <InstagramStories stories={stories} className="mb-6" />
+          <a
+            href="/niche"
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium transition-all duration-300 hover:scale-105 rounded-lg"
+            style={{
+              border: "1px solid var(--color-glass-border-strong)",
+              color: "var(--color-text-secondary)",
+            }}
+          >
+            Visit Niche Section →
+          </a>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-t pt-6"
+          style={{ borderColor: "var(--color-border)" }}>
           <div className="flex items-center gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
             <span>© {year} Brian Kareithi</span>
             <span className="hidden sm:inline">•</span>
@@ -43,19 +95,27 @@ export default function Footer() {
               </a>
             ))}
           </div>
+        </div>
 
-          <div className="flex items-center gap-4 text-xs" style={{ color: "var(--color-text-muted)" }}>
-            {["Home", "About", "Tech Stack", "Projects", "Contact"].map((item) => (
-              <a
-                key={item}
-                href={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s+/g, "")}`}
-                className="hover:underline transition-colors"
-                style={{ color: "var(--color-text-muted)" }}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
+        <div className="flex flex-wrap items-center justify-center gap-6 mt-6 text-xs"
+          style={{ color: "var(--color-text-muted)" }}>
+          {[
+            { label: "Home", href: "/" },
+            { label: "About", href: "/about" },
+            { label: "Tech Stack", href: "/techstack" },
+            { label: "Projects", href: "/projects" },
+            { label: "Contact", href: "/contact" },
+            { label: "Niche", href: "/niche" },
+          ].map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="hover:underline transition-colors"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
 
         <div
@@ -68,6 +128,7 @@ export default function Footer() {
           Cybersecurity & Full-Stack Developer — Building secure, scalable digital solutions
         </div>
       </div>
+      </ScrollReveal>
     </footer>
   );
 }

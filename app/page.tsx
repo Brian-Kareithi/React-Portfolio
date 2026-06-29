@@ -2,14 +2,82 @@
 import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
-import { FiArrowDown } from "react-icons/fi";
 import { Background } from "@/app/components/ui/Background";
+import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
+import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
+import InstagramStories from "@/app/components/InstagramStories";
 import AboutSection from "@/app/about/page";
 import TechStackSection from "@/app/techstack/page";
 import ProjectsSection from "@/app/projects/page";
 import ContactSection from "@/app/contact/page";
 
 const roles = ["Fullstack Developer", "Grey Hat", "Cybersecurity and Robotics Enthusiast", "Gamer"];
+
+const heroStories = [
+  {
+    emoji: "🚀",
+    label: "50+ Projects",
+    title: "A Decade of Building",
+    content: "From full-stack web platforms to mobile apps and cybersecurity tools — over 50 projects shipped across public, private, and personal domains.",
+  },
+  {
+    emoji: "💼",
+    label: "5+ Years",
+    title: "Professional Journey",
+    content: "Started with government cybersecurity, moved through freelance and enterprise frontend development, now co-founding a tech startup.",
+  },
+  {
+    emoji: "⚛️",
+    label: "Fullstack",
+    title: "Full-Stack Development",
+    content: "React, Next.js, Node.js, TypeScript — building performant, secure, and scalable web applications from database to UI.",
+  },
+  {
+    emoji: "🔒",
+    label: "Cybersec",
+    title: "Cybersecurity Specialist",
+    content: "CompTIA Security+, CCNA, Google Cybersecurity Professional, IBM Cybersecurity Analyst — securing digital infrastructure across sectors.",
+  },
+  {
+    emoji: "🤖",
+    label: "Robotics",
+    title: "Robotics & Embedded",
+    content: "Line-following robots, drone prototypes, ESP32 automation — blending software with hardware for real-world impact.",
+  },
+  {
+    emoji: "🎮",
+    label: "Gamer",
+    title: "Gaming & Tech",
+    content: "When I'm not coding or securing systems, you'll find me gaming — it's where strategy meets reflex.",
+  },
+];
+
+const bottomStories = [
+  {
+    emoji: "🏠",
+    label: "Home Lab",
+    title: "Self-Hosted Ecosystem",
+    content: "Nextcloud, Plex, Jellyfin, Pi-hole, Home Assistant, Git server — a fully self-hosted digital infrastructure running 24/7.",
+  },
+  {
+    emoji: "🖥️",
+    label: "My Gear",
+    title: "The Workstation",
+    content: "HP 745 G7 (Ryzen), HP 820 G3, custom HP tower server with 2TB storage and 16GB RAM, ThinkVision monitors, Newmen peripherals, and ORAIMO audio.",
+  },
+  {
+    emoji: "📡",
+    label: "IoT",
+    title: "Home Automation",
+    content: "Phone detection via WiFi presence, RGB lighting automation, multi-room device coordination, voice command integration — all powered by ESP32.",
+  },
+  {
+    emoji: "🔧",
+    label: "Tinkering",
+    title: "Spare Gear & Experiments",
+    content: "2TB of HDDs and SSDs, a digital camera, a full ESP32 development kit — because innovation happens when you have room to experiment.",
+  },
+];
 
 function HeroSection() {
   const [currentRole, setCurrentRole] = useState(0);
@@ -120,6 +188,13 @@ function HeroSection() {
               </div>
             </div>
           </div>
+
+          {/* Hero Stories */}
+          <div className="mt-10 sm:mt-12 w-full max-w-xl mx-auto">
+            <StaggerReveal staggerDelay={80}>
+              <InstagramStories stories={heroStories} />
+            </StaggerReveal>
+          </div>
         </div>
 
         {/* Scroll indicator */}
@@ -143,6 +218,46 @@ export default function Home() {
       <TechStackSection />
       <ProjectsSection />
       <ContactSection />
+      <section
+        className="w-full py-20 px-4 relative"
+        style={{ backgroundColor: "var(--color-bg-primary)" }}
+      >
+        <ScrollReveal>
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.3em] uppercase mb-3"
+            style={{ color: "var(--color-text-muted)" }}>
+            Beyond the Code
+          </p>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl font-bold"
+              style={{ color: "var(--color-text-primary)" }}>
+              Life & Lab
+            </h2>
+            <div className="w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
+          </div>
+          <p className="text-sm max-w-lg mx-auto mb-8"
+            style={{ color: "var(--color-text-secondary)" }}>
+            A glimpse into the tools, projects, and experiments that shape how I build.
+          </p>
+          <StaggerReveal staggerDelay={80}>
+            <InstagramStories stories={bottomStories} />
+          </StaggerReveal>
+          <div className="mt-8">
+            <a
+              href="/niche"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105 rounded-xl"
+              style={{
+                border: "1px solid var(--color-glass-border-strong)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
+              Explore the Niche Section →
+            </a>
+          </div>
+        </div>
+        </ScrollReveal>
+      </section>
     </>
   );
 }
