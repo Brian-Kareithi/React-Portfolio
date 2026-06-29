@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
-import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaUser, FaPaperPlane, FaClock, FaCode, FaHandshake } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt, FaUser, FaPaperPlane, FaClock, FaCode, FaHandshake } from "react-icons/fa";
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -163,6 +163,7 @@ export default function Contact() {
                     {[
                       { icon: FaGithub, href: "https://github.com/Brian-Kareithi", label: "GitHub" },
                       { icon: FaLinkedin, href: "https://linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
+                      { icon: FaInstagram, href: "https://www.instagram.com/kareithiv", label: "Instagram" },
                     ].map((item) => (
                       <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
                         className="group w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-0.5"
