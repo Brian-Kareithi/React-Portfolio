@@ -1,47 +1,74 @@
 "use client";
-import { Server, Cpu, Shield, Activity, HardDrive, Smartphone, Zap, Terminal, Brain, Database, Network, Home, Clock, Wifi, Lock } from "lucide-react";
+import { Server, Cpu, Monitor, Smartphone, Headphones, Watch, Router, Keyboard, HardDrive, Camera, Cpu as CpuIcon, Wifi } from "lucide-react";
 import Link from "next/link";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 
-const niches = [
+const gearCategories = [
   {
-    id: "home-automation",
+    title: "Computing",
+    icon: <Cpu className="w-4 h-4" />,
+    items: [
+      { name: "HP 745 G7", detail: "Ryzen edition — daily driver laptop", icon: <Cpu className="w-3.5 h-3.5" /> },
+      { name: "HP 820 G3", detail: "12GB RAM, 256GB SSD — secondary laptop", icon: <Cpu className="w-3.5 h-3.5" /> },
+      { name: "HP Tower Server", detail: "2TB storage, 16GB RAM — self-hosted backbone", icon: <Server className="w-3.5 h-3.5" /> },
+    ],
+  },
+  {
+    title: "Displays",
+    icon: <Monitor className="w-4 h-4" />,
+    items: [
+      { name: "ThinkVision 24\"", detail: "Primary monitor — sharp and reliable", icon: <Monitor className="w-3.5 h-3.5" /> },
+      { name: "Lenovo Monitor", detail: "Secondary display — keeps things flowing", icon: <Monitor className="w-3.5 h-3.5" /> },
+      { name: "18\" Portable Monitor", detail: "On-the-go productivity screen", icon: <Monitor className="w-3.5 h-3.5" /> },
+    ],
+  },
+  {
+    title: "Peripherals",
+    icon: <Keyboard className="w-4 h-4" />,
+    items: [
+      { name: "Newmen Keyboard", detail: "Daily typing and coding companion", icon: <Keyboard className="w-3.5 h-3.5" /> },
+      { name: "Newmen Mouse", detail: "Simple, reliable, gets the job done", icon: <Cpu className="w-3.5 h-3.5" /> },
+      { name: "Safaricom Router", detail: "Keeping the lab connected", icon: <Wifi className="w-3.5 h-3.5" /> },
+    ],
+  },
+  {
+    title: "Mobile & Audio",
+    icon: <Smartphone className="w-4 h-4" />,
+    items: [
+      { name: "Galaxy A05s", detail: "Daily driver phone", icon: <Smartphone className="w-3.5 h-3.5" /> },
+      { name: "F+ Kaduda", detail: "Secondary device", icon: <Smartphone className="w-3.5 h-3.5" /> },
+      { name: "ORAiMO SpaceBuds Neo Plus", detail: "Wireless earbuds for focus and calls", icon: <Headphones className="w-3.5 h-3.5" /> },
+      { name: "ORAiMO SmartWatch 5N", detail: "Health tracking and notifications", icon: <Watch className="w-3.5 h-3.5" /> },
+    ],
+  },
+  {
+    title: "Spare Gear",
+    icon: <HardDrive className="w-4 h-4" />,
+    items: [
+      { name: "2TB HDDs & SSDs", detail: "Storage for archiving, backups, and experiments", icon: <HardDrive className="w-3.5 h-3.5" /> },
+      { name: "Digital Camera", detail: "Capturing moments and references", icon: <Camera className="w-3.5 h-3.5" /> },
+      { name: "ESP32 Dev Kit", detail: "Full kit for IoT and robotics prototyping", icon: <CpuIcon className="w-3.5 h-3.5" /> },
+    ],
+  },
+];
+
+const projects = [
+  {
     title: "Home Automation",
-    description: "Intelligent IoT network that responds to presence and creates ambient experiences.",
-    icon: <Home className="w-5 h-5" />,
-    features: ["Phone detection via WiFi presence", "RGB lighting automation", "Multi-room device coordination", "Voice command integration"],
+    desc: "IoT network with phone detection, RGB lighting, multi-room coordination, and voice commands.",
+    icon: <Wifi className="w-4 h-4" />,
   },
   {
-    id: "media-server",
     title: "Media & Backup Server",
-    description: "High-performance home server with automated backup and media streaming capabilities.",
-    icon: <Server className="w-5 h-5" />,
-    features: ["2TB RAID 1 Storage", "16GB DDR4 RAM", "Automated photo backup", "4K Media Streaming"],
+    desc: "Automated backups, 4K streaming, and 2TB RAID storage — always on.",
+    icon: <Server className="w-4 h-4" />,
   },
   {
-    id: "robotics",
     title: "Robotics & Embedded",
-    description: "Building intelligent robots and automation systems for real-world applications.",
-    icon: <Cpu className="w-5 h-5" />,
-    features: ["Line-following robot with computer vision", "Home surveillance drone prototype", "Voice-controlled assistant robot", "Automated plant watering system"],
+    desc: "Line-following robots, drone prototypes, ESP32-powered automation systems.",
+    icon: <Cpu className="w-4 h-4" />,
   },
-];
-
-const services = [
-  { name: "Nextcloud", description: "Self-hosted cloud storage and collaboration", icon: <Smartphone className="w-4 h-4" /> },
-  { name: "Plex Media Server", description: "Media streaming for all devices", icon: <HardDrive className="w-4 h-4" /> },
-  { name: "Home Assistant", description: "Open-source home automation platform", icon: <Zap className="w-4 h-4" /> },
-  { name: "Pi-hole", description: "Network-wide ad blocking and DNS sinkhole", icon: <Shield className="w-4 h-4" /> },
-  { name: "Jellyfin", description: "Free software media system", icon: <Activity className="w-4 h-4" /> },
-  { name: "Git Server", description: "Self-hosted Git repository manager", icon: <Terminal className="w-4 h-4" /> },
-];
-
-const philosophy = [
-  { icon: Lock, title: "Privacy First", desc: "Self-hosted solutions ensure complete data ownership and eliminate third-party surveillance." },
-  { icon: Activity, title: "Continuous Learning", desc: "Every automation is an opportunity to explore new protocols and system architectures." },
-  { icon: Clock, title: "Efficiency", desc: "Automating repetitive tasks creates more time for meaningful work and creative projects." },
-  { icon: Shield, title: "Security Research", desc: "Building and securing personal systems provides invaluable insights for enterprise security." },
 ];
 
 export default function Niche() {
@@ -51,135 +78,113 @@ export default function Niche() {
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
 
-        {/* Header */}
-        <div className="mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium mb-5 border"
-            style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
-            <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-            PERSONAL PROJECTS
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight"
+        {/* Minimal Header */}
+        <div className="mb-20 text-center">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight"
             style={{ color: "var(--color-text-primary)" }}>
-            Home Lab & Robotics
+            /niche
           </h1>
-          <p className="max-w-2xl text-base md:text-lg font-light leading-relaxed"
+          <div className="w-6 h-px mx-auto mt-3 mb-4" style={{ backgroundColor: "var(--color-accent)" }} />
+          <p className="max-w-lg mx-auto text-xs md:text-sm leading-relaxed"
             style={{ color: "var(--color-text-secondary)" }}>
-            Where professional skills meet personal passion — a living ecosystem of automation,
-            robotics, and self-hosted services.
+            Machines, tools, and experiments — where professional skills meet hands-on passion.
           </p>
         </div>
 
-        {/* Passion Projects */}
-        <StaggerReveal staggerDelay={120}>
-        <div className="mb-16">
-          <h2 className="text-xl font-semibold mb-6" style={{ color: "var(--color-text-primary)" }}>
-            Projects
-          </h2>
-          <div className="space-y-4">
-            {niches.map((niche) => (
-              <div key={niche.id} className="border rounded-xl p-6 transition-all duration-300 liquid-card"
+        {/* My Gear */}
+        <div className="mb-20">
+          <div className="text-center mb-10">
+            <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-2"
+              style={{ color: "var(--color-text-muted)" }}>
+              Equipment
+            </p>
+            <h2 className="text-xl md:text-2xl font-bold"
+              style={{ color: "var(--color-text-primary)" }}>
+              My Gear
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {gearCategories.map((cat, i) => (
+              <StaggerReveal key={cat.title} staggerDelay={i * 60}>
+              <div className="p-5 rounded-xl liquid-card transition-all duration-300 hover:-translate-y-0.5"
                 style={{ borderColor: "var(--color-glass-border-strong)" }}>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
-                    style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-tertiary)" }}>
-                    {niche.icon}
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center"
+                    style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
+                    {cat.icon}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold mb-1" style={{ color: "var(--color-text-primary)" }}>
-                      {niche.title}
-                    </h3>
-                    <p className="text-sm mb-3" style={{ color: "var(--color-text-secondary)" }}>
-                      {niche.description}
-                    </p>
-                    <ul className="space-y-1">
-                      {niche.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-sm"
-                          style={{ color: "var(--color-text-muted)" }}>
-                          <span className="w-1 h-1 rounded-full flex-shrink-0"
-                            style={{ backgroundColor: "var(--color-text-muted)" }} />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        </StaggerReveal>
-
-        {/* Services */}
-        <StaggerReveal staggerDelay={100}>
-        <div className="mb-16">
-          <h2 className="text-xl font-semibold mb-6" style={{ color: "var(--color-text-primary)" }}>
-            Services
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {services.map((service, idx) => (
-              <div key={idx} className="border rounded-xl px-5 py-4 transition-all duration-300 liquid-card"
-                style={{ borderColor: "var(--color-glass-border)" }}>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-tertiary)" }}>
-                    {service.icon}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
-                      {service.name}
-                    </div>
-                    <div className="text-xs mt-0.5 truncate" style={{ color: "var(--color-text-muted)" }}>
-                      {service.description}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        </StaggerReveal>
-
-        {/* Philosophy */}
-        <StaggerReveal staggerDelay={100}>
-        <div className="mb-16">
-          <h2 className="text-xl font-semibold mb-6" style={{ color: "var(--color-text-primary)" }}>
-            Philosophy
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-3">
-            {philosophy.map((item, idx) => (
-              <div key={idx} className="border rounded-xl p-5 transition-all duration-300 liquid-card"
-                style={{ borderColor: "var(--color-glass-border)" }}>
-                <div className="flex items-center gap-3 mb-2">
-                  <item.icon className="w-4 h-4" style={{ color: "var(--color-accent)" }} />
-                  <h3 className="font-medium text-sm" style={{ color: "var(--color-text-primary)" }}>
-                    {item.title}
+                  <h3 className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
+                    {cat.title}
                   </h3>
                 </div>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                  {item.desc}
+                <div className="space-y-2.5">
+                  {cat.items.map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5">
+                      <span className="mt-0.5" style={{ color: "var(--color-accent)" }}>{item.icon}</span>
+                      <div>
+                        <p className="text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+                          {item.name}
+                        </p>
+                        <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
+                          {item.detail}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              </StaggerReveal>
+            ))}
+          </div>
+        </div>
+
+        {/* Projects — minimal */}
+        <div className="mb-20">
+          <div className="text-center mb-10">
+            <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-2"
+              style={{ color: "var(--color-text-muted)" }}>
+              What I Build
+            </p>
+            <h2 className="text-xl md:text-2xl font-bold"
+              style={{ color: "var(--color-text-primary)" }}>
+              Projects
+            </h2>
+          </div>
+          <StaggerReveal staggerDelay={100}>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {projects.map((p) => (
+              <div key={p.title}
+                className="p-5 rounded-xl liquid-card transition-all duration-300 hover:-translate-y-0.5 text-center"
+                style={{ borderColor: "var(--color-glass-border-strong)" }}>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center mx-auto mb-3"
+                  style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
+                  {p.icon}
+                </div>
+                <h3 className="text-sm font-semibold mb-1.5" style={{ color: "var(--color-text-primary)" }}>
+                  {p.title}
+                </h3>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                  {p.desc}
                 </p>
               </div>
             ))}
           </div>
+          </StaggerReveal>
         </div>
-        </StaggerReveal>
 
-        {/* CTA */}
-        <StaggerReveal>
-        <div className="border-t pt-12 text-center"
-          style={{ borderColor: "var(--color-border)" }}>
-          <p className="text-sm mb-6" style={{ color: "var(--color-text-muted)" }}>
-            Interested in building something like this? Let&apos;s talk.
+        {/* Philosophy — one line */}
+        <div className="text-center max-w-lg mx-auto">
+          <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+            "Every device in this lab tells a story — of late-night debugging, of breakthrough moments, 
+            of systems built to serve real life, not just demos."
           </p>
+        </div>
+
+        {/* Minimal CTA */}
+        <StaggerReveal>
+        <div className="mt-12 pt-8 text-center border-t"
+          style={{ borderColor: "var(--color-border)" }}>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/#contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105"
-              style={{
-                backgroundColor: "var(--color-accent)",
-                color: "var(--color-text-light)",
-              }}>
-              Contact Me
-            </Link>
             <Link href="/"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105"
               style={{
@@ -187,6 +192,14 @@ export default function Niche() {
                 color: "var(--color-text-secondary)",
               }}>
               Back to Portfolio
+            </Link>
+            <Link href="/#contact"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105"
+              style={{
+                backgroundColor: "var(--color-accent)",
+                color: "var(--color-text-light)",
+              }}>
+              Get in Touch
             </Link>
           </div>
         </div>
