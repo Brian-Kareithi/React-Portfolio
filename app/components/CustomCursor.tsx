@@ -4,8 +4,19 @@ import { useEffect, useState } from "react";
 export default function CustomCursor() {
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [hovering, setHovering] = useState(false);
+  const [isPointerFine, setIsPointerFine] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(pointer: fine)");
+    setIsPointerFine(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsPointerFine(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  useEffect(() => {
+    if (!isPointerFine) return;
+
     const onMove = (e: MouseEvent) => {
       setPos({ x: e.clientX, y: e.clientY });
     };
@@ -24,7 +35,9 @@ export default function CustomCursor() {
       document.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseout", onOut);
     };
-  }, []);
+  }, [isPointerFine]);
+
+  if (!isPointerFine) return null;
 
   return (
     <>

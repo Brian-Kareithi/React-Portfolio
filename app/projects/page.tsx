@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { ExternalLink, Github, ChevronDown, ChevronUp, Lock } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
+import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 
 interface Project {
   title: string;
@@ -199,7 +200,8 @@ export default function Projects() {
         </div>
 
         {/* Portfolio Version Awareness */}
-        <div className="mb-12 stagger-item">
+        <StaggerReveal>
+        <div className="mb-12">
           <div className="liquid-card rounded-xl p-6 md:p-8"
             style={{ borderColor: "var(--color-glass-border-strong)" }}>
             <p className="text-[9px] font-medium tracking-[0.2em] uppercase mb-4"
@@ -247,14 +249,16 @@ export default function Projects() {
             </div>
           </div>
         </div>
+        </StaggerReveal>
 
         {/* Project Grid */}
+        <StaggerReveal staggerDelay={100}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {projects.map((project, index) => {
             const isExpanded = expanded === index;
             return (
               <div key={index}
-                className="stagger-item transition-all duration-300 hover:-translate-y-0.5 liquid-card hover:liquid-card-hover rounded-xl"
+                className="transition-all duration-300 hover:-translate-y-0.5 liquid-card hover:liquid-card-hover rounded-xl"
                 style={{ borderColor: "var(--color-glass-border-strong)" }}>
                 <div className="p-6 md:p-8 cursor-pointer"
                   onClick={() => setExpanded(isExpanded ? null : index)}>
@@ -402,8 +406,10 @@ export default function Projects() {
             );
           })}
         </div>
+        </StaggerReveal>
 
         {/* Closing CTA */}
+        <StaggerReveal>
         <div className="mt-16 text-center py-12 liquid-card rounded-xl"
           style={{ borderColor: "var(--color-glass-border-strong)" }}>
           <p className="text-sm leading-relaxed max-w-3xl mx-auto mb-6"
@@ -421,6 +427,7 @@ export default function Projects() {
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>
+        </StaggerReveal>
       </div>
       </ScrollReveal>
     </section>

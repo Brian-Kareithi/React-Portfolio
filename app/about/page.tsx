@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
+import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 
 interface TimelineItem {
   title: string;
@@ -111,6 +112,7 @@ export default function About() {
           </p>
         </div>
 
+        <StaggerReveal staggerDelay={120}>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 mb-12 xs:mb-16 sm:mb-20">
           {[
             { label: "Years in Tech", value: "5+" },
@@ -119,7 +121,7 @@ export default function About() {
             { label: "Projects", value: "50+" },
           ].map((stat) => (
             <div key={stat.label}
-              className="stagger-item text-center py-6 xs:py-8 px-2 xs:px-4 transition-all duration-300 hover:-translate-y-1 border-l-2 liquid-card hover:liquid-card-hover rounded-xl"
+              className="text-center py-6 xs:py-8 px-2 xs:px-4 transition-all duration-300 hover:-translate-y-1 border-l-2 liquid-card hover:liquid-card-hover rounded-xl"
               style={{
                 borderColor: "var(--color-accent)",
               }}>
@@ -134,12 +136,14 @@ export default function About() {
             </div>
           ))}
         </div>
+        </StaggerReveal>
 
         <div className="border" style={{ borderColor: "var(--color-border)" }}>
+          <StaggerReveal staggerDelay={100}>
           <div className="flex border-b overflow-x-auto" style={{ borderColor: "var(--color-border)" }}>
             {tabs.map((tab) => (
               <button key={tab} onClick={() => handleTabChange(tab)}
-                className={`stagger-item flex-1 px-2 xs:px-3 sm:px-5 py-3 xs:py-4 text-[10px] xs:text-xs font-medium tracking-wider uppercase transition-all duration-300 whitespace-nowrap relative ${activeTab === tab ? "liquid-card" : ""}`}
+                className={`flex-1 px-2 xs:px-3 sm:px-5 py-3 xs:py-4 text-[10px] xs:text-xs font-medium tracking-wider uppercase transition-all duration-300 whitespace-nowrap relative ${activeTab === tab ? "liquid-card" : ""}`}
                 style={{
                   color: activeTab === tab ? "var(--color-accent)" : "var(--color-text-muted)",
                   transition: "color 0.3s ease, background 0.3s ease",
@@ -156,6 +160,7 @@ export default function About() {
               </button>
             ))}
           </div>
+          </StaggerReveal>
 
           <div className="flex flex-col lg:flex-row">
             <div className="hidden lg:flex lg:flex-col w-64 flex-shrink-0 border-r"
@@ -272,13 +277,14 @@ export default function About() {
           </div>
         </div>
 
+        <StaggerReveal staggerDelay={120}>
         <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2 xs:gap-3 sm:gap-4 mt-8 xs:mt-10 sm:mt-12">
           {[
             { title: "Progressive Development", desc: "Each phase builds upon previous knowledge, demonstrating cumulative growth" },
             { title: "Diverse Experience", desc: "Exposure across public sector, private enterprise, and entrepreneurial ventures" },
             { title: "Strategic Focus", desc: "Current emphasis on scalable solutions and professional mentorship" },
           ].map((item) => (
-            <div key={item.title} className="stagger-item p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 liquid-card hover:liquid-card-hover rounded-xl"
+            <div key={item.title} className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 liquid-card hover:liquid-card-hover rounded-xl"
               style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="w-6 xs:w-8 h-px mb-3 xs:mb-4" style={{ backgroundColor: "var(--color-accent)" }} />
               <h4 className="font-semibold mb-1.5 xs:mb-2 text-xs xs:text-sm"
@@ -292,6 +298,7 @@ export default function About() {
             </div>
           ))}
         </div>
+        </StaggerReveal>
       </div>
       </ScrollReveal>
     </section>
