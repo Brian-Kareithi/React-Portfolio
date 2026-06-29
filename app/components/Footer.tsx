@@ -1,5 +1,6 @@
 "use client";
 import { FaGithub, FaLinkedinIn, FaInstagram, FaEnvelope } from "react-icons/fa";
+import { FiHexagon } from "react-icons/fi";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -14,6 +15,16 @@ export default function Footer() {
     >
       <div className="max-w-4xl mx-auto flex flex-col items-center gap-4">
         <div className="flex items-center gap-3">
+          <a href="/niche"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium tracking-wider uppercase transition-all duration-300 hover:scale-105"
+            style={{
+              color: "var(--color-accent)",
+              border: "1px solid var(--color-accent)",
+              boxShadow: "0 0 12px var(--color-accent-glow)",
+            }}>
+            <FiHexagon className="w-3.5 h-3.5" />
+            Niche
+          </a>
           {[
             { href: "https://github.com/Brian-Kareithi", icon: FaGithub, label: "GitHub" },
             { href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", icon: FaLinkedinIn, label: "LinkedIn" },
@@ -37,12 +48,6 @@ export default function Footer() {
         <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
           © {year} Brian Kareithi
         </p>
-
-        <a href="/niche"
-          className="text-[10px] font-medium tracking-wider uppercase transition-all duration-300 hover:opacity-60"
-          style={{ color: "var(--color-text-muted)" }}>
-          Niche
-        </a>
 
         <p className="text-[10px] leading-relaxed text-center max-w-xs"
           style={{ color: "var(--color-text-muted)", opacity: 0.6 }}>
