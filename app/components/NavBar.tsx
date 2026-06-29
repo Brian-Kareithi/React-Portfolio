@@ -22,6 +22,10 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
     const el = document.getElementById(sections[0].id);
     if (el) setActiveSection(sections[0].id);
   }, [pathname]);
@@ -49,6 +53,10 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {

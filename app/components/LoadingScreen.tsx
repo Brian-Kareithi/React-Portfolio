@@ -1,8 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const DOT_COUNT = 8;
-
 export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const [phase, setPhase] = useState<"loading" | "fading">("loading");
 
@@ -10,7 +8,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
     const timer = setTimeout(() => {
       setPhase("fading");
       setTimeout(onFinish, 600);
-    }, 2500);
+    }, 2800);
     return () => clearTimeout(timer);
   }, [onFinish]);
 
@@ -21,20 +19,29 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       }`}
       style={{ backgroundColor: "#020601" }}
     >
-      <div className="relative w-12 h-12 xs:w-16 xs:h-16 animate-rotate-loading">
-        {Array.from({ length: DOT_COUNT }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 xs:w-1.5 xs:h-1.5 rounded-full bg-white/80"
-            style={{
-              top: `${50 - 50 * Math.cos((2 * Math.PI * i) / DOT_COUNT)}%`,
-              left: `${50 + 50 * Math.sin((2 * Math.PI * i) / DOT_COUNT)}%`,
-              transform: "translate(-50%, -50%)",
-              animation: `spin-dot 1.44s ease-in-out infinite`,
-              animationDelay: `${(i * 1.44) / DOT_COUNT}s`,
-            }}
+      <div className="relative flex items-center justify-center">
+        <svg
+          className="w-20 h-20 xs:w-28 xs:h-28 sm:w-36 sm:h-36 animate-spin-slow"
+          viewBox="0 0 100 100"
+        >
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#7AAA3A" />
+              <stop offset="50%" stopColor="#B08D3A" />
+              <stop offset="100%" stopColor="#7AAA3A" />
+            </linearGradient>
+          </defs>
+          <circle
+            cx="50" cy="50" r="42"
+            fill="none"
+            stroke="url(#ringGrad)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeDasharray="264"
+            strokeDashoffset="200"
+            className="animate-dash"
           />
-        ))}
+        </svg>
       </div>
     </div>
   );

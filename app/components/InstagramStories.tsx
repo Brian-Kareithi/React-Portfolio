@@ -1,6 +1,5 @@
 "use client";
 import { useState, useCallback, useEffect, useRef } from "react";
-import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { X } from "lucide-react";
 
 interface Story {
