@@ -1,7 +1,8 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import { useTheme } from '@/app/components/ThemeProvider';
 
-interface Particle {
+interface Star {
   x: number;
   y: number;
   vx: number;
@@ -11,14 +12,37 @@ interface Particle {
   depth: number;
 }
 
+interface RainDrop {
+  x: number;
+  y: number;
+  length: number;
+  speed: number;
+  opacity: number;
+  wind: number;
+}
+
+interface Cloud {
+  x: number;
+  y: number;
+  radius: number;
+  speed: number;
+  opacity: number;
+  pulse: number;
+  pulseSpeed: number;
+}
+
 const DynamicBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
+  const starsRef = useRef<Star[]>([]);
+  const rainRef = useRef<RainDrop[]>([]);
+  const cloudsRef = useRef<Cloud[]>([]);
   const animationRef = useRef<number | undefined>(undefined);
   const scrollYRef = useRef<number>(0);
   const targetScrollYRef = useRef<number>(0);
   const lastScrollYRef = useRef<number>(0);
   const scrollLerpRef = useRef<number>(0);
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -27,162 +51,244 @@ const DynamicBackground = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Smooth scroll handling with requestAnimationFrame
     const handleScroll = () => {
       targetScrollYRef.current = window.scrollY;
     };
 
-    // Smooth scroll animation
     const smoothScrollUpdate = () => {
       const currentScroll = scrollYRef.current;
       const targetScroll = targetScrollYRef.current;
-      
-      // Very subtle easing for smooth movement (0.03 is very slow, almost imperceptible)
       scrollYRef.current = currentScroll + (targetScroll - currentScroll) * 0.03;
-      
-      // Track the actual movement for parallax
       scrollLerpRef.current = scrollYRef.current - lastScrollYRef.current;
       lastScrollYRef.current = scrollYRef.current;
     };
 
-    // Set canvas size
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       initParticles();
     };
 
-    // Initialize particles with depth for parallax
-    const initParticles = () => {
-      particlesRef.current = [];
-      const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 15000));
-      
-      for (let i = 0; i < particleCount; i++) {
-        particlesRef.current.push({
+    const initStars = () => {
+      starsRef.current = [];
+      const count = Math.min(100, Math.floor((canvas.width * canvas.height) / 15000));
+      for (let i = 0; i < count; i++) {
+        starsRef.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           vx: (Math.random() - 0.5) * 1.2,
           vy: (Math.random() - 0.5) * 1.2,
           radius: Math.random() * 2 + 1,
           color: `rgba(255, 255, 255, ${Math.random() * 0.4 + 0.2})`,
-          depth: Math.random() * 0.8 + 0.2 // Depth between 0.2 and 1.0
+          depth: Math.random() * 0.8 + 0.2,
         });
       }
     };
 
-    // Animation loop
-    const animate = () => {
-      if (!ctx || !canvas) return;
+    const initRain = () => {
+      rainRef.current = [];
+      const count = Math.min(200, Math.floor((canvas.width * canvas.height) / 8000));
+      for (let i = 0; i < count; i++) {
+        rainRef.current.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          length: 10 + Math.random() * 25,
+          speed: 4 + Math.random() * 6,
+          opacity: 0.06 + Math.random() * 0.12,
+          wind: 0.5 + Math.random() * 1.5,
+        });
+      }
+    };
 
-      // Update smooth scroll position
-      smoothScrollUpdate();
+    const initClouds = () => {
+      cloudsRef.current = [];
+      const count = 4 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < count; i++) {
+        cloudsRef.current.push({
+          x: Math.random() * canvas.width * 1.4 - canvas.width * 0.2,
+          y: Math.random() * canvas.height * 0.5,
+          radius: 80 + Math.random() * 200,
+          speed: 0.1 + Math.random() * 0.25,
+          opacity: 0.04 + Math.random() * 0.08,
+          pulse: Math.random() * Math.PI * 2,
+          pulseSpeed: 0.002 + Math.random() * 0.005,
+        });
+      }
+    };
 
-      // Clear canvas with transparent background
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const initParticles = () => {
+      if (isLight) {
+        initRain();
+        initClouds();
+      } else {
+        initStars();
+      }
+    };
 
-      const particles = particlesRef.current;
-      const scrollDelta = scrollLerpRef.current * 0.05; // Very subtle parallax effect
+    const drawStars = () => {
+      const particles = starsRef.current;
+      const scrollDelta = scrollLerpRef.current * 0.05;
 
-      // Update and draw particles
       for (let i = 0; i < particles.length; i++) {
-        const particle = particles[i];
+        const p = particles[i];
+        const parallaxFactor = p.depth * 0.8;
+        p.y -= scrollDelta * parallaxFactor;
+        p.x += p.vx * 0.6;
+        p.y += p.vy * 0.6;
 
-        // Apply very subtle parallax scrolling effect based on depth
-        // Using a much smaller multiplier for barely noticeable movement
-        const parallaxFactor = particle.depth * 0.8; // Reduced from 2.0 to 0.8
-        particle.y -= scrollDelta * parallaxFactor;
-
-        // Update position with regular movement (slightly reduced)
-        particle.x += particle.vx * 0.6;
-        particle.y += particle.vy * 0.6;
-
-        // Handle particles going out of bounds due to scrolling
-        // Wrap around vertically for continuous effect
-        if (particle.y > canvas.height + 50) {
-          particle.y = -50;
-          particle.x = Math.random() * canvas.width;
-        } else if (particle.y < -50) {
-          particle.y = canvas.height + 50;
-          particle.x = Math.random() * canvas.width;
+        if (p.y > canvas.height + 50) {
+          p.y = -50;
+          p.x = Math.random() * canvas.width;
+        } else if (p.y < -50) {
+          p.y = canvas.height + 50;
+          p.x = Math.random() * canvas.width;
         }
 
-        // Bounce off horizontal walls
-        if (particle.x <= 0 || particle.x >= canvas.width) {
-          particle.vx *= -0.95;
-          particle.x = particle.x <= 0 ? 0 : canvas.width;
+        if (p.x <= 0 || p.x >= canvas.width) {
+          p.vx *= -0.95;
+          p.x = p.x <= 0 ? 0 : canvas.width;
         }
 
-        // Add very subtle randomness to movement
-        particle.vx += (Math.random() - 0.5) * 0.05;
-        particle.vy += (Math.random() - 0.5) * 0.05;
+        p.vx += (Math.random() - 0.5) * 0.05;
+        p.vy += (Math.random() - 0.5) * 0.05;
 
-        // Limit velocity (reduced for smoother movement)
         const maxSpeed = 1.2;
-        const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
+        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
         if (speed > maxSpeed) {
-          particle.vx = (particle.vx / speed) * maxSpeed;
-          particle.vy = (particle.vy / speed) * maxSpeed;
+          p.vx = (p.vx / speed) * maxSpeed;
+          p.vy = (p.vy / speed) * maxSpeed;
         }
 
-        // Adjust particle appearance based on depth
-        const depthAlpha = 0.3 + (particle.depth * 0.3);
+        const depthAlpha = 0.3 + (p.depth * 0.3);
         const depthColor = `rgba(255, 255, 255, ${depthAlpha})`;
-        const depthRadius = particle.radius * (0.8 + particle.depth * 0.4);
+        const depthRadius = p.radius * (0.8 + p.depth * 0.4);
 
-        // Draw particle with glow effect
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, depthRadius, 0, Math.PI * 2);
-        
-        // Create glow effect
+        ctx.arc(p.x, p.y, depthRadius, 0, Math.PI * 2);
         const gradient = ctx.createRadialGradient(
-          particle.x, particle.y, 0,
-          particle.x, particle.y, depthRadius * 2
+          p.x, p.y, 0,
+          p.x, p.y, depthRadius * 2
         );
         gradient.addColorStop(0, depthColor);
         gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-        
         ctx.fillStyle = gradient;
         ctx.fill();
 
-        // Add a bright core to the particle
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, depthRadius * 0.6, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.6 + particle.depth * 0.2})`;
+        ctx.arc(p.x, p.y, depthRadius * 0.6, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${0.6 + p.depth * 0.2})`;
         ctx.fill();
       }
 
-      // Draw connections between nearby particles
       for (let i = 0; i < particles.length; i++) {
-        const particle = particles[i];
+        const p = particles[i];
         for (let j = i + 1; j < particles.length; j++) {
-          const otherParticle = particles[j];
-          const dx = particle.x - otherParticle.x;
-          const dy = particle.y - otherParticle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 150) {
-            // Adjust connection appearance based on average depth
-            const avgDepth = (particle.depth + otherParticle.depth) / 2;
+          const o = particles[j];
+          const dx = p.x - o.x;
+          const dy = p.y - o.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            const avgDepth = (p.depth + o.depth) / 2;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 150) * (0.5 + avgDepth * 0.5)})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - dist / 150) * (0.5 + avgDepth * 0.5)})`;
             ctx.lineWidth = 0.3 + avgDepth * 0.4;
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(otherParticle.x, otherParticle.y);
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(o.x, o.y);
             ctx.stroke();
           }
         }
+      }
+    };
+
+    const drawRain = () => {
+      const drops = rainRef.current;
+      for (let i = 0; i < drops.length; i++) {
+        const d = drops[i];
+        d.y += d.speed;
+        d.x += d.wind;
+
+        if (d.y > canvas.height + 20) {
+          d.y = -d.length;
+          d.x = Math.random() * canvas.width;
+        }
+        if (d.x > canvas.width + 20) {
+          d.x = -10;
+        }
+
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x + d.wind * 0.5, d.y - d.length);
+        ctx.strokeStyle = `rgba(160, 180, 200, ${d.opacity})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+    };
+
+    const drawClouds = () => {
+      const clouds = cloudsRef.current;
+      for (let i = 0; i < clouds.length; i++) {
+        const c = clouds[i];
+        c.x += c.speed;
+        c.pulse += c.pulseSpeed;
+
+        if (c.x > canvas.width + c.radius) {
+          c.x = -c.radius;
+          c.y = Math.random() * canvas.height * 0.5;
+        }
+
+        const pulseFactor = 1 + Math.sin(c.pulse) * 0.05;
+        const r = c.radius * pulseFactor;
+        const opacity = c.opacity * (0.8 + Math.sin(c.pulse) * 0.2);
+
+        const gradient = ctx.createRadialGradient(
+          c.x, c.y, 0,
+          c.x, c.y, r
+        );
+        gradient.addColorStop(0, `rgba(180, 195, 210, ${opacity * 1.5})`);
+        gradient.addColorStop(0.4, `rgba(185, 200, 215, ${opacity})`);
+        gradient.addColorStop(1, `rgba(190, 205, 220, 0)`);
+
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        const subX = c.x + r * 0.4;
+        const subY = c.y - r * 0.15;
+        const subR = r * 0.7;
+        const subGrad = ctx.createRadialGradient(
+          subX, subY, 0,
+          subX, subY, subR
+        );
+        subGrad.addColorStop(0, `rgba(175, 195, 215, ${opacity * 1.2})`);
+        subGrad.addColorStop(1, `rgba(190, 205, 220, 0)`);
+        ctx.beginPath();
+        ctx.arc(subX, subY, subR, 0, Math.PI * 2);
+        ctx.fillStyle = subGrad;
+        ctx.fill();
+      }
+    };
+
+    const animate = () => {
+      if (!ctx || !canvas) return;
+      smoothScrollUpdate();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (isLight) {
+        drawClouds();
+        drawRain();
+      } else {
+        drawStars();
       }
 
       animationRef.current = requestAnimationFrame(animate);
     };
 
-    // Initialize
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('scroll', handleScroll, { passive: true });
     animate();
 
-    // Cleanup
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('scroll', handleScroll);
@@ -190,15 +296,13 @@ const DynamicBackground = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, []);
+  }, [isLight]);
 
   return (
     <div className="fixed inset-0 -z-50 pointer-events-none overflow-hidden">
-      {/* Solid background color */}
       <div className="absolute inset-0" style={{ backgroundColor: "var(--color-bg-primary)" }} />
-      
-      {/* Particle canvas */}
-      <canvas 
+
+      <canvas
         ref={canvasRef}
         className="absolute inset-0"
         style={{
@@ -207,49 +311,49 @@ const DynamicBackground = () => {
           pointerEvents: 'none',
         }}
       />
-      
-      {/* Subtle gradient overlay for depth */}
-      <div className="absolute inset-0" style={{
-        background: "linear-gradient(to bottom right, var(--color-accent-glow), transparent, transparent)",
-      }} />
-      
-      {/* Gradient Orbs with very subtle parallax effect */}
-      <ParallaxOrb 
-        className="absolute top-1/4 -left-10 w-48 h-48 sm:w-72 sm:h-72 rounded-full blur-3xl"
-        depth={0.3}
-        scrollYRef={scrollYRef}
-        color="var(--color-accent-secondary)"
-      />
-      <ParallaxOrb 
-        className="absolute bottom-1/4 -right-10 w-64 h-64 sm:w-96 sm:h-96 rounded-full blur-3xl"
-        depth={0.2}
-        scrollYRef={scrollYRef}
-        color="var(--color-accent)"
-      />
+
+      {!isLight && (
+        <>
+          <div className="absolute inset-0" style={{
+            background: "linear-gradient(to bottom right, var(--color-accent-glow), transparent, transparent)",
+          }} />
+          <ParallaxOrb
+            className="absolute top-1/4 -left-10 w-48 h-48 sm:w-72 sm:h-72 rounded-full blur-3xl"
+            depth={0.3}
+            scrollYRef={scrollYRef}
+            color="var(--color-accent-secondary)"
+          />
+          <ParallaxOrb
+            className="absolute bottom-1/4 -right-10 w-64 h-64 sm:w-96 sm:h-96 rounded-full blur-3xl"
+            depth={0.2}
+            scrollYRef={scrollYRef}
+            color="var(--color-accent)"
+          />
+        </>
+      )}
     </div>
   );
 };
 
-// Separate component for parallax orbs with smooth movement
-const ParallaxOrb = ({ 
-  className, 
-  depth, 
+const ParallaxOrb = ({
+  className,
+  depth,
   scrollYRef,
   color
-}: { 
-  className: string; 
+}: {
+  className: string;
   depth: number;
   scrollYRef: React.RefObject<number>;
   color: string;
 }) => {
   const orbRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     const orb = orbRef.current;
     if (!orb) return;
 
     let animationFrameId: number;
-    
+
     const updateOrbPosition = () => {
       const translateY = -scrollYRef.current * depth * 0.1;
       orb.style.transform = `translateY(${translateY}px)`;
