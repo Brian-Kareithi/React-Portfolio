@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
+import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaUser, FaPaperPlane, FaClock, FaCode, FaHandshake } from "react-icons/fa";
 
 export default function Contact() {
@@ -86,6 +87,7 @@ export default function Contact() {
             </p>
           </div>
 
+          <StaggerReveal staggerDelay={120}>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-10">
             {/* Information Container */}
             <div className="lg:col-span-2 p-4 md:p-5 rounded-xl relative overflow-hidden"
@@ -403,8 +405,10 @@ export default function Contact() {
               </div>
             </div>
           </div>
+          </StaggerReveal>
 
           {/* Bottom Info Cards */}
+          <StaggerReveal staggerDelay={120}>
           <div className="grid md:grid-cols-3 gap-3">
             {[
               { 
@@ -464,6 +468,7 @@ export default function Contact() {
               </div>
             ))}
           </div>
+          </StaggerReveal>
         </div>
       </ScrollReveal>
     </section>

@@ -2,6 +2,7 @@
 import { Server, Cpu, Shield, Activity, HardDrive, Smartphone, Zap, Terminal, Brain, Database, Network, Home, Clock, Wifi, Lock } from "lucide-react";
 import Link from "next/link";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
+import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 
 const niches = [
   {
@@ -69,6 +70,7 @@ export default function Niche() {
         </div>
 
         {/* Passion Projects */}
+        <StaggerReveal staggerDelay={120}>
         <div className="mb-16">
           <h2 className="text-xl font-semibold mb-6" style={{ color: "var(--color-text-primary)" }}>
             Projects
@@ -105,8 +107,10 @@ export default function Niche() {
             ))}
           </div>
         </div>
+        </StaggerReveal>
 
         {/* Services */}
+        <StaggerReveal staggerDelay={100}>
         <div className="mb-16">
           <h2 className="text-xl font-semibold mb-6" style={{ color: "var(--color-text-primary)" }}>
             Services
@@ -133,8 +137,10 @@ export default function Niche() {
             ))}
           </div>
         </div>
+        </StaggerReveal>
 
         {/* Philosophy */}
+        <StaggerReveal staggerDelay={100}>
         <div className="mb-16">
           <h2 className="text-xl font-semibold mb-6" style={{ color: "var(--color-text-primary)" }}>
             Philosophy
@@ -156,8 +162,10 @@ export default function Niche() {
             ))}
           </div>
         </div>
+        </StaggerReveal>
 
         {/* CTA */}
+        <StaggerReveal>
         <div className="border-t pt-12 text-center"
           style={{ borderColor: "var(--color-border)" }}>
           <p className="text-sm mb-6" style={{ color: "var(--color-text-muted)" }}>
@@ -182,6 +190,7 @@ export default function Niche() {
             </Link>
           </div>
         </div>
+        </StaggerReveal>
 
       </div>
       </ScrollReveal>
