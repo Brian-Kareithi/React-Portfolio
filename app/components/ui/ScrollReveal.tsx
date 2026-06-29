@@ -24,29 +24,31 @@ export function ScrollReveal({ children, className = "", delay = 0, direction = 
           observer.unobserve(el);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  const directionClasses: Record<string, string> = {
-    up: "translate-y-8",
-    down: "-translate-y-8",
-    left: "translate-x-8",
-    right: "-translate-x-8",
-    scale: "scale-95",
+  const directionTransforms: Record<string, string> = {
+    up: "translateY(32px)",
+    down: "translateY(-32px)",
+    left: "translateX(32px)",
+    right: "translateX(-32px)",
+    scale: "scale(0.95)",
   };
 
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ease-out ${className}`}
+      className={className}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translate(0, 0) scale(1)" : directionClasses[direction],
+        transform: isVisible ? "translateY(0) scale(1)" : directionTransforms[direction],
+        transition: `opacity 0.6s ease-out, transform 0.6s ease-out`,
         transitionDelay: `${delay}ms`,
+        willChange: isVisible ? "auto" : "opacity, transform",
       }}
     >
       {children}
