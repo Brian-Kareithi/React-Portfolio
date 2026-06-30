@@ -168,7 +168,7 @@ function HeroSection() {
             style={{ color: "var(--color-text-muted)" }}>
             Scroll
           </span>
-          <div className="w-px h-6 xs:h-8" style={{ backgroundColor: "var(--color-text-muted)" }} />
+          <div className="w-5 h-2 xs:w-6 xs:h-2.5 rounded-full" style={{ backgroundColor: "var(--color-text-muted)" }} />
         </div>
       </div>
     </section>

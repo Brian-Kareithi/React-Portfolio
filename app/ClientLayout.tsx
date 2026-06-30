@@ -6,7 +6,6 @@ import Footer from "@/app/components/Footer";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import LoadingScreen from "@/app/components/LoadingScreen";
 import CustomCursor from "@/app/components/CustomCursor";
-import DynamicBackground from "@/app/components/DynamicBackground";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +16,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
   return (
     <ThemeProvider>
-      <DynamicBackground />
       <CustomCursor />
       {isLoading && <LoadingScreen onFinish={handleFinishLoading} />}
 

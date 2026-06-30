@@ -60,7 +60,7 @@ const gearCategories: GearCategory[] = [
     title: "Spare Gear",
     icon: <HardDrive className="w-4 h-4" />,
     items: [
-      { name: "2TB HDDs & SSDs", detail: "Storage for archiving", icon: <HardDrive className="w-3.5 h-3-5" />, specs: ["Mixed 2.5\" & 3.5\" Drives", "SSD + HDD Combo", "Used for Backups & Experiments"] },
+      { name: "2TB HDDs & SSDs", detail: "Storage for archiving", icon: <HardDrive className="w-3.5 h-3.5" />, specs: ["Mixed 2.5\" & 3.5\" Drives", "SSD + HDD Combo", "Used for Backups & Experiments"] },
       { name: "Digital Camera", detail: "Capturing moments", icon: <Camera className="w-3.5 h-3.5" />, specs: ["Compact Digital Camera", "Optical Zoom Lens", "SD Card Storage", "Great for Reference Shots"] },
       { name: "ESP32 Dev Kit", detail: "IoT prototyping", icon: <CpuIcon className="w-3.5 h-3.5" />, specs: ["ESP32-WROOM-32 Module", "Dual-Core Xtensa LX6", "WiFi + BLE 4.2", "GPIO / I2C / SPI / UART", "Full Dev Board w/ USB", "Used in Robotics & Automation"] },
     ],

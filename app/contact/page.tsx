@@ -330,7 +330,7 @@ export default function Contact() {
                       onBlur={() => setActiveField(null)}
                       placeholder="Tell me about your project..."
                       required
-                      rows={3.5}
+                      rows={4}
                       className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300 rounded-lg resize-none"
                       style={{
                         background: "var(--color-glass-input-bg)",
@@ -384,7 +384,7 @@ export default function Contact() {
                           backdropFilter: "blur(10px)",
                           color: "var(--color-accent)",
                         }}>
-                        <span className="w-5.5 h-5.5 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
+                        <span className="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
                           style={{ backgroundColor: "var(--color-accent)", color: "var(--color-text-light)" }}>✓</span>
                         Message sent! I respond within 24h.
                       </div>
