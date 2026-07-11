@@ -292,6 +292,15 @@ body {
   animation: rotate-loading 1.8s linear infinite;
 }
 
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
 .stagger-item {
   opacity: 0;
   animation: stagger-fade-in 0.5s ease-out forwards;
