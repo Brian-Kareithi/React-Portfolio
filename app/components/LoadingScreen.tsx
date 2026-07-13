@@ -7,7 +7,15 @@ const messages = [
   "Debatably the best engineer you've met",
 ];
 
-let bubbleSound: HTMLAudioElement | null = null;
+function playBubbleSound() {
+  try {
+    const audio = new Audio('/sounds/sentmessage.mp3');
+    audio.volume = 0.5;
+    audio.play().catch(e => console.log('Play error:', e));
+  } catch (error) {
+    console.error('Audio error:', error);
+  }
+}
 
 function LoadingDots() {
   return (
@@ -36,9 +44,7 @@ function Bubble({ message, onRevealed }: { message: string; onRevealed: () => vo
       setPhase("revealed");
       if (!soundPlayedRef.current) {
         soundPlayedRef.current = true;
-        if (!bubbleSound) bubbleSound = new Audio("/sounds/sentmessage.mp3");
-        bubbleSound.currentTime = 0;
-        bubbleSound.play();
+        playBubbleSound();
       }
       setTimeout(onRevealed, 500);
     }, loadingDuration);
@@ -82,15 +88,8 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    const unlock = () => {
-      if (!bubbleSound) bubbleSound = new Audio("/sounds/sentmessage.mp3");
-      bubbleSound.load();
-      document.removeEventListener("pointerdown", unlock);
-    };
-    document.addEventListener("pointerdown", unlock);
     return () => {
       document.body.style.overflow = "";
-      document.removeEventListener("pointerdown", unlock);
     };
   }, []);
 
