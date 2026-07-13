@@ -240,9 +240,15 @@ export default function Projects() {
               You are viewing V2. This represents the latest iteration with improved architecture and design decisions.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href="https://github.com/Brian-Kareithi/React-Portfolio" target="_blank" rel="noopener noreferrer"
+              <a href="https://portfoliov2-ruby.vercel.app/" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 text-xs font-medium transition-all duration-200 hover:-translate-y-0.5"
                 style={{ border: "1px solid var(--color-accent)", color: "var(--color-accent)" }}>
+                <ExternalLink className="w-3 h-3" />
+                Live Demo
+              </a>
+              <a href="https://github.com/Brian-Kareithi/React-Portfolio" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 text-xs font-medium transition-all duration-200 hover:-translate-y-0.5"
+                style={{ border: "1px solid var(--color-glass-border)", color: "var(--color-text-secondary)" }}>
                 <ExternalLink className="w-3 h-3" />
                 View Source
               </a>
