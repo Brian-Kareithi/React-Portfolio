@@ -7,39 +7,20 @@ const messages = [
   "Debatably the best engineer you've met!",
 ];
 
-let audioCtx: AudioContext | null = null;
-let audioBuffer: AudioBuffer | null = null;
+let audioPreloaded: HTMLAudioElement | null = null;
 
-function getCtx(): AudioContext | null {
-  if (audioCtx) return audioCtx;
-  const AC = (window as any).AudioContext || (window as any).webkitAudioContext;
-  if (AC) {
-    const ctx = new AC();
-    ctx.resume();
-    audioCtx = ctx;
-  }
-  return audioCtx;
-}
-
-async function loadAudio() {
-  try {
-    const ctx = getCtx();
-    if (!ctx || audioBuffer) return;
-    const res = await fetch("/sounds/sentmessage.mp3");
-    const data = await res.arrayBuffer();
-    audioBuffer = await ctx.decodeAudioData(data);
-  } catch {}
+function preloadAudio() {
+  if (audioPreloaded) return;
+  audioPreloaded = new Audio("/sounds/sentmessage.mp3");
+  audioPreloaded.preload = "auto";
+  audioPreloaded.load();
 }
 
 function playBubbleSound() {
   try {
-    const ctx = getCtx();
-    if (!ctx || !audioBuffer) return;
-    if (ctx.state === "suspended") ctx.resume();
-    const src = ctx.createBufferSource();
-    src.buffer = audioBuffer;
-    src.connect(ctx.destination);
-    src.start(0);
+    const a = new Audio("/sounds/sentmessage.mp3");
+    a.volume = 0.5;
+    a.play();
   } catch {}
 }
 
@@ -106,22 +87,19 @@ function Bubble({ message, onRevealed }: { message: string; onRevealed: () => vo
 }
 
 export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
-  const [mounted, setMounted] = useState(false);
   const [bubbleIds, setBubbleIds] = useState<number[]>([]);
   const [pagePhase, setPagePhase] = useState<"loading" | "fading">("loading");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const nextMsgRef = useRef(0);
   const startedRef = useRef(false);
 
-  useEffect(() => { setMounted(true); }, []);
-  if (!mounted) return null;
-
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    loadAudio();
+    preloadAudio();
     const unlock = () => {
-      const ctx = getCtx();
-      if (ctx?.state === "suspended") ctx.resume();
+      const a = new Audio("/sounds/sentmessage.mp3");
+      a.volume = 0.01;
+      a.play().catch(() => {});
       document.removeEventListener("pointerdown", unlock);
     };
     document.addEventListener("pointerdown", unlock);
