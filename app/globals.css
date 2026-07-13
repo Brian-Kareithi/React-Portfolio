@@ -340,6 +340,83 @@ body {
   color: var(--color-bg-primary);
 }
 
+/* ── iMessage loading screen ── */
+.imessage-topbar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-glass-nav-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  flex-shrink: 0;
+}
+
+.imessage-topbar-back {
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--color-accent);
+  font-weight: 300;
+  width: 1.5rem;
+  text-align: center;
+}
+
+.imessage-topbar-avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--color-glass-bg);
+}
+
+.imessage-topbar-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.imessage-topbar-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.imessage-topbar-status {
+  font-size: 0.6rem;
+  color: var(--color-text-muted);
+  line-height: 1.2;
+}
+
+.imessage-topbar-icons {
+  color: var(--color-accent);
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.imessage-topbar-icons svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.imessage-chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 0;
+}
+
+.imessage-chat::-webkit-scrollbar {
+  width: 3px;
+}
+
+.imessage-chat::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
 /* ── Chat bubble loading screen ── */
 .messages {
   display: flex;
