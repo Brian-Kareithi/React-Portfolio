@@ -178,12 +178,12 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-700 ${
+      className={`fixed inset-0 z-[100] flex items-start justify-start transition-opacity duration-700 ${
         phase === "fading" ? "opacity-0" : "opacity-100"
       }`}
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
-      <div className="messages" style={{ maxWidth: "22rem" }}>
+      <div className="messages" style={{ maxWidth: "22rem", paddingTop: "5rem", paddingLeft: "1.25rem" }}>
         {bubbleIds.map((msgIdx) => (
           <Bubble
             key={msgIdx}
