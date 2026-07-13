@@ -345,32 +345,26 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.35rem;
+  gap: 0.4rem;
 }
 
-.bubble {
+.bubble-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bubble-loading {
   display: inline-block;
-  padding: 0.55rem 1rem;
-  line-height: 1.45;
+  padding: 0.45rem 0.85rem;
   border-radius: 1rem;
   font-size: 0.9rem;
-  word-wrap: break-word;
-  max-width: 100%;
   background: var(--color-glass-bg);
-  color: var(--color-text-primary);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   border: 1px solid var(--color-glass-border);
-}
-
-.bubble.cornered {
   border-bottom-left-radius: 0.2rem;
 }
 
-.bubble span.message {
-  line-height: 1.45;
-}
-
-.bubble .loading b {
+.bubble-loading .loading b {
   display: inline-block;
   color: var(--color-text-muted);
   font-size: 1.4rem;
@@ -378,9 +372,9 @@ body {
   animation: dotBounce 1.2s ease-in-out infinite;
 }
 
-.bubble .loading b:nth-child(1) { animation-delay: 0ms; }
-.bubble .loading b:nth-child(2) { animation-delay: 150ms; }
-.bubble .loading b:nth-child(3) { animation-delay: 300ms; }
+.bubble-loading .loading b:nth-child(1) { animation-delay: 0ms; }
+.bubble-loading .loading b:nth-child(2) { animation-delay: 150ms; }
+.bubble-loading .loading b:nth-child(3) { animation-delay: 300ms; }
 
 @keyframes dotBounce {
   0%, 60%, 100% {
@@ -390,6 +384,31 @@ body {
   30% {
     opacity: 1;
     transform: translateY(-2px);
+  }
+}
+
+.bubble-message {
+  display: inline-block;
+  padding: 0.6rem 1.05rem;
+  line-height: 1.45;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  word-wrap: break-word;
+  max-width: 100%;
+  background: #34c759;
+  color: #fff;
+  border-bottom-left-radius: 0.2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+@keyframes bubblePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }
 

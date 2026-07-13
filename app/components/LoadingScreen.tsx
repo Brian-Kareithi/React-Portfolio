@@ -1,8 +1,6 @@
 "use client";
 import { useEffect, useState, useRef, useCallback } from "react";
 
-const charSpeed = 25;
-
 const messages = [
   "Hey there 👋",
   "I'm Kareithi",
@@ -42,28 +40,6 @@ function playSound() {
   src.start(0);
 }
 
-function TypewriterText({ text }: { text: string }) {
-  const [displayed, setDisplayed] = useState("");
-  const idxRef = useRef(0);
-
-  useEffect(() => {
-    idxRef.current = 0;
-    setDisplayed("");
-    const chars = [...text];
-    const t = setInterval(() => {
-      if (idxRef.current >= chars.length) {
-        clearInterval(t);
-        return;
-      }
-      idxRef.current += 1;
-      setDisplayed(chars.slice(0, idxRef.current).join(""));
-    }, charSpeed);
-    return () => clearInterval(t);
-  }, [text]);
-
-  return <>{displayed}</>;
-}
-
 function LoadingDots() {
   return (
     <span className="loading">
@@ -74,53 +50,53 @@ function LoadingDots() {
   );
 }
 
-function Bubble({
-  message,
-  onRevealed,
-}: {
-  message: string;
-  onRevealed: () => void;
-}) {
-  const [phase, setPhase] = useState<"enter" | "loading" | "typing" | "done">("enter");
+function Bubble({ message, onRevealed }: { message: string; onRevealed: () => void }) {
+  const [phase, setPhase] = useState<"enter" | "loading" | "revealed">("enter");
   const soundPlayedRef = useRef(false);
 
-  const typingDuration = message.length * charSpeed + 200;
+  const loadingDuration = message.length * 20 + 500;
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase("loading"), 60);
-    return () => clearTimeout(t1);
+    const t = setTimeout(() => setPhase("loading"), 50);
+    return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
     if (phase !== "loading") return;
-    const t2 = setTimeout(() => {
-      setPhase("typing");
+    const t = setTimeout(() => {
+      setPhase("revealed");
       if (!soundPlayedRef.current) {
         soundPlayedRef.current = true;
         playSound();
       }
-      const t3 = setTimeout(() => {
-        setPhase("done");
-        setTimeout(onRevealed, 300);
-      }, typingDuration);
-    }, message.length * charSpeed + 300);
-    return () => clearTimeout(t2);
-  }, [phase, message, typingDuration, onRevealed]);
+      setTimeout(onRevealed, 500);
+    }, loadingDuration);
+    return () => clearTimeout(t);
+  }, [phase, loadingDuration, onRevealed]);
 
   return (
-    <div
-      className={`bubble ${phase === "done" ? "" : "cornered"}`}
-      style={{
-        opacity: phase === "enter" ? 0 : 1,
-        transform: phase === "enter" ? "translateY(8px) scale(0.96)" : "none",
-        transition: "opacity 0.35s ease, transform 0.35s ease",
-      }}
-    >
-      {(phase === "enter" || phase === "loading") && <LoadingDots />}
-      {(phase === "typing" || phase === "done") && (
-        <span className="message">
-          <TypewriterText text={message} />
-        </span>
+    <div className="bubble-wrapper">
+      {phase !== "revealed" && (
+        <div
+          className="bubble-loading"
+          style={{
+            opacity: phase === "enter" ? 0 : 1,
+            transform: phase === "enter" ? "translateY(6px) scale(0.95)" : "none",
+            transition: "opacity 0.3s ease, transform 0.3s ease",
+          }}
+        >
+          <LoadingDots />
+        </div>
+      )}
+      {phase === "revealed" && (
+        <div
+          className="bubble-message"
+          style={{
+            animation: "bubblePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+          }}
+        >
+          {message}
+        </div>
       )}
     </div>
   );
@@ -128,7 +104,7 @@ function Bubble({
 
 export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const [bubbleIds, setBubbleIds] = useState<number[]>([]);
-  const [phase, setPhase] = useState<"loading" | "fading">("loading");
+  const [pagePhase, setPagePhase] = useState<"loading" | "fading">("loading");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const nextMsgRef = useRef(0);
   const startedRef = useRef(false);
@@ -153,7 +129,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
     const idx = nextMsgRef.current;
     if (idx >= messages.length) {
       setTimeout(() => {
-        setPhase("fading");
+        setPagePhase("fading");
         onFinish();
       }, 800);
       return;
@@ -179,7 +155,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   return (
     <div
       className={`fixed inset-0 z-[100] flex items-start justify-start transition-opacity duration-700 ${
-        phase === "fading" ? "opacity-0" : "opacity-100"
+        pagePhase === "fading" ? "opacity-0" : "opacity-100"
       }`}
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
