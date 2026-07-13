@@ -19,6 +19,40 @@ function LoadingDots() {
   );
 }
 
+let audioCtx: AudioContext | null = null;
+let audioBuffer: AudioBuffer | null = null;
+
+function getAudioCtx() {
+  if (audioCtx) return audioCtx;
+  const AC = (
+    typeof window !== "undefined"
+      ? window.AudioContext || (window as any).webkitAudioContext
+      : null
+  );
+  if (AC) audioCtx = new AC();
+  return audioCtx;
+}
+
+async function loadSound() {
+  const ctx = getAudioCtx();
+  if (!ctx || audioBuffer) return;
+  try {
+    const res = await fetch("/sounds/sentmessage.mp3");
+    const arrayBuf = await res.arrayBuffer();
+    audioBuffer = await ctx.decodeAudioData(arrayBuf);
+  } catch {}
+}
+
+function playSound() {
+  const ctx = getAudioCtx();
+  if (!ctx || !audioBuffer) return;
+  if (ctx.state === "suspended") ctx.resume();
+  const src = ctx.createBufferSource();
+  src.buffer = audioBuffer;
+  src.connect(ctx.destination);
+  src.start(0);
+}
+
 function Bubble({
   message,
   onRevealed,
@@ -44,7 +78,7 @@ function Bubble({
       setHasRevealed(true);
       if (!soundPlayedRef.current) {
         soundPlayedRef.current = true;
-        new Audio("/sounds/sentmessage.mp3").play();
+        playSound();
       }
       setTimeout(onRevealed, 400);
     }, loadingDuration);
@@ -71,12 +105,28 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const nextMsgRef = useRef(0);
   const startedRef = useRef(false);
 
+  useEffect(() => {
+    loadSound();
+    const unlock = () => {
+      const ctx = getAudioCtx();
+      if (ctx?.state === "suspended") ctx.resume();
+      document.removeEventListener("click", unlock);
+      document.removeEventListener("touchstart", unlock);
+    };
+    document.addEventListener("click", unlock);
+    document.addEventListener("touchstart", unlock);
+    return () => {
+      document.removeEventListener("click", unlock);
+      document.removeEventListener("touchstart", unlock);
+    };
+  }, []);
+
   const addNextBubble = useCallback(() => {
     const idx = nextMsgRef.current;
     if (idx >= messages.length) {
       setTimeout(() => {
         setPhase("fading");
-        setTimeout(onFinish, 700);
+        onFinish();
       }, 1000);
       return;
     }
@@ -102,7 +152,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   return (
     <div
       className={`fixed inset-0 z-[100] flex items-start justify-start transition-opacity duration-700 ${
-        phase === "fading" ? "opacity-0 pointer-events-none" : "opacity-100"
+        phase === "fading" ? "opacity-0" : "opacity-100"
       }`}
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >

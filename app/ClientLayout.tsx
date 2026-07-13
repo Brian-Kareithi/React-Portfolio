@@ -9,26 +9,31 @@ import CustomCursor from "@/app/components/CustomCursor";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [showLoading, setShowLoading] = useState(true);
 
   const handleFinishLoading = useCallback(() => {
     setIsLoading(false);
+    setTimeout(() => setShowLoading(false), 800);
   }, []);
 
   return (
     <ThemeProvider>
       <CustomCursor />
-      {isLoading && <LoadingScreen onFinish={handleFinishLoading} />}
+      {showLoading && <LoadingScreen onFinish={handleFinishLoading} />}
 
-      <div className={`transition-opacity duration-700 ${isLoading ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+      <div className={`transition-opacity duration-1000 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}
+        style={{ transitionDelay: isLoading ? "0ms" : "300ms" }}>
         <Navbar />
         <ScrollBar />
       </div>
 
-      <main className={`relative transition-opacity duration-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
+      <main className={`relative transition-opacity duration-1000 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}
+        style={{ transitionDelay: isLoading ? "0ms" : "300ms" }}>
         {children}
       </main>
 
-      <div className={`transition-opacity duration-700 ${isLoading ? "opacity-0" : "opacity-100"}`}>
+      <div className={`transition-opacity duration-1000 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}
+        style={{ transitionDelay: isLoading ? "0ms" : "300ms" }}>
         <Footer />
       </div>
     </ThemeProvider>
