@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, useRef, useCallback } from "react";
 
-const charSpeed = 30;
+const charSpeed = 25;
 
 const messages = [
   "Hey there 👋",
@@ -14,11 +14,10 @@ let audioBuffer: AudioBuffer | null = null;
 
 function getAudioCtx() {
   if (audioCtx) return audioCtx;
-  const AC = (
+  const AC =
     typeof window !== "undefined"
-      ? window.AudioContext || (window as any).webkitAudioContext
-      : null
-  );
+      ? (window as any).AudioContext || (window as any).webkitAudioContext
+      : null;
   if (AC) audioCtx = new AC();
   return audioCtx;
 }
@@ -56,8 +55,8 @@ function TypewriterText({ text }: { text: string }) {
         clearInterval(t);
         return;
       }
-      setDisplayed(chars.slice(0, idxRef.current + 1).join(""));
       idxRef.current += 1;
+      setDisplayed(chars.slice(0, idxRef.current).join(""));
     }, charSpeed);
     return () => clearInterval(t);
   }, [text]);
@@ -82,46 +81,47 @@ function Bubble({
   message: string;
   onRevealed: () => void;
 }) {
-  const [bubbleReady, setBubbleReady] = useState(false);
-  const [hasRevealed, setHasRevealed] = useState(false);
+  const [phase, setPhase] = useState<"enter" | "loading" | "typing" | "done">("enter");
   const soundPlayedRef = useRef(false);
 
-  const loadingDuration = message.length * charSpeed + 600;
+  const typingDuration = message.length * charSpeed + 200;
 
   useEffect(() => {
-    const t = setTimeout(() => setBubbleReady(true), 100);
-    return () => clearTimeout(t);
+    const t1 = setTimeout(() => setPhase("loading"), 60);
+    return () => clearTimeout(t1);
   }, []);
 
   useEffect(() => {
-    if (!bubbleReady) return;
-    const t = setTimeout(() => {
-      setHasRevealed(true);
+    if (phase !== "loading") return;
+    const t2 = setTimeout(() => {
+      setPhase("typing");
       if (!soundPlayedRef.current) {
         soundPlayedRef.current = true;
         playSound();
       }
-      const textDuration = message.length * charSpeed + 200;
-      setTimeout(onRevealed, textDuration);
-    }, loadingDuration);
-    return () => clearTimeout(t);
-  }, [bubbleReady, loadingDuration, onRevealed, message]);
+      const t3 = setTimeout(() => {
+        setPhase("done");
+        setTimeout(onRevealed, 300);
+      }, typingDuration);
+    }, message.length * charSpeed + 300);
+    return () => clearTimeout(t2);
+  }, [phase, message, typingDuration, onRevealed]);
 
   return (
-    <div className="chat-row">
-      <div className="chat-avatar">K</div>
-      <div
-        className={`bubble left${!hasRevealed ? " cornered" : ""}`}
-        style={{ opacity: bubbleReady ? 1 : 0 }}
-      >
-        {!hasRevealed && <LoadingDots />}
-        <span
-          className="message"
-          style={{ display: hasRevealed ? "inline" : "none" }}
-        >
-          {hasRevealed && <TypewriterText text={message} />}
+    <div
+      className={`bubble ${phase === "done" ? "" : "cornered"}`}
+      style={{
+        opacity: phase === "enter" ? 0 : 1,
+        transform: phase === "enter" ? "translateY(8px) scale(0.96)" : "none",
+        transition: "opacity 0.35s ease, transform 0.35s ease",
+      }}
+    >
+      {(phase === "enter" || phase === "loading") && <LoadingDots />}
+      {(phase === "typing" || phase === "done") && (
+        <span className="message">
+          <TypewriterText text={message} />
         </span>
-      </div>
+      )}
     </div>
   );
 }
@@ -155,7 +155,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       setTimeout(() => {
         setPhase("fading");
         onFinish();
-      }, 1000);
+      }, 800);
       return;
     }
     nextMsgRef.current += 1;
@@ -166,8 +166,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
     if (startedRef.current) return;
     startedRef.current = true;
     addNextBubble();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [addNextBubble]);
 
   const handleRevealed = useCallback(() => {
     addNextBubble();
@@ -179,28 +178,19 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-start justify-start transition-opacity duration-700 ${
+      className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-700 ${
         phase === "fading" ? "opacity-0" : "opacity-100"
       }`}
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
-      <div className="chat-container max-w-xs sm:max-w-sm md:max-w-md pt-12 pl-3 sm:pl-5 md:pl-8">
-        <div className="chat-header">
-          <div className="chat-header-avatar">K</div>
-          <div className="chat-header-info">
-            <span className="chat-header-name">Kareithi</span>
-            <span className="chat-header-status">online</span>
-          </div>
-        </div>
-        <div className="messages">
-          {bubbleIds.map((msgIdx) => (
-            <Bubble
-              key={msgIdx}
-              message={messages[msgIdx]}
-              onRevealed={handleRevealed}
-            />
-          ))}
-        </div>
+      <div className="messages" style={{ maxWidth: "22rem" }}>
+        {bubbleIds.map((msgIdx) => (
+          <Bubble
+            key={msgIdx}
+            message={messages[msgIdx]}
+            onRevealed={handleRevealed}
+          />
+        ))}
         <div ref={messagesEndRef} />
       </div>
     </div>

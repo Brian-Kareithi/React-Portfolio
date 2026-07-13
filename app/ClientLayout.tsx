@@ -21,19 +21,16 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <CustomCursor />
       {showLoading && <LoadingScreen onFinish={handleFinishLoading} />}
 
-      <div className={`transition-opacity duration-1000 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}
-        style={{ transitionDelay: isLoading ? "0ms" : "300ms" }}>
+      <div className={`transition-opacity duration-700 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}>
         <Navbar />
         <ScrollBar />
       </div>
 
-      <main className={`relative transition-opacity duration-1000 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}
-        style={{ transitionDelay: isLoading ? "0ms" : "300ms" }}>
+      <main className={`relative transition-opacity duration-700 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}>
         {children}
       </main>
 
-      <div className={`transition-opacity duration-1000 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}
-        style={{ transitionDelay: isLoading ? "0ms" : "300ms" }}>
+      <div className={`transition-opacity duration-700 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}>
         <Footer />
       </div>
     </ThemeProvider>
