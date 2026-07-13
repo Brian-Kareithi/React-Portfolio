@@ -7,37 +7,32 @@ const messages = [
   "Debatably the best engineer you've met",
 ];
 
-let audioCtx: AudioContext | null = null;
-let audioBuffer: AudioBuffer | null = null;
+let audioEl: HTMLAudioElement | null = null;
+let audioUnlocked = false;
 
-function getAudioCtx() {
-  if (audioCtx) return audioCtx;
-  const AC =
-    typeof window !== "undefined"
-      ? (window as any).AudioContext || (window as any).webkitAudioContext
-      : null;
-  if (AC) audioCtx = new AC();
-  return audioCtx;
+function getAudio() {
+  if (audioEl) return audioEl;
+  if (typeof window === "undefined") return null;
+  audioEl = new Audio("/sounds/sentmessage.mp3");
+  audioEl.preload = "auto";
+  audioEl.volume = 1;
+  return audioEl;
 }
 
-async function loadSound() {
-  const ctx = getAudioCtx();
-  if (!ctx || audioBuffer) return;
-  try {
-    const res = await fetch("/sounds/sentmessage.mp3");
-    const arrayBuf = await res.arrayBuffer();
-    audioBuffer = await ctx.decodeAudioData(arrayBuf);
-  } catch {}
+function unlockAudio() {
+  if (audioUnlocked) return;
+  audioUnlocked = true;
+  const a = getAudio();
+  if (!a) return;
+  a.play().then(() => { a.pause(); a.currentTime = 0; }).catch(() => {});
 }
 
 function playSound() {
-  const ctx = getAudioCtx();
-  if (!ctx || !audioBuffer) return;
-  if (ctx.state === "suspended") ctx.resume();
-  const src = ctx.createBufferSource();
-  src.buffer = audioBuffer;
-  src.connect(ctx.destination);
-  src.start(0);
+  const a = getAudio();
+  if (!a) return;
+  if (!audioUnlocked) unlockAudio();
+  a.currentTime = 0;
+  a.play().catch(() => {});
 }
 
 function LoadingDots() {
@@ -110,18 +105,19 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const startedRef = useRef(false);
 
   useEffect(() => {
-    loadSound();
+    getAudio();
     const unlock = () => {
-      const ctx = getAudioCtx();
-      if (ctx?.state === "suspended") ctx.resume();
+      unlockAudio();
       document.removeEventListener("click", unlock);
       document.removeEventListener("touchstart", unlock);
     };
     document.addEventListener("click", unlock);
     document.addEventListener("touchstart", unlock);
+    const t = setTimeout(unlock, 3000);
     return () => {
       document.removeEventListener("click", unlock);
       document.removeEventListener("touchstart", unlock);
+      clearTimeout(t);
     };
   }, []);
 
