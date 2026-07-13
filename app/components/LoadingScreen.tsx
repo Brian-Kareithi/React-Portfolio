@@ -7,30 +7,9 @@ const messages = [
   "Debatably the best engineer you've met",
 ];
 
-let audioEl: HTMLAudioElement | null = null;
-let audioUnlocked = false;
-
-function getAudio() {
-  if (audioEl) return audioEl;
-  if (typeof window === "undefined") return null;
-  audioEl = new Audio("/sounds/sentmessage.mp3");
-  audioEl.preload = "auto";
-  audioEl.volume = 1;
-  return audioEl;
-}
-
-function unlockAudio() {
-  if (audioUnlocked) return;
-  audioUnlocked = true;
-  const a = getAudio();
+function playSound(audioRef: React.RefObject<HTMLAudioElement | null>) {
+  const a = audioRef.current;
   if (!a) return;
-  a.play().then(() => { a.pause(); a.currentTime = 0; }).catch(() => {});
-}
-
-function playSound() {
-  const a = getAudio();
-  if (!a) return;
-  if (!audioUnlocked) unlockAudio();
   a.currentTime = 0;
   a.play().catch(() => {});
 }
@@ -45,7 +24,7 @@ function LoadingDots() {
   );
 }
 
-function Bubble({ message, onRevealed }: { message: string; onRevealed: () => void }) {
+function Bubble({ message, onRevealed, audioRef }: { message: string; onRevealed: () => void; audioRef: React.RefObject<HTMLAudioElement | null> }) {
   const [phase, setPhase] = useState<"enter" | "loading" | "revealed">("enter");
   const soundPlayedRef = useRef(false);
 
@@ -62,12 +41,12 @@ function Bubble({ message, onRevealed }: { message: string; onRevealed: () => vo
       setPhase("revealed");
       if (!soundPlayedRef.current) {
         soundPlayedRef.current = true;
-        playSound();
+        playSound(audioRef);
       }
       setTimeout(onRevealed, 500);
     }, loadingDuration);
     return () => clearTimeout(t);
-  }, [phase, loadingDuration, onRevealed]);
+  }, [phase, loadingDuration, onRevealed, audioRef]);
 
   return (
     <div className="bubble-wrapper">
@@ -103,21 +82,25 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const nextMsgRef = useRef(0);
   const startedRef = useRef(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    getAudio();
+    document.body.style.overflow = "hidden";
+    const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
     const unlock = () => {
-      unlockAudio();
-      document.removeEventListener("click", unlock);
-      document.removeEventListener("touchstart", unlock);
+      if (ctx.state === "suspended") ctx.resume();
+      if (!audioRef.current) {
+        audioRef.current = new Audio("/sounds/sentmessage.mp3");
+        audioRef.current.preload = "auto";
+        audioRef.current.load();
+      }
+      document.removeEventListener("pointerdown", unlock);
     };
-    document.addEventListener("click", unlock);
-    document.addEventListener("touchstart", unlock);
-    const t = setTimeout(unlock, 3000);
+    document.addEventListener("pointerdown", unlock);
     return () => {
-      document.removeEventListener("click", unlock);
-      document.removeEventListener("touchstart", unlock);
-      clearTimeout(t);
+      document.body.style.overflow = "";
+      document.removeEventListener("pointerdown", unlock);
+      ctx.close();
     };
   }, []);
 
@@ -161,6 +144,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
             key={msgIdx}
             message={messages[msgIdx]}
             onRevealed={handleRevealed}
+            audioRef={audioRef}
           />
         ))}
         <div ref={messagesEndRef} />
