@@ -4,17 +4,43 @@ import { useEffect, useState, useRef, useCallback } from "react";
 const messages = [
   "Hey there 👋",
   "I'm Kareithi",
-  "Debatably the best engineer you've met",
+  "Debatably the best engineer you've met!",
 ];
+
+let audioCtx: AudioContext | null = null;
+let audioBuffer: AudioBuffer | null = null;
+
+function getCtx(): AudioContext | null {
+  if (audioCtx) return audioCtx;
+  const AC = (window as any).AudioContext || (window as any).webkitAudioContext;
+  if (AC) {
+    const ctx = new AC();
+    ctx.resume();
+    audioCtx = ctx;
+  }
+  return audioCtx;
+}
+
+async function loadAudio() {
+  try {
+    const ctx = getCtx();
+    if (!ctx || audioBuffer) return;
+    const res = await fetch("/sounds/sentmessage.mp3");
+    const data = await res.arrayBuffer();
+    audioBuffer = await ctx.decodeAudioData(data);
+  } catch {}
+}
 
 function playBubbleSound() {
   try {
-    const audio = new Audio('/sounds/sentmessage.mp3');
-    audio.volume = 0.5;
-    audio.play().catch(e => console.log('Play error:', e));
-  } catch (error) {
-    console.error('Audio error:', error);
-  }
+    const ctx = getCtx();
+    if (!ctx || !audioBuffer) return;
+    if (ctx.state === "suspended") ctx.resume();
+    const src = ctx.createBufferSource();
+    src.buffer = audioBuffer;
+    src.connect(ctx.destination);
+    src.start(0);
+  } catch {}
 }
 
 function LoadingDots() {
@@ -88,8 +114,16 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    loadAudio();
+    const unlock = () => {
+      const ctx = getCtx();
+      if (ctx?.state === "suspended") ctx.resume();
+      document.removeEventListener("pointerdown", unlock);
+    };
+    document.addEventListener("pointerdown", unlock);
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("pointerdown", unlock);
     };
   }, []);
 
