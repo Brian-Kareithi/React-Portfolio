@@ -1,23 +1,13 @@
 "use client";
 import { useEffect, useState, useRef, useCallback } from "react";
 
-const typingSpeed = 20;
+const charSpeed = 30;
 
 const messages = [
   "Hey there 👋",
   "I'm Kareithi",
   "Debatably the best engineer you've met",
 ];
-
-function LoadingDots() {
-  return (
-    <span className="loading">
-      <b>•</b>
-      <b>•</b>
-      <b>•</b>
-    </span>
-  );
-}
 
 let audioCtx: AudioContext | null = null;
 let audioBuffer: AudioBuffer | null = null;
@@ -53,6 +43,38 @@ function playSound() {
   src.start(0);
 }
 
+function TypewriterText({ text }: { text: string }) {
+  const [displayed, setDisplayed] = useState("");
+  const idxRef = useRef(0);
+
+  useEffect(() => {
+    idxRef.current = 0;
+    setDisplayed("");
+    const chars = [...text];
+    const t = setInterval(() => {
+      if (idxRef.current >= chars.length) {
+        clearInterval(t);
+        return;
+      }
+      setDisplayed(chars.slice(0, idxRef.current + 1).join(""));
+      idxRef.current += 1;
+    }, charSpeed);
+    return () => clearInterval(t);
+  }, [text]);
+
+  return <>{displayed}</>;
+}
+
+function LoadingDots() {
+  return (
+    <span className="loading">
+      <b>•</b>
+      <b>•</b>
+      <b>•</b>
+    </span>
+  );
+}
+
 function Bubble({
   message,
   onRevealed,
@@ -64,11 +86,10 @@ function Bubble({
   const [hasRevealed, setHasRevealed] = useState(false);
   const soundPlayedRef = useRef(false);
 
-  const loadingDuration =
-    message.replace(/<(?:.|\n)*?>/gm, "").length * typingSpeed + 500;
+  const loadingDuration = message.length * charSpeed + 600;
 
   useEffect(() => {
-    const t = setTimeout(() => setBubbleReady(true), 50);
+    const t = setTimeout(() => setBubbleReady(true), 100);
     return () => clearTimeout(t);
   }, []);
 
@@ -80,20 +101,27 @@ function Bubble({
         soundPlayedRef.current = true;
         playSound();
       }
-      setTimeout(onRevealed, 400);
+      const textDuration = message.length * charSpeed + 200;
+      setTimeout(onRevealed, textDuration);
     }, loadingDuration);
     return () => clearTimeout(t);
-  }, [bubbleReady, loadingDuration, onRevealed]);
+  }, [bubbleReady, loadingDuration, onRevealed, message]);
 
   return (
-    <div
-      className={`bubble left${!hasRevealed ? " cornered" : ""}`}
-      style={{ opacity: bubbleReady ? 1 : 0 }}
-    >
-      {!hasRevealed && <LoadingDots />}
-      <span className="message" style={{ opacity: hasRevealed ? 1 : 0 }}>
-        {message}
-      </span>
+    <div className="chat-row">
+      <div className="chat-avatar">K</div>
+      <div
+        className={`bubble left${!hasRevealed ? " cornered" : ""}`}
+        style={{ opacity: bubbleReady ? 1 : 0 }}
+      >
+        {!hasRevealed && <LoadingDots />}
+        <span
+          className="message"
+          style={{ display: hasRevealed ? "inline" : "none" }}
+        >
+          {hasRevealed && <TypewriterText text={message} />}
+        </span>
+      </div>
     </div>
   );
 }
@@ -156,14 +184,23 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       }`}
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
-      <div className="messages max-w-xs sm:max-w-sm md:max-w-md pt-12 pl-3 sm:pl-5 md:pl-8">
-        {bubbleIds.map((msgIdx) => (
-          <Bubble
-            key={msgIdx}
-            message={messages[msgIdx]}
-            onRevealed={handleRevealed}
-          />
-        ))}
+      <div className="chat-container max-w-xs sm:max-w-sm md:max-w-md pt-12 pl-3 sm:pl-5 md:pl-8">
+        <div className="chat-header">
+          <div className="chat-header-avatar">K</div>
+          <div className="chat-header-info">
+            <span className="chat-header-name">Kareithi</span>
+            <span className="chat-header-status">online</span>
+          </div>
+        </div>
+        <div className="messages">
+          {bubbleIds.map((msgIdx) => (
+            <Bubble
+              key={msgIdx}
+              message={messages[msgIdx]}
+              onRevealed={handleRevealed}
+            />
+          ))}
+        </div>
         <div ref={messagesEndRef} />
       </div>
     </div>
