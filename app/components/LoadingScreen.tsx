@@ -156,20 +156,37 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-start justify-start transition-opacity duration-700 ${
+      className={`fixed inset-0 z-[100] flex flex-col transition-opacity duration-700 ${
         pagePhase === "fading" ? "opacity-0" : "opacity-100"
       }`}
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
-      <div className="messages" style={{ maxWidth: "22rem", paddingTop: "5rem", paddingLeft: "1.25rem" }}>
-        {bubbleIds.map((msgIdx) => (
-          <Bubble
-            key={msgIdx}
-            message={messages[msgIdx]}
-            onRevealed={handleRevealed}
-          />
-        ))}
-        <div ref={messagesEndRef} />
+      <div className="imessage-topbar">
+        <div className="imessage-topbar-back">&lsaquo;</div>
+        <img
+          src="https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg"
+          alt="Kareithi"
+          className="imessage-topbar-avatar"
+        />
+        <div className="imessage-topbar-info">
+          <span className="imessage-topbar-name">Kareithi</span>
+          <span className="imessage-topbar-status">online</span>
+        </div>
+        <div className="imessage-topbar-icons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+      </div>
+      <div className="imessage-chat">
+        <div className="messages" style={{ maxWidth: "22rem", paddingLeft: "1rem", paddingRight: "1rem" }}>
+          {bubbleIds.map((msgIdx) => (
+            <Bubble
+              key={msgIdx}
+              message={messages[msgIdx]}
+              onRevealed={handleRevealed}
+            />
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
       </div>
     </div>
   );
