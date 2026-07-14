@@ -60,7 +60,7 @@ export default function Footer() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg transition-all duration-200 hover:scale-110"
+              className="p-3 rounded-lg transition-all duration-200 hover:scale-110"
               style={{ color: "var(--color-text-muted)" }}
               aria-label={label}
             >
@@ -73,7 +73,7 @@ export default function Footer() {
           © {year} Brian Kareithi
         </p>
 
-        <p className="text-[10px] leading-relaxed text-center max-w-xs"
+        <p className="text-[10px] xs:text-[11px] leading-relaxed text-center max-w-xs"
           style={{ color: "var(--color-text-muted)", opacity: 0.6 }}>
           Cybersecurity & Full-Stack Developer
         </p>
