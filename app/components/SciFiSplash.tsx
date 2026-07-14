@@ -167,6 +167,8 @@ export default function SciFiSplash({ onBegin }: { onBegin: () => void }) {
           transitionDelay: "0s, 0.35s",
         }}
       >
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(/splash_background.jpg)" }} />
+      <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.55)" }} />
       <GlitchLines />
 
       <div className="relative z-10 text-center px-4" style={{ pointerEvents: "none" }}>
@@ -247,9 +249,9 @@ export default function SciFiSplash({ onBegin }: { onBegin: () => void }) {
         <p
           className="text-xs xs:text-sm tracking-[0.35em] uppercase font-mono"
           style={{
-            color: "var(--color-accent)",
+            color: "#fff",
             animation: "clickPulse 2s ease-in-out infinite",
-            textShadow: "0 0 10px var(--color-accent-glow)",
+            textShadow: "0 0 12px rgba(0,0,0,0.6), 0 0 30px rgba(0,0,0,0.4)",
           }}
         >
           ✦ CLICK ANYWHERE TO BEGIN ✦

@@ -4,7 +4,7 @@ A modern, responsive portfolio website built with Next.js 16, featuring a sci-fi
 
 ## Features
 
-- **Sci-Fi Splash Screen** — "IN THE BEGINNING..." glitch text with RGB channel offset and scan lines; click to enter
+- **Sci-Fi Splash Screen** — Full-screen background image with dark overlay, "IN THE BEGINNING..." glitch text with RGB channel offset and scan lines; click to enter
 - **iMessage-Style Loading** — Chat bubble loading screen with typewriter messages and audio feedback
 - **Curtain Reveal Transition** — Page splits in two and slides apart after loading
 - **Dual Theme** — Dark mode with green accents, light mode with earthy tones
