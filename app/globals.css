@@ -364,10 +364,10 @@ body {
 .chat-topbar-center {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  margin-right: 1.75rem;
+  gap: 0.15rem;
 }
 
 .chat-topbar-avatar {

@@ -151,10 +151,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
             alt=""
             className="chat-topbar-avatar"
           />
-          <div>
-            <div className="chat-topbar-name">Kareithi</div>
-            <div className="chat-topbar-status">online</div>
-          </div>
+          <div className="chat-topbar-status">online</div>
         </div>
       </div>
       <div className="chat-body">
