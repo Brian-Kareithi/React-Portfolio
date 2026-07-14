@@ -75,7 +75,7 @@ export default function Contact() {
             </p>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="w-7 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-              <h2 className="text-2xl md:text-3xl font-bold leading-tight"
+              <h2 className="text-xl xs:text-2xl md:text-3xl font-bold leading-tight"
                 style={{ color: "var(--color-text-primary)" }}>
                 Get In Touch
               </h2>
@@ -166,7 +166,7 @@ export default function Contact() {
                       { icon: FaInstagram, href: "https://www.instagram.com/kareithiv", label: "Instagram" },
                     ].map((item) => (
                       <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
-                        className="group w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-0.5"
+                        className="group w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-0.5"
                         style={{
                           background: "var(--color-glass-icon-bg)",
                           border: "1px solid var(--color-glass-border)",
@@ -343,7 +343,7 @@ export default function Contact() {
                   </div>
 
                   <button type="submit" disabled={isSubmitting}
-                    className="w-full py-2.5 text-sm font-semibold tracking-wider uppercase transition-all duration-300 rounded-lg flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden group"
+                    className="w-full py-3 text-sm font-semibold tracking-wider uppercase transition-all duration-300 rounded-lg flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden group min-h-[44px]"
                     style={{
                       background: "var(--color-accent-gradient)",
                       color: "var(--color-text-light)",
@@ -410,7 +410,7 @@ export default function Contact() {
 
           {/* Bottom Info Cards */}
           <StaggerReveal staggerDelay={120}>
-          <div className="grid md:grid-cols-3 gap-3 mb-0">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 mb-0">
             {[
               { 
                 icon: FaClock,

@@ -99,7 +99,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
-      <body className="relative overflow-x-hidden" suppressHydrationWarning>
+      <body className="relative overflow-x-clip" suppressHydrationWarning>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

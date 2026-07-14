@@ -6,31 +6,70 @@ import Footer from "@/app/components/Footer";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import LoadingScreen from "@/app/components/LoadingScreen";
 import CustomCursor from "@/app/components/CustomCursor";
+import SciFiSplash from "@/app/components/SciFiSplash";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [showLoading, setShowLoading] = useState(true);
+  const [phase, setPhase] = useState<"splash" | "loading" | "curtain" | "ready">("splash");
+  const [showLoading, setShowLoading] = useState(false);
+  const [curtainOpen, setCurtainOpen] = useState(false);
+
+  const handleSplashComplete = useCallback(() => {
+    setShowLoading(true);
+    setTimeout(() => setPhase("loading"), 50);
+  }, []);
 
   const handleFinishLoading = useCallback(() => {
-    setIsLoading(false);
-    setTimeout(() => setShowLoading(false), 800);
+    setShowLoading(false);
+    setPhase("curtain");
+    setTimeout(() => setCurtainOpen(true), 20);
+    setTimeout(() => {
+      setPhase("ready");
+      setCurtainOpen(false);
+    }, 750);
   }, []);
+
+  const showMain = phase === "curtain" || phase === "ready";
 
   return (
     <ThemeProvider>
       <CustomCursor />
+      {phase === "splash" && <SciFiSplash onBegin={handleSplashComplete} />}
       {showLoading && <LoadingScreen onFinish={handleFinishLoading} />}
 
-      <div className={`transition-opacity duration-700 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}>
+      {/* Curtain reveal — page splits from the middle and pushes outward */}
+      {phase === "curtain" && (
+        <div className="fixed inset-0 z-[101]">
+          <div
+            className="absolute top-0 left-0 h-full"
+            style={{
+              width: "50%",
+              backgroundColor: "var(--color-bg-primary)",
+              transform: curtainOpen ? "translateX(-100%)" : "translateX(0%)",
+              transition: "transform 0.65s cubic-bezier(0.65, 0, 0.35, 1)",
+            }}
+          />
+          <div
+            className="absolute top-0 right-0 h-full"
+            style={{
+              width: "50%",
+              backgroundColor: "var(--color-bg-primary)",
+              transform: curtainOpen ? "translateX(100%)" : "translateX(0%)",
+              transition: "transform 0.65s cubic-bezier(0.65, 0, 0.35, 1)",
+            }}
+          />
+        </div>
+      )}
+
+      <div className={`transition-opacity duration-500 ease-out ${showMain ? "opacity-100" : "opacity-0"}`}>
         <Navbar />
         <ScrollBar />
       </div>
 
-      <main className={`relative transition-opacity duration-700 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}>
+      <main className={`relative transition-opacity duration-500 ease-out ${showMain ? "opacity-100" : "opacity-0"}`}>
         {children}
       </main>
 
-      <div className={`transition-opacity duration-700 ease-out ${isLoading ? "opacity-0" : "opacity-100"}`}>
+      <div className={`transition-opacity duration-500 ease-out ${showMain ? "opacity-100" : "opacity-0"}`}>
         <Footer />
       </div>
     </ThemeProvider>

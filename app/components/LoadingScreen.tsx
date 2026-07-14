@@ -138,8 +138,8 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex flex-col transition-opacity duration-700 ${
-        pagePhase === "fading" ? "opacity-0" : "opacity-100"
+      className={`fixed inset-0 z-[100] flex flex-col ${
+        pagePhase === "fading" ? "pointer-events-none" : ""
       }`}
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
@@ -155,7 +155,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
         </div>
       </div>
       <div className="chat-body">
-        <div className="messages" style={{ maxWidth: "22rem", paddingLeft: "1rem", paddingRight: "1rem" }}>
+        <div className="messages" style={{ maxWidth: "min(22rem, calc(100vw - 2rem))", paddingLeft: "1rem", paddingRight: "1rem" }}>
           {bubbleIds.map((msgIdx) => (
             <Bubble
               key={msgIdx}
