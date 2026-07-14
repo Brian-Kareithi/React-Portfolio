@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { Orbitron } from "next/font/google";
 
+
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["700", "900"] });
 
 function GlitchLines() {
