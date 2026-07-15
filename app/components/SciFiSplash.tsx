@@ -80,6 +80,11 @@ export default function SciFiSplash({ onBegin }: { onBegin: () => void }) {
   });
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+
+  useEffect(() => {
     const t = setTimeout(() => setPhase("idle"), 150);
     return () => clearTimeout(t);
   }, []);

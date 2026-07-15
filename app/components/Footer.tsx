@@ -13,6 +13,24 @@ export default function Footer() {
         backgroundColor: "var(--color-bg-primary)",
       }}
     >
+      <style>{`
+        @keyframes labelPulse {
+          0%, 100% { opacity: 0.7; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.04); }
+        }
+        @keyframes wave1 {
+          0% { transform: scale(1); opacity: 0.5; }
+          100% { transform: scale(2.5); opacity: 0; }
+        }
+        @keyframes wave2 {
+          0% { transform: scale(1); opacity: 0.4; }
+          100% { transform: scale(2.2); opacity: 0; }
+        }
+        @keyframes wave3 {
+          0% { transform: scale(1); opacity: 0.3; }
+          100% { transform: scale(1.9); opacity: 0; }
+        }
+      `}</style>
       <div className="max-w-4xl mx-auto flex flex-col items-center gap-4">
         <div className="flex items-center gap-3">
           <div className="relative group">
@@ -22,6 +40,7 @@ export default function Footer() {
                   color: "var(--color-text-primary)",
                   backgroundColor: "var(--color-bg-secondary)",
                   border: "1px solid var(--color-border)",
+                  animation: "labelPulse 2s ease-in-out infinite",
                 }}>
                 Click me
                 <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0"
@@ -38,16 +57,41 @@ export default function Footer() {
                   }} />
               </div>
             </div>
-            <a href="/niche"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium tracking-wider uppercase transition-all duration-300 hover:scale-105"
-              style={{
-                color: "var(--color-accent)",
+            <div className="relative flex items-center justify-center">
+              <div className="absolute" style={{
+                width: 80, height: 28,
+                borderRadius: "0.5rem",
+                border: "1.5px solid var(--color-accent)",
+                animation: "wave1 2s ease-out infinite",
+                boxShadow: "0 0 8px var(--color-accent-glow)",
+              }} />
+              <div className="absolute" style={{
+                width: 80, height: 28,
+                borderRadius: "0.5rem",
+                border: "1.5px solid var(--color-accent)",
+                animation: "wave2 2s ease-out infinite",
+                animationDelay: "0.4s",
+                boxShadow: "0 0 6px var(--color-accent-glow)",
+              }} />
+              <div className="absolute" style={{
+                width: 80, height: 28,
+                borderRadius: "0.5rem",
                 border: "1px solid var(--color-accent)",
-                boxShadow: "0 0 12px var(--color-accent-glow)",
-              }}>
-              <FiHexagon className="w-3.5 h-3.5" />
-              Niche
-            </a>
+                animation: "wave3 2s ease-out infinite",
+                animationDelay: "0.8s",
+                boxShadow: "0 0 4px var(--color-accent-glow)",
+              }} />
+              <a href="/niche"
+                className="relative flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium tracking-wider uppercase transition-all duration-300 hover:scale-105"
+                style={{
+                  color: "var(--color-accent)",
+                  border: "1px solid var(--color-accent)",
+                  boxShadow: "0 0 12px var(--color-accent-glow)",
+                }}>
+                <FiHexagon className="w-3.5 h-3.5" />
+                Niche
+              </a>
+            </div>
           </div>
           {[
             { href: "https://github.com/Brian-Kareithi", icon: FaGithub, label: "GitHub" },
