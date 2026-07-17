@@ -17,7 +17,7 @@ export default function NotFound() {
           This page drifted into the void.
         </p>
         <Link href="/"
-          className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105"
+          className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
           style={{
             border: "1px solid var(--color-accent)",
             color: "var(--color-accent)",

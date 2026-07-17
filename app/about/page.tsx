@@ -67,9 +67,7 @@ export default function About() {
   };
 
   useEffect(() => {
-    /* eslint-disable react-hooks/set-state-in-effect */
     setActiveSubTab(0);
-    /* eslint-enable */
     if (contentRef.current) contentRef.current.scrollTop = 0;
   }, [activeTab]);
 
@@ -112,7 +110,7 @@ export default function About() {
           </p>
         </div>
 
-        <StaggerReveal staggerDelay={120}>
+        <StaggerReveal staggerDelay={100}>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 mb-12 xs:mb-16 sm:mb-20">
           {[
             { label: "Years in Tech", value: "5+" },
@@ -121,7 +119,7 @@ export default function About() {
             { label: "Projects", value: "50+" },
           ].map((stat) => (
             <div key={stat.label}
-              className="text-center py-6 xs:py-8 px-2 xs:px-4 transition-all duration-300 hover:-translate-y-1 border-l-2 liquid-card hover:liquid-card-hover rounded-xl"
+              className="text-center py-6 xs:py-8 px-2 xs:px-4 transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
               style={{
                 borderColor: "var(--color-accent)",
               }}>
@@ -139,7 +137,7 @@ export default function About() {
         </StaggerReveal>
 
         <div className="border" style={{ borderColor: "var(--color-border)" }}>
-          <StaggerReveal staggerDelay={100}>
+          <StaggerReveal staggerDelay={80}>
           <div className="flex border-b overflow-x-auto" style={{ borderColor: "var(--color-border)" }}>
             {tabs.map((tab) => (
               <button key={tab} onClick={() => handleTabChange(tab)}
@@ -148,7 +146,6 @@ export default function About() {
                   color: activeTab === tab ? "var(--color-accent)" : "var(--color-text-muted)",
                   transition: "color 0.3s ease, background 0.3s ease",
                 }}>
-                {/* Tab indicator bar */}
                 <div className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ease-in-out ${activeTab === tab ? "w-full" : "w-0"}`}
                   style={{ backgroundColor: "var(--color-accent)" }} />
                 
@@ -169,7 +166,7 @@ export default function About() {
                 <button key={index} onClick={() => setActiveSubTab(index)}
                   className="text-left px-5 py-4 transition-all duration-200"
                   style={{
-                    backgroundColor: activeSubTab === index ? "var(--color-bg-card)" : "transparent",
+                    backgroundColor: activeSubTab === index ? "var(--color-surface)" : "transparent",
                     borderLeft: activeSubTab === index ? `2px solid var(--color-accent)` : "2px solid transparent",
                   }}>
                   <span className="text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
@@ -187,7 +184,6 @@ export default function About() {
             </div>
 
             <div className="flex-1 min-h-[400px] xs:min-h-[450px] sm:min-h-[500px] p-4 xs:p-5 sm:p-8 md:p-10 relative overflow-hidden" ref={contentRef}>
-              {/* Content transition wrapper */}
               <div className={`transition-all duration-300 ease-in-out ${
                 isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
               }`}>
@@ -216,7 +212,7 @@ export default function About() {
 
                     <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 xs:gap-4 sm:gap-6">
                       {activeItems[activeSubTab].significance && (
-                        <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 liquid-card hover:liquid-card-hover rounded-xl"
+                        <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
                           style={{
                             borderColor: "var(--color-glass-border-strong)",
                           }}>
@@ -231,7 +227,7 @@ export default function About() {
                         </div>
                       )}
                       {activeItems[activeSubTab].metrics && (
-                        <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 liquid-card hover:liquid-card-hover rounded-xl"
+                        <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
                           style={{
                             borderColor: "var(--color-glass-border-strong)",
                           }}>
@@ -243,7 +239,7 @@ export default function About() {
                             {activeItems[activeSubTab].metrics!.map((metric, i) => (
                               <li key={i} className="flex items-start gap-2 text-xs xs:text-sm"
                                 style={{ color: "var(--color-text-secondary)" }}>
-                                <span className="mt-0.5 xs:mt-1 flex-shrink-0" style={{ color: "var(--color-accent)" }}>—</span>
+                                <span className="mt-0.5 xs:mt-1 flex-shrink-0" style={{ color: "var(--color-accent)" }}>&mdash;</span>
                                 {metric}
                               </li>
                             ))}
@@ -277,14 +273,14 @@ export default function About() {
           </div>
         </div>
 
-        <StaggerReveal staggerDelay={120}>
+        <StaggerReveal staggerDelay={100}>
         <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2 xs:gap-3 sm:gap-4 mt-8 xs:mt-10 sm:mt-12">
           {[
             { title: "Progressive Development", desc: "Each phase builds upon previous knowledge, demonstrating cumulative growth" },
             { title: "Diverse Experience", desc: "Exposure across public sector, private enterprise, and entrepreneurial ventures" },
             { title: "Strategic Focus", desc: "Current emphasis on scalable solutions and professional mentorship" },
           ].map((item) => (
-            <div key={item.title} className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 liquid-card hover:liquid-card-hover rounded-xl"
+            <div key={item.title} className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
               style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="w-6 xs:w-8 h-px mb-3 xs:mb-4" style={{ backgroundColor: "var(--color-accent)" }} />
               <h4 className="font-semibold mb-1.5 xs:mb-2 text-xs xs:text-sm"

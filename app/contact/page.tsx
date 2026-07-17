@@ -66,7 +66,7 @@ export default function Contact() {
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
         <div className="absolute top-0 left-0 w-1/3 h-px"
-          style={{ background: `linear-gradient(to right, transparent, var(--color-accent-secondary))` }} />
+          style={{ background: `linear-gradient(to right, transparent, var(--color-accent))` }} />
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center mb-10 animate-fade-in-up">
             <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-2"
@@ -87,9 +87,8 @@ export default function Contact() {
             </p>
           </div>
 
-          <StaggerReveal staggerDelay={120}>
+          <StaggerReveal staggerDelay={100}>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-6">
-            {/* Information Container */}
             <div className="lg:col-span-2 p-4 md:p-5 rounded-xl relative overflow-hidden"
               style={{
                 background: "var(--color-glass-bg)",
@@ -98,7 +97,6 @@ export default function Contact() {
                 border: "1px solid var(--color-glass-border-strong)",
                 boxShadow: "0 4px 20px var(--color-glass-shadow), inset 0 1px 0 var(--color-glass-border)"
               }}>
-              {/* Glass reflection effect */}
               <div className="absolute top-0 right-0 w-1/3 h-1/2 rounded-full opacity-10"
                 style={{
                   background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
@@ -106,7 +104,7 @@ export default function Contact() {
                 }} />
               <div className="absolute bottom-0 left-0 w-1/4 h-1/4 rounded-full opacity-5"
                 style={{
-                  background: "radial-gradient(circle, var(--color-accent-secondary) 0%, transparent 70%)",
+                  background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
                   transform: "translate(-30%, 30%)"
                 }} />
 
@@ -130,7 +128,7 @@ export default function Contact() {
                         border: "1px solid var(--color-glass-border)",
                         backdropFilter: "blur(10px)",
                       }}>
-                      <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 flex-shrink-0"
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-105 flex-shrink-0"
                         style={{
                           background: "var(--color-glass-icon-bg)",
                           border: "1px solid var(--color-glass-border)",
@@ -166,21 +164,19 @@ export default function Contact() {
                       { icon: FaInstagram, href: "https://www.instagram.com/kareithiv", label: "Instagram" },
                     ].map((item) => (
                       <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
-                        className="group w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-0.5"
+                        className="group w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105"
                         style={{
                           background: "var(--color-glass-icon-bg)",
                           border: "1px solid var(--color-glass-border)",
                           color: "var(--color-text-secondary)",
                           backdropFilter: "blur(10px)",
                         }}>
-                        <item.icon className="w-4 h-4 transition-colors duration-300 group-hover:text-accent" 
-                          style={{ color: "inherit" }} />
+                        <item.icon className="w-4 h-4" />
                       </a>
                     ))}
                   </div>
                 </div>
 
-                {/* Quick stats */}
                 <div className="mt-5 pt-4 grid grid-cols-2 gap-2"
                   style={{ borderTop: "1px solid var(--color-glass-border)" }}>
                   <div className="text-center p-2 rounded-lg"
@@ -207,7 +203,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Contact Form Container */}
             <div className="lg:col-span-3 p-4 md:p-5 rounded-xl relative overflow-hidden"
               style={{
                 background: "var(--color-glass-bg)",
@@ -216,10 +211,9 @@ export default function Contact() {
                 border: "1px solid var(--color-glass-border-strong)",
                 boxShadow: "0 4px 20px var(--color-glass-shadow), inset 0 1px 0 var(--color-glass-border)"
               }}>
-              {/* Glass reflection effect */}
               <div className="absolute top-0 left-0 w-1/3 h-1/2 rounded-full opacity-10"
                 style={{
-                  background: "radial-gradient(circle, var(--color-accent-secondary) 0%, transparent 70%)",
+                  background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
                   transform: "translate(-30%, -30%)"
                 }} />
               <div className="absolute bottom-0 right-0 w-1/4 h-1/4 rounded-full opacity-5"
@@ -237,7 +231,6 @@ export default function Contact() {
 
                 <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {/* Name Field */}
                     <div className="relative group">
                       <div className="absolute left-3.5 top-1/2 -translate-y-1/2 z-10 transition-all duration-300"
                         style={{ color: activeField === "name" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
@@ -257,13 +250,12 @@ export default function Contact() {
                           background: "var(--color-glass-input-bg)",
                           backdropFilter: "blur(10px)",
                           border: `1px solid ${activeField === "name" ? "var(--color-accent)" : "var(--color-glass-border)"}`,
-                          boxShadow: activeField === "name" ? "0 0 0 2.5px var(--color-accent-glow)" : "none",
+                          boxShadow: activeField === "name" ? "0 0 0 2px var(--color-accent-glow)" : "none",
                           color: "var(--color-text-primary)",
                         }}
                       />
                     </div>
 
-                    {/* Email Field */}
                     <div className="relative group">
                       <div className="absolute left-3.5 top-1/2 -translate-y-1/2 z-10 transition-all duration-300"
                         style={{ color: activeField === "email" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
@@ -283,14 +275,13 @@ export default function Contact() {
                           background: "var(--color-glass-input-bg)",
                           backdropFilter: "blur(10px)",
                           border: `1px solid ${activeField === "email" ? "var(--color-accent)" : "var(--color-glass-border)"}`,
-                          boxShadow: activeField === "email" ? "0 0 0 2.5px var(--color-accent-glow)" : "none",
+                          boxShadow: activeField === "email" ? "0 0 0 2px var(--color-accent-glow)" : "none",
                           color: "var(--color-text-primary)",
                         }}
                       />
                     </div>
                   </div>
 
-                  {/* Subject Field */}
                   <div className="relative group">
                     <div className="absolute left-3.5 top-1/2 -translate-y-1/2 z-10 transition-all duration-300"
                       style={{ color: activeField === "subject" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
@@ -310,13 +301,12 @@ export default function Contact() {
                         background: "var(--color-glass-input-bg)",
                         backdropFilter: "blur(10px)",
                         border: `1px solid ${activeField === "subject" ? "var(--color-accent)" : "var(--color-glass-border)"}`,
-                        boxShadow: activeField === "subject" ? "0 0 0 2.5px var(--color-accent-glow)" : "none",
+                        boxShadow: activeField === "subject" ? "0 0 0 2px var(--color-accent-glow)" : "none",
                         color: "var(--color-text-primary)",
                       }}
                     />
                   </div>
 
-                  {/* Message Field */}
                   <div className="relative group">
                     <div className="absolute left-3.5 top-3 z-10 transition-all duration-300"
                       style={{ color: activeField === "message" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
@@ -336,7 +326,7 @@ export default function Contact() {
                         background: "var(--color-glass-input-bg)",
                         backdropFilter: "blur(10px)",
                         border: `1px solid ${activeField === "message" ? "var(--color-accent)" : "var(--color-glass-border)"}`,
-                        boxShadow: activeField === "message" ? "0 0 0 2.5px var(--color-accent-glow)" : "none",
+                        boxShadow: activeField === "message" ? "0 0 0 2px var(--color-accent-glow)" : "none",
                         color: "var(--color-text-primary)",
                       }}
                     />
@@ -350,7 +340,6 @@ export default function Contact() {
                       opacity: isSubmitting ? 0.6 : 1,
                       boxShadow: !isSubmitting ? "0 3px 14px var(--color-accent-glow)" : "none",
                     }}>
-                    {/* Button shine effect */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
                       style={{
                         background: "linear-gradient(90deg, transparent, white, transparent)",
@@ -369,7 +358,7 @@ export default function Contact() {
                       </span>
                     ) : (
                       <>
-                        <FaPaperPlane className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        <FaPaperPlane className="w-3.5 h-3.5" />
                         Send Message
                       </>
                     )}
@@ -408,9 +397,8 @@ export default function Contact() {
           </div>
           </StaggerReveal>
 
-          {/* Bottom Info Cards */}
-          <StaggerReveal staggerDelay={120}>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 mb-0">
+          <StaggerReveal staggerDelay={100}>
+            <div className="grid grid-cols-3 gap-3 mb-0">
             {[
               { 
                 icon: FaClock,
@@ -429,7 +417,7 @@ export default function Contact() {
               },
             ].map((item, index) => (
               <div key={item.title} 
-                className="group p-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 relative overflow-hidden"
+                className="group p-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
                 style={{
                   background: "var(--color-glass-bg)",
                   backdropFilter: "blur(20px)",
@@ -437,7 +425,6 @@ export default function Contact() {
                   border: "1px solid var(--color-glass-border-strong)",
                   boxShadow: "0 2px 10px var(--color-glass-shadow)"
                 }}>
-                {/* Glass reflection */}
                 <div className="absolute -top-8 -right-8 w-14 h-14 rounded-full opacity-5 group-hover:opacity-10 transition-opacity duration-500"
                   style={{
                     background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)"
@@ -445,7 +432,7 @@ export default function Contact() {
                 
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-2.5">
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 flex-shrink-0"
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-105 flex-shrink-0"
                       style={{
                         background: "var(--color-glass-icon-bg)",
                         border: "1px solid var(--color-glass-border)",

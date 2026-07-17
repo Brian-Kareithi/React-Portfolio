@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Server, Cpu, Monitor, Smartphone, Headphones, Watch, Router, Keyboard, HardDrive, Camera, Cpu as CpuIcon, Wifi, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import NicheLoading from "@/app/components/NicheLoading";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 
@@ -86,11 +87,20 @@ const projects = [
 ];
 
 export default function Niche() {
+  const [loading, setLoading] = useState(true);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
+
+  const handleLoadingFinish = useCallback(() => {
+    setLoading(false);
+  }, []);
 
   const toggleItem = (key: string) => {
     setExpandedItem(expandedItem === key ? null : key);
   };
+
+  if (loading) {
+    return <NicheLoading onFinish={handleLoadingFinish} />;
+  }
 
   return (
     <section id="niche" className="min-h-screen w-full pt-16 md:pt-20 pb-24 md:pb-32 px-4 relative"
@@ -98,7 +108,6 @@ export default function Niche() {
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
 
-        {/* Minimal Header */}
         <div className="mb-8 text-center">
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight"
             style={{ color: "var(--color-text-primary)" }}>
@@ -111,7 +120,6 @@ export default function Niche() {
           </p>
         </div>
 
-        {/* My Gear */}
         <div className="mb-20">
           <div className="text-center mb-10">
             <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-2"
@@ -185,7 +193,6 @@ export default function Niche() {
           </div>
         </div>
 
-        {/* Projects */}
         <div className="mb-20">
           <div className="text-center mb-10">
             <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-2"
@@ -197,11 +204,11 @@ export default function Niche() {
               Projects
             </h2>
           </div>
-          <StaggerReveal staggerDelay={100}>
+          <StaggerReveal staggerDelay={80}>
           <div className="grid sm:grid-cols-3 gap-3">
             {projects.map((p) => (
               <div key={p.title}
-                className="p-5 rounded-xl liquid-card transition-all duration-300 hover:-translate-y-0.5 text-center"
+                className="p-5 rounded-xl liquid-card transition-all duration-300 hover:scale-[1.02] text-center"
                 style={{ borderColor: "var(--color-glass-border-strong)" }}>
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center mx-auto mb-3"
                   style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
@@ -219,7 +226,6 @@ export default function Niche() {
           </StaggerReveal>
         </div>
 
-        {/* Philosophy */}
         <div className="text-center max-w-lg mx-auto">
           <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
             &ldquo;Every device in this lab tells a story — of late-night debugging, of breakthrough moments, 
@@ -227,13 +233,12 @@ export default function Niche() {
           </p>
         </div>
 
-        {/* Minimal CTA */}
         <StaggerReveal>
         <div className="mt-12 pt-8 text-center border-t"
           style={{ borderColor: "var(--color-border)" }}>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link href="/"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
               style={{
                 border: "1px solid var(--color-border)",
                 color: "var(--color-text-secondary)",
@@ -241,7 +246,7 @@ export default function Niche() {
               Back to Portfolio
             </Link>
             <Link href="/#contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
               style={{
                 backgroundColor: "var(--color-accent)",
                 color: "var(--color-text-light)",

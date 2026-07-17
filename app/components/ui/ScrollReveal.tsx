@@ -32,11 +32,11 @@ export function ScrollReveal({ children, className = "", delay = 0, direction = 
   }, []);
 
   const directionTransforms: Record<string, string> = {
-    up: "translateY(32px)",
-    down: "translateY(-32px)",
-    left: "translateX(32px)",
-    right: "translateX(-32px)",
-    scale: "scale(0.95)",
+    up: "translateY(20px)",
+    down: "translateY(-20px)",
+    left: "translateX(20px)",
+    right: "translateX(-20px)",
+    scale: "scale(0.97)",
   };
 
   return (
@@ -46,7 +46,7 @@ export function ScrollReveal({ children, className = "", delay = 0, direction = 
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? "translateY(0) scale(1)" : directionTransforms[direction],
-        transition: `opacity 0.6s ease-out, transform 0.6s ease-out`,
+        transition: `opacity 0.4s ease-out, transform 0.4s ease-out`,
         transitionDelay: `${delay}ms`,
         willChange: isVisible ? "auto" : "opacity, transform",
       }}
