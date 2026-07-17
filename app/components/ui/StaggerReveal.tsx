@@ -9,7 +9,7 @@ interface StaggerRevealProps {
   threshold?: number;
 }
 
-export function StaggerReveal({ children, className = "", staggerDelay = 80, threshold = 0.05 }: StaggerRevealProps) {
+export function StaggerReveal({ children, className = "", staggerDelay = 70, threshold = 0.05 }: StaggerRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -44,8 +44,8 @@ export function StaggerReveal({ children, className = "", staggerDelay = 80, thr
               opacity: visible ? 1 : 0,
               transform: visible
                 ? "translateY(0) scale(1)"
-                : "translateY(24px) scale(0.97)",
-              transition: "opacity 0.5s ease-out, transform 0.5s ease-out",
+                : "translateY(16px) scale(0.98)",
+              transition: "opacity 0.35s ease-out, transform 0.35s ease-out",
               transitionDelay: visible ? `${index * staggerDelay}ms` : "0ms",
             }}
           >

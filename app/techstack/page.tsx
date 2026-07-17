@@ -116,7 +116,6 @@ export default function TechStack() {
     return acc;
   }, {} as Record<string, number>);
 
-  // Sort levels for display
   const levelOrder = ["expert", "advanced", "intermediate", "familiar"];
   const sortedLevels = levelOrder.filter(level => levelCounts[level]);
 
@@ -125,7 +124,7 @@ export default function TechStack() {
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="absolute top-0 left-0 w-1/3 h-px"
-        style={{ background: `linear-gradient(to right, transparent, var(--color-accent-secondary))` }} />
+        style={{ background: `linear-gradient(to right, transparent, var(--color-accent))` }} />
       <div className="max-w-6xl mx-auto w-full">
         <div className="text-center mb-12 xs:mb-16 sm:mb-20 animate-fade-in-up">
           <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.3em] uppercase mb-2 xs:mb-3"
@@ -146,11 +145,11 @@ export default function TechStack() {
           </p>
         </div>
 
-        <StaggerReveal staggerDelay={120}>
+        <StaggerReveal staggerDelay={100}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 mb-12 xs:mb-16">
           {techs.map((category) => (
             <div key={category.heading}
-              className="p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 liquid-card hover:liquid-card-hover rounded-xl"
+              className="p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
               style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-base xs:text-lg font-bold tracking-tight"
@@ -164,12 +163,12 @@ export default function TechStack() {
               <p className="text-xs xs:text-sm mb-4 xs:mb-5 sm:mb-6" style={{ color: "var(--color-text-muted)" }}>
                 {category.description}
               </p>
-              <StaggerReveal staggerDelay={60}>
+              <StaggerReveal staggerDelay={50}>
               <div className="flex flex-wrap gap-1 xs:gap-1.5">
                 {category.items.map((item, idx) => {
                   return (
                     <div key={idx}
-                      className="flex items-center gap-1.5 xs:gap-2 px-2 xs:px-3 py-1.5 xs:py-2 text-[11px] xs:text-sm transition-all duration-200 hover:-translate-y-0.5 liquid-card"
+                      className="flex items-center gap-1.5 xs:gap-2 px-2 xs:px-3 py-1.5 xs:py-2 text-[11px] xs:text-sm transition-all duration-200 hover:scale-[1.02] liquid-card"
                       style={{
                         borderColor: "var(--color-glass-border)",
                       }}>

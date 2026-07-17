@@ -7,8 +7,8 @@ import { FiSun, FiMoon } from "react-icons/fi";
 const sections = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
-  { id: "techstack", label: "Tech Stack" },
-  { id: "projects", label: "Projects" },
+  { id: "techstack", label: "Stack" },
+  { id: "projects", label: "Work" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -17,7 +17,6 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [greeting, setGreeting] = useState({ text: "", icon: "" });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
@@ -29,21 +28,6 @@ export default function Navbar() {
     const el = document.getElementById(sections[0].id);
     if (el) setActiveSection(sections[0].id);
   }, [pathname]);
-
-  useEffect(() => {
-    const updateGreeting = () => {
-      const hour = new Date().getHours();
-      let text = "";
-      let icon = "";
-
-      if (hour >= 5 && hour < 12) { text = "Good Morning"; icon = "☀️"; }
-      else if (hour >= 12 && hour < 17) { text = "Good Afternoon"; icon = "🌤️"; }
-      else { text = "Good Evening"; icon = "🌙"; }
-
-      setGreeting({ text, icon });
-    };
-    updateGreeting();
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 0);
@@ -114,67 +98,69 @@ export default function Navbar() {
         className={`
           fixed z-[60] glass-nav
           transition-all duration-500 ease-out
-          ${isScrolled ? "w-full top-0 left-0 right-0 rounded-none" : "w-[95%] top-2 xs:top-4 left-[2.5%] right-[2.5%] rounded-2xl"}
-          before:absolute before:inset-0 before:rounded-inherit
-          before:bg-gradient-to-br before:from-white/[0.03] before:via-transparent before:to-transparent
-          before:content-[''] before:-z-10 before:opacity-0 hover:before:opacity-50
-          before:transition-opacity before:duration-500
+          ${isScrolled ? "w-full top-0 left-0 right-0 rounded-none" : "w-[95%] top-3 left-[2.5%] right-[2.5%] rounded-2xl"}
         `}
       >
-          <div className="flex items-center justify-between w-full px-2 xs:px-3 sm:px-6 md:px-8 py-2.5 xs:py-3">
-          <div className="flex items-center space-x-1.5 xs:space-x-2 min-w-0">
-            <span className="text-sm xs:text-base md:text-lg flex-shrink-0">{greeting.icon}</span>
-            <span className="font-medium truncate hidden xs:block text-xs xs:text-sm sm:text-sm md:text-base"
-              style={{ color: "var(--color-text-primary)" }}>
-              {greeting.text}
-            </span>
-          </div>
+        <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-2.5 xs:py-3">
+          <button
+            onClick={() => navigateTo("home")}
+            className="transition-all duration-300 hover:scale-105"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt="Brian Kareithi"
+              className="h-7 w-auto"
+            />
+          </button>
 
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center gap-1">
             {sections.map((section) => (
               <button
                 key={section.id}
-                className="relative px-3 md:px-4 lg:px-5 py-2 rounded-xl font-medium transition-all duration-300 overflow-hidden text-sm md:text-base"
+                className="relative px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
                 style={{
                   color: activeSection === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
                 }}
                 onClick={() => navigateTo(section.id)}
               >
-                <span className="relative z-10">{section.label}</span>
+                {section.label}
                 {activeSection === section.id && (
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-[1px]"
-                    style={{ backgroundColor: "var(--color-accent)" }} />
+                  <div
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[1.5px] rounded-full"
+                    style={{ backgroundColor: "var(--color-accent)" }}
+                  />
                 )}
               </button>
             ))}
 
             <button
               onClick={toggleTheme}
-              className="ml-2 p-2 rounded-xl transition-all duration-300"
+              className="ml-3 p-2 rounded-lg transition-all duration-300 hover:scale-105"
               style={{ color: "var(--color-text-secondary)" }}
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
+              {theme === "dark" ? <FiSun className="w-3.5 h-3.5" /> : <FiMoon className="w-3.5 h-3.5" />}
             </button>
           </div>
 
-          <div className="md:hidden flex items-center gap-1 xs:gap-2">
+          <div className="md:hidden flex items-center gap-2">
             <button
               onClick={toggleTheme}
-              className="p-2.5 xs:p-2 rounded-xl transition-all duration-300"
+              className="p-2 rounded-lg transition-all duration-300"
               style={{ color: "var(--color-text-secondary)" }}
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
+              {theme === "dark" ? <FiSun className="w-3.5 h-3.5" /> : <FiMoon className="w-3.5 h-3.5" />}
             </button>
 
-            <button className="flex flex-col items-center justify-center w-11 h-11 group -mr-1.5 xs:mr-0" onClick={toggleMobileMenu}
+            <button className="flex flex-col items-center justify-center w-10 h-10 group" onClick={toggleMobileMenu}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}>
-              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-[3px]" : ""}`}
+              <span className={`w-5 h-px rounded-full transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-px" : ""}`}
                 style={{ backgroundColor: "var(--color-text-primary)" }} />
-              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 mt-[4px] ${isMobileMenuOpen ? "opacity-0" : ""}`}
+              <span className={`w-5 h-px rounded-full transition-all duration-300 mt-[5px] ${isMobileMenuOpen ? "opacity-0" : ""}`}
                 style={{ backgroundColor: "var(--color-text-primary)" }} />
-              <span className={`w-5 h-[1.5px] rounded-full transition-all duration-300 mt-[4px] ${isMobileMenuOpen ? "-rotate-45 -translate-y-[3px]" : ""}`}
+              <span className={`w-5 h-px rounded-full transition-all duration-300 mt-[5px] ${isMobileMenuOpen ? "-rotate-45 -translate-y-px" : ""}`}
                 style={{ backgroundColor: "var(--color-text-primary)" }} />
             </button>
           </div>
@@ -196,53 +182,40 @@ export default function Navbar() {
           borderLeft: "1px solid var(--color-glass-border-strong)",
         }}
       >
-        <div className="flex flex-col h-full pt-14 xs:pt-16">
-          <div className="flex items-center justify-between p-3 xs:p-4 border-b"
+        <div className="flex flex-col h-full pt-16">
+          <div className="flex items-center justify-between p-4 border-b"
             style={{ borderColor: "var(--color-border)" }}>
-            <div className="flex items-center space-x-2 xs:space-x-3 min-w-0 flex-1 mr-2">
-              <span className="text-lg xs:text-xl md:text-2xl flex-shrink-0">{greeting.icon}</span>
-              <span className="font-medium text-xs xs:text-sm sm:text-base truncate" style={{ color: "var(--color-text-primary)" }}>
-                {greeting.text}
-              </span>
-            </div>
+            <span className="font-bold text-sm" style={{ color: "var(--color-text-primary)" }}>
+              Navigation
+            </span>
             <button onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-center w-9 h-9 xs:w-10 xs:h-10 rounded-xl hover:liquid-glass transition-all duration-200 flex-shrink-0"
+              className="flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200"
               style={{ color: "var(--color-text-muted)" }}
               aria-label="Close menu">
-              <svg className="w-4 h-4 xs:w-5 xs:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto">
-            <ul className="p-3 xs:p-4 space-y-1 xs:space-y-1.5">
+          <div className="flex-1 overflow-y-auto p-4">
+            <ul className="space-y-1">
               {sections.map((section) => (
                 <li key={section.id}>
                   <button
-                    className="relative w-full text-left px-3 xs:px-4 py-3 xs:py-3.5 rounded-xl font-medium transition-all duration-300 overflow-hidden text-sm xs:text-base min-h-[44px] hover:liquid-glass active:scale-[0.98]"
+                    className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200"
                     style={{
                       color: activeSection === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
+                      backgroundColor: activeSection === section.id ? "var(--color-surface)" : "transparent",
                     }}
                     onClick={() => navigateTo(section.id)}
                   >
-                    <span className="relative z-10">{section.label}</span>
-                    {activeSection === section.id && (
-                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[2px] h-3/5"
-                        style={{ backgroundColor: "var(--color-accent)" }} />
-                    )}
+                    {section.label}
                   </button>
                 </li>
               ))}
             </ul>
-          </div>
-
-          <div className="p-3 xs:p-4 pt-0 mt-auto">
-            <div className="text-center text-[10px] xs:text-xs"
-              style={{ color: "var(--color-text-muted)" }}>
-              Navigate through sections
-            </div>
           </div>
         </div>
       </div>

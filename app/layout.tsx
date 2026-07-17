@@ -1,19 +1,13 @@
-/* ╔══════════════════════════════════════════════════════════════════╗
-   ║                                                                  ║
-   ║      ██╗  ██╗ █████╗ ██████╗ ███████╗██╗████████╗██╗  ██╗██╗   ║
-   ║      ██║ ██╔╝██╔══██╗██╔══██╗██╔════╝██║╚══██╔══╝██║  ██║██║   ║
-   ║      █████╔╝ ███████║██████╔╝█████╗  ██║   ██║   ███████║██║   ║
-   ║      ██╔═██╗ ██╔══██║██╔══██╗██╔══╝  ██║   ██║   ██╔══██║██║   ║
-   ║      ██║  ██╗██║  ██║██║  ██║███████╗██║   ██║   ██║  ██║██║   ║
-   ║      ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝   ║
-   ║                                                                  ║
-   ║   "Build what matters. Leave no bug behind."                     ║
-   ║                                                                  ║
-   ╚══════════════════════════════════════════════════════════════════╝ */
-
 import type { Metadata } from "next";
+import { DM_Sans } from "next/font/google";
 import ClientLayout from "./ClientLayout";
 import "./globals.css";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-dm-sans",
+});
 
 const siteUrl = "https://kareithi.vercel.app";
 
@@ -88,8 +82,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: "/favicon_io/favicon.ico",
+    apple: "/favicon_io/apple-touch-icon.png",
   },
   verification: {
     google: "3j2d8gY3u4vFntbsWOENsTCePOa6RcxKp_eouUKcgEo",
@@ -98,8 +92,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
-      <body className="relative overflow-x-clip" suppressHydrationWarning>
+    <html lang="en" className={`dark scroll-smooth ${dmSans.variable}`} suppressHydrationWarning>
+      <body className="relative overflow-x-clip antialiased" suppressHydrationWarning>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
