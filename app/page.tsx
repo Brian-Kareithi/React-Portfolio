@@ -133,7 +133,7 @@ function HeroSection() {
                 <img
                   src="https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg"
                   alt="Brian Kareithi"
-                  className="w-full h-full object-cover rounded-sm grayscale group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-[1.02]"
+                  className="w-full h-full object-cover object-center rounded-sm sm:grayscale sm:group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-[1.02]"
                   style={{
                     border: "1px solid var(--color-border)",
                     boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
