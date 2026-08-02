@@ -1,8 +1,9 @@
 "use client";
 import { useState, useCallback } from "react";
-import { Server, Cpu, Monitor, Smartphone, Headphones, Watch, Router, Keyboard, HardDrive, Camera, Cpu as CpuIcon, Wifi, ChevronDown } from "lucide-react";
+import { Server, Cpu, Monitor, Smartphone, Headphones, Watch, Keyboard, HardDrive, Camera, Cpu as CpuIcon, Wifi, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import NicheLoading from "@/app/components/NicheLoading";
+import LineWaves from "@/app/components/LineWaves";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 
@@ -103,9 +104,10 @@ export default function Niche() {
   }
 
   return (
-    <section id="niche" className="min-h-screen w-full pt-16 md:pt-20 pb-24 md:pb-32 px-4 relative"
+    <section id="niche" className="min-h-screen w-full pt-16 md:pt-20 pb-24 md:pb-32 px-4 relative overflow-hidden isolate"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
-      <ScrollReveal>
+      <LineWaves />
+      <ScrollReveal className="relative z-10">
       <div className="max-w-5xl mx-auto w-full">
 
         <div className="mb-8 text-center">
@@ -237,7 +239,7 @@ export default function Niche() {
         <div className="mt-12 pt-8 text-center border-t"
           style={{ borderColor: "var(--color-border)" }}>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/"
+            <Link href="/home"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
               style={{
                 border: "1px solid var(--color-border)",
@@ -245,7 +247,7 @@ export default function Niche() {
               }}>
               Back to Portfolio
             </Link>
-            <Link href="/#contact"
+            <Link href="/contact"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
               style={{
                 backgroundColor: "var(--color-accent)",

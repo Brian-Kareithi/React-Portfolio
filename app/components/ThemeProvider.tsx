@@ -15,10 +15,8 @@ const ThemeContext = createContext<ThemeContextType>({
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     document.documentElement.classList.add("dark");
   }, []);
 
@@ -27,10 +25,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(next);
     document.documentElement.classList.toggle("dark");
   };
-
-  if (!mounted) {
-    return <>{children}</>;
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

@@ -5,11 +5,11 @@ import { useTheme } from "@/app/components/ThemeProvider";
 import { FiSun, FiMoon } from "react-icons/fi";
 
 const sections = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "techstack", label: "Stack" },
-  { id: "projects", label: "Work" },
-  { id: "contact", label: "Contact" },
+  { path: "/home", id: "home", label: "Home" },
+  { path: "/about", id: "about", label: "About" },
+  { path: "/techstack", id: "techstack", label: "Stack" },
+  { path: "/projects", id: "projects", label: "Work" },
+  { path: "/contact", id: "contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -18,29 +18,16 @@ export default function Navbar() {
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
-
-  useEffect(() => {
-    if (pathname !== "/") {
-      setActiveSection("");
-      return;
-    }
-    const el = document.getElementById(sections[0].id);
-    if (el) setActiveSection(sections[0].id);
-  }, [pathname]);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 0);
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    if (pathname !== "/") {
-      setActiveSection("");
-      return;
-    }
+    if (pathname !== "/home") return;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -52,37 +39,13 @@ export default function Navbar() {
       { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" }
     );
 
-    for (const s of sections) {
-      const el = document.getElementById(s.id);
+    for (const section of sections) {
+      const el = document.getElementById(section.id);
       if (el) observer.observe(el);
     }
 
     return () => observer.disconnect();
   }, [pathname]);
-
-  useEffect(() => {
-    if (pathname === "/" && window.location.hash) {
-      const id = window.location.hash.replace("#", "");
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 150);
-    }
-  }, [pathname]);
-
-  const navigateTo = (sectionId: string) => {
-    setIsMobileMenuOpen(false);
-    if (pathname !== "/") {
-      router.push(`/#${sectionId}`);
-      return;
-    }
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   useEffect(() => {
     const handleResize = () => {
@@ -91,6 +54,28 @@ export default function Navbar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [isMobileMenuOpen]);
+
+  const displayActive = pathname === "/home"
+    ? activeSection
+    : sections.find((section) => section.path === pathname)?.id ?? "";
+
+  const navigateTo = (path: string, id: string) => {
+    setIsMobileMenuOpen(false);
+    if (pathname === "/home") {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    }
+    if (path === pathname) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    router.push(path);
+  };
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
     <>
@@ -103,7 +88,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-2.5 xs:py-3">
           <button
-            onClick={() => navigateTo("home")}
+            onClick={() => navigateTo("/home", "home")}
             className="transition-all duration-300 hover:scale-105"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -117,15 +102,15 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-1">
             {sections.map((section) => (
               <button
-                key={section.id}
+                key={section.path}
                 className="relative px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
                 style={{
-                  color: activeSection === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
+                  color: displayActive === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
                 }}
-                onClick={() => navigateTo(section.id)}
+                onClick={() => navigateTo(section.path, section.id)}
               >
                 {section.label}
-                {activeSection === section.id && (
+                {displayActive === section.id && (
                   <div
                     className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[1.5px] rounded-full"
                     style={{ backgroundColor: "var(--color-accent)" }}
@@ -202,14 +187,14 @@ export default function Navbar() {
           <div className="flex-1 overflow-y-auto p-4">
             <ul className="space-y-1">
               {sections.map((section) => (
-                <li key={section.id}>
+                <li key={section.path}>
                   <button
                     className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200"
                     style={{
-                      color: activeSection === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
-                      backgroundColor: activeSection === section.id ? "var(--color-surface)" : "transparent",
+                      color: displayActive === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
+                      backgroundColor: displayActive === section.id ? "var(--color-surface)" : "transparent",
                     }}
-                    onClick={() => navigateTo(section.id)}
+                    onClick={() => navigateTo(section.path, section.id)}
                   >
                     {section.label}
                   </button>

@@ -146,6 +146,7 @@ export default function NicheLoading({ onFinish }: { onFinish: () => void }) {
       <div className="chat-topbar">
         <span className="chat-topbar-back">&lsaquo;</span>
         <div className="chat-topbar-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg"
             alt=""

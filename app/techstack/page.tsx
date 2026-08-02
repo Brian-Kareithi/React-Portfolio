@@ -20,7 +20,6 @@ import {
   SiCplusplus, 
   SiDotnet, 
   SiNextdotjs, 
-  SiMongodb, 
   SiFirebase, 
   SiDocker, 
   SiAmazonwebservices, 
