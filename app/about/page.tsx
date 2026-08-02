@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
@@ -57,19 +57,17 @@ export default function About() {
 
   const activeItems = groupedTimeline[activeTab] || [];
 
-  const handleTabChange = (tab: string) => {
-    if (tab === activeTab || isTransitioning) return;
-    setIsTransitioning(true);
-    setActiveTab(tab);
-    setActiveSubTab(0);
-    if (contentRef.current) contentRef.current.scrollTop = 0;
-    setTimeout(() => setIsTransitioning(false), 300);
-  };
-
-  useEffect(() => {
-    setActiveSubTab(0);
-    if (contentRef.current) contentRef.current.scrollTop = 0;
-  }, [activeTab]);
+  const handleTabChange = useCallback(
+    (tab: string) => {
+      if (tab === activeTab || isTransitioning) return;
+      setIsTransitioning(true);
+      setActiveTab(tab);
+      setActiveSubTab(0);
+      if (contentRef.current) contentRef.current.scrollTop = 0;
+      setTimeout(() => setIsTransitioning(false), 300);
+    },
+    [activeTab, isTransitioning]
+  );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -81,7 +79,7 @@ export default function About() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeTab]);
+  }, [activeTab, handleTabChange]);
 
   return (
     <section id="about" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3 xs:px-4 relative"

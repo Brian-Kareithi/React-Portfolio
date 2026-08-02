@@ -375,7 +375,7 @@ export default function Contact() {
                         }}>
                         <span className="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
                           style={{ backgroundColor: "var(--color-accent)", color: "var(--color-text-light)" }}>✓</span>
-                        Message sent! I respond within 24h.
+                        Message sent! I usually respond within 24 hours.
                       </div>
                     )}
                     {submitStatus === "error" && (
