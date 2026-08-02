@@ -1,6 +1,6 @@
 "use client";
 import { useState, useCallback } from "react";
-import { Server, Cpu, Monitor, Smartphone, Headphones, Watch, Keyboard, HardDrive, Camera, Cpu as CpuIcon, Wifi, ChevronDown } from "lucide-react";
+import { Server, Cpu, Monitor, Smartphone, Headphones, Watch, Keyboard, HardDrive, Camera, Cpu as CpuIcon, Wifi, ChevronDown, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import NicheLoading from "@/app/components/NicheLoading";
 import LineWaves from "@/app/components/LineWaves";
@@ -104,8 +104,39 @@ export default function Niche() {
   }
 
   return (
-    <section id="niche" className="min-h-screen w-full pt-16 md:pt-20 pb-24 md:pb-32 px-4 relative overflow-hidden isolate"
-      style={{ backgroundColor: "var(--color-bg-primary)" }}>
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 glass-nav"
+        style={{
+          borderLeft: "none",
+          borderRight: "none",
+          borderTop: "none",
+          borderBottom: "1px solid var(--color-glass-border)",
+        }}
+      >
+        <div className="flex items-center justify-between h-14 max-w-5xl mx-auto px-4 sm:px-6">
+          <Link
+            href="/home"
+            className="group inline-flex items-center gap-2.5 text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
+            style={{ color: "var(--color-text-secondary)" }}
+          >
+            <span
+              className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:-translate-x-0.5"
+              style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+            </span>
+            Back to Portfolio
+          </Link>
+          <span className="hidden sm:block text-[10px] font-semibold tracking-[0.25em] uppercase"
+            style={{ color: "var(--color-text-muted)" }}>
+            Niche
+          </span>
+        </div>
+      </header>
+
+      <section id="niche" className="min-h-screen w-full pt-16 md:pt-20 pb-24 md:pb-32 px-4 relative overflow-hidden isolate"
+        style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <LineWaves />
       <ScrollReveal className="relative z-10">
       <div className="max-w-5xl mx-auto w-full">
@@ -261,6 +292,7 @@ export default function Niche() {
 
       </div>
       </ScrollReveal>
-    </section>
+      </section>
+    </>
   );
 }
