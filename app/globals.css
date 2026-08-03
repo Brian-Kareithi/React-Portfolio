@@ -259,7 +259,7 @@ body {
   color: var(--color-text-light);
 }
 
-/* ── iMessage loading screen (used by Niche section) ── */
+/* ── iMessage loading screen (used by Hobbies section) ── */
 .chat-topbar {
   display: flex;
   align-items: center;
@@ -421,25 +421,6 @@ input[type="checkbox"],
 [role="button"],
 [tabindex] {
   cursor: url("/assets/cursor.png"), pointer;
-}
-
-/* ── Line waves background (Niche section) ── */
-.line-waves-container {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.line-waves-container canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
 }
 
 /* ── Cyberpunk hero ── */

@@ -17,9 +17,9 @@ export interface UseScrollProgressOptions {
    * of the viewport. When the element is absent the end of the document is used.
    */
   to?: string | null;
-  /** Spring stiffness — higher values track the scroll position more eagerly. */
+  /** Spring stiffness - higher values track the scroll position more eagerly. */
   stiffness?: number;
-  /** Spring damping — higher values reduce overshoot and oscillation. */
+  /** Spring damping - higher values reduce overshoot and oscillation. */
   damping?: number;
   /**
    * Called once per animation frame with the smoothed progress (0..1)
@@ -49,7 +49,7 @@ const clamp = (value: number, min: number, max: number) =>
  *   motion (the indicator stays functional, only the animation is removed).
  * - Measurements are taken on mount, on resize, on window load, and whenever
  *   the `from`/`to` selectors change (e.g. route navigation), so they never go stale.
- * - The whole loop runs on `requestAnimationFrame` and writes to refs only —
+ * - The whole loop runs on `requestAnimationFrame` and writes to refs only -
  *   no state, no React re-renders, no layout reads inside the frame loop.
  */
 export default function useScrollProgress({

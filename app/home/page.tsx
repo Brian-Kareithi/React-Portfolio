@@ -66,8 +66,8 @@ function HeroSection() {
             </div>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-3 xs:gap-4 mb-8 xs:mb-10">
-              <Link href="/niche" className="btn-neon btn-neon-primary">
-                Enter My Niche Section
+              <Link href="/hobbies" className="btn-neon btn-neon-primary">
+                Enter My Hobbies Section
                 <span aria-hidden="true">&#8961;</span>
               </Link>
             </div>
@@ -108,7 +108,7 @@ function HeroSection() {
                 <img
                   src="https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg"
                   alt="Brian Kareithi"
-                  className="w-full h-full object-cover object-center rounded-sm sm:grayscale sm:group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-[1.02]"
+                  className="w-full h-full object-cover object-center rounded-sm transition-all duration-700 ease-out group-hover:scale-[1.02]"
                   style={{
                     border: "1px solid var(--color-border)",
                     boxShadow: "0 4px 24px rgba(0,0,0,0.04)",

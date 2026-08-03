@@ -86,7 +86,7 @@ function Bubble({ message, onRevealed }: { message: string; onRevealed: () => vo
   );
 }
 
-export default function NicheLoading({ onFinish }: { onFinish: () => void }) {
+export default function HobbiesLoading({ onFinish }: { onFinish: () => void }) {
   const [bubbleIds, setBubbleIds] = useState<number[]>([]);
   const [pagePhase, setPagePhase] = useState<"loading" | "fading">("loading");
   const messagesEndRef = useRef<HTMLDivElement>(null);

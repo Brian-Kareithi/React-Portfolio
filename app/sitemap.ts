@@ -10,6 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/techstack`, lastModified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/projects`, lastModified, changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteUrl}/contact`, lastModified, changeFrequency: "yearly", priority: 0.6 },
-    { url: `${siteUrl}/niche`, lastModified, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${siteUrl}/hobbies`, lastModified, changeFrequency: "monthly", priority: 0.5 },
   ];
 }

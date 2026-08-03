@@ -19,7 +19,7 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Steadfast Academy — Parent Module",
+    title: "Steadfast Academy - Parent Module",
     type: "Full-Stack Platform",
     status: "active",
     description: "Comprehensive educational management platform with web and mobile interfaces for parent engagement.",
@@ -38,7 +38,7 @@ const projects: Project[] = [
     repoType: "private",
   },
   {
-    title: "Steadfast Academy — Library Module",
+    title: "Steadfast Academy - Library Module",
     type: "Web Application",
     status: "active",
     description: "Dedicated web-based library management solution integrated into the academy ecosystem.",
@@ -64,7 +64,7 @@ const projects: Project[] = [
     details: [
       "Sleep tracking and habit monitoring with daily logging and progress visualization.",
       "Diet and nutrition management with meal tracking and health metric recording.",
-      "One of the few applications I actively use myself on a daily basis — a continuously evolving project driven by real-world requirements rather than theoretical use cases.",
+      "One of the few applications I actively use myself on a daily basis - a continuously evolving project driven by real-world requirements rather than theoretical use cases.",
     ],
     stack: ["Kotlin", "Android SDK", "Room Database", "MPAndroidChart"],
     repo: "https://github.com/Brian-Kareithi/Physical-Fitness",
@@ -156,7 +156,7 @@ const projects: Project[] = [
     description: "Privacy-focused document printing system modernizing the cyber café workflow.",
     details: [
       "Users scan a QR code to open a temporary upload portal, documents are uploaded to a transient server, printed, then automatically removed.",
-      "No need for flash drives — reduced risk of sensitive documents remaining on shared computers.",
+      "No need for flash drives - reduced risk of sensitive documents remaining on shared computers.",
       "A simple but impactful solution demonstrating how small software systems can solve real-world privacy and usability challenges.",
     ],
     highlights: [
@@ -417,7 +417,7 @@ export default function Projects() {
           style={{ borderColor: "var(--color-glass-border-strong)" }}>
           <p className="text-sm leading-relaxed max-w-3xl mx-auto mb-6"
             style={{ color: "var(--color-text-secondary)" }}>
-            Great ideas are meant to inspire others, and software improves when knowledge is shared. Whether you are a developer, recruiter, founder, or fellow engineer — feel free to explore the repositories, examine the architecture decisions, suggest improvements, borrow ideas, or collaborate on future innovations.
+            Great ideas are meant to inspire others, and software improves when knowledge is shared. Whether you are a developer, recruiter, founder, or fellow engineer - feel free to explore the repositories, examine the architecture decisions, suggest improvements, borrow ideas, or collaborate on future innovations.
           </p>
           <a href="https://github.com/Brian-Kareithi" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-3 text-sm font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
