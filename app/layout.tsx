@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import ClientLayout from "./ClientLayout";
 import "./globals.css";
 
@@ -102,6 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="relative overflow-x-clip antialiased" suppressHydrationWarning>
         <ClientLayout>{children}</ClientLayout>
+        <Analytics />
       </body>
     </html>
   );
