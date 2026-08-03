@@ -66,12 +66,12 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   // The navbar itself is the progress indicator. The filled region reads as
-  // a light streak sweeping across the glass: cooled near the start,
-  // brighter toward the leading edge, and peaking in a soft white-hot band.
-  // A two-stage falloff ahead of the edge lets the glow bleed gently into
-  // the unfinished glass, and the hot band brightens slightly while
-  // scrolling fast. Styles are written directly in the animation frame
-  // loop, so no React state or re-renders are involved.
+  // a light streak sweeping across the glass: the gradient ramps up from a
+  // cooled tail at the start, brightening toward the leading edge, and peaks
+  // in a sharp white-hot arrow point that falls off quickly ahead of it.
+  // The hot band brightens slightly while scrolling fast. Styles are written
+  // directly in the animation frame loop, so no React state or re-renders
+  // are involved.
   useScrollProgress({
     from: pathname === "/home" ? "#home" : null,
     to: pathname === "/home" || pathname === "/contact" ? "#contact" : null,
@@ -93,7 +93,7 @@ export default function Navbar() {
         return;
       }
 
-      const fill = `linear-gradient(90deg, ${PROGRESS_TAIL} 0%, ${PROGRESS_DONE} calc(${pct.toFixed(3)}% - 14%), ${PROGRESS_DONE} calc(${pct.toFixed(3)}% - 22px), ${hot} calc(${pct.toFixed(3)}% - 8px), ${hot} calc(${pct.toFixed(3)}% - 4px), ${PROGRESS_BLEED} calc(${pct.toFixed(3)}% + 24px), ${PROGRESS_BASE} calc(${pct.toFixed(3)}% + 44px), ${PROGRESS_BASE} 100%)`;
+      const fill = `linear-gradient(90deg, ${PROGRESS_TAIL} 0%, ${PROGRESS_DONE} calc(${pct.toFixed(3)}% - 18%), ${PROGRESS_DONE} calc(${pct.toFixed(3)}% - 12px), ${hot} calc(${pct.toFixed(3)}% - 5px), ${hot} calc(${pct.toFixed(3)}%), ${PROGRESS_BLEED} calc(${pct.toFixed(3)}% + 8px), ${PROGRESS_BASE} calc(${pct.toFixed(3)}% + 18px), ${PROGRESS_BASE} 100%)`;
       nav.style.background = `${PROGRESS_SHEEN}, ${fill}`;
     },
   });
