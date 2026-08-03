@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/app/components/ThemeProvider";
+import useScrollProgress from "@/app/components/ui/useScrollProgress";
 import { FiSun, FiMoon } from "react-icons/fi";
 
 const sections = [
@@ -12,19 +13,28 @@ const sections = [
   { path: "/contact", id: "contact", label: "Contact" },
 ];
 
+// The navbar background doubles as the scroll-progress indicator. These
+// resolve against the active theme at paint time, so theme switches need
+// no re-application.
+const PROGRESS_DONE = "var(--color-glass-nav-done)";
+const PROGRESS_BASE = "color-mix(in srgb, var(--color-glass-nav-bg) 36%, transparent)";
+// Cooled glass left behind by the sweep (slightly less intense than the fill body).
+const PROGRESS_TAIL = "color-mix(in srgb, var(--color-glass-nav-done) 80%, transparent)";
+// White-hot peak at the leading edge.
+const PROGRESS_HOT = "color-mix(in srgb, var(--color-accent-light) 6%, white)";
+// Slightly brighter than the base glass, used to bleed glow ahead of the edge.
+const PROGRESS_BLEED = "color-mix(in srgb, var(--color-glass-nav-bg) 55%, transparent)";
+// Faint vertical reflection so the whole navbar reads as glass.
+const PROGRESS_SHEEN = "linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0) 45%, rgba(255,255,255,0.04))";
+
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const router = useRouter();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 0);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const navRef = useRef<HTMLElement | null>(null);
+  const prevPctRef = useRef(0);
 
   useEffect(() => {
     if (pathname !== "/home") return;
@@ -55,6 +65,39 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, [isMobileMenuOpen]);
 
+  // The navbar itself is the progress indicator. The filled region reads as
+  // a light streak sweeping across the glass: cooled near the start,
+  // brighter toward the leading edge, and peaking in a soft white-hot band.
+  // A two-stage falloff ahead of the edge lets the glow bleed gently into
+  // the unfinished glass, and the hot band brightens slightly while
+  // scrolling fast. Styles are written directly in the animation frame
+  // loop, so no React state or re-renders are involved.
+  useScrollProgress({
+    from: pathname === "/home" ? "#home" : null,
+    to: pathname === "/home" || pathname === "/contact" ? "#contact" : null,
+    onFrame: (progress) => {
+      const nav = navRef.current;
+      if (!nav) return;
+      const pct = progress * 100;
+      const speed = Math.abs(pct - prevPctRef.current);
+      prevPctRef.current = pct;
+      const hotAlpha = Math.min(1, 0.86 + Math.min(speed, 7) * 0.02);
+      const hot = `color-mix(in srgb, ${PROGRESS_HOT} ${(hotAlpha * 100).toFixed(0)}%, transparent)`;
+
+      if (pct <= 0.01) {
+        nav.style.background = `${PROGRESS_SHEEN}, linear-gradient(90deg, ${PROGRESS_BASE} 0%, ${PROGRESS_BASE} 100%)`;
+        return;
+      }
+      if (pct >= 99.9) {
+        nav.style.background = `${PROGRESS_SHEEN}, linear-gradient(90deg, ${PROGRESS_DONE} 0%, ${PROGRESS_DONE} 100%)`;
+        return;
+      }
+
+      const fill = `linear-gradient(90deg, ${PROGRESS_TAIL} 0%, ${PROGRESS_DONE} calc(${pct.toFixed(3)}% - 14%), ${PROGRESS_DONE} calc(${pct.toFixed(3)}% - 22px), ${hot} calc(${pct.toFixed(3)}% - 8px), ${hot} calc(${pct.toFixed(3)}% - 4px), ${PROGRESS_BLEED} calc(${pct.toFixed(3)}% + 24px), ${PROGRESS_BASE} calc(${pct.toFixed(3)}% + 44px), ${PROGRESS_BASE} 100%)`;
+      nav.style.background = `${PROGRESS_SHEEN}, ${fill}`;
+    },
+  });
+
   const displayActive = pathname === "/home"
     ? activeSection
     : sections.find((section) => section.path === pathname)?.id ?? "";
@@ -80,11 +123,8 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`
-          fixed z-[60] glass-nav
-          transition-all duration-500 ease-out
-          ${isScrolled ? "w-full top-0 left-0 right-0 rounded-none" : "w-[95%] top-3 left-[2.5%] right-[2.5%] rounded-2xl"}
-        `}
+        ref={navRef}
+        className="fixed z-[60] glass-nav w-[95%] top-3 left-[2.5%] right-[2.5%] rounded-2xl"
       >
         <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-2.5 xs:py-3">
           <button
@@ -95,7 +135,7 @@ export default function Navbar() {
             <img
               src="/logo.png"
               alt="Brian Kareithi"
-              className="h-7 w-auto"
+              className="h-9 w-auto"
             />
           </button>
 
