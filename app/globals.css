@@ -98,7 +98,7 @@
 
   --color-glass-bg: rgba(255, 255, 255, 0.45);
   --color-glass-nav-bg: rgba(255, 255, 255, 0.65);
-  --color-glass-nav-done: color-mix(in srgb, rgba(255, 255, 255, 0.95) 97%, var(--color-accent) 3%);
+  --color-glass-nav-done: color-mix(in srgb, rgba(255, 255, 255, 0.8) 97%, var(--color-accent) 3%);
   --color-glass-border: rgba(0, 66, 37, 0.1);
   --color-glass-border-strong: rgba(0, 66, 37, 0.18);
   --color-glass-shadow: 0 4px 20px rgba(0, 66, 37, 0.06);
@@ -148,7 +148,7 @@
 
   --color-glass-bg: rgba(0, 66, 37, 0.06);
   --color-glass-nav-bg: rgba(0, 0, 0, 0.75);
-  --color-glass-nav-done: color-mix(in srgb, rgba(255, 255, 255, 0.9) 96%, var(--color-accent) 4%);
+  --color-glass-nav-done: color-mix(in srgb, rgba(255, 255, 255, 0.72) 96%, var(--color-accent) 4%);
   --color-glass-border: rgba(0, 66, 37, 0.15);
   --color-glass-border-strong: rgba(0, 66, 37, 0.25);
   --color-glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
