@@ -10,7 +10,7 @@ import LoadingScreen from "@/app/components/LoadingScreen";
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
-  const hideNavbar = pathname === "/niche";
+  const hideNavbar = pathname === "/hobbies";
 
   const handleLoadingFinish = useCallback(() => {
     setLoading(false);
