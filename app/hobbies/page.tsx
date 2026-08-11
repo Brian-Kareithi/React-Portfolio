@@ -253,6 +253,21 @@ export default function Hobbies() {
 
       <section id="hobbies" className="min-h-screen w-full pt-16 md:pt-20 pb-24 md:pb-32 px-4 relative overflow-hidden isolate"
         style={{ backgroundColor: "var(--color-bg-primary)" }}>
+      <video
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        src="/nichebackground.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        style={{ opacity: 0.6 }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.45))" }}
+      />
       <ScrollReveal className="relative z-10">
       <div className="max-w-5xl mx-auto w-full">
 
