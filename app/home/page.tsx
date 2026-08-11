@@ -38,6 +38,21 @@ function HeroSection() {
     <section id="home" className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <Background />
+      <video
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        src="/background.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        style={{ opacity: 0.6 }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.45))" }}
+      />
       <div className="absolute top-0 left-0 w-full h-px"
         style={{ background: `linear-gradient(to right, transparent, var(--color-accent), transparent)` }} />
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen pt-16 xs:pt-20 pb-12 xs:pb-16">
