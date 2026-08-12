@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
-import { Background } from "@/app/components/ui/Background";
+import { useTheme } from "@/app/components/ThemeProvider";
 import AboutSection from "@/app/about/page";
 import TechStackSection from "@/app/techstack/page";
 import ProjectsSection from "@/app/projects/page";
@@ -12,6 +12,7 @@ import ContactSection from "@/app/contact/page";
 const roles = ["Fullstack Developer", "Grey Hat", "Cybersecurity and Robotics Enthusiast", "Gamer"];
 
 function HeroSection() {
+  const { theme } = useTheme();
   const [currentRole, setCurrentRole] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -37,24 +38,19 @@ function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
-      <Background />
       <video
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        src="/background.mp4"
+        src={theme === "light" ? "/lightthemebackground.mp4" : "/background.mp4"}
+        key={theme}
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
         aria-hidden="true"
-        style={{ opacity: 0.6 }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.45))" }}
       />
       <div className="absolute top-0 left-0 w-full h-px"
-        style={{ background: `linear-gradient(to right, transparent, var(--color-accent), transparent)` }} />
+        style={{ backgroundColor: "var(--color-accent)" }} />
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen pt-16 xs:pt-20 pb-12 xs:pb-16">
         <div className="flex flex-col lg:flex-row items-center justify-center w-full gap-10 xs:gap-12 sm:gap-16 lg:gap-24">
           <div className="flex-1 text-center lg:text-left order-2 lg:order-1 mt-8 xs:mt-10 lg:mt-0 stagger-item">
@@ -106,8 +102,6 @@ function HeroSection() {
 
           <div className="flex-1 flex justify-center order-1 lg:order-2 lg:ml-[20%]">
             <div className="relative group">
-              <div className="absolute -inset-8 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 blur-2xl"
-                style={{ background: "var(--color-accent-glow)" }} />
               <div className="relative w-56 h-56 xs:w-64 xs:h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem]">
                 <div className="absolute -inset-3 rounded-sm transition-all duration-500 group-hover:-inset-2"
                   style={{ border: "1px solid var(--color-border)" }} />
@@ -126,7 +120,6 @@ function HeroSection() {
                   className="w-full h-full object-cover object-center rounded-sm transition-all duration-700 ease-out group-hover:scale-[1.02]"
                   style={{
                     border: "1px solid var(--color-border)",
-                    boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
                   }}
                   onError={(e) => {
                     const target = e.currentTarget;

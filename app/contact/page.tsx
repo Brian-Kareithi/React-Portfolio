@@ -61,12 +61,21 @@ export default function Contact() {
     }
   };
 
+  const underlineStyle = (field: string) => ({
+    color: "var(--color-text-primary)",
+    background: "transparent",
+    border: "none",
+    borderBottom: `2px solid ${activeField === field ? "var(--color-accent)" : "var(--color-border)"}`,
+    borderRadius: 0,
+    transition: "border-color 0.25s ease",
+  });
+
   return (
     <section id="contact" className="w-full pt-24 md:pt-32 pb-8 md:pb-10 px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
         <div className="absolute top-0 left-0 w-1/3 h-px"
-          style={{ background: `linear-gradient(to right, transparent, var(--color-accent))` }} />
+          style={{ backgroundColor: "var(--color-accent)" }} />
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center mb-10 animate-fade-in-up">
             <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-2"
@@ -89,25 +98,11 @@ export default function Contact() {
 
           <StaggerReveal staggerDelay={100}>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-6">
-            <div className="lg:col-span-2 p-4 md:p-5 rounded-xl relative overflow-hidden"
+            <div className="lg:col-span-2 p-4 md:p-5 rounded-xl relative"
               style={{
-                background: "var(--color-glass-bg)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "1px solid var(--color-glass-border-strong)",
-                boxShadow: "0 4px 20px var(--color-glass-shadow), inset 0 1px 0 var(--color-glass-border)"
+                backgroundColor: "var(--color-bg-secondary)",
+                border: "1px solid var(--color-border)",
               }}>
-              <div className="absolute top-0 right-0 w-1/3 h-1/2 rounded-full opacity-10"
-                style={{
-                  background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
-                  transform: "translate(30%, -30%)"
-                }} />
-              <div className="absolute bottom-0 left-0 w-1/4 h-1/4 rounded-full opacity-5"
-                style={{
-                  background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
-                  transform: "translate(-30%, 30%)"
-                }} />
-
               <div className="relative z-10">
                 <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-4 flex items-center gap-2"
                   style={{ color: "var(--color-text-muted)" }}>
@@ -122,16 +117,14 @@ export default function Contact() {
                     { icon: FaMapMarkerAlt, label: "Location", value: "Nairobi, Kenya", href: "#" },
                   ].map((item) => (
                     <div key={item.label} 
-                      className="group flex items-center gap-3 p-2.5 rounded-lg transition-all duration-300 hover:scale-[1.02]"
+                      className="group flex items-center gap-3 p-2.5 rounded-lg transition-all duration-300"
                       style={{
-                        background: "var(--color-glass-item-bg)",
-                        border: "1px solid var(--color-glass-border)",
-                        backdropFilter: "blur(10px)",
+                        border: "1px solid var(--color-border)",
                       }}>
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-105 flex-shrink-0"
                         style={{
-                          background: "var(--color-glass-icon-bg)",
-                          border: "1px solid var(--color-glass-border)",
+                          backgroundColor: "var(--color-glass-icon-bg)",
+                          border: "1px solid var(--color-border)",
                           color: "var(--color-accent)"
                         }}>
                         <item.icon className="w-3.5 h-3.5" />
@@ -166,10 +159,9 @@ export default function Contact() {
                       <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
                         className="group w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105"
                         style={{
-                          background: "var(--color-glass-icon-bg)",
-                          border: "1px solid var(--color-glass-border)",
+                          backgroundColor: "var(--color-glass-icon-bg)",
+                          border: "1px solid var(--color-border)",
                           color: "var(--color-text-secondary)",
-                          backdropFilter: "blur(10px)",
                         }}>
                         <item.icon className="w-4 h-4" />
                       </a>
@@ -178,11 +170,10 @@ export default function Contact() {
                 </div>
 
                 <div className="mt-5 pt-4 grid grid-cols-2 gap-2"
-                  style={{ borderTop: "1px solid var(--color-glass-border)" }}>
+                  style={{ borderTop: "1px solid var(--color-border)" }}>
                   <div className="text-center p-2 rounded-lg"
                     style={{
-                      background: "var(--color-glass-item-bg)",
-                      border: "1px solid var(--color-glass-border)"
+                      border: "1px solid var(--color-border)"
                     }}>
                     <p className="text-lg font-bold" style={{ color: "var(--color-accent)" }}>24h</p>
                     <p className="text-[8px] uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }}>
@@ -191,8 +182,7 @@ export default function Contact() {
                   </div>
                   <div className="text-center p-2 rounded-lg"
                     style={{
-                      background: "var(--color-glass-item-bg)",
-                      border: "1px solid var(--color-glass-border)"
+                      border: "1px solid var(--color-border)"
                     }}>
                     <p className="text-lg font-bold" style={{ color: "var(--color-accent)" }}>100%</p>
                     <p className="text-[8px] uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }}>
@@ -203,25 +193,11 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="lg:col-span-3 p-4 md:p-5 rounded-xl relative overflow-hidden"
+            <div className="lg:col-span-3 p-4 md:p-5 rounded-xl relative"
               style={{
-                background: "var(--color-glass-bg)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "1px solid var(--color-glass-border-strong)",
-                boxShadow: "0 4px 20px var(--color-glass-shadow), inset 0 1px 0 var(--color-glass-border)"
+                backgroundColor: "var(--color-bg-secondary)",
+                border: "1px solid var(--color-border)",
               }}>
-              <div className="absolute top-0 left-0 w-1/3 h-1/2 rounded-full opacity-10"
-                style={{
-                  background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
-                  transform: "translate(-30%, -30%)"
-                }} />
-              <div className="absolute bottom-0 right-0 w-1/4 h-1/4 rounded-full opacity-5"
-                style={{
-                  background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
-                  transform: "translate(30%, 30%)"
-                }} />
-
               <div className="relative z-10">
                 <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-4 flex items-center gap-2"
                   style={{ color: "var(--color-text-muted)" }}>
@@ -229,10 +205,10 @@ export default function Contact() {
                   Message
                 </p>
 
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="relative group">
-                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 z-10 transition-all duration-300"
+                      <div className="absolute left-3.5 top-3 z-10 transition-all duration-300"
                         style={{ color: activeField === "name" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
                         <FaUser className="w-3.5 h-3.5" />
                       </div>
@@ -245,19 +221,13 @@ export default function Contact() {
                         onBlur={() => setActiveField(null)}
                         placeholder="Your Name"
                         required
-                        className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300 rounded-lg"
-                        style={{
-                          background: "var(--color-glass-input-bg)",
-                          backdropFilter: "blur(10px)",
-                          border: `1px solid ${activeField === "name" ? "var(--color-accent)" : "var(--color-glass-border)"}`,
-                          boxShadow: activeField === "name" ? "0 0 0 2px var(--color-accent-glow)" : "none",
-                          color: "var(--color-text-primary)",
-                        }}
+                        className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
+                        style={underlineStyle("name")}
                       />
                     </div>
 
                     <div className="relative group">
-                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 z-10 transition-all duration-300"
+                      <div className="absolute left-3.5 top-3 z-10 transition-all duration-300"
                         style={{ color: activeField === "email" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
                         <FaEnvelope className="w-3.5 h-3.5" />
                       </div>
@@ -270,20 +240,14 @@ export default function Contact() {
                         onBlur={() => setActiveField(null)}
                         placeholder="your@email.com"
                         required
-                        className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300 rounded-lg"
-                        style={{
-                          background: "var(--color-glass-input-bg)",
-                          backdropFilter: "blur(10px)",
-                          border: `1px solid ${activeField === "email" ? "var(--color-accent)" : "var(--color-glass-border)"}`,
-                          boxShadow: activeField === "email" ? "0 0 0 2px var(--color-accent-glow)" : "none",
-                          color: "var(--color-text-primary)",
-                        }}
+                        className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
+                        style={underlineStyle("email")}
                       />
                     </div>
                   </div>
 
                   <div className="relative group">
-                    <div className="absolute left-3.5 top-1/2 -translate-y-1/2 z-10 transition-all duration-300"
+                    <div className="absolute left-3.5 top-3 z-10 transition-all duration-300"
                       style={{ color: activeField === "subject" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
                       <FaPaperPlane className="w-3.5 h-3.5" />
                     </div>
@@ -296,14 +260,8 @@ export default function Contact() {
                       onBlur={() => setActiveField(null)}
                       placeholder="Subject"
                       required
-                      className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300 rounded-lg"
-                      style={{
-                        background: "var(--color-glass-input-bg)",
-                        backdropFilter: "blur(10px)",
-                        border: `1px solid ${activeField === "subject" ? "var(--color-accent)" : "var(--color-glass-border)"}`,
-                        boxShadow: activeField === "subject" ? "0 0 0 2px var(--color-accent-glow)" : "none",
-                        color: "var(--color-text-primary)",
-                      }}
+                      className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
+                      style={underlineStyle("subject")}
                     />
                   </div>
 
@@ -321,30 +279,18 @@ export default function Contact() {
                       placeholder="Tell me about your project..."
                       required
                       rows={4}
-                      className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300 rounded-lg resize-none"
-                      style={{
-                        background: "var(--color-glass-input-bg)",
-                        backdropFilter: "blur(10px)",
-                        border: `1px solid ${activeField === "message" ? "var(--color-accent)" : "var(--color-glass-border)"}`,
-                        boxShadow: activeField === "message" ? "0 0 0 2px var(--color-accent-glow)" : "none",
-                        color: "var(--color-text-primary)",
-                      }}
+                      className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300 resize-none"
+                      style={underlineStyle("message")}
                     />
                   </div>
 
                   <button type="submit" disabled={isSubmitting}
                     className="w-full py-3 text-sm font-semibold tracking-wider uppercase transition-all duration-300 rounded-lg flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden group min-h-[44px]"
                     style={{
-                      background: "var(--color-accent-gradient)",
+                      backgroundColor: "var(--color-accent)",
                       color: "var(--color-text-light)",
                       opacity: isSubmitting ? 0.6 : 1,
-                      boxShadow: !isSubmitting ? "0 3px 14px var(--color-accent-glow)" : "none",
                     }}>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-                      style={{
-                        background: "linear-gradient(90deg, transparent, white, transparent)",
-                        transform: "skewX(-20deg)"
-                      }} />
                     
                     {isSubmitting ? (
                       <span className="flex items-center gap-2.5">
@@ -369,11 +315,10 @@ export default function Contact() {
                       <div className="p-2.5 text-[11px] animate-fade-in-up rounded-lg flex items-center gap-2.5"
                         style={{
                           border: "1px solid var(--color-accent)",
-                          background: "var(--color-glass-item-bg)",
-                          backdropFilter: "blur(10px)",
+                          backgroundColor: "var(--color-bg-tertiary)",
                           color: "var(--color-accent)",
                         }}>
-                        <span className="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
+                        <span className="w-6 h-6 flex items-center justify-center text-[11px] font-bold flex-shrink-0"
                           style={{ backgroundColor: "var(--color-accent)", color: "var(--color-text-light)" }}>✓</span>
                         Message sent! I usually respond within 24 hours.
                       </div>
@@ -381,9 +326,8 @@ export default function Contact() {
                     {submitStatus === "error" && (
                       <div className="p-2.5 text-[11px] animate-fade-in-up rounded-lg flex items-center gap-2.5"
                         style={{
-                          border: "1px solid var(--color-glass-border)",
-                          background: "var(--color-glass-item-bg)",
-                          backdropFilter: "blur(10px)",
+                          border: "1px solid var(--color-border)",
+                          backgroundColor: "var(--color-bg-tertiary)",
                           color: "var(--color-text-muted)",
                         }}>
                         <span className="text-sm flex-shrink-0">⚠️</span>
@@ -417,25 +361,17 @@ export default function Contact() {
               },
             ].map((item, index) => (
               <div key={item.title} 
-                className="group p-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] relative overflow-hidden"
+                className="group p-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] relative"
                 style={{
-                  background: "var(--color-glass-bg)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  border: "1px solid var(--color-glass-border-strong)",
-                  boxShadow: "0 2px 10px var(--color-glass-shadow)"
+                  backgroundColor: "var(--color-bg-secondary)",
+                  border: "1px solid var(--color-border)",
                 }}>
-                <div className="absolute -top-8 -right-8 w-14 h-14 rounded-full opacity-5 group-hover:opacity-10 transition-opacity duration-500"
-                  style={{
-                    background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)"
-                  }} />
-                
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-2.5">
                     <div className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-105 flex-shrink-0"
                       style={{
-                        background: "var(--color-glass-icon-bg)",
-                        border: "1px solid var(--color-glass-border)",
+                        backgroundColor: "var(--color-glass-icon-bg)",
+                        border: "1px solid var(--color-border)",
                         color: "var(--color-accent)"
                       }}>
                       <item.icon className="w-3.5 h-3.5" />

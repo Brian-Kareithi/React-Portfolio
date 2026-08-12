@@ -63,7 +63,6 @@ export default function Footer() {
                 borderRadius: "0.5rem",
                 border: "1.5px solid var(--color-accent)",
                 animation: "wave1 2s ease-out infinite",
-                boxShadow: "0 0 8px var(--color-accent-glow)",
               }} />
               <div className="absolute" style={{
                 width: 90, height: 32,
@@ -71,7 +70,6 @@ export default function Footer() {
                 border: "1.5px solid var(--color-accent)",
                 animation: "wave2 2s ease-out infinite",
                 animationDelay: "0.4s",
-                boxShadow: "0 0 6px var(--color-accent-glow)",
               }} />
               <div className="absolute" style={{
                 width: 90, height: 32,
@@ -79,14 +77,12 @@ export default function Footer() {
                 border: "1px solid var(--color-accent)",
                 animation: "wave3 2s ease-out infinite",
                 animationDelay: "0.8s",
-                boxShadow: "0 0 4px var(--color-accent-glow)",
               }} />
               <Link href="/hobbies"
                 className="relative flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium tracking-wider uppercase transition-all duration-300 hover:scale-105"
                 style={{
                   color: "var(--color-accent)",
                   border: "1px solid var(--color-accent)",
-                  boxShadow: "0 0 12px var(--color-accent-glow)",
                 }}>
                 Hobbies
               </Link>

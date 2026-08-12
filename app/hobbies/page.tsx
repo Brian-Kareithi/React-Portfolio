@@ -316,7 +316,7 @@ export default function Hobbies() {
                       <div key={idx}>
                         <button
                           onClick={() => toggleItem(key)}
-                          className="w-full flex items-start gap-2.5 text-left p-2 rounded-lg transition-all duration-200 hover:liquid-card"
+                          className="w-full flex items-start gap-2.5 text-left p-2 rounded-lg transition-all duration-200 hover:bg-[var(--color-bg-tertiary)]"
                           style={{ color: "var(--color-text-primary)" }}
                         >
                           <span className="mt-0.5 flex-shrink-0" style={{ color: "var(--color-accent)" }}>{item.icon}</span>

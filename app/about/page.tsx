@@ -86,7 +86,7 @@ export default function About() {
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="absolute top-0 left-0 w-1/3 h-px"
-        style={{ background: `linear-gradient(to right, transparent, var(--color-accent))` }} />
+        style={{ backgroundColor: "var(--color-accent)" }} />
       <div className="max-w-7xl mx-auto w-full">
         <div className="text-center mb-12 xs:mb-16 sm:mb-20 animate-fade-in-up">
           <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.3em] uppercase mb-2 xs:mb-3"
@@ -117,7 +117,7 @@ export default function About() {
             { label: "Projects", value: "50+" },
           ].map((stat) => (
             <div key={stat.label}
-              className="text-center py-6 xs:py-8 px-2 xs:px-4 transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
+              className="text-center py-6 xs:py-8 px-2 xs:px-4 transition-all duration-300 hover:scale-[1.02] liquid-card"
               style={{
                 borderColor: "var(--color-accent)",
               }}>
@@ -210,7 +210,7 @@ export default function About() {
 
                     <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 xs:gap-4 sm:gap-6">
                       {activeItems[activeSubTab].significance && (
-                        <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
+                        <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card"
                           style={{
                             borderColor: "var(--color-glass-border-strong)",
                           }}>
@@ -225,7 +225,7 @@ export default function About() {
                         </div>
                       )}
                       {activeItems[activeSubTab].metrics && (
-                        <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
+                        <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card"
                           style={{
                             borderColor: "var(--color-glass-border-strong)",
                           }}>
@@ -278,7 +278,7 @@ export default function About() {
             { title: "Diverse Experience", desc: "Exposure across public sector, private enterprise, and entrepreneurial ventures" },
             { title: "Strategic Focus", desc: "Current emphasis on scalable solutions and professional mentorship" },
           ].map((item) => (
-            <div key={item.title} className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
+            <div key={item.title} className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card"
               style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="w-6 xs:w-8 h-px mb-3 xs:mb-4" style={{ backgroundColor: "var(--color-accent)" }} />
               <h4 className="font-semibold mb-1.5 xs:mb-2 text-xs xs:text-sm"
