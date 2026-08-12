@@ -123,7 +123,7 @@ export default function TechStack() {
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="absolute top-0 left-0 w-1/3 h-px"
-        style={{ background: `linear-gradient(to right, transparent, var(--color-accent))` }} />
+        style={{ backgroundColor: "var(--color-accent)" }} />
       <div className="max-w-6xl mx-auto w-full">
         <div className="text-center mb-12 xs:mb-16 sm:mb-20 animate-fade-in-up">
           <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.3em] uppercase mb-2 xs:mb-3"
@@ -148,7 +148,7 @@ export default function TechStack() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 mb-12 xs:mb-16">
           {techs.map((category) => (
             <div key={category.heading}
-              className="p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
+              className="p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:scale-[1.02] liquid-card"
               style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-base xs:text-lg font-bold tracking-tight"
@@ -191,7 +191,7 @@ export default function TechStack() {
         </div>
         </StaggerReveal>
 
-        <div className="text-center py-6 xs:py-8 sm:py-10 px-3 xs:px-4 liquid-card rounded-xl"
+        <div className="text-center py-6 xs:py-8 sm:py-10 px-3 xs:px-4 liquid-card"
           style={{ borderColor: "var(--color-glass-border-strong)" }}>
           <div className="flex justify-center gap-4 xs:gap-6 sm:gap-10 mb-4 xs:mb-6 flex-wrap">
             {sortedLevels.map((level) => {

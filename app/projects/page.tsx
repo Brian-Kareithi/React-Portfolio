@@ -178,7 +178,7 @@ export default function Projects() {
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="absolute top-0 left-0 w-1/3 h-px"
-        style={{ background: `linear-gradient(to right, transparent, var(--color-accent))` }} />
+        style={{ backgroundColor: "var(--color-accent)" }} />
       <div className="max-w-7xl mx-auto w-full">
         <div className="text-center mb-20 animate-fade-in-up">
           <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-3"
@@ -201,17 +201,17 @@ export default function Projects() {
 
         <StaggerReveal>
         <div className="mb-12">
-          <div className="liquid-card rounded-xl p-4 xs:p-6 md:p-8"
-            style={{ borderColor: "var(--color-glass-border-strong)" }}>
+          <div className="flat-card p-4 xs:p-6 md:p-8"
+            style={{ borderColor: "var(--color-border)" }}>
             <p className="text-[9px] font-medium tracking-[0.2em] uppercase mb-4"
               style={{ color: "var(--color-text-muted)" }}>
               Personal Portfolio
             </p>
             <div className="flex flex-col md:flex-row gap-4 mb-4">
-              <div className="flex-1 p-4 liquid-card rounded-lg"
+              <div className="flex-1 p-4 flat-card"
                 style={{ borderColor: "var(--color-accent)" }}>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[9px] px-2 py-0.5 tracking-wider uppercase font-mono"
+                  <span className="text-[9px] px-2 py-0.5 rounded tracking-wider uppercase font-mono"
                     style={{
                       border: "1px solid var(--color-accent)",
                       color: "var(--color-accent)",
@@ -227,7 +227,7 @@ export default function Projects() {
                 </p>
                 <div className="flex flex-wrap gap-1.5 mt-3">
                   {["Next.js", "TypeScript", "Tailwind CSS"].map((tech) => (
-                    <span key={tech} className="text-[9px] font-mono px-2 py-0.5"
+                    <span key={tech} className="text-[9px] font-mono px-2 py-0.5 rounded"
                       style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>
                       {tech}
                     </span>
@@ -240,13 +240,13 @@ export default function Projects() {
             </p>
             <div className="flex flex-wrap gap-3">
               <a href="https://portfoliov2-ruby.vercel.app/" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 text-xs font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
+                className="flex items-center gap-2 px-5 py-3 rounded-lg text-xs font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
                 style={{ border: "1px solid var(--color-accent)", color: "var(--color-accent)" }}>
                 <ExternalLink className="w-3 h-3" />
                 Live Demo
               </a>
               <a href="https://github.com/Brian-Kareithi/3d-website" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 text-xs font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
+                className="flex items-center gap-2 px-5 py-3 rounded-lg text-xs font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
                 style={{ border: "1px solid var(--color-glass-border)", color: "var(--color-text-secondary)" }}>
                 <ExternalLink className="w-3 h-3" />
                 View Source
@@ -262,8 +262,8 @@ export default function Projects() {
             const isExpanded = expanded === index;
             return (
               <div key={index}
-                className="transition-all duration-300 hover:scale-[1.02] liquid-card rounded-xl"
-                style={{ borderColor: "var(--color-glass-border-strong)" }}>
+                className="flat-card"
+                style={{ borderColor: "var(--color-border)" }}>
                 <div className="p-6 md:p-8 cursor-pointer"
                   onClick={() => setExpanded(isExpanded ? null : index)}>
                   <div className="flex items-start justify-between mb-4">
@@ -273,7 +273,7 @@ export default function Projects() {
                           style={{ color: "var(--color-text-primary)" }}>
                           {project.title}
                         </h3>
-                        <span className="text-[9px] px-2 py-0.5 tracking-wider uppercase font-mono"
+                        <span className="text-[9px] px-2 py-0.5 rounded tracking-wider uppercase font-mono"
                           style={{
                             border: "1px solid var(--color-border)",
                             color: "var(--color-text-muted)",
@@ -308,7 +308,7 @@ export default function Projects() {
 
                   <div className="flex flex-wrap gap-1.5">
                     {project.stack.slice(0, 4).map((tech, i) => (
-                      <span key={i} className="text-[9px] font-mono px-2 py-1"
+                      <span key={i} className="text-[9px] font-mono px-2 py-1 rounded"
                         style={{
                           border: "1px solid var(--color-border)",
                           color: "var(--color-text-muted)",
@@ -317,7 +317,7 @@ export default function Projects() {
                       </span>
                     ))}
                     {project.stack.length > 4 && (
-                      <span className="text-[9px] font-mono px-2 py-1"
+                      <span className="text-[9px] font-mono px-2 py-1 rounded"
                         style={{
                           border: "1px solid var(--color-border)",
                           color: "var(--color-text-muted)",
@@ -356,7 +356,7 @@ export default function Projects() {
                           </p>
                           <div className="flex flex-wrap gap-2">
                             {project.highlights.map((hl, i) => (
-                              <span key={i} className="px-3 py-2 text-sm"
+                              <span key={i} className="px-3 py-2 rounded text-sm"
                                 style={{
                                   border: "1px solid var(--color-border)",
                                   color: "var(--color-text-secondary)",
@@ -372,7 +372,7 @@ export default function Projects() {
                         style={{ borderTop: "1px solid var(--color-border)" }}>
                         {project.repo && (
                           <a href={project.repo} target="_blank" rel="noopener noreferrer"
-                            className="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
+                            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
                             style={{
                               border: "1px solid var(--color-border)",
                               color: "var(--color-text-secondary)",
@@ -382,7 +382,7 @@ export default function Projects() {
                           </a>
                         )}
                         {project.repoType === "private" && (
-                          <div className="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium min-h-[44px]"
+                          <div className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium min-h-[44px]"
                             style={{
                               border: "1px solid var(--color-border)",
                               color: "var(--color-text-muted)",
@@ -393,7 +393,7 @@ export default function Projects() {
                         )}
                         {project.demo && (
                           <a href={project.demo} target="_blank" rel="noopener noreferrer"
-                            className="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
+                            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
                             style={{
                               border: "1px solid var(--color-accent)",
                               color: "var(--color-accent)",
@@ -413,14 +413,14 @@ export default function Projects() {
         </StaggerReveal>
 
         <StaggerReveal>
-        <div className="mt-16 text-center py-12 liquid-card rounded-xl"
-          style={{ borderColor: "var(--color-glass-border-strong)" }}>
+        <div className="mt-16 text-center py-12 flat-card"
+          style={{ borderColor: "var(--color-border)" }}>
           <p className="text-sm leading-relaxed max-w-3xl mx-auto mb-6"
             style={{ color: "var(--color-text-secondary)" }}>
             Great ideas are meant to inspire others, and software improves when knowledge is shared. Whether you are a developer, recruiter, founder, or fellow engineer - feel free to explore the repositories, examine the architecture decisions, suggest improvements, borrow ideas, or collaborate on future innovations.
           </p>
           <a href="https://github.com/Brian-Kareithi" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 text-sm font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
             style={{
               border: "1px solid var(--color-border)",
               color: "var(--color-text-secondary)",

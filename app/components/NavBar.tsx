@@ -13,20 +13,6 @@ const sections = [
   { path: "/contact", id: "contact", label: "Contact" },
 ];
 
-// The navbar background doubles as the scroll-progress indicator. These
-// resolve against the active theme at paint time, so theme switches need
-// no re-application.
-const PROGRESS_DONE = "var(--color-glass-nav-done)";
-const PROGRESS_BASE = "color-mix(in srgb, var(--color-glass-nav-bg) 36%, transparent)";
-// Cooled glass left behind by the sweep (slightly less intense than the fill body).
-const PROGRESS_TAIL = "color-mix(in srgb, var(--color-glass-nav-done) 80%, transparent)";
-// White-hot peak at the leading edge.
-const PROGRESS_HOT = "color-mix(in srgb, var(--color-accent-light) 6%, white)";
-// Slightly brighter than the base glass, used to bleed glow ahead of the edge.
-const PROGRESS_BLEED = "color-mix(in srgb, var(--color-glass-nav-bg) 55%, transparent)";
-// Faint vertical reflection so the whole navbar reads as glass.
-const PROGRESS_SHEEN = "linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0) 45%, rgba(255,255,255,0.04))";
-
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
@@ -34,7 +20,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const navRef = useRef<HTMLElement | null>(null);
-  const prevPctRef = useRef(0);
+  const progressRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (pathname !== "/home") return;
@@ -65,36 +51,14 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, [isMobileMenuOpen]);
 
-  // The navbar itself is the progress indicator. The filled region reads as
-  // a light streak sweeping across the glass: the gradient ramps up from a
-  // cooled tail at the start, brightening toward the leading edge, and peaks
-  // in a sharp white-hot arrow point that falls off quickly ahead of it.
-  // The hot band brightens slightly while scrolling fast. Styles are written
-  // directly in the animation frame loop, so no React state or re-renders
-  // are involved.
+  // Flat scroll progress: a solid cobalt line sweeping along the nav base.
   useScrollProgress({
     from: pathname === "/home" ? "#home" : null,
     to: pathname === "/home" || pathname === "/contact" ? "#contact" : null,
     onFrame: (progress) => {
-      const nav = navRef.current;
-      if (!nav) return;
-      const pct = progress * 100;
-      const speed = Math.abs(pct - prevPctRef.current);
-      prevPctRef.current = pct;
-      const hotAlpha = Math.min(1, 0.86 + Math.min(speed, 7) * 0.02);
-      const hot = `color-mix(in srgb, ${PROGRESS_HOT} ${(hotAlpha * 100).toFixed(0)}%, transparent)`;
-
-      if (pct <= 0.01) {
-        nav.style.background = `${PROGRESS_SHEEN}, linear-gradient(90deg, ${PROGRESS_BASE} 0%, ${PROGRESS_BASE} 100%)`;
-        return;
-      }
-      if (pct >= 99.9) {
-        nav.style.background = `${PROGRESS_SHEEN}, linear-gradient(90deg, ${PROGRESS_DONE} 0%, ${PROGRESS_DONE} 100%)`;
-        return;
-      }
-
-      const fill = `linear-gradient(90deg, ${PROGRESS_TAIL} 0%, ${PROGRESS_DONE} calc(${pct.toFixed(3)}% - 18%), ${PROGRESS_DONE} calc(${pct.toFixed(3)}% - 12px), ${hot} calc(${pct.toFixed(3)}% - 5px), ${hot} calc(${pct.toFixed(3)}%), ${PROGRESS_BLEED} calc(${pct.toFixed(3)}% + 8px), ${PROGRESS_BASE} calc(${pct.toFixed(3)}% + 18px), ${PROGRESS_BASE} 100%)`;
-      nav.style.background = `${PROGRESS_SHEEN}, ${fill}`;
+      const bar = progressRef.current;
+      if (!bar) return;
+      bar.style.width = `${progress * 100}%`;
     },
   });
 
@@ -124,9 +88,14 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className="fixed z-[60] glass-nav w-[95%] top-3 left-[2.5%] right-[2.5%] rounded-2xl"
+        className="fixed z-[60] glass-nav w-[95%] top-3 left-[2.5%] right-[2.5%]"
       >
         <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-2.5 xs:py-3">
+          <div
+            ref={progressRef}
+            className="absolute bottom-0 left-0 h-[2px] w-0"
+            style={{ backgroundColor: "var(--color-accent)" }}
+          />
           <button
             onClick={() => navigateTo("/home", "home")}
             className="transition-all duration-300 hover:scale-105"
@@ -201,10 +170,8 @@ export default function Navbar() {
           ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
         `}
         style={{
-          backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 80%, transparent)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          borderLeft: "1px solid var(--color-glass-border-strong)",
+          backgroundColor: "var(--color-bg-secondary)",
+          borderLeft: "1px solid var(--color-border-hover)",
         }}
       >
         <div className="flex flex-col h-full pt-16">

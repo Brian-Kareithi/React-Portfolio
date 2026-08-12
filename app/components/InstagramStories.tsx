@@ -95,16 +95,15 @@ export default function InstagramStories({ stories, className = "" }: InstagramS
                 style={{
                   background: isViewed
                     ? "var(--color-bg-tertiary)"
-                    : "linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary))",
+                    : "var(--color-accent)",
                   padding: 3,
-                  boxShadow: isViewed ? "none" : "0 0 20px var(--color-accent-glow)",
                 }}
               >
                 <div
                   className="w-full h-full rounded-full flex items-center justify-center"
                   style={{ backgroundColor: "var(--color-bg-primary)" }}
                 >
-                  <span className="drop-shadow-sm">{story.emoji}</span>
+                  <span>{story.emoji}</span>
                 </div>
               </div>
               <span
@@ -125,8 +124,7 @@ export default function InstagramStories({ stories, className = "" }: InstagramS
           className="fixed inset-0 z-[9998] flex items-center justify-center p-4 sm:p-8"
           onClick={closeStory}
           style={{
-            backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 95%, transparent)",
-            backdropFilter: "blur(16px)",
+            backgroundColor: "var(--color-bg-primary)",
           }}
         >
           <div
@@ -134,7 +132,7 @@ export default function InstagramStories({ stories, className = "" }: InstagramS
             onClick={(e) => e.stopPropagation()}
             style={{
               backgroundColor: "var(--color-bg-secondary)",
-              border: "1px solid var(--color-glass-border-strong)",
+              border: "1px solid var(--color-border)",
             }}
           >
             {/* Progress bar */}
@@ -160,7 +158,7 @@ export default function InstagramStories({ stories, className = "" }: InstagramS
             <button
               onClick={closeStory}
               className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-              style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 70%, transparent)" }}
+              style={{ backgroundColor: "var(--color-bg-tertiary)" }}
             >
               <X className="w-4 h-4" style={{ color: "var(--color-text-primary)" }} />
             </button>
@@ -183,7 +181,7 @@ export default function InstagramStories({ stories, className = "" }: InstagramS
                 <div
                   className="w-16 h-16 rounded-full flex items-center justify-center text-3xl"
                   style={{
-                    background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary))",
+                    background: "var(--color-accent)",
                     padding: 3,
                   }}
                 >
