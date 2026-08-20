@@ -231,182 +231,12 @@ body {
   color: var(--color-text-light);
 }
 
-/* ── iMessage loading screen (used by Hobbies section) ── */
-.chat-topbar {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid var(--color-border);
-  background: var(--color-glass-nav-bg);
-  flex-shrink: 0;
-  min-height: 3.25rem;
-}
-
-.chat-topbar-back {
-  font-size: 1.6rem;
-  line-height: 1;
-  color: var(--color-accent);
-  font-weight: 300;
-  width: 1.75rem;
-}
-
-.chat-topbar-center {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.15rem;
-}
-
-.chat-topbar-avatar {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-  background: var(--color-glass-bg);
-}
-
-.chat-topbar-name {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  line-height: 1.3;
-}
-
-.chat-topbar-status {
-  font-size: 0.6rem;
-  color: var(--color-text-muted);
-  line-height: 1.2;
-}
-
-.chat-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1rem 0;
-}
-
-.chat-body::-webkit-scrollbar {
-  width: 3px;
-}
-
-.chat-body::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 2px;
-}
-
-.messages {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.4rem;
-}
-
-.bubble-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.bubble-loading {
-  display: inline-block;
-  padding: 0.45rem 0.85rem;
-  border-radius: 1rem;
-  font-size: 0.9rem;
-  background: var(--color-glass-bg);
-  border: 1px solid var(--color-glass-border);
-  border-bottom-left-radius: 0.2rem;
-}
-
-.bubble-loading .loading b {
-  display: inline-block;
-  color: var(--color-text-muted);
-  font-size: 1.4rem;
-  line-height: 0.6;
-  animation: dotBounce 1.2s ease-in-out infinite;
-}
-
-.bubble-loading .loading b:nth-child(1) { animation-delay: 0ms; }
-.bubble-loading .loading b:nth-child(2) { animation-delay: 150ms; }
-.bubble-loading .loading b:nth-child(3) { animation-delay: 300ms; }
-
-@keyframes dotBounce {
-  0%, 60%, 100% {
-    opacity: 0.35;
-    transform: translateY(0);
-  }
-  30% {
-    opacity: 1;
-    transform: translateY(-2px);
-  }
-}
-
-.bubble-message {
-  display: inline-block;
-  padding: 0.6rem 1.05rem;
-  line-height: 1.45;
-  border-radius: 1rem;
-  font-size: 0.9rem;
-  word-wrap: break-word;
-  max-width: 100%;
-  background: #34c759;
-  color: #fff;
-  border-bottom-left-radius: 0.2rem;
-}
-
-@keyframes bubblePop {
-  0% {
-    opacity: 0;
-    transform: scale(0.7) translateY(8px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-/* ── Custom cursor (requires public/assets/cursor.png) ── */
-* {
-  cursor: url("/assets/cursor.png"), auto;
-}
-
-a,
-button,
-.button,
-.shadow__btn,
-.download-label,
-.project-card,
-.upcoming-card,
-.journey-card,
-.example-2 .icon-content a,
-.category-label,
-input[type="checkbox"],
-[data-scroll] {
-  cursor: url("/assets/cursor.png"), pointer;
-}
-
-[onclick],
-[role="button"],
-[tabindex] {
-  cursor: url("/assets/cursor.png"), pointer;
-}
-
 /* ── Flat hero ── */
-.hero-status {
-  font-family: "Orbitron", sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  color: var(--color-accent);
-  text-transform: uppercase;
-}
-
 .hero-name-brian {
   display: block;
-  font-family: "Orbitron", sans-serif;
-  font-size: clamp(1.15rem, 4vw, 2.4rem);
   font-weight: 700;
-  letter-spacing: 0.4em;
+  font-size: clamp(1.15rem, 4vw, 2.4rem);
+  letter-spacing: 0.28em;
   color: var(--color-text-primary);
 }
 
@@ -414,25 +244,17 @@ input[type="checkbox"],
 .hero-name-kareithi {
   display: inline-block;
   position: relative;
-  font-family: "Orbitron", sans-serif;
-  font-weight: 900;
+  font-weight: 800;
   font-size: clamp(2.4rem, 6.5vw, 6rem);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   color: var(--color-text-primary);
-  text-shadow: 0.055em 0.055em 0 var(--color-accent);
-  transition: text-shadow 0.2s ease, transform 0.2s ease;
-}
-.hero-name-kareithi:hover {
-  text-shadow: -0.055em 0.055em 0 var(--color-accent);
-  transform: translateX(0.055em);
 }
 
-/* Neon action buttons – flat, sharp-cornered */
+/* Action buttons – flat, sharp-cornered */
 .btn-neon {
-  font-family: "Orbitron", sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.85rem 1.6rem;
   border-radius: 0.5rem;
@@ -460,16 +282,3 @@ input[type="checkbox"],
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
-
-/* HUD brackets framing the name block */
-.hero-hud-corner {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  border-color: var(--color-accent);
-  pointer-events: none;
-}
-.hero-hud-corner-tl { top: -14px; left: -14px; border-top: 1.5px solid; border-left: 1.5px solid; }
-.hero-hud-corner-tr { top: -14px; right: -14px; border-top: 1.5px solid; border-right: 1.5px solid; }
-.hero-hud-corner-bl { bottom: -14px; left: -14px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
-.hero-hud-corner-br { bottom: -14px; right: -14px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
