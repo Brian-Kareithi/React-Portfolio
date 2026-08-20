@@ -1,18 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
-import { useTheme } from "@/app/components/ThemeProvider";
 import AboutSection from "@/app/about/page";
 import TechStackSection from "@/app/techstack/page";
 import ProjectsSection from "@/app/projects/page";
 import ContactSection from "@/app/contact/page";
 
-const roles = ["Fullstack Developer", "Grey Hat", "Cybersecurity and Robotics Enthusiast", "Gamer"];
+const roles = ["Fullstack Developer", "Cybersecurity Engineer", "React Native Developer", "Cloud & DevOps Enthusiast"];
 
 function HeroSection() {
-  const { theme } = useTheme();
   const [currentRole, setCurrentRole] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -38,17 +35,6 @@ function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
-      <video
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        src={theme === "light" ? "/lightthemebackground.mp4" : "/background.mp4"}
-        key={theme}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      />
       <div className="absolute top-0 left-0 w-full h-px"
         style={{ backgroundColor: "var(--color-accent)" }} />
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center min-h-screen pt-16 xs:pt-20 pb-12 xs:pb-16">
@@ -59,13 +45,9 @@ function HeroSection() {
               &gt; Hi, I am
             </p>
             <div className="relative inline-block mb-4 xs:mb-5">
-              <span className="hero-hud-corner hero-hud-corner-tl" aria-hidden="true" />
-              <span className="hero-hud-corner hero-hud-corner-tr" aria-hidden="true" />
-              <span className="hero-hud-corner hero-hud-corner-bl" aria-hidden="true" />
-              <span className="hero-hud-corner hero-hud-corner-br" aria-hidden="true" />
               <h1 style={{ color: "var(--color-text-primary)" }}>
                 <span className="hero-name-brian mb-2">BRIAN</span>
-                <span className="hero-name-kareithi" data-text="KAREITHI">KAREITHI</span>
+                <span className="hero-name-kareithi">KAREITHI</span>
               </h1>
             </div>
             <div className="h-9 xs:h-11 sm:h-14 mt-2 xs:mt-3 mb-7 xs:mb-9">
@@ -77,10 +59,12 @@ function HeroSection() {
             </div>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-3 xs:gap-4 mb-8 xs:mb-10">
-              <Link href="/hobbies" className="btn-neon btn-neon-primary">
-                Enter My Hobbies Section
-                <span aria-hidden="true">&#8961;</span>
-              </Link>
+              <button
+                onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+                className="btn-neon btn-neon-primary"
+              >
+                View My Work
+              </button>
             </div>
 
             <div className="flex justify-center lg:justify-start gap-3 xs:gap-4">
