@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ExternalLink, Github, ChevronDown, ChevronUp, Lock } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
+import { SectionHeader } from "@/app/components/ui/SectionHeader";
 
 interface Project {
   title: string;
@@ -64,7 +65,7 @@ const projects: Project[] = [
     details: [
       "Sleep tracking and habit monitoring with daily logging and progress visualization.",
       "Diet and nutrition management with meal tracking and health metric recording.",
-      "One of the few applications I actively use myself on a daily basis - a continuously evolving project driven by real-world requirements rather than theoretical use cases.",
+      "One of the few applications I actively use myself on a daily basis, a continuously evolving project driven by real-world requirements rather than theoretical use cases.",
     ],
     stack: ["Kotlin", "Android SDK", "Room Database", "MPAndroidChart"],
     repo: "https://github.com/Brian-Kareithi/Physical-Fitness",
@@ -177,27 +178,13 @@ export default function Projects() {
     <section id="projects" className="min-h-screen w-full py-28 md:py-36 px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
-      <div className="absolute top-0 left-0 w-1/3 h-px"
-        style={{ backgroundColor: "var(--color-accent)" }} />
       <div className="max-w-7xl mx-auto w-full">
-        <div className="text-center mb-20 animate-fade-in-up">
-          <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-3"
-            style={{ color: "var(--color-text-muted)" }}>
-            Projects
-          </p>
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-            <h2 className="text-3xl xs:text-4xl md:text-5xl font-bold leading-tight"
-              style={{ color: "var(--color-text-primary)" }}>
-              Work &amp; Experiments
-            </h2>
-            <div className="w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-          </div>
-          <p className="max-w-3xl mx-auto text-sm leading-relaxed"
-            style={{ color: "var(--color-text-secondary)" }}>
-            Most of my public projects are available on GitHub, where the source code, architecture decisions, and detailed README documentation can be explored. Whether you are here to learn, borrow ideas, review implementation details, or simply appreciate good software engineering practices, feel free to dive into the repositories.
-          </p>
-        </div>
+        <SectionHeader
+          index="03"
+          label="Work"
+          title={<>Work &amp; <em className="font-serif-accent">experiments</em></>}
+          description="Most of my public projects are available on GitHub, where the source code, architecture decisions, and detailed README documentation can be explored."
+        />
 
         <StaggerReveal>
         <div className="mb-12">
@@ -240,13 +227,13 @@ export default function Projects() {
             </p>
             <div className="flex flex-wrap gap-3">
               <a href="https://portfoliov2-ruby.vercel.app/" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-lg text-xs font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
+                className="flex items-center gap-2 px-5 py-3 rounded-lg text-xs font-medium transition-colors duration-200 min-h-[44px]"
                 style={{ border: "1px solid var(--color-accent)", color: "var(--color-accent)" }}>
                 <ExternalLink className="w-3 h-3" />
                 Live Demo
               </a>
               <a href="https://github.com/Brian-Kareithi/3d-website" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-lg text-xs font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
+                className="flex items-center gap-2 px-5 py-3 rounded-lg text-xs font-medium transition-colors duration-200 min-h-[44px]"
                 style={{ border: "1px solid var(--color-glass-border)", color: "var(--color-text-secondary)" }}>
                 <ExternalLink className="w-3 h-3" />
                 View Source
@@ -341,7 +328,8 @@ export default function Projects() {
                           {project.details.map((detail, i) => (
                             <li key={i} className="flex items-start gap-2 text-sm"
                               style={{ color: "var(--color-text-secondary)" }}>
-                              <span style={{ color: "var(--color-accent)" }}>&mdash;</span>
+                              <span className="mt-2 w-1 h-1 rounded-full flex-shrink-0"
+                                style={{ backgroundColor: "var(--color-accent)" }} />
                               {detail}
                             </li>
                           ))}
@@ -372,7 +360,7 @@ export default function Projects() {
                         style={{ borderTop: "1px solid var(--color-border)" }}>
                         {project.repo && (
                           <a href={project.repo} target="_blank" rel="noopener noreferrer"
-                            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
+                            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium transition-colors duration-200 min-h-[44px]"
                             style={{
                               border: "1px solid var(--color-border)",
                               color: "var(--color-text-secondary)",
@@ -393,7 +381,7 @@ export default function Projects() {
                         )}
                         {project.demo && (
                           <a href={project.demo} target="_blank" rel="noopener noreferrer"
-                            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
+                            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium transition-colors duration-200 min-h-[44px]"
                             style={{
                               border: "1px solid var(--color-accent)",
                               color: "var(--color-accent)",
@@ -413,14 +401,14 @@ export default function Projects() {
         </StaggerReveal>
 
         <StaggerReveal>
-        <div className="mt-16 text-center py-12 flat-card"
+        <div className="mt-16 text-center py-12 px-6 border-y"
           style={{ borderColor: "var(--color-border)" }}>
           <p className="text-sm leading-relaxed max-w-3xl mx-auto mb-6"
             style={{ color: "var(--color-text-secondary)" }}>
-            Great ideas are meant to inspire others, and software improves when knowledge is shared. Whether you are a developer, recruiter, founder, or fellow engineer - feel free to explore the repositories, examine the architecture decisions, suggest improvements, borrow ideas, or collaborate on future innovations.
+            Great ideas are meant to inspire others, and software improves when knowledge is shared. Whether you are a developer, recruiter, founder, or fellow engineer, feel free to explore the repositories, examine the architecture decisions, suggest improvements, borrow ideas, or collaborate on future innovations.
           </p>
           <a href="https://github.com/Brian-Kareithi" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-[1.02] min-h-[44px]"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-medium transition-colors duration-200 min-h-[44px]"
             style={{
               border: "1px solid var(--color-border)",
               color: "var(--color-text-secondary)",

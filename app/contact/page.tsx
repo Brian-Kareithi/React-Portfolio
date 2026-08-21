@@ -3,7 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt, FaUser, FaPaperPlane, FaClock, FaCode, FaHandshake } from "react-icons/fa";
+import { SectionHeader } from "@/app/components/ui/SectionHeader";
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt, FaUser, FaPaperPlane } from "react-icons/fa";
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -65,7 +66,7 @@ export default function Contact() {
     color: "var(--color-text-primary)",
     background: "transparent",
     border: "none",
-    borderBottom: `2px solid ${activeField === field ? "var(--color-accent)" : "var(--color-border)"}`,
+    borderBottom: `1px solid ${activeField === field ? "var(--color-accent)" : "var(--color-border)"}`,
     borderRadius: 0,
     transition: "border-color 0.25s ease",
   });
@@ -74,68 +75,48 @@ export default function Contact() {
     <section id="contact" className="w-full pt-24 md:pt-32 pb-8 md:pb-10 px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
-        <div className="absolute top-0 left-0 w-1/3 h-px"
-          style={{ backgroundColor: "var(--color-accent)" }} />
         <div className="max-w-4xl mx-auto w-full">
-          <div className="text-center mb-10 animate-fade-in-up">
-            <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-2"
-              style={{ color: "var(--color-text-muted)" }}>
-              Connect
-            </p>
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-7 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-              <h2 className="text-xl xs:text-2xl md:text-3xl font-bold leading-tight"
-                style={{ color: "var(--color-text-primary)" }}>
-                Get In Touch
-              </h2>
-              <div className="w-7 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-            </div>
-            <p className="max-w-lg mx-auto text-sm leading-relaxed"
-              style={{ color: "var(--color-text-secondary)" }}>
-              Have a project, collaboration idea, or just want to connect? I&apos;m always open to meaningful conversations.
-            </p>
-          </div>
+          <SectionHeader
+            index="04"
+            label="Connect"
+            title={<>Get in <em className="font-serif-accent">touch</em></>}
+            description="Have a project, collaboration idea, or just want to connect? I'm always open to meaningful conversations."
+          />
 
           <StaggerReveal staggerDelay={100}>
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-6">
-            <div className="lg:col-span-2 p-4 md:p-5 rounded-xl relative"
-              style={{
-                backgroundColor: "var(--color-bg-secondary)",
-                border: "1px solid var(--color-border)",
-              }}>
-              <div className="relative z-10">
-                <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-4 flex items-center gap-2"
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 xs:gap-5 mb-10">
+
+            {/* Left column */}
+            <div className="lg:col-span-2 flex flex-col gap-4 xs:gap-5">
+
+              {/* Info card */}
+              <div className="flat-card p-4">
+                <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-3 flex items-center gap-2"
                   style={{ color: "var(--color-text-muted)" }}>
                   <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
                   Info
                 </p>
 
-                <div className="space-y-2.5">
+                <div>
                   {[
                     { icon: FaEnvelope, label: "Email", value: "kareithibrian2@gmail.com", href: "mailto:kareithibrian2@gmail.com" },
                     { icon: FaPhone, label: "Phone", value: "+254 718 593 392", href: "tel:+254718593392" },
                     { icon: FaMapMarkerAlt, label: "Location", value: "Nairobi, Kenya", href: "#" },
-                  ].map((item) => (
-                    <div key={item.label} 
-                      className="group flex items-center gap-3 p-2.5 rounded-lg transition-all duration-300"
+                  ].map((item, i) => (
+                    <div key={item.label}
+                      className={`group flex items-center gap-3 py-2.5 transition-colors duration-300 ${i < 2 ? "border-b" : ""}`}
                       style={{
-                        border: "1px solid var(--color-border)",
+                        borderColor: "var(--color-border)",
                       }}>
-                      <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-105 flex-shrink-0"
-                        style={{
-                          backgroundColor: "var(--color-glass-icon-bg)",
-                          border: "1px solid var(--color-border)",
-                          color: "var(--color-accent)"
-                        }}>
-                        <item.icon className="w-3.5 h-3.5" />
-                      </div>
+                      <item.icon className="w-3.5 h-3.5 flex-shrink-0 transition-colors duration-300 group-hover:text-current"
+                        style={{ color: "var(--color-accent)" }} />
                       <div className="flex-1 min-w-0">
                         <p className="text-[8px] tracking-wider uppercase mb-0.5"
                           style={{ color: "var(--color-text-muted)" }}>
                           {item.label}
                         </p>
-                        <a href={item.href} 
-                          className="text-xs font-medium truncate block transition-colors hover:text-accent"
+                        <a href={item.href}
+                          className="text-xs font-medium truncate block transition-colors duration-200 hover:opacity-70"
                           style={{ color: "var(--color-text-primary)" }}>
                           {item.value}
                         </a>
@@ -143,72 +124,63 @@ export default function Contact() {
                     </div>
                   ))}
                 </div>
+              </div>
 
-                <div className="mt-5">
-                  <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-2.5 flex items-center gap-2"
-                    style={{ color: "var(--color-text-muted)" }}>
-                    <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-                    Social
-                  </p>
-                  <div className="flex gap-2">
-                    {[
-                      { icon: FaGithub, href: "https://github.com/Brian-Kareithi", label: "GitHub" },
-                      { icon: FaLinkedin, href: "https://linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
-                      { icon: FaInstagram, href: "https://www.instagram.com/kareithiv", label: "Instagram" },
-                    ].map((item) => (
-                      <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
-                        className="group w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105"
-                        style={{
-                          backgroundColor: "var(--color-glass-icon-bg)",
-                          border: "1px solid var(--color-border)",
-                          color: "var(--color-text-secondary)",
-                        }}>
-                        <item.icon className="w-4 h-4" />
-                      </a>
-                    ))}
-                  </div>
+              {/* Social card */}
+              <div className="flat-card p-4">
+                <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-3 flex items-center gap-2"
+                  style={{ color: "var(--color-text-muted)" }}>
+                  <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
+                  Social
+                </p>
+                <div className="flex gap-2">
+                  {[
+                    { icon: FaGithub, href: "https://github.com/Brian-Kareithi", label: "GitHub" },
+                    { icon: FaLinkedin, href: "https://linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
+                    { icon: FaInstagram, href: "https://www.instagram.com/kareithiv", label: "Instagram" },
+                  ].map((item) => (
+                    <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
+                      className="icon-chip w-9 h-9 rounded-lg flex items-center justify-center liquid-glass"
+                      style={{
+                        color: "var(--color-text-secondary)",
+                      }}>
+                      <item.icon className="w-4 h-4" />
+                    </a>
+                  ))}
                 </div>
+              </div>
 
-                <div className="mt-5 pt-4 grid grid-cols-2 gap-2"
-                  style={{ borderTop: "1px solid var(--color-border)" }}>
-                  <div className="text-center p-2 rounded-lg"
-                    style={{
-                      border: "1px solid var(--color-border)"
-                    }}>
-                    <p className="text-lg font-bold" style={{ color: "var(--color-accent)" }}>24h</p>
-                    <p className="text-[8px] uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }}>
-                      Response
-                    </p>
-                  </div>
-                  <div className="text-center p-2 rounded-lg"
-                    style={{
-                      border: "1px solid var(--color-border)"
-                    }}>
-                    <p className="text-lg font-bold" style={{ color: "var(--color-accent)" }}>100%</p>
-                    <p className="text-[8px] uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }}>
-                      Satisfaction
-                    </p>
-                  </div>
+              {/* Stats card */}
+              <div className="flat-card p-4 flex items-center gap-5">
+                <div>
+                  <p className="text-base font-bold" style={{ color: "var(--color-accent)" }}>24h</p>
+                  <p className="text-[8px] uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }}>
+                    Response
+                  </p>
+                </div>
+                <div className="w-px h-7" style={{ backgroundColor: "var(--color-border)" }} />
+                <div>
+                  <p className="text-base font-bold" style={{ color: "var(--color-accent)" }}>100%</p>
+                  <p className="text-[8px] uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }}>
+                    Satisfaction
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-3 p-4 md:p-5 rounded-xl relative"
-              style={{
-                backgroundColor: "var(--color-bg-secondary)",
-                border: "1px solid var(--color-border)",
-              }}>
-              <div className="relative z-10">
-                <p className="text-[10px] font-medium tracking-[0.3em] uppercase mb-4 flex items-center gap-2"
+            {/* Form card */}
+            <div className="lg:col-span-3">
+              <div className="flat-card p-4 h-full">
+                <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-3 flex items-center gap-2"
                   style={{ color: "var(--color-text-muted)" }}>
                   <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
                   Message
                 </p>
 
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="relative group">
-                      <div className="absolute left-3.5 top-3 z-10 transition-all duration-300"
+                      <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                         style={{ color: activeField === "name" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
                         <FaUser className="w-3.5 h-3.5" />
                       </div>
@@ -221,13 +193,13 @@ export default function Contact() {
                         onBlur={() => setActiveField(null)}
                         placeholder="Your Name"
                         required
-                        className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
+                        className="w-full pl-7 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
                         style={underlineStyle("name")}
                       />
                     </div>
 
                     <div className="relative group">
-                      <div className="absolute left-3.5 top-3 z-10 transition-all duration-300"
+                      <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                         style={{ color: activeField === "email" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
                         <FaEnvelope className="w-3.5 h-3.5" />
                       </div>
@@ -240,14 +212,14 @@ export default function Contact() {
                         onBlur={() => setActiveField(null)}
                         placeholder="your@email.com"
                         required
-                        className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
+                        className="w-full pl-7 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
                         style={underlineStyle("email")}
                       />
                     </div>
                   </div>
 
                   <div className="relative group">
-                    <div className="absolute left-3.5 top-3 z-10 transition-all duration-300"
+                    <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                       style={{ color: activeField === "subject" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
                       <FaPaperPlane className="w-3.5 h-3.5" />
                     </div>
@@ -260,13 +232,13 @@ export default function Contact() {
                       onBlur={() => setActiveField(null)}
                       placeholder="Subject"
                       required
-                      className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
+                      className="w-full pl-7 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
                       style={underlineStyle("subject")}
                     />
                   </div>
 
                   <div className="relative group">
-                    <div className="absolute left-3.5 top-3 z-10 transition-all duration-300"
+                    <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                       style={{ color: activeField === "message" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
                       <FaPaperPlane className="w-3.5 h-3.5" />
                     </div>
@@ -279,18 +251,14 @@ export default function Contact() {
                       placeholder="Tell me about your project..."
                       required
                       rows={4}
-                      className="w-full pl-9 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300 resize-none"
+                      className="w-full pl-7 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300 resize-none"
                       style={underlineStyle("message")}
                     />
                   </div>
 
                   <button type="submit" disabled={isSubmitting}
-                    className="w-full py-3 text-sm font-semibold tracking-wider uppercase transition-all duration-300 rounded-lg flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden group min-h-[44px]"
-                    style={{
-                      backgroundColor: "var(--color-accent)",
-                      color: "var(--color-text-light)",
-                      opacity: isSubmitting ? 0.6 : 1,
-                    }}>
+                    className="btn-neon btn-neon-primary w-full justify-center min-h-[44px]"
+                    style={{ opacity: isSubmitting ? 0.6 : 1 }}>
                     
                     {isSubmitting ? (
                       <span className="flex items-center gap-2.5">
@@ -338,59 +306,6 @@ export default function Contact() {
                 </form>
               </div>
             </div>
-          </div>
-          </StaggerReveal>
-
-          <StaggerReveal staggerDelay={100}>
-            <div className="grid grid-cols-3 gap-3 mb-0">
-            {[
-              { 
-                icon: FaClock,
-                title: "Response Time", 
-                desc: "I aim to respond to all inquiries within 24 hours during business days.",
-              },
-              { 
-                icon: FaHandshake,
-                title: "Open To", 
-                desc: "Freelance projects, full-time positions, research collaborations, and speaking engagements.",
-              },
-              { 
-                icon: FaCode,
-                title: "Preferred Stack", 
-                desc: "React, Next.js, Node.js, TypeScript, PostgreSQL, and cloud-native architectures.",
-              },
-            ].map((item, index) => (
-              <div key={item.title} 
-                className="group p-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] relative"
-                style={{
-                  backgroundColor: "var(--color-bg-secondary)",
-                  border: "1px solid var(--color-border)",
-                }}>
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-2.5">
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-105 flex-shrink-0"
-                      style={{
-                        backgroundColor: "var(--color-glass-icon-bg)",
-                        border: "1px solid var(--color-border)",
-                        color: "var(--color-accent)"
-                      }}>
-                      <item.icon className="w-3.5 h-3.5" />
-                    </div>
-                    <span className="text-[9px] font-mono opacity-30" style={{ color: "var(--color-text-muted)" }}>
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                  </div>
-                  <h4 className="font-semibold text-xs mb-1.5"
-                    style={{ color: "var(--color-text-primary)" }}>
-                    {item.title}
-                  </h4>
-                  <p className="text-[11px] leading-relaxed"
-                    style={{ color: "var(--color-text-secondary)" }}>
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
           </div>
           </StaggerReveal>
         </div>

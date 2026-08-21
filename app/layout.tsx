@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
+import { DM_Sans, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import ClientLayout from "./ClientLayout";
 import "./globals.css";
@@ -8,6 +8,13 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-dm-sans",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
 });
 
 const siteUrl = "https://kareithi.vercel.app";
@@ -93,8 +100,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`dark scroll-smooth ${dmSans.variable}`} suppressHydrationWarning>
-      <head />
+    <html lang="en" className={`dark scroll-smooth ${dmSans.variable} ${instrumentSerif.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="light"){document.documentElement.classList.remove("dark")}else if(t==="dark"){document.documentElement.classList.add("dark")}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches){document.documentElement.classList.remove("dark")}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="relative overflow-x-clip antialiased" suppressHydrationWarning>
         <ClientLayout>{children}</ClientLayout>
         <Analytics />

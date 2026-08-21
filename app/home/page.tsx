@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
+import { Parallax } from "@/app/components/ui/Parallax";
 import AboutSection from "@/app/about/page";
 import TechStackSection from "@/app/techstack/page";
 import ProjectsSection from "@/app/projects/page";
@@ -50,13 +51,19 @@ function HeroSection() {
                 <span className="hero-name-kareithi">KAREITHI</span>
               </h1>
             </div>
-            <div className="h-9 xs:h-11 sm:h-14 mt-2 xs:mt-3 mb-7 xs:mb-9">
+            <div className="h-9 xs:h-11 sm:h-14 mt-2 xs:mt-3 mb-4 xs:mb-5">
               <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-wide"
                 style={{ color: "var(--color-text-secondary)" }}>
                 <span>{displayText}</span>
-                <span className="ml-1.5 font-bold animate-pulse" style={{ color: "var(--color-accent)" }}>|</span>
+                <span className="type-caret" aria-hidden="true" />
               </p>
             </div>
+
+            <p className="max-w-md mx-auto lg:mx-0 text-xs xs:text-sm leading-relaxed mb-7 xs:mb-9"
+              style={{ color: "var(--color-text-secondary)" }}>
+              I design and build <em className="font-serif-accent">secure</em>, scalable software,
+              from mobile apps to cloud-native platforms.
+            </p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-3 xs:gap-4 mb-8 xs:mb-10">
               <button
@@ -64,6 +71,12 @@ function HeroSection() {
                 className="btn-neon btn-neon-primary"
               >
                 View My Work
+              </button>
+              <button
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                className="btn-neon btn-neon-ghost"
+              >
+                Get in Touch
               </button>
             </div>
 
@@ -75,7 +88,7 @@ function HeroSection() {
                 { href: "mailto:kareithibrian2@gmail.com", icon: IoMailOutline, label: "Email" },
               ].map(({ href, icon: Icon, label }) => (
                 <a key={label} href={href}
-                  className="p-3 xs:p-3.5 transition-all duration-300 hover:scale-105 liquid-glass"
+                  className="icon-chip p-3 xs:p-3.5 liquid-glass"
                   style={{ color: "var(--color-text-secondary)" }}
                   target="_blank" rel="noopener noreferrer" aria-label={label}>
                   <Icon className="w-4 h-4 xs:w-5 xs:h-5" />
@@ -84,7 +97,7 @@ function HeroSection() {
             </div>
           </div>
 
-          <div className="flex-1 flex justify-center order-1 lg:order-2 lg:ml-[20%]">
+          <Parallax className="flex-1 flex justify-center order-1 lg:order-2 lg:ml-[20%] w-full" speed={28}>
             <div className="relative group">
               <div className="relative w-56 h-56 xs:w-64 xs:h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem]">
                 <div className="absolute -inset-3 rounded-sm transition-all duration-500 group-hover:-inset-2"
@@ -118,7 +131,7 @@ function HeroSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </Parallax>
         </div>
 
         <div className="absolute bottom-8 xs:bottom-10 flex flex-col items-center gap-2 animate-float">

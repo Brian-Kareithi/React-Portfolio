@@ -91,14 +91,16 @@ export default function Navbar() {
         className="fixed z-[60] glass-nav w-[95%] top-3 left-[2.5%] right-[2.5%]"
       >
         <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-2.5 xs:py-3">
-          <div
-            ref={progressRef}
-            className="absolute bottom-0 left-0 h-[2px] w-0"
-            style={{ backgroundColor: "var(--color-accent)" }}
-          />
+          <div className="absolute bottom-0 left-4 right-4">
+            <div
+              ref={progressRef}
+              className="h-[2px] w-0"
+              style={{ backgroundColor: "var(--color-accent)" }}
+            />
+          </div>
           <button
             onClick={() => navigateTo("/home", "home")}
-            className="transition-all duration-300 hover:scale-105"
+            className="transition-opacity duration-300 hover:opacity-70"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -130,7 +132,7 @@ export default function Navbar() {
 
             <button
               onClick={toggleTheme}
-              className="ml-3 p-2 rounded-lg transition-all duration-300 hover:scale-105"
+              className="ml-3 p-2 rounded-lg transition-all duration-300 hover:opacity-70"
               style={{ color: "var(--color-text-secondary)" }}
               aria-label="Toggle theme"
             >

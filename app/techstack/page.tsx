@@ -2,6 +2,7 @@
 import { ReactNode } from "react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
+import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { 
   BiLogoTypescript, 
   BiLogoJava, 
@@ -100,11 +101,23 @@ const techs: TechCategory[] = [
 ];
 
 const levelConfig = {
-  expert: { label: "Expert" },
-  advanced: { label: "Advanced" },
-  intermediate: { label: "Intermediate" },
-  familiar: { label: "Familiar" },
+  expert: { label: "Expert", dots: 4 },
+  advanced: { label: "Advanced", dots: 3 },
+  intermediate: { label: "Intermediate", dots: 2 },
+  familiar: { label: "Familiar", dots: 1 },
 };
+
+function LevelDots({ level }: { level: TechItem["level"] }) {
+  const filled = levelConfig[level].dots;
+  return (
+    <span className="flex items-center gap-[3px] ml-0.5" aria-label={levelConfig[level].label}>
+      {[0, 1, 2, 3].map((i) => (
+        <span key={i} className="w-1 h-1 rounded-full"
+          style={{ backgroundColor: i < filled ? "var(--color-accent)" : "var(--color-border)" }} />
+      ))}
+    </span>
+  );
+}
 
 export default function TechStack() {
   const allItems = techs.flatMap((cat) => cat.items);
@@ -115,110 +128,85 @@ export default function TechStack() {
     return acc;
   }, {} as Record<string, number>);
 
-  const levelOrder = ["expert", "advanced", "intermediate", "familiar"];
-  const sortedLevels = levelOrder.filter(level => levelCounts[level]);
+  const levelOrder = ["expert", "advanced", "intermediate", "familiar"] as const;
+  const sortedLevels = levelOrder.filter((level) => levelCounts[level]);
 
   return (
     <section id="techstack" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3 xs:px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
-      <div className="absolute top-0 left-0 w-1/3 h-px"
-        style={{ backgroundColor: "var(--color-accent)" }} />
       <div className="max-w-6xl mx-auto w-full">
-        <div className="text-center mb-12 xs:mb-16 sm:mb-20 animate-fade-in-up">
-          <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.3em] uppercase mb-2 xs:mb-3"
-            style={{ color: "var(--color-text-muted)" }}>
-            Toolbox
-          </p>
-          <div className="flex items-center justify-center gap-2 xs:gap-3 mb-4 xs:mb-6">
-            <div className="w-6 xs:w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-            <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold leading-tight"
-              style={{ color: "var(--color-text-primary)" }}>
-              Technical Stack
-            </h2>
-            <div className="w-6 xs:w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-          </div>
-          <p className="max-w-2xl mx-auto text-xs xs:text-sm leading-relaxed px-2 xs:px-0"
-            style={{ color: "var(--color-text-secondary)" }}>
-            Technologies I work with, categorized by proficiency
-          </p>
-        </div>
+        <SectionHeader
+          index="02"
+          label="Toolbox"
+          title={<>Technical <em className="font-serif-accent">stack</em></>}
+          description="Technologies I work with, categorized by proficiency."
+        />
 
-        <StaggerReveal staggerDelay={100}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 mb-12 xs:mb-16">
-          {techs.map((category) => (
+        <div className="border-b" style={{ borderColor: "var(--color-border)" }}>
+          {techs.map((category, catIndex) => (
             <div key={category.heading}
-              className="p-4 xs:p-5 sm:p-6 md:p-8 transition-all duration-300 hover:scale-[1.02] liquid-card"
-              style={{ borderColor: "var(--color-glass-border-strong)" }}>
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-base xs:text-lg font-bold tracking-tight"
-                  style={{ color: "var(--color-text-primary)" }}>
-                  {category.heading}
-                </h3>
-                <span className="text-[10px] xs:text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
-                  {String(category.items.length).padStart(2, "0")}
-                </span>
+              className="grid grid-cols-1 md:grid-cols-12 gap-4 xs:gap-6 py-8 xs:py-10 border-t"
+              style={{ borderColor: "var(--color-border)" }}>
+              <div className="md:col-span-4">
+                <div className="flex items-center gap-3 mb-1.5">
+                  <span className="text-[10px] font-mono font-medium"
+                    style={{ color: "var(--color-accent)" }}>
+                    {String(catIndex + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="text-base xs:text-lg font-bold tracking-tight"
+                    style={{ color: "var(--color-text-primary)" }}>
+                    {category.heading}
+                  </h3>
+                </div>
+                <p className="text-xs xs:text-sm" style={{ color: "var(--color-text-muted)" }}>
+                  {category.description}
+                </p>
               </div>
-              <p className="text-xs xs:text-sm mb-4 xs:mb-5 sm:mb-6" style={{ color: "var(--color-text-muted)" }}>
-                {category.description}
-              </p>
-              <StaggerReveal staggerDelay={50}>
-              <div className="flex flex-wrap gap-1 xs:gap-1.5">
-                {category.items.map((item, idx) => {
-                  return (
+
+              <div className="md:col-span-8">
+                <StaggerReveal staggerDelay={40}>
+                <div className="flex flex-wrap gap-1.5 xs:gap-2">
+                  {category.items.map((item, idx) => (
                     <div key={idx}
-                      className="flex items-center gap-1.5 xs:gap-2 px-2 xs:px-3 py-1.5 xs:py-2 text-[11px] xs:text-sm transition-all duration-200 hover:scale-[1.02] liquid-card"
+                      className="flex items-center gap-2 px-3 py-2 text-xs sm:text-sm liquid-card"
                       style={{
                         borderColor: "var(--color-glass-border)",
                       }}>
-                      <span className="text-sm xs:text-base" style={{ color: "var(--color-text-secondary)" }}>
+                      <span className="text-base" style={{ color: "var(--color-text-secondary)" }}>
                         {item.icon}
                       </span>
                       <span className="font-medium" style={{ color: "var(--color-text-primary)" }}>
                         {item.title}
                       </span>
-                      <span className="text-[8px] xs:text-[9px] tracking-wider uppercase ml-0.5 xs:ml-1"
-                        style={{ color: "var(--color-text-muted)" }}>
-                        {levelConfig[item.level].label}
-                      </span>
+                      <LevelDots level={item.level} />
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
+                </StaggerReveal>
               </div>
-              </StaggerReveal>
             </div>
           ))}
         </div>
-        </StaggerReveal>
 
-        <div className="text-center py-6 xs:py-8 sm:py-10 px-3 xs:px-4 liquid-card"
-          style={{ borderColor: "var(--color-glass-border-strong)" }}>
-          <div className="flex justify-center gap-4 xs:gap-6 sm:gap-10 mb-4 xs:mb-6 flex-wrap">
-            {sortedLevels.map((level) => {
-              const count = levelCounts[level];
-              const percentage = Math.round((count / total) * 100);
-              const config = levelConfig[level as keyof typeof levelConfig];
-              return (
-                <div key={level} className="stagger-item text-center">
-                  <div className="text-xl xs:text-2xl font-bold mb-1"
-                    style={{ color: "var(--color-accent)" }}>
-                    {count}
-                  </div>
-                  <div className="text-[8px] xs:text-[9px] tracking-[0.2em] uppercase"
-                    style={{ color: "var(--color-text-muted)" }}>
-                    {config.label}
-                  </div>
-                  <div className="text-[10px] xs:text-xs font-mono mt-1 opacity-50"
-                    style={{ color: "var(--color-text-muted)" }}>
-                    {percentage}%
-                  </div>
-                </div>
-              );
-            })}
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-6 xs:py-8">
+          <div className="flex flex-wrap gap-x-6 gap-y-3">
+            {sortedLevels.map((level) => (
+              <div key={level} className="flex items-center gap-2">
+                <LevelDots level={level} />
+                <span className="text-[10px] tracking-[0.15em] uppercase"
+                  style={{ color: "var(--color-text-muted)" }}>
+                  {levelConfig[level].label}
+                </span>
+                <span className="text-[10px] font-mono" style={{ color: "var(--color-accent)" }}>
+                  {levelCounts[level]}
+                </span>
+              </div>
+            ))}
           </div>
-          <div className="text-[10px] xs:text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
+          <span className="text-[10px] xs:text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
             {total} technologies across {techs.length} categories
-          </div>
+          </span>
         </div>
       </div>
       </ScrollReveal>
