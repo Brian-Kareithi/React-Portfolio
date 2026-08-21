@@ -1,56 +1,65 @@
 "use client";
 
-import { useRef, useEffect, useState, ReactNode } from "react";
+import { useRef, useEffect, ReactNode } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ScrollRevealProps {
   children: ReactNode;
   className?: string;
   delay?: number;
-  direction?: "up" | "down" | "left" | "right" | "scale";
+  direction?: "up" | "down" | "left" | "right" | "scale" | "none";
+  duration?: number;
+  distance?: number;
 }
 
-export function ScrollReveal({ children, className = "", delay = 0, direction = "up" }: ScrollRevealProps) {
+export function ScrollReveal({
+  children,
+  className = "",
+  delay = 0,
+  direction = "up",
+  duration = 0.8,
+  distance = 32,
+}: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
-    );
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(el, { opacity: 1 });
+      return;
+    }
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+    const from: gsap.TweenVars = { opacity: 0 };
+    switch (direction) {
+      case "up": from.y = distance; break;
+      case "down": from.y = -distance; break;
+      case "left": from.x = distance; break;
+      case "right": from.x = -distance; break;
+      case "scale": from.scale = 0.94; break;
+    }
 
-  const directionTransforms: Record<string, string> = {
-    up: "translateY(20px)",
-    down: "translateY(-20px)",
-    left: "translateX(20px)",
-    right: "translateX(-20px)",
-    scale: "scale(0.97)",
-  };
+    const ctx = gsap.context(() => {
+      gsap.fromTo(el, from, {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scale: 1,
+        duration,
+        delay,
+        ease: "power3.out",
+        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+      });
+    }, el);
+    return () => ctx.revert();
+  }, [delay, direction, duration, distance]);
 
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0) scale(1)" : directionTransforms[direction],
-        transition: `opacity 0.4s ease-out, transform 0.4s ease-out`,
-        transitionDelay: `${delay}ms`,
-        willChange: isVisible ? "auto" : "opacity, transform",
-      }}
-    >
+    <div ref={ref} className={className} style={{ opacity: 0 }}>
       {children}
     </div>
   );

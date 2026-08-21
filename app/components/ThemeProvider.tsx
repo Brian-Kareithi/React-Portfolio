@@ -13,18 +13,35 @@ const ThemeContext = createContext<ThemeContextType>({
   toggleTheme: () => {},
 });
 
+function getInitialTheme(): Theme {
+  if (typeof window === "undefined") return "dark";
+  try {
+    const stored = window.localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") return stored;
+    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  } catch {
+    return "dark";
+  }
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    document.documentElement.classList.add("dark");
+    /* eslint-disable-next-line react-hooks/set-state-in-effect */
+    setTheme(getInitialTheme());
   }, []);
 
-  const toggleTheme = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    document.documentElement.classList.toggle("dark");
-  };
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    try {
+      window.localStorage.setItem("theme", theme);
+    } catch {
+      /* storage unavailable */
+    }
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

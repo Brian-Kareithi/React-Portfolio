@@ -1,6 +1,10 @@
 "use client";
 
-import { useRef, useEffect, useState, Children, ReactNode, isValidElement } from "react";
+import { useRef, useEffect, Children, isValidElement, ReactNode } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface StaggerRevealProps {
   children: ReactNode;
@@ -9,50 +13,44 @@ interface StaggerRevealProps {
   threshold?: number;
 }
 
-export function StaggerReveal({ children, className = "", staggerDelay = 70, threshold = 0.05 }: StaggerRevealProps) {
+export function StaggerReveal({ children, className = "", staggerDelay = 70 }: StaggerRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !el.children.length) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold, rootMargin: "0px 0px -20px 0px" }
-    );
+    const targets = Array.from(el.children) as HTMLElement[];
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(targets, { clearProps: "all" });
+      return;
+    }
 
-  const childArray = Children.toArray(children);
+    gsap.set(targets, { opacity: 0, y: 24 });
+
+    const ctx = gsap.context(() => {
+      gsap.to(targets, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: staggerDelay / 1000,
+        scrollTrigger: { trigger: el, start: "top 85%", once: true },
+      });
+    }, el);
+    return () => ctx.revert();
+  }, [staggerDelay]);
+
+  const hasMultiple = Children.toArray(children).filter(isValidElement).length > 1;
+
+  if (!hasMultiple) {
+    return <div ref={ref} className={className}>{children}</div>;
+  }
 
   return (
-    <div ref={ref} className={className}>
-      {childArray.map((child, index) => {
-        if (!isValidElement(child)) return child;
-        return (
-          <div
-            key={index}
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible
-                ? "translateY(0) scale(1)"
-                : "translateY(16px) scale(0.98)",
-              transition: "opacity 0.35s ease-out, transform 0.35s ease-out",
-              transitionDelay: visible ? `${index * staggerDelay}ms` : "0ms",
-            }}
-          >
-            {child}
-          </div>
-        );
-      })}
+    <div ref={ref} className={className} style={{ opacity: 1 }}>
+      {children}
     </div>
   );
 }

@@ -3,6 +3,8 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
+import { SectionHeader } from "@/app/components/ui/SectionHeader";
+import { CountUp } from "@/app/components/ui/CountUp";
 
 interface TimelineItem {
   title: string;
@@ -49,6 +51,13 @@ const categoryConfig: Record<string, { label: string; icon: string }> = {
 
 const tabs = Object.keys(categoryConfig);
 
+const stats = [
+  { value: 5, suffix: "+", label: "Years in Tech" },
+  { value: 6, suffix: "", label: "Certifications" },
+  { value: 3, suffix: "", label: "Sectors" },
+  { value: 50, suffix: "+", label: "Projects" },
+];
+
 export default function About() {
   const [activeTab, setActiveTab] = useState("education");
   const [activeSubTab, setActiveSubTab] = useState(0);
@@ -85,54 +94,31 @@ export default function About() {
     <section id="about" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3 xs:px-4 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
-      <div className="absolute top-0 left-0 w-1/3 h-px"
-        style={{ backgroundColor: "var(--color-accent)" }} />
       <div className="max-w-7xl mx-auto w-full">
-        <div className="text-center mb-12 xs:mb-16 sm:mb-20 animate-fade-in-up">
-          <p className="text-[9px] xs:text-[10px] font-medium tracking-[0.3em] uppercase mb-2 xs:mb-3"
-            style={{ color: "var(--color-text-muted)" }}>
-            Career Chronicle
-          </p>
-          <div className="flex items-center justify-center gap-2 xs:gap-3 mb-4 xs:mb-6">
-            <div className="w-6 xs:w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-            <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold leading-tight"
-              style={{ color: "var(--color-text-primary)" }}>
-              Professional Journey
-            </h2>
-            <div className="w-6 xs:w-8 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-          </div>
-          <p className="max-w-2xl mx-auto text-xs xs:text-sm leading-relaxed px-2 xs:px-0"
-            style={{ color: "var(--color-text-secondary)" }}>
-            Academic foundation, technical certifications, and professional experience
-            demonstrating deliberate growth and specialization.
-          </p>
-        </div>
+        <SectionHeader
+          index="01"
+          label="Journey"
+          title={<>Professional <em className="font-serif-accent">journey</em></>}
+          description="Academic foundation, technical certifications, and professional experience demonstrating deliberate growth and specialization."
+        />
 
-        <StaggerReveal staggerDelay={100}>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 mb-12 xs:mb-16 sm:mb-20">
-          {[
-            { label: "Years in Tech", value: "5+" },
-            { label: "Certifications", value: "6" },
-            { label: "Sectors", value: "3" },
-            { label: "Projects", value: "50+" },
-          ].map((stat) => (
-            <div key={stat.label}
-              className="text-center py-6 xs:py-8 px-2 xs:px-4 transition-all duration-300 hover:scale-[1.02] liquid-card"
-              style={{
-                borderColor: "var(--color-accent)",
-              }}>
-              <div className="text-2xl xs:text-3xl font-bold mb-1"
-                style={{ color: "var(--color-accent)" }}>
-                {stat.value}
+        <div className="border-y mb-12 xs:mb-16 sm:mb-20"
+          style={{ borderColor: "var(--color-border)" }}>
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="py-6 xs:py-8 px-2 text-center">
+                <span className="text-2xl xs:text-3xl sm:text-4xl font-bold mb-1 block"
+                  style={{ color: "var(--color-accent)" }}>
+                  <CountUp value={stat.value} suffix={stat.suffix} />
+                </span>
+                <span className="text-[9px] xs:text-[10px] tracking-[0.2em] uppercase"
+                  style={{ color: "var(--color-text-muted)" }}>
+                  {stat.label}
+                </span>
               </div>
-              <div className="text-[9px] xs:text-[10px] tracking-[0.2em] uppercase"
-                style={{ color: "var(--color-text-muted)" }}>
-                {stat.label}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-        </StaggerReveal>
 
         <div className="border" style={{ borderColor: "var(--color-border)" }}>
           <StaggerReveal staggerDelay={80}>
@@ -146,7 +132,7 @@ export default function About() {
                 }}>
                 <div className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ease-in-out ${activeTab === tab ? "w-full" : "w-0"}`}
                   style={{ backgroundColor: "var(--color-accent)" }} />
-                
+
                 <span className="mr-1 xs:mr-2">{categoryConfig[tab].icon}</span>
                 {categoryConfig[tab].label}
                 <span className="ml-1 xs:ml-2 text-[9px] xs:text-[10px] font-mono" style={{ opacity: 0.5 }}>
@@ -210,7 +196,7 @@ export default function About() {
 
                     <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 xs:gap-4 sm:gap-6">
                       {activeItems[activeSubTab].significance && (
-                        <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card"
+                        <div className="p-4 xs:p-5 sm:p-6 liquid-card"
                           style={{
                             borderColor: "var(--color-glass-border-strong)",
                           }}>
@@ -225,7 +211,7 @@ export default function About() {
                         </div>
                       )}
                       {activeItems[activeSubTab].metrics && (
-                        <div className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card"
+                        <div className="p-4 xs:p-5 sm:p-6 liquid-card"
                           style={{
                             borderColor: "var(--color-glass-border-strong)",
                           }}>
@@ -237,7 +223,8 @@ export default function About() {
                             {activeItems[activeSubTab].metrics!.map((metric, i) => (
                               <li key={i} className="flex items-start gap-2 text-xs xs:text-sm"
                                 style={{ color: "var(--color-text-secondary)" }}>
-                                <span className="mt-0.5 xs:mt-1 flex-shrink-0" style={{ color: "var(--color-accent)" }}>&mdash;</span>
+                                <span className="mt-2 w-1 h-1 rounded-full flex-shrink-0"
+                                  style={{ backgroundColor: "var(--color-accent)" }} />
                                 {metric}
                               </li>
                             ))}
@@ -278,7 +265,7 @@ export default function About() {
             { title: "Diverse Experience", desc: "Exposure across public sector, private enterprise, and entrepreneurial ventures" },
             { title: "Strategic Focus", desc: "Current emphasis on scalable solutions and professional mentorship" },
           ].map((item) => (
-            <div key={item.title} className="p-4 xs:p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] liquid-card"
+            <div key={item.title} className="p-4 xs:p-5 sm:p-6 liquid-card"
               style={{ borderColor: "var(--color-glass-border-strong)" }}>
               <div className="w-6 xs:w-8 h-px mb-3 xs:mb-4" style={{ backgroundColor: "var(--color-accent)" }} />
               <h4 className="font-semibold mb-1.5 xs:mb-2 text-xs xs:text-sm"
