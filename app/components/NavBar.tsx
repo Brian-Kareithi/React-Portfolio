@@ -1,16 +1,17 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 import { useTheme } from "@/app/components/ThemeProvider";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
 import { FiSun, FiMoon } from "react-icons/fi";
 
 const sections = [
-  { path: "/home", id: "home", label: "Home" },
-  { path: "/about", id: "about", label: "About" },
-  { path: "/techstack", id: "techstack", label: "Stack" },
-  { path: "/projects", id: "projects", label: "Work" },
-  { path: "/contact", id: "contact", label: "Contact" },
+  { path: "/", label: "Home" },
+  { path: "/about", label: "About" },
+  { path: "/techstack", label: "Stack" },
+  { path: "/projects", label: "Work" },
+  { path: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -18,30 +19,10 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
   const navRef = useRef<HTMLElement | null>(null);
   const progressRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    if (pathname !== "/home") return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        }
-      },
-      { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" }
-    );
-
-    for (const section of sections) {
-      const el = document.getElementById(section.id);
-      if (el) observer.observe(el);
-    }
-
-    return () => observer.disconnect();
-  }, [pathname]);
+  const activeSection = sections.find((section) => section.path === pathname)?.path ?? "";
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,10 +32,7 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, [isMobileMenuOpen]);
 
-  // Flat scroll progress: a solid cobalt line sweeping along the nav base.
   useScrollProgress({
-    from: pathname === "/home" ? "#home" : null,
-    to: pathname === "/home" || pathname === "/contact" ? "#contact" : null,
     onFrame: (progress) => {
       const bar = progressRef.current;
       if (!bar) return;
@@ -62,19 +40,8 @@ export default function Navbar() {
     },
   });
 
-  const displayActive = pathname === "/home"
-    ? activeSection
-    : sections.find((section) => section.path === pathname)?.id ?? "";
-
-  const navigateTo = (path: string, id: string) => {
+  const navigateTo = (path: string) => {
     setIsMobileMenuOpen(false);
-    if (pathname === "/home") {
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        return;
-      }
-    }
     if (path === pathname) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
@@ -86,28 +53,13 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        ref={navRef}
-        className="fixed z-[60] glass-nav w-[95%] top-3 left-[2.5%] right-[2.5%]"
-      >
+      <nav ref={navRef} className="fixed z-[60] glass-nav w-[95%] top-3 left-[2.5%] right-[2.5%]">
         <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-2.5 xs:py-3">
           <div className="absolute bottom-0 left-4 right-4">
-            <div
-              ref={progressRef}
-              className="h-[2px] w-0"
-              style={{ backgroundColor: "var(--color-accent)" }}
-            />
+            <div ref={progressRef} className="h-[2px] w-0" style={{ backgroundColor: "var(--color-accent)" }} />
           </div>
-          <button
-            onClick={() => navigateTo("/home", "home")}
-            className="transition-opacity duration-300 hover:opacity-70"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo.png"
-              alt="Brian Kareithi"
-              className="h-9 w-auto"
-            />
+          <button onClick={() => navigateTo("/")} className="transition-opacity duration-300 hover:opacity-70" aria-label="Go to home">
+            <Image src="/logo.png" alt="Brian Kareithi" width={120} height={36} className="h-9 w-auto" priority />
           </button>
 
           <div className="hidden md:flex items-center gap-1">
@@ -116,12 +68,12 @@ export default function Navbar() {
                 key={section.path}
                 className="relative px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
                 style={{
-                  color: displayActive === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
+                  color: activeSection === section.path ? "var(--color-accent)" : "var(--color-text-secondary)",
                 }}
-                onClick={() => navigateTo(section.path, section.id)}
+                onClick={() => navigateTo(section.path)}
               >
                 {section.label}
-                {displayActive === section.id && (
+                {activeSection === section.path && (
                   <div
                     className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[1.5px] rounded-full"
                     style={{ backgroundColor: "var(--color-accent)" }}
@@ -150,14 +102,24 @@ export default function Navbar() {
               {theme === "dark" ? <FiSun className="w-3.5 h-3.5" /> : <FiMoon className="w-3.5 h-3.5" />}
             </button>
 
-            <button className="flex flex-col items-center justify-center w-10 h-10 group" onClick={toggleMobileMenu}
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}>
-              <span className={`w-5 h-px rounded-full transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-px" : ""}`}
-                style={{ backgroundColor: "var(--color-text-primary)" }} />
-              <span className={`w-5 h-px rounded-full transition-all duration-300 mt-[5px] ${isMobileMenuOpen ? "opacity-0" : ""}`}
-                style={{ backgroundColor: "var(--color-text-primary)" }} />
-              <span className={`w-5 h-px rounded-full transition-all duration-300 mt-[5px] ${isMobileMenuOpen ? "-rotate-45 -translate-y-px" : ""}`}
-                style={{ backgroundColor: "var(--color-text-primary)" }} />
+            <button
+              className="flex flex-col items-center justify-center w-10 h-10 group"
+              onClick={toggleMobileMenu}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
+            >
+              <span
+                className={`w-5 h-px rounded-full transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-px" : ""}`}
+                style={{ backgroundColor: "var(--color-text-primary)" }}
+              />
+              <span
+                className={`w-5 h-px rounded-full transition-all duration-300 mt-[5px] ${isMobileMenuOpen ? "opacity-0" : ""}`}
+                style={{ backgroundColor: "var(--color-text-primary)" }}
+              />
+              <span
+                className={`w-5 h-px rounded-full transition-all duration-300 mt-[5px] ${isMobileMenuOpen ? "-rotate-45 -translate-y-px" : ""}`}
+                style={{ backgroundColor: "var(--color-text-primary)" }}
+              />
             </button>
           </div>
         </div>
@@ -177,15 +139,16 @@ export default function Navbar() {
         }}
       >
         <div className="flex flex-col h-full pt-16">
-          <div className="flex items-center justify-between p-4 border-b"
-            style={{ borderColor: "var(--color-border)" }}>
+          <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: "var(--color-border)" }}>
             <span className="font-bold text-sm" style={{ color: "var(--color-text-primary)" }}>
               Navigation
             </span>
-            <button onClick={() => setIsMobileMenuOpen(false)}
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
               className="flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200"
               style={{ color: "var(--color-text-muted)" }}
-              aria-label="Close menu">
+              aria-label="Close menu"
+            >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
@@ -200,10 +163,10 @@ export default function Navbar() {
                   <button
                     className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200"
                     style={{
-                      color: displayActive === section.id ? "var(--color-accent)" : "var(--color-text-secondary)",
-                      backgroundColor: displayActive === section.id ? "var(--color-surface)" : "transparent",
+                      color: activeSection === section.path ? "var(--color-accent)" : "var(--color-text-secondary)",
+                      backgroundColor: activeSection === section.path ? "var(--color-surface)" : "transparent",
                     }}
-                    onClick={() => navigateTo(section.path, section.id)}
+                    onClick={() => navigateTo(section.path)}
                   >
                     {section.label}
                   </button>

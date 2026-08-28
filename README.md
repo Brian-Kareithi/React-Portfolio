@@ -1,29 +1,42 @@
 # React Portfolio
 
-A modern, responsive portfolio website built with Next.js 16, featuring a sci-fi splash screen with glitch effects, dark/light mode, and smooth page transitions.
+A modern, professional multi-page portfolio for Brian Kareithi — Fullstack Developer, Cybersecurity Engineer & React Native Developer from Nairobi, Kenya.
+
+Built with an **Editorial Cobalt** design language: flat surfaces, hairline borders, a single cobalt accent, serif-italic accent words, mono labels, and dark/light themes.
+
+## Pages
+
+- **`/`** — Compact landing page with typewriter roles, portrait, and quick links
+- **`/about`** — Professional journey, education, certifications & experience timeline
+- **`/techstack`** — Technologies categorized by proficiency
+- **`/projects`** — Work & experiments with expandable case details
+- **`/contact`** — Contact form + direct channels
+- **`/hobbies`** — Homelab showcase (servers, sensors, self-hosted gear)
+
+Each page is a real route with its own active navigation state (true multi-page architecture).
 
 ## Features
 
-- **Sci-Fi Splash Screen** - Full-screen background image with dark overlay, "IN THE BEGINNING..." glitch text with RGB channel offset and scan lines; click to enter
-- **iMessage-Style Loading** - Chat bubble loading screen with typewriter messages and audio feedback
-- **Curtain Reveal Transition** - Page splits in two and slides apart after loading
-- **Dual Theme** - Dark mode with green accents, light mode with earthy tones
-- **3D Star Field** - Interactive Three.js particle background in dark mode
-- **Custom Cursor** - Accent-colored cursor on desktop
-- **Smooth Scrolling** - Section-based navigation with scroll bar indicator
-- **Responsive** - Mobile-first design with Tailwind CSS v4
-- **Animations** - Fade-in, stagger reveal, floating elements, and 3D canvas effects
-- **Contact Form** - Integrated with `@formspree/react`
+- **Multi-page routing** with per-route active nav state
+- **Dark / Light theme** — persistent via localStorage + system preference
+- **First-visit loader** — a minimal splash shown once per session (gsap animation)
+- **GSAP animations** — scroll reveals, stagger reveals, count-ups, parallax, scroll progress
+- **Optimized images** — Next.js `<Image>` with lazy loading & blur
+- **Accessibility** — reduced-motion support, `:focus-visible` rings, `aria-live` typewriter
+- **SEO** — metadata, Open Graph, Twitter cards, sitemap & robots
+- **Security headers** — set via `next.config.ts`
+- **Responsive** — mobile-first with Tailwind CSS v4
+- **Custom 404 page**
 
 ## Tech Stack
 
-- **Framework:** Next.js 16 (Turbopack)
+- **Framework:** Next.js 16 (App Router, Turbopack)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4
-- **3D:** Three.js / `@react-three/fiber` / `@react-three/drei`
-- **Animations:** CSS keyframes & Intersection Observer
-- **Form:** Formspree
-- **Icons:** React Icons
+- **Animations:** GSAP + ScrollTrigger
+- **Email:** EmailJS (`@emailjs/browser`)
+- **Icons:** React Icons & Lucide
+- **Analytics:** Vercel Analytics
 
 ## Getting Started
 
@@ -40,3 +53,11 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 npm run build
 npm start
 ```
+
+## Environment
+
+The contact form uses EmailJS. Credentials (public key, service ID, template ID) are configured directly in `app/contact/page.tsx`. See the EmailJS dashboard for your IDs.
+
+## Deployment
+
+Deployed on Vercel at [https://kareithi.vercel.app](https://kareithi.vercel.app).

@@ -275,7 +275,7 @@ export default function Hobbies() {
       >
         <div className="flex items-center justify-between h-14 max-w-5xl mx-auto px-4 sm:px-6">
           <Link
-            href="/home"
+            href="/"
             className="group inline-flex items-center gap-2.5 text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
             style={{ color: "var(--color-text-secondary)" }}
           >
@@ -500,7 +500,7 @@ export default function Hobbies() {
         <StaggerReveal>
         <div className="pt-8 text-center border-t" style={{ borderColor: "var(--color-border)" }}>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/home" className="btn-neon btn-neon-ghost">
+            <Link href="/" className="btn-neon btn-neon-ghost">
               Back to Portfolio
             </Link>
             <Link href="/contact" className="btn-neon btn-neon-primary">

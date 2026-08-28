@@ -14,7 +14,7 @@ export default function NotFound() {
           style={{ color: "var(--color-text-secondary)" }}>
           This page ended up in a dead link.
         </p>
-        <Link href="/home"
+        <Link href="/"
           className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
           style={{
             backgroundColor: "var(--color-accent)",
