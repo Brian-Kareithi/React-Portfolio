@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 
 export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
@@ -58,8 +59,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
       <span className="minimal-loader-logo opacity-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo.png" alt="Brian Kareithi" className="h-8 sm:h-10 w-auto" />
+        <Image src="/logo.png" alt="Brian Kareithi" width={120} height={40} className="h-8 sm:h-10 w-auto" />
       </span>
       <div
         className="h-[2px] w-40 sm:w-56 rounded-full overflow-hidden"
