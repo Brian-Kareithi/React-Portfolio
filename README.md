@@ -9,33 +9,38 @@ Built with an **Editorial Cobalt** design language: flat surfaces, hairline bord
 - **`/`** — Compact landing page with typewriter roles, portrait, and quick links
 - **`/about`** — Professional journey, education, certifications & experience timeline
 - **`/techstack`** — Technologies categorized by proficiency
+- **`/expertise`** — Six hands-on skill domains with capabilities
+- **`/engineering`** — Engineering principles, architecture & delivery workflow
+- **`/troubleshooting`** — Diagnostic method with real field case studies
 - **`/projects`** — Work & experiments with expandable case details
-- **`/contact`** — Contact form + direct channels
 - **`/hobbies`** — Homelab showcase (servers, sensors, self-hosted gear)
+- **`/contact`** — Contact form + direct channels
+- **`/llms.txt`** — Machine-readable profile for LLM/AI tools
 
 Each page is a real route with its own active navigation state (true multi-page architecture).
 
 ## Features
 
 - **Multi-page routing** with per-route active nav state
+- **Per-page SEO** — unique titles, meta descriptions, canonical URLs, Open Graph & Twitter cards
+- **Structured data** — Organization, Person & ProfessionalService (LocalBusiness) JSON-LD plus BreadcrumbList on every inner page
+- **Breadcrumbs & internal linking** — navigable trails and contextual "keep exploring" link blocks so every page links onward
 - **Dark / Light theme** — persistent via localStorage + system preference
-- **First-visit loader** — a minimal splash shown once per session (gsap animation)
-- **GSAP animations** — scroll reveals, stagger reveals, count-ups, parallax, scroll progress
+- **Lightweight animations** — IntersectionObserver-based scroll reveals and count-ups (no animation library)
 - **Optimized images** — Next.js `<Image>` with lazy loading & blur
 - **Accessibility** — reduced-motion support, `:focus-visible` rings, `aria-live` typewriter
-- **SEO** — metadata, Open Graph, Twitter cards, sitemap & robots
+- **SEO plumbing** — `sitemap.xml`, `robots.txt`, custom brand 404 page
 - **Security headers** — set via `next.config.ts`
 - **Responsive** — mobile-first with Tailwind CSS v4
-- **Custom 404 page**
 
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router, Turbopack)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4
-- **Animations:** GSAP + ScrollTrigger
+- **Animations:** IntersectionObserver + CSS transitions
 - **Email:** EmailJS (`@emailjs/browser`)
-- **Icons:** React Icons & Lucide
+- **Icons:** Lucide (brand glyphs on /techstack via React Icons)
 - **Analytics:** Vercel Analytics
 
 ## Getting Started
@@ -56,7 +61,7 @@ npm start
 
 ## Environment
 
-The contact form uses EmailJS. Credentials (public key, service ID, template ID) are configured directly in `app/contact/page.tsx`. See the EmailJS dashboard for your IDs.
+The contact form uses EmailJS. Credentials (public key, service ID, template ID) are configured directly in `app/contact/Client.tsx`. See the EmailJS dashboard for your IDs.
 
 ## Deployment
 
