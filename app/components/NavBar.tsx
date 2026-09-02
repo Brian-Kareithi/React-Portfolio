@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useTheme } from "@/app/components/ThemeProvider";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
-import { FiSun, FiMoon } from "react-icons/fi";
+import { Sun, Moon } from "lucide-react";
 
 const sections = [
   { path: "/", label: "Home", description: "Overview and quick links" },
@@ -89,7 +89,7 @@ export default function Navbar() {
               style={{ color: "var(--color-text-secondary)" }}
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? <FiSun className="w-3.5 h-3.5" /> : <FiMoon className="w-3.5 h-3.5" />}
+              {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
             </button>
           </div>
 
@@ -100,7 +100,7 @@ export default function Navbar() {
               style={{ color: "var(--color-text-secondary)" }}
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? <FiSun className="w-3.5 h-3.5" /> : <FiMoon className="w-3.5 h-3.5" />}
+              {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
             </button>
 
             <button

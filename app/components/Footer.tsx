@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { FaGithub, FaLinkedinIn, FaInstagram, FaEnvelope } from "react-icons/fa";
+import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home", description: "Overview & intro" },
@@ -40,10 +40,10 @@ export default function Footer() {
             </p>
             <div className="flex gap-3 mt-4">
               {[
-                { href: "https://github.com/Brian-Kareithi", icon: FaGithub, label: "GitHub" },
-                { href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", icon: FaLinkedinIn, label: "LinkedIn" },
-                { href: "https://www.instagram.com/kareithiv", icon: FaInstagram, label: "Instagram" },
-                { href: "mailto:kareithibrian2@gmail.com", icon: FaEnvelope, label: "Email" },
+                { href: "https://github.com/Brian-Kareithi", icon: Github, label: "GitHub" },
+                { href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", icon: Linkedin, label: "LinkedIn" },
+                { href: "https://www.instagram.com/kareithiv", icon: Instagram, label: "Instagram" },
+                { href: "mailto:kareithibrian2@gmail.com", icon: Mail, label: "Email" },
               ].map(({ href, icon: Icon, label }) => (
                 <a
                   key={label}
