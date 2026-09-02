@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 const roles = ["Fullstack Developer", "Cybersecurity Engineer", "React Native Developer", "Cloud & DevOps Enthusiast"];
 
@@ -15,7 +14,6 @@ const quickLinks = [
 ];
 
 export default function HomeContent() {
-  const router = useRouter();
   const [currentRole, setCurrentRole] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -85,12 +83,12 @@ export default function HomeContent() {
             </p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 mb-8 sm:mb-10">
-              <button onClick={() => router.push("/projects")} className="btn-neon btn-neon-primary">
+              <Link href="/projects" className="btn-neon btn-neon-primary">
                 View My Work
-              </button>
-              <button onClick={() => router.push("/contact")} className="btn-neon btn-neon-ghost">
+              </Link>
+              <Link href="/contact" className="btn-neon btn-neon-ghost">
                 Get in Touch
-              </button>
+              </Link>
             </div>
 
             <div className="flex justify-center lg:justify-start gap-3 sm:gap-4">
@@ -151,9 +149,9 @@ export default function HomeContent() {
           <div className="grid grid-cols-2 md:grid-cols-4 border-t divide-x divide-y md:divide-y-0"
             style={{ borderColor: "var(--color-border)" }}>
             {quickLinks.map((link) => (
-              <button
+              <Link
                 key={link.href}
-                onClick={() => router.push(link.href)}
+                href={link.href}
                 className="group p-4 sm:p-5 text-left transition-colors duration-200 hover:bg-[var(--color-surface)] min-h-[44px]"
                 style={{ borderColor: "var(--color-border)" }}
               >
@@ -164,7 +162,7 @@ export default function HomeContent() {
                   style={{ color: "var(--color-text-primary)" }}>
                   {link.label}
                 </span>
-              </button>
+              </Link>
             ))}
           </div>
 
