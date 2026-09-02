@@ -7,11 +7,12 @@ import useScrollProgress from "@/app/components/ui/useScrollProgress";
 import { FiSun, FiMoon } from "react-icons/fi";
 
 const sections = [
-  { path: "/", label: "Home" },
-  { path: "/about", label: "About" },
-  { path: "/techstack", label: "Stack" },
-  { path: "/projects", label: "Work" },
-  { path: "/contact", label: "Contact" },
+  { path: "/", label: "Home", description: "Overview and quick links" },
+  { path: "/about", label: "About", description: "Journey, education & certifications" },
+  { path: "/expertise", label: "Expertise", description: "Six skill domains" },
+  { path: "/engineering", label: "Engineering", description: "How I build software" },
+  { path: "/projects", label: "Work", description: "Selected projects" },
+  { path: "/contact", label: "Contact", description: "Get in touch" },
 ];
 
 export default function Navbar() {
@@ -59,7 +60,7 @@ export default function Navbar() {
             <div ref={progressRef} className="h-[2px] w-0" style={{ backgroundColor: "var(--color-accent)" }} />
           </div>
           <button onClick={() => navigateTo("/")} className="transition-opacity duration-300 hover:opacity-70" aria-label="Go to home">
-            <Image src="/logo.png" alt="Brian Kareithi" width={120} height={36} className="h-9 w-auto" priority />
+            <Image src="/logo.png" alt="Brian Kareithi — home" width={120} height={36} className="h-9 w-auto" priority />
           </button>
 
           <div className="hidden md:flex items-center gap-1">
@@ -161,17 +162,32 @@ export default function Navbar() {
               {sections.map((section) => (
                 <li key={section.path}>
                   <button
-                    className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200"
+                    className="w-full text-left px-4 py-3 rounded-lg transition-all duration-200"
                     style={{
                       color: activeSection === section.path ? "var(--color-accent)" : "var(--color-text-secondary)",
                       backgroundColor: activeSection === section.path ? "var(--color-surface)" : "transparent",
                     }}
                     onClick={() => navigateTo(section.path)}
                   >
-                    {section.label}
+                    <span className="block text-sm font-medium">{section.label}</span>
+                    <span className="block text-[10px] mt-0.5" style={{ color: "var(--color-text-muted)" }}>
+                      {section.description}
+                    </span>
                   </button>
                 </li>
               ))}
+              <li>
+                <button
+                  className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200"
+                  style={{ color: "var(--color-text-secondary)" }}
+                  onClick={() => navigateTo("/hobbies")}
+                >
+                  <span className="block">Homelab</span>
+                  <span className="block text-[10px] mt-0.5" style={{ color: "var(--color-text-muted)" }}>
+                    Gear, builds & lab experiments
+                  </span>
+                </button>
+              </li>
             </ul>
           </div>
         </div>

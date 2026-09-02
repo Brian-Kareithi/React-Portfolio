@@ -1,10 +1,6 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface CountUpProps {
   value: number;
@@ -26,19 +22,30 @@ export function CountUp({ value, suffix = "", prefix = "", duration = 1.6, class
       return;
     }
 
-    const obj = { n: 0 };
-    const ctx = gsap.context(() => {
-      gsap.to(obj, {
-        n: value,
-        duration,
-        ease: "power2.out",
-        onUpdate: () => {
-          el.textContent = `${prefix}${Math.round(obj.n)}${suffix}`;
-        },
-        scrollTrigger: { trigger: el, start: "top 90%", once: true },
-      });
-    }, el);
-    return () => ctx.revert();
+    let raf = 0;
+    let start: number | null = null;
+
+    const frame = (timestamp: number) => {
+      if (start === null) start = timestamp;
+      const progress = Math.min((timestamp - start) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - progress, 2);
+      el.textContent = `${prefix}${Math.round(eased * value)}${suffix}`;
+      if (progress < 1) raf = requestAnimationFrame(frame);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) return;
+        raf = requestAnimationFrame(frame);
+        observer.disconnect();
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(raf);
+    };
   }, [value, suffix, prefix, duration]);
 
   return (

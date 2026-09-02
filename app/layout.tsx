@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { DM_Sans, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import ClientLayout from "./ClientLayout";
+import { JsonLd } from "@/app/components/JsonLd";
+import { siteConfig } from "@/app/lib/site";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -17,16 +19,33 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
 });
 
-const siteUrl = "https://kareithi.vercel.app";
+const siteUrl = siteConfig.url;
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
+  name: siteConfig.name,
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  image: siteConfig.ogImage,
+  email: siteConfig.email,
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    email: siteConfig.email,
+    availableLanguage: ["English", "Swahili"],
+  },
+  sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.instagram],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Brian Kareithi | Fullstack Developer, React Native & Cybersecurity Specialist",
+    default: siteConfig.title,
     template: "%s | Brian Kareithi",
   },
-  description:
-    "Brian Kareithi is a Fullstack Developer, React Native Developer, and Cybersecurity Specialist from Nairobi, Kenya. Specializing in Next.js, React, TypeScript, and secure cloud-native applications. 50+ projects delivered, 5+ years in tech.",
+  description: siteConfig.description,
   keywords: [
     "Brian Kareithi",
     "Brian software developer",
@@ -109,6 +128,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="relative overflow-x-clip antialiased" suppressHydrationWarning>
+        <JsonLd data={organizationJsonLd} />
         <ClientLayout>{children}</ClientLayout>
         <Analytics />
       </body>
