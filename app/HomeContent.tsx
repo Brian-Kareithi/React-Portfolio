@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
-import { IoMailOutline } from "react-icons/io5";
+import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const roles = ["Fullstack Developer", "Cybersecurity Engineer", "React Native Developer", "Cloud & DevOps Enthusiast"];
@@ -40,10 +39,10 @@ export default function HomeContent() {
   }, [displayText, isDeleting, currentRole]);
 
   const socials = [
-    { href: "https://github.com/Brian-Kareithi", icon: FaGithub, label: "GitHub" },
-    { href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", icon: FaLinkedinIn, label: "LinkedIn" },
-    { href: "https://www.instagram.com/kareithiv", icon: FaInstagram, label: "Instagram" },
-    { href: "mailto:kareithibrian2@gmail.com", icon: IoMailOutline, label: "Email" },
+    { href: "https://github.com/Brian-Kareithi", icon: Github, label: "GitHub" },
+    { href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", icon: Linkedin, label: "LinkedIn" },
+    { href: "https://www.instagram.com/kareithiv", icon: Instagram, label: "Instagram" },
+    { href: "mailto:kareithibrian2@gmail.com", icon: Mail, label: "Email" },
   ];
 
   return (

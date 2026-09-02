@@ -6,7 +6,7 @@ import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt, FaUser, FaPaperPlane } from "react-icons/fa";
+import { Github, Linkedin, Instagram, Mail, Phone, MapPin, User, Send } from "lucide-react";
 
 export default function ContactClient() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -102,9 +102,9 @@ export default function ContactClient() {
 
                 <div>
                   {[
-                    { icon: FaEnvelope, label: "Email", value: "kareithibrian2@gmail.com", href: "mailto:kareithibrian2@gmail.com" },
-                    { icon: FaPhone, label: "Phone", value: "+254 718 593 392", href: "tel:+254718593392" },
-                    { icon: FaMapMarkerAlt, label: "Location", value: "Nairobi, Kenya", href: "#" },
+                    { icon: Mail, label: "Email", value: "kareithibrian2@gmail.com", href: "mailto:kareithibrian2@gmail.com" },
+                    { icon: Phone, label: "Phone", value: "+254 718 593 392", href: "tel:+254718593392" },
+                    { icon: MapPin, label: "Location", value: "Nairobi, Kenya", href: "#" },
                   ].map((item, i) => (
                     <div key={item.label}
                       className={`group flex items-center gap-3 py-2.5 transition-colors duration-300 ${i < 2 ? "border-b" : ""}`}
@@ -138,9 +138,9 @@ export default function ContactClient() {
                 </p>
                 <div className="flex gap-2">
                   {[
-                    { icon: FaGithub, href: "https://github.com/Brian-Kareithi", label: "GitHub" },
-                    { icon: FaLinkedin, href: "https://linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
-                    { icon: FaInstagram, href: "https://www.instagram.com/kareithiv", label: "Instagram" },
+                    { icon: Github, href: "https://github.com/Brian-Kareithi", label: "GitHub" },
+                    { icon: Linkedin, href: "https://linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
+                    { icon: Instagram, href: "https://www.instagram.com/kareithiv", label: "Instagram" },
                   ].map((item) => (
                     <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
                       className="icon-chip w-9 h-9 rounded-lg flex items-center justify-center liquid-glass"
@@ -185,7 +185,7 @@ export default function ContactClient() {
                     <div className="relative group">
                       <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                         style={{ color: activeField === "name" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
-                        <FaUser className="w-3.5 h-3.5" />
+                        <User className="w-3.5 h-3.5" />
                       </div>
                       <input
                         type="text"
@@ -204,7 +204,7 @@ export default function ContactClient() {
                     <div className="relative group">
                       <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                         style={{ color: activeField === "email" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
-                        <FaEnvelope className="w-3.5 h-3.5" />
+                        <Mail className="w-3.5 h-3.5" />
                       </div>
                       <input
                         type="email"
@@ -224,7 +224,7 @@ export default function ContactClient() {
                   <div className="relative group">
                     <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                       style={{ color: activeField === "subject" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
-                      <FaPaperPlane className="w-3.5 h-3.5" />
+                      <Send className="w-3.5 h-3.5" />
                     </div>
                     <input
                       type="text"
@@ -243,7 +243,7 @@ export default function ContactClient() {
                   <div className="relative group">
                     <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                       style={{ color: activeField === "message" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
-                      <FaPaperPlane className="w-3.5 h-3.5" />
+                      <Send className="w-3.5 h-3.5" />
                     </div>
                     <textarea
                       name="message"
@@ -275,7 +275,7 @@ export default function ContactClient() {
                       </span>
                     ) : (
                       <>
-                        <FaPaperPlane className="w-3.5 h-3.5" />
+                        <Send className="w-3.5 h-3.5" />
                         Send Message
                       </>
                     )}
