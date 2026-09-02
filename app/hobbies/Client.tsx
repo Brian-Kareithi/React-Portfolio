@@ -303,7 +303,7 @@ export default function HobbiesClient() {
 
         <Breadcrumbs />
         <SectionHeader
-          index="05"
+          index="08"
           label="Homelab"
           title={<>Life outside the <em className="font-serif-accent">terminal</em></>}
           description="Servers, sensors and solder-side experiments — a homelab that never sleeps, where professional skills get stress-tested for fun."

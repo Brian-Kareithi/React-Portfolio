@@ -195,7 +195,7 @@ export default function ProjectsClient() {
             style={{ borderColor: "var(--color-border)" }}>
             <p className="text-[9px] font-medium tracking-[0.2em] uppercase mb-4"
               style={{ color: "var(--color-text-muted)" }}>
-              Personal Portfolio
+              This Portfolio
             </p>
             <div className="flex flex-col md:flex-row gap-4 mb-4">
               <div className="flex-1 p-4 flat-card"
@@ -209,11 +209,13 @@ export default function ProjectsClient() {
                     Current
                   </span>
                   <h4 className="text-sm font-bold" style={{ color: "var(--color-text-primary)" }}>
-                    Portfolio V2
+                    You&apos;re looking at it
                   </h4>
                 </div>
                 <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                  Built with Next.js. Improved architecture, enhanced performance optimizations, better SEO, and a more refined user experience. Demonstrates my evolution in modern React and full-stack development practices.
+                  Built on Next.js 16 with TypeScript and Tailwind CSS v4. Server-rendered pages with per-route
+                  metadata, schema.org structured data, breadcrumbs, and code-split bundles sized by performance
+                  budget — the same discipline I apply to client work.
                 </p>
                 <div className="flex flex-wrap gap-1.5 mt-3">
                   {["Next.js", "TypeScript", "Tailwind CSS"].map((tech) => (
@@ -225,9 +227,6 @@ export default function ProjectsClient() {
                 </div>
               </div>
             </div>
-            <p className="text-xs mb-4" style={{ color: "var(--color-text-muted)" }}>
-              You are viewing V2. This represents the latest iteration with improved architecture and design decisions.
-            </p>
             <div className="flex flex-wrap gap-3">
               <a href="https://portfoliov2-ruby.vercel.app/" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 px-5 py-3 rounded-lg text-xs font-medium transition-colors duration-200 min-h-[44px]"
