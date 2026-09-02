@@ -1,10 +1,6 @@
 "use client";
 
 import { useRef, useEffect, ReactNode } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface SectionHeaderProps {
   index: string;
@@ -21,25 +17,31 @@ export function SectionHeader({ index, label, title, description }: SectionHeade
     if (!root) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const line = root.querySelector("[data-line]");
-    const bits = root.querySelectorAll("[data-fade]");
+    const line = root.querySelector<HTMLElement>("[data-line]");
+    const bits = root.querySelectorAll<HTMLElement>("[data-fade]");
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: root, start: "top 85%", once: true },
-      });
-      tl.fromTo(
-        line,
-        { scaleX: 0 },
-        { scaleX: 1, duration: 0.6, ease: "power3.inOut" }
-      ).fromTo(
-        bits,
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.65, ease: "power3.out", stagger: 0.09 },
-        "-=0.35"
-      );
-    }, root);
-    return () => ctx.revert();
+    line?.style.setProperty("transform", "scaleX(0)");
+    bits.forEach((bit) => {
+      bit.style.opacity = "0";
+      bit.style.transform = "translateY(18px)";
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) return;
+        line?.style.setProperty("transition", "transform 0.6s cubic-bezier(0.22,1,0.36,1)");
+        line?.style.setProperty("transform", "scaleX(1)");
+        bits.forEach((bit, i) => {
+          bit.style.transition = `opacity 0.65s cubic-bezier(0.22,1,0.36,1) ${0.09 * i}s, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${0.09 * i}s`;
+          bit.style.opacity = "1";
+          bit.style.transform = "none";
+        });
+        observer.disconnect();
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(root);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -56,10 +58,10 @@ export function SectionHeader({ index, label, title, description }: SectionHeade
           {label}
         </span>
       </div>
-      <h2 data-fade className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4 xs:mb-5"
+      <h1 data-fade className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4 xs:mb-5"
         style={{ color: "var(--color-text-primary)" }}>
         {title}
-      </h2>
+      </h1>
       {description && (
         <p data-fade className="max-w-2xl text-xs xs:text-sm leading-relaxed"
           style={{ color: "var(--color-text-secondary)" }}>

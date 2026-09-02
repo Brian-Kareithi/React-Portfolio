@@ -1,14 +1,16 @@
 import type { MetadataRoute } from "next";
+import { siteConfig } from "@/app/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = "https://kareithi.vercel.app";
-
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: "/api/",
-    },
-    sitemap: `${siteUrl}/sitemap.xml`,
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/api/", "/_next/", "/home"],
+      },
+    ],
+    host: siteConfig.url,
+    sitemap: `${siteConfig.url}/sitemap.xml`,
   };
 }

@@ -1,10 +1,6 @@
 "use client";
 
 import { useRef, useEffect, ReactNode } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -30,32 +26,33 @@ export function ScrollReveal({
     if (!el) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      gsap.set(el, { opacity: 1 });
+      el.style.transition = "none";
+      el.style.opacity = "1";
+      el.style.transform = "none";
       return;
     }
 
-    const from: gsap.TweenVars = { opacity: 0 };
-    switch (direction) {
-      case "up": from.y = distance; break;
-      case "down": from.y = -distance; break;
-      case "left": from.x = distance; break;
-      case "right": from.x = -distance; break;
-      case "scale": from.scale = 0.94; break;
-    }
+    const from: Record<string, string> = {};
+    if (direction === "up") from.transform = `translateY(${distance}px)`;
+    else if (direction === "down") from.transform = `translateY(${-distance}px)`;
+    else if (direction === "left") from.transform = `translateX(${distance}px)`;
+    else if (direction === "right") from.transform = `translateX(${-distance}px)`;
+    else if (direction === "scale") from.transform = "scale(0.94)";
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(el, from, {
-        opacity: 1,
-        x: 0,
-        y: 0,
-        scale: 1,
-        duration,
-        delay,
-        ease: "power3.out",
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
-      });
-    }, el);
-    return () => ctx.revert();
+    Object.assign(el.style, from, { opacity: "0", willChange: "opacity, transform" });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) return;
+        el.style.transition = `opacity ${duration}s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform ${duration}s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
+        el.style.opacity = "1";
+        el.style.transform = "none";
+        observer.disconnect();
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [delay, direction, duration, distance]);
 
   return (
