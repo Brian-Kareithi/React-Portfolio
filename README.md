@@ -66,3 +66,5 @@ The contact form uses EmailJS. Credentials (public key, service ID, template ID)
 ## Deployment
 
 Deployed on Vercel at [https://kareithi.vercel.app](https://kareithi.vercel.app).
+
+Last updated: September 2026.
