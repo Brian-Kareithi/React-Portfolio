@@ -222,7 +222,7 @@ export default function ExpertiseClient() {
 
         {/* Spearhead stats */}
         <StaggerReveal staggerDelay={60}>
-        <div className="grid grid-cols-3 lg:grid-cols-6 border divide-x divide-y lg:divide-y-0 mb-14 xs:mb-16 sm:mb-20"
+        <div className="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-6 border divide-x divide-y lg:divide-y-0 mb-14 xs:mb-16 sm:mb-20"
           style={{ borderColor: "var(--color-border)" }}>
           {spearhead.map((s) => (
             <div key={s.label} className="py-6 px-2 text-center">

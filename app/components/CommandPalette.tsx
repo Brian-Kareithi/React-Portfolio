@@ -114,8 +114,6 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
     );
   }, [items, query]);
 
-  useEffect(() => setActive(0), [query]);
-
   const runItem = useCallback(
     (it: Item | undefined) => {
       if (!it) return;
@@ -194,7 +192,10 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
               <input
                 ref={inputRef}
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setActive(0);
+                }}
                 placeholder="Jump to a page, or search…"
                 aria-label="Search pages and links"
                 className="flex-1 bg-transparent text-sm outline-none"
@@ -257,10 +258,10 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
             </div>
 
             <div
-              className="flex items-center justify-between gap-3 px-4 py-2.5 border-t"
+              className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 border-t"
               style={{ borderColor: "var(--color-border)" }}
             >
-              <span className="field-label">Brian Kareithi — index</span>
+              <span className="field-label min-w-0">Brian Kareithi — index</span>
               <span className="flex items-center gap-2 font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
                 <span>↑↓ move</span>
                 <span>↵ open</span>

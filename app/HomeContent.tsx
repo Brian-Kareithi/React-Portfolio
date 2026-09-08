@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Github, Linkedin, Instagram, Mail, ArrowRight, Command } from "lucide-react";
@@ -21,7 +21,7 @@ const spec: { k: string; v: string }[] = [
   { k: "Focus", v: "Secure, scalable software — mobile to cloud-native" },
   { k: "Certifications", v: "6 · security, cloud & networking" },
   { k: "Projects", v: "50+ delivered" },
-  { k: "Experience", v: "5+ years in tech" },
+  { k: "Experience", v: "3 years in tech" },
   { k: "Homelab", v: "18 devices · 24/7 Proxmox" },
 ];
 
@@ -36,11 +36,13 @@ export default function HomeContent() {
   const [currentRole, setCurrentRole] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const time = useLocalTime("Africa/Nairobi");
   const { open: openPalette } = useCommandPalette();
-
-  useEffect(() => setMounted(true), []);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
     const fullText = roles[currentRole % roles.length];
@@ -65,7 +67,7 @@ export default function HomeContent() {
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden bg-field px-4 sm:px-6 lg:px-8"
+      className="relative min-h-screen overflow-hidden px-4 sm:px-6 lg:px-8"
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
       <div className="absolute inset-x-0 top-0 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
@@ -201,7 +203,7 @@ export default function HomeContent() {
               className="hidden items-center gap-1.5 font-mono text-[10px] transition-colors duration-200 hover:text-[var(--color-accent)] sm:flex"
               style={{ color: "var(--color-text-muted)" }}
             >
-              <Command className="w-3 h-3" /> K to jump anywhere
+              <Command className="w-3 h-3" /> Ctrl&nbsp;K to jump anywhere
             </button>
           </div>
 
