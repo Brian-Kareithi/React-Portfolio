@@ -2,47 +2,46 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import { Sun, Moon, Command } from "lucide-react";
 import { useTheme } from "@/app/components/ThemeProvider";
+import { useCommandPalette } from "@/app/components/CommandPalette";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
-import { Sun, Moon } from "lucide-react";
-
-const sections = [
-  { path: "/", label: "Home", description: "Overview and quick links" },
-  { path: "/about", label: "About", description: "Journey, education & certifications" },
-  { path: "/expertise", label: "Expertise", description: "Six skill domains" },
-  { path: "/engineering", label: "Engineering", description: "How I build software" },
-  { path: "/projects", label: "Work", description: "Selected projects" },
-  { path: "/contact", label: "Contact", description: "Get in touch" },
-];
+import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navRef = useRef<HTMLElement | null>(null);
+  const { theme, toggleTheme } = useTheme();
+  const { open: openPalette } = useCommandPalette();
+  const [menuOpen, setMenuOpen] = useState(false);
   const progressRef = useRef<HTMLDivElement | null>(null);
 
-  const activeSection = sections.find((section) => section.path === pathname)?.path ?? "";
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768 && menuOpen) setMenuOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [menuOpen]);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768 && isMobileMenuOpen) setIsMobileMenuOpen(false);
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isMobileMenuOpen]);
+  }, [menuOpen]);
 
   useScrollProgress({
     onFrame: (progress) => {
       const bar = progressRef.current;
-      if (!bar) return;
-      bar.style.width = `${progress * 100}%`;
+      if (bar) bar.style.transform = `scaleX(${progress})`;
     },
   });
 
-  const navigateTo = (path: string) => {
-    setIsMobileMenuOpen(false);
+  const go = (path: string) => {
+    setMenuOpen(false);
     if (path === pathname) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
@@ -50,156 +49,156 @@ export default function Navbar() {
     router.push(path);
   };
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-
   return (
     <>
-      <nav ref={navRef} className="fixed z-[60] glass-nav w-[95%] top-3 left-[2.5%] right-[2.5%]">
-        <div className="flex items-center justify-between w-full px-4 sm:px-6 md:px-8 py-2.5 xs:py-3">
-          <div className="absolute bottom-0 left-4 right-4">
-            <div ref={progressRef} className="h-[2px] w-0" style={{ backgroundColor: "var(--color-accent)" }} />
-          </div>
-          <button onClick={() => navigateTo("/")} className="transition-opacity duration-300 hover:opacity-70" aria-label="Go to home">
-            <Image src="/logo.png" alt="Brian Kareithi — home" width={120} height={36} className="h-9 w-auto" priority />
+      <nav
+        className="fixed inset-x-0 top-0 z-[60] glass-nav rounded-none border-x-0 border-t-0"
+        style={{ borderColor: "var(--color-border)" }}
+        aria-label="Primary"
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 h-14">
+          <button
+            onClick={() => go("/")}
+            className="flex items-center gap-3 transition-opacity duration-200 hover:opacity-70"
+            aria-label="Brian Kareithi — home"
+          >
+            <Image src="/logo.png" alt="" width={112} height={34} className="h-8 w-auto" priority />
           </button>
 
           <div className="hidden md:flex items-center gap-1">
-            {sections.map((section) => (
-              <button
-                key={section.path}
-                className="relative px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
-                style={{
-                  color: activeSection === section.path ? "var(--color-accent)" : "var(--color-text-secondary)",
-                }}
-                onClick={() => navigateTo(section.path)}
-              >
-                {section.label}
-                {activeSection === section.path && (
-                  <div
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[1.5px] rounded-full"
-                    style={{ backgroundColor: "var(--color-accent)" }}
+            {primaryNav.map((r) => {
+              const active = r.path === pathname;
+              return (
+                <button
+                  key={r.path}
+                  onClick={() => go(r.path)}
+                  className="group relative px-3 py-2 text-[13px] font-medium transition-colors duration-200"
+                  style={{ color: active ? "var(--color-text-primary)" : "var(--color-text-muted)" }}
+                >
+                  <span className="index-num mr-1.5 align-middle opacity-0 transition-opacity duration-200 group-hover:opacity-100" style={{ color: "var(--color-accent)" }}>
+                    {r.index}
+                  </span>
+                  {r.label}
+                  <span
+                    className="absolute -bottom-[1px] left-3 right-3 h-px origin-left transition-transform duration-300"
+                    style={{
+                      backgroundColor: "var(--color-accent)",
+                      transform: active ? "scaleX(1)" : "scaleX(0)",
+                    }}
                   />
-                )}
-              </button>
-            ))}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={openPalette}
+              className="hidden sm:flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-[11px] font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
+              style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}
+              aria-label="Open command palette"
+            >
+              <Command className="w-3 h-3" />
+              <span className="font-mono">K</span>
+            </button>
 
             <button
               onClick={toggleTheme}
-              className="ml-3 p-2 rounded-lg transition-all duration-300 hover:opacity-70"
-              style={{ color: "var(--color-text-secondary)" }}
+              className="p-2 rounded-lg transition-colors duration-200 hover:text-[var(--color-accent)]"
+              style={{ color: "var(--color-text-muted)" }}
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
-            </button>
-          </div>
-
-          <div className="md:hidden flex items-center gap-2">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg transition-all duration-300"
-              style={{ color: "var(--color-text-secondary)" }}
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
 
             <button
-              className="flex flex-col items-center justify-center w-10 h-10 group"
-              onClick={toggleMobileMenu}
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMobileMenuOpen}
+              className="md:hidden relative flex h-9 w-9 flex-col items-center justify-center gap-[5px]"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
             >
               <span
-                className={`w-5 h-px rounded-full transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-px" : ""}`}
-                style={{ backgroundColor: "var(--color-text-primary)" }}
+                className="h-px w-5 transition-transform duration-300"
+                style={{ backgroundColor: "var(--color-text-primary)", transform: menuOpen ? "translateY(3px) rotate(45deg)" : "none" }}
               />
               <span
-                className={`w-5 h-px rounded-full transition-all duration-300 mt-[5px] ${isMobileMenuOpen ? "opacity-0" : ""}`}
-                style={{ backgroundColor: "var(--color-text-primary)" }}
-              />
-              <span
-                className={`w-5 h-px rounded-full transition-all duration-300 mt-[5px] ${isMobileMenuOpen ? "-rotate-45 -translate-y-px" : ""}`}
-                style={{ backgroundColor: "var(--color-text-primary)" }}
+                className="h-px w-5 transition-transform duration-300"
+                style={{ backgroundColor: "var(--color-text-primary)", transform: menuOpen ? "translateY(-3px) rotate(-45deg)" : "none" }}
               />
             </button>
           </div>
+        </div>
+        <div className="absolute inset-x-0 bottom-0 h-px overflow-hidden">
+          <div
+            ref={progressRef}
+            className="h-full w-full origin-left"
+            style={{ backgroundColor: "var(--color-accent)", transform: "scaleX(0)" }}
+          />
         </div>
       </nav>
 
+      {/* Mobile editorial overlay */}
       <div
-        className={`
-          fixed top-0 right-0 h-full z-[70]
-          transform transition-transform duration-500 ease-in-out
-          md:hidden
-          w-[75vw] xs:w-[70vw] sm:w-[65vw] max-w-[300px] min-w-[200px]
-          ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
-        `}
-        style={{
-          backgroundColor: "var(--color-bg-secondary)",
-          borderLeft: "1px solid var(--color-border-hover)",
-        }}
+        className={`fixed inset-0 z-[70] md:hidden transition-[opacity,visibility] duration-300 ${
+          menuOpen ? "visible opacity-100" : "invisible opacity-0"
+        }`}
+        style={{ backgroundColor: "var(--color-bg-primary)" }}
+        aria-hidden={!menuOpen}
       >
-        <div className="flex flex-col h-full pt-16">
-          <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: "var(--color-border)" }}>
-            <span className="font-bold text-sm" style={{ color: "var(--color-text-primary)" }}>
-              Navigation
-            </span>
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200"
-              style={{ color: "var(--color-text-muted)" }}
-              aria-label="Close menu"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="flex-1 overflow-y-auto p-4">
-            <ul className="space-y-1">
-              {sections.map((section) => (
-                <li key={section.path}>
+        <div className="flex h-full flex-col px-6 pt-20 pb-8 overflow-y-auto bg-field">
+          <p className="field-label mb-6">Index</p>
+          <ul className="flex-1 space-y-1">
+            {routes.map((r, i) => {
+              const active = r.path === pathname;
+              return (
+                <li
+                  key={r.path}
+                  style={{
+                    transitionDelay: menuOpen ? `${i * 35 + 60}ms` : "0ms",
+                    transform: menuOpen ? "none" : "translateY(12px)",
+                    opacity: menuOpen ? 1 : 0,
+                    transition: "opacity 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)",
+                  }}
+                >
                   <button
-                    className="w-full text-left px-4 py-3 rounded-lg transition-all duration-200"
-                    style={{
-                      color: activeSection === section.path ? "var(--color-accent)" : "var(--color-text-secondary)",
-                      backgroundColor: activeSection === section.path ? "var(--color-surface)" : "transparent",
-                    }}
-                    onClick={() => navigateTo(section.path)}
+                    onClick={() => go(r.path)}
+                    className="group flex w-full items-baseline gap-4 border-b py-3.5 text-left"
+                    style={{ borderColor: "var(--color-border)" }}
                   >
-                    <span className="block text-sm font-medium">{section.label}</span>
-                    <span className="block text-[10px] mt-0.5" style={{ color: "var(--color-text-muted)" }}>
-                      {section.description}
+                    <span className="index-num" style={{ color: active ? "var(--color-accent)" : "var(--color-text-muted)" }}>
+                      {r.index}
+                    </span>
+                    <span className="flex-1">
+                      <span
+                        className="block text-2xl font-bold tracking-tight"
+                        style={{ color: active ? "var(--color-accent)" : "var(--color-text-primary)" }}
+                      >
+                        {r.label}
+                      </span>
+                      <span className="block text-xs" style={{ color: "var(--color-text-muted)" }}>
+                        {r.description}
+                      </span>
                     </span>
                   </button>
                 </li>
-              ))}
-              <li>
-                <button
-                  className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200"
-                  style={{ color: "var(--color-text-secondary)" }}
-                  onClick={() => navigateTo("/hobbies")}
-                >
-                  <span className="block">Homelab</span>
-                  <span className="block text-[10px] mt-0.5" style={{ color: "var(--color-text-muted)" }}>
-                    Gear, builds & lab experiments
-                  </span>
-                </button>
-              </li>
-            </ul>
+              );
+            })}
+          </ul>
+          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2">
+            {externalLinks.map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                target={l.href.startsWith("http") ? "_blank" : undefined}
+                rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="field-label hover:text-[var(--color-accent)] transition-colors"
+              >
+                {l.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>
-
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-[65] md:hidden transition-all duration-500"
-          style={{ backgroundColor: "color-mix(in srgb, var(--color-text-primary) 30%, transparent)" }}
-          onClick={toggleMobileMenu}
-        />
-      )}
     </>
   );
 }

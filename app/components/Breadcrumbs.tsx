@@ -37,11 +37,14 @@ export default function Breadcrumbs() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <nav aria-label="Breadcrumb" className="mb-8">
-        <ol className="flex flex-wrap items-center gap-1.5 text-[10px] xs:text-xs">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <nav aria-label="Breadcrumb" className="mb-10">
+        <ol className="flex flex-wrap items-center gap-2 font-mono text-[10px] xs:text-[11px]">
           {items.map((item, index) => (
-            <li key={item.path} className="flex items-center gap-1.5">
+            <li key={item.path} className="flex items-center gap-2">
               {index > 0 && (
                 <span aria-hidden="true" style={{ color: "var(--color-text-muted)" }}>
                   /
@@ -50,13 +53,17 @@ export default function Breadcrumbs() {
               {index < items.length - 1 ? (
                 <Link
                   href={item.path}
-                  className="transition-colors duration-200 hover:opacity-70"
+                  className="uppercase tracking-widest transition-colors duration-200 hover:text-[var(--color-accent)]"
                   style={{ color: "var(--color-text-muted)" }}
                 >
                   {item.name}
                 </Link>
               ) : (
-                <span aria-current="page" className="font-medium" style={{ color: "var(--color-text-secondary)" }}>
+                <span
+                  aria-current="page"
+                  className="uppercase tracking-widest"
+                  style={{ color: "var(--color-text-secondary)" }}
+                >
                   {item.name}
                 </span>
               )}
