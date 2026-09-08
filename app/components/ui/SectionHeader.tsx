@@ -32,7 +32,7 @@ export function SectionHeader({ index, label, title, description }: SectionHeade
         line?.style.setProperty("transition", "transform 0.6s cubic-bezier(0.22,1,0.36,1)");
         line?.style.setProperty("transform", "scaleX(1)");
         bits.forEach((bit, i) => {
-          bit.style.transition = `opacity 0.65s cubic-bezier(0.22,1,0.36,1) ${0.09 * i}s, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${0.09 * i}s`;
+          bit.style.transition = `opacity 0.65s cubic-bezier(0.22,1,0.36,1) ${0.08 * i}s, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${0.08 * i}s`;
           bit.style.opacity = "1";
           bit.style.transform = "none";
         });
@@ -46,25 +46,32 @@ export function SectionHeader({ index, label, title, description }: SectionHeade
 
   return (
     <div ref={rootRef} className="mb-12 xs:mb-16 sm:mb-20">
-      <div className="flex items-center gap-3 xs:gap-4 mb-4 xs:mb-5">
-        <span data-fade className="text-[10px] xs:text-xs font-mono font-medium"
-          style={{ color: "var(--color-accent)" }}>
+      <div className="flex items-center gap-3 xs:gap-4 mb-5 xs:mb-6">
+        <span data-fade className="index-num">
           {index}
         </span>
-        <span data-line className="w-8 h-px flex-shrink-0 origin-left"
-          style={{ backgroundColor: "var(--color-accent)" }} />
-        <span data-fade className="text-[9px] xs:text-[10px] font-medium tracking-[0.3em] uppercase"
-          style={{ color: "var(--color-text-muted)" }}>
+        <span
+          data-line
+          className="h-px w-10 flex-shrink-0 origin-left"
+          style={{ backgroundColor: "var(--color-accent)" }}
+        />
+        <span data-fade className="field-label">
           {label}
         </span>
       </div>
-      <h1 data-fade className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4 xs:mb-5"
-        style={{ color: "var(--color-text-primary)" }}>
+      <h1
+        data-fade
+        className="display-xl text-[2rem] xs:text-4xl sm:text-5xl md:text-[3.5rem] mb-5"
+        style={{ color: "var(--color-text-primary)" }}
+      >
         {title}
       </h1>
       {description && (
-        <p data-fade className="max-w-2xl text-xs xs:text-sm leading-relaxed"
-          style={{ color: "var(--color-text-secondary)" }}>
+        <p
+          data-fade
+          className="max-w-2xl text-sm xs:text-[15px] leading-relaxed"
+          style={{ color: "var(--color-text-secondary)" }}
+        >
           {description}
         </p>
       )}
