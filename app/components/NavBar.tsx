@@ -174,7 +174,9 @@ export default function Navbar() {
                     transitionDelay: menuOpen ? `${i * 35 + 60}ms` : "0ms",
                     transform: menuOpen ? "none" : "translateY(12px)",
                     opacity: menuOpen ? 1 : 0,
-                    transition: "opacity 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)",
+                    transitionProperty: "opacity, transform",
+                    transitionTimingFunction: "ease, cubic-bezier(0.22,1,0.36,1)",
+                    transitionDuration: "0.4s, 0.4s",
                   }}
                 >
                   <button
