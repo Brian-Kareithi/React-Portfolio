@@ -296,7 +296,7 @@ export default function HobbiesClient() {
         </div>
       </header>
 
-      <section id="hobbies" className="min-h-screen w-full pt-24 md:pt-28 pb-24 md:pb-32 px-4 relative overflow-hidden isolate bg-blueprint"
+      <section id="hobbies" className="min-h-screen w-full pt-24 md:pt-28 pb-24 md:pb-32 px-4 relative overflow-hidden isolate"
         style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal className="relative z-10">
       <div className="max-w-5xl mx-auto w-full">

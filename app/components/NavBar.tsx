@@ -14,7 +14,15 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const { open: openPalette } = useCommandPalette();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const progressRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 36);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const onResize = () => {
@@ -52,8 +60,15 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed inset-x-0 top-0 z-[60] glass-nav rounded-none border-x-0 border-t-0"
-        style={{ borderColor: "var(--color-border)" }}
+        className="fixed inset-x-0 z-[60] glass-nav transition-[top,border-radius,box-shadow,border-color] duration-300 ease-out"
+        style={{
+          top: scrolled ? 0 : 12,
+          left: scrolled ? 0 : 12,
+          right: scrolled ? 0 : 12,
+          borderColor: "var(--color-border)",
+          borderRadius: scrolled ? 0 : "0.75rem",
+          boxShadow: scrolled ? "none" : "0 8px 32px rgba(0, 0, 0, 0.08)",
+        }}
         aria-label="Primary"
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 h-14">
@@ -94,12 +109,14 @@ export default function Navbar() {
           <div className="flex items-center gap-1.5">
             <button
               onClick={openPalette}
-              className="hidden sm:flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-[11px] font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
+              className="hidden sm:flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
               style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}
-              aria-label="Open command palette"
+              aria-label="Open command palette (Ctrl+K)"
             >
               <Command className="w-3 h-3" />
-              <span className="font-mono">K</span>
+              <span className="font-mono">
+                Ctrl <span className="ml-px rounded-sm px-1 py-px text-[10px]" style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}>K</span>
+              </span>
             </button>
 
             <button
@@ -128,7 +145,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-px overflow-hidden">
+        <div className="absolute inset-x-0 bottom-0 h-px overflow-hidden" style={{ opacity: scrolled ? 1 : 0, transition: "opacity 0.3s ease" }}>
           <div
             ref={progressRef}
             className="h-full w-full origin-left"
@@ -139,13 +156,13 @@ export default function Navbar() {
 
       {/* Mobile editorial overlay */}
       <div
-        className={`fixed inset-0 z-[70] md:hidden transition-[opacity,visibility] duration-300 ${
+        className={`fixed inset-0 z-[55] md:hidden transition-[opacity,visibility] duration-300 ${
           menuOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
         style={{ backgroundColor: "var(--color-bg-primary)" }}
         aria-hidden={!menuOpen}
       >
-        <div className="flex h-full flex-col px-6 pt-20 pb-8 overflow-y-auto bg-field">
+        <div className="flex h-full flex-col px-6 pt-20 pb-8 overflow-y-auto">
           <p className="field-label mb-6">Index</p>
           <ul className="flex-1 space-y-1">
             {routes.map((r, i) => {

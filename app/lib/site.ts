@@ -5,7 +5,7 @@ export const siteConfig = {
   url: "https://kareithi.vercel.app",
   title: "Brian Kareithi | Fullstack Developer, React Native & Cybersecurity Specialist",
   description:
-    "Brian Kareithi is a Fullstack Developer, React Native Developer, and Cybersecurity Specialist from Nairobi, Kenya. Specializing in Next.js, React, TypeScript, and secure cloud-native applications. 50+ projects delivered, 5+ years in tech.",
+    "Brian Kareithi is a Fullstack Developer, React Native Developer, and Cybersecurity Specialist from Nairobi, Kenya. Specializing in Next.js, React, TypeScript, and secure cloud-native applications. 50+ projects delivered, 3 years in tech.",
   email: "kareithibrian2@gmail.com",
   phone: "+254718593392",
   phoneDisplay: "+254 718 593 392",

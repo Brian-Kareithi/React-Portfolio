@@ -22,7 +22,7 @@ entrepreneurial sectors.
 
 ## Key facts
 - BSc Information Technology, Umma University (cybersecurity focus)
-- 5+ years in tech, 50+ projects delivered
+- 3 years in tech, 50+ projects delivered
 - 18-device homelab: 24/7 Proxmox, RAID-1, ESP32 automation
 - Recent focus: React Native (Expo), Next.js, secure cloud architecture
 

@@ -45,7 +45,7 @@ const categoryConfig: Record<TimelineItem["category"], { label: string; glyph: s
 const filters = ["all", ...Object.keys(categoryConfig)] as const;
 
 const stats = [
-  { value: 5, suffix: "+", label: "Years in Tech" },
+  { value: 3, suffix: "+", label: "Years in Tech" },
   { value: 6, suffix: "", label: "Certifications" },
   { value: 3, suffix: "", label: "Sectors" },
   { value: 50, suffix: "+", label: "Projects" },

@@ -4,7 +4,7 @@ import { JsonLd } from "@/app/components/JsonLd";
 import { siteConfig } from "@/app/lib/site";
 
 const description =
-  "Brian Kareithi is a Fullstack Developer, React Native Developer, and Cybersecurity Specialist from Nairobi, Kenya. Specializing in Next.js, React, TypeScript, and secure cloud-native applications. 50+ projects delivered, 5+ years in tech.";
+  "Brian Kareithi is a Fullstack Developer, React Native Developer, and Cybersecurity Specialist from Nairobi, Kenya. Specializing in Next.js, React, TypeScript, and secure cloud-native applications. 50+ projects delivered, 3 years in tech.";
 
 export const metadata: Metadata = {
   title: siteConfig.title,
