@@ -346,6 +346,43 @@ export default function HobbiesClient() {
         </div>
         </StaggerReveal>
 
+        {/* Network topology */}
+        <div className="mb-14 xs:mb-16 sm:mb-20">
+          <SubHead label="Topology" title="How it's wired together" />
+          <div className="flat-card overflow-x-auto p-5 xs:p-6 sm:p-8">
+            <div className="flex min-w-[420px] flex-col items-center font-mono text-[11px]">
+              <span className="tracking-[0.2em]" style={{ color: "var(--color-text-muted)" }}>INTERNET</span>
+              <span className="my-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
+              <div className="border px-5 py-2.5 text-center" style={{ borderColor: "var(--color-border-hover)" }}>
+                <p className="font-medium" style={{ color: "var(--color-text-primary)" }}>Router</p>
+                <p className="text-[9px]" style={{ color: "var(--color-text-muted)" }}>Safaricom 4G LTE</p>
+              </div>
+              <span className="my-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
+              <div className="border px-5 py-2.5 text-center" style={{ borderColor: "var(--color-accent)" }}>
+                <p className="font-medium" style={{ color: "var(--color-accent)" }}>HP Tower Server</p>
+                <p className="text-[9px]" style={{ color: "var(--color-text-muted)" }}>Proxmox VE · 24/7 · RAID-1 · 2TB</p>
+              </div>
+              <span className="my-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
+              <div className="mb-2 h-px w-full max-w-md" style={{ backgroundColor: "var(--color-border-hover)" }} aria-hidden="true" />
+              <div className="grid w-full max-w-md grid-cols-3 gap-3">
+                {[
+                  { label: "Jellyfin", note: "Media server" },
+                  { label: "Backups", note: "Nightly" },
+                  { label: "ESP32 Mesh", note: "Automation" },
+                ].map((s) => (
+                  <div key={s.label} className="flex flex-col items-center">
+                    <span className="mb-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
+                    <div className="w-full border px-2 py-2 text-center" style={{ borderColor: "var(--color-border-hover)" }}>
+                      <p className="text-[10px] font-medium" style={{ color: "var(--color-text-primary)" }}>{s.label}</p>
+                      <p className="text-[9px]" style={{ color: "var(--color-text-muted)" }}>{s.note}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Gear */}
         <div className="mb-14 xs:mb-16 sm:mb-20">
           <SubHead label="Equipment" title="The gear that runs it" />

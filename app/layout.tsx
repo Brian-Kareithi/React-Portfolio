@@ -84,24 +84,22 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "Brian Kareithi Portfolio",
-    title: "Brian Kareithi | Fullstack Developer, React Native & Cybersecurity Specialist",
-    description:
-      "Fullstack Developer & React Native Specialist from Nairobi, Kenya. 50+ projects delivered. Expert in Next.js, React, TypeScript, and secure cloud-native applications.",
+    title: siteConfig.title,
+    description: siteConfig.description,
     images: [
       {
-        url: "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg",
+        url: siteConfig.ogImage,
         width: 800,
         height: 800,
-        alt: "Brian Kareithi - Fullstack Developer & React Native Developer",
+        alt: "Brian Kareithi — Software Engineer, Nairobi, Kenya",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Brian Kareithi | Fullstack Developer, React Native & Cybersecurity Specialist",
-    description:
-      "Fullstack Developer & React Native Specialist from Nairobi, Kenya. 50+ projects delivered. Expert in Next.js, React, TypeScript.",
-    images: ["https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg"],
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
   },
   robots: {
     index: true,
