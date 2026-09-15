@@ -26,22 +26,41 @@ export function SectionHeader({ index, label, title, description }: SectionHeade
       bit.style.transform = "translateY(18px)";
     });
 
+    const reveal = () => {
+      line?.style.setProperty("transition", "transform 0.6s cubic-bezier(0.22,1,0.36,1)");
+      line?.style.setProperty("transform", "scaleX(1)");
+      bits.forEach((bit, i) => {
+        bit.style.transition = `opacity 0.65s cubic-bezier(0.22,1,0.36,1) ${0.08 * i}s, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${0.08 * i}s`;
+        bit.style.opacity = "1";
+        bit.style.transform = "none";
+      });
+      observer.disconnect();
+    };
+
+    const isInViewport = (el: HTMLElement) => {
+      const rect = el.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries[0].isIntersecting) return;
-        line?.style.setProperty("transition", "transform 0.6s cubic-bezier(0.22,1,0.36,1)");
-        line?.style.setProperty("transform", "scaleX(1)");
-        bits.forEach((bit, i) => {
-          bit.style.transition = `opacity 0.65s cubic-bezier(0.22,1,0.36,1) ${0.08 * i}s, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${0.08 * i}s`;
-          bit.style.opacity = "1";
-          bit.style.transform = "none";
-        });
-        observer.disconnect();
+        reveal();
       },
       { threshold: 0.2 }
     );
     observer.observe(root);
-    return () => observer.disconnect();
+
+    if (isInViewport(root)) {
+      reveal();
+    }
+
+    const fallback = setTimeout(() => {
+      const visible = bits[0]?.style.opacity === "1";
+      if (!visible) reveal();
+    }, 2000);
+
+    return () => { observer.disconnect(); clearTimeout(fallback); };
   }, []);
 
   return (

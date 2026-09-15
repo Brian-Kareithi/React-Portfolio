@@ -33,21 +33,40 @@ export function StaggerReveal({ children, className = "", staggerDelay = 70, thr
       t.style.willChange = "opacity, transform";
     });
 
+    const reveal = () => {
+      targets.forEach((t, index) => {
+        const delay = (index * staggerDelay) / 1000;
+        t.style.transition = `opacity 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
+        t.style.opacity = "1";
+        t.style.transform = "none";
+      });
+      observer.disconnect();
+    };
+
+    const isInViewport = (el: HTMLElement) => {
+      const rect = el.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries[0].isIntersecting) return;
-        targets.forEach((t, index) => {
-          const delay = (index * staggerDelay) / 1000;
-          t.style.transition = `opacity 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
-          t.style.opacity = "1";
-          t.style.transform = "none";
-        });
-        observer.disconnect();
+        reveal();
       },
       { threshold, rootMargin: "0px 0px -8% 0px" }
     );
     observer.observe(el);
-    return () => observer.disconnect();
+
+    if (isInViewport(el)) {
+      reveal();
+    }
+
+    const fallback = setTimeout(() => {
+      const visible = targets.every((t) => t.style.opacity === "1");
+      if (!visible) reveal();
+    }, 2000);
+
+    return () => { observer.disconnect(); clearTimeout(fallback); };
   }, [staggerDelay, threshold]);
 
   return (
