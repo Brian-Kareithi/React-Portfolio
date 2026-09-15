@@ -20,7 +20,7 @@ const roles = [
 const spec: { k: string; v: string }[] = [
   { k: "Role", v: siteConfig.role },
   { k: "Based in", v: "Nairobi, Kenya" },
-  { k: "Focus", v: "Secure, scalable software — mobile to cloud-native" },
+  { k: "Focus", v: "Secure, scalable software : mobile to cloud-native" },
   { k: "Certifications", v: "6 · security, cloud & networking" },
   { k: "Projects", v: "50+ delivered" },
   { k: "Experience", v: "3 years in tech" },

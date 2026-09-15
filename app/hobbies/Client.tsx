@@ -306,10 +306,10 @@ export default function HobbiesClient() {
           index="08"
           label="Homelab"
           title={<>Life outside the <em className="font-serif-accent">terminal</em></>}
-          description="Servers, sensors and solder-side experiments — a homelab that never sleeps, where professional skills get stress-tested for fun."
+          description="Servers, sensors and solder-side experiments : a homelab that never sleeps, where professional skills get stress-tested for fun."
         />
 
-        {/* Lab status — terminal strip */}
+        {/* Lab status : terminal strip */}
         <StaggerReveal staggerDelay={80}>
         <div className="flat-card overflow-hidden mb-14 xs:mb-16 sm:mb-20">
           <div className="flex items-center gap-2 px-4 py-2.5 border-b"
@@ -531,7 +531,7 @@ export default function HobbiesClient() {
                 of systems built to serve real life, not just demos.&rdquo;
               </p>
               <footer className="font-mono text-[10px] mt-3 tracking-wider uppercase" style={{ color: "var(--color-text-muted)" }}>
-                — brian@homelab
+                : brian@homelab
               </footer>
             </blockquote>
           </div>

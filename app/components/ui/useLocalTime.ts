@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 /**
  * Live wall-clock time in a given IANA timezone, formatted `HH:MM`.
  * Returns `null` until mounted so server and client markup agree.
- * Ticks once a minute — no per-second churn.
+ * Ticks once a minute : no per-second churn.
  */
 export default function useLocalTime(timeZone = "Africa/Nairobi") {
   const [time, setTime] = useState<string | null>(null);

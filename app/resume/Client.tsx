@@ -125,9 +125,9 @@ export default function ResumeClient() {
               <p className="field-label mb-4">Experience</p>
               <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
                 <h3 className="text-sm font-bold xs:text-base" style={{ color: "var(--color-text-primary)" }}>
-                  IT Support / Frontend Development — Steadfast Academy
+                  IT Support / Frontend Development : Steadfast Academy
                 </h3>
-                <span className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>2025 — Present</span>
+                <span className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>2025 : Present</span>
               </div>
               <ul className="space-y-2">
                 {role.experience.map((line) => (

@@ -33,7 +33,7 @@ const jsonLd = {
       "@type": "ProfessionalService",
       "@id": `${siteConfig.url}/#service`,
       url: siteConfig.url,
-      name: `${siteConfig.name} — Software Engineering & Mobile Development`,
+      name: `${siteConfig.name} : Software Engineering & Mobile Development`,
       description: "Web and mobile software engineering, React Native apps, and IT infrastructure support based in Nairobi, Kenya.",
       slogan: siteConfig.role,
       email: siteConfig.email,

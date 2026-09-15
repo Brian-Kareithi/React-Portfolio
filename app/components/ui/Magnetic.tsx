@@ -14,7 +14,7 @@ interface MagneticProps {
 /**
  * Wraps a single interactive child and gives it a subtle magnetic pull
  * toward the pointer. Disabled entirely for coarse pointers and when the
- * user prefers reduced motion — it degrades to a plain wrapper.
+ * user prefers reduced motion : it degrades to a plain wrapper.
  */
 export default function Magnetic({
   children,
