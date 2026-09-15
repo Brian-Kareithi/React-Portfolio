@@ -84,10 +84,10 @@
   --color-bg-card: #312724;
   --color-bg-card-hover: #3a302d;
 
-  --color-text-primary: #f3ead8; /* Cream */
-  --color-text-secondary: #cbbca6;
-  --color-text-muted: #767579; /* Astrogranite */
-  --color-text-light: #f3ead8;
+  --color-text-primary: #ffffff; /* White for dark mode */
+  --color-text-secondary: #e8e4e0;
+  --color-text-muted: #999;
+  --color-text-light: #ffffff;
 
   --color-border: #3a322f;
   --color-border-hover: #4a3e3b; /* Dark Taupe */
@@ -110,7 +110,7 @@
   --color-success: #2d7d46;
   --color-warning: #9c7a1e;
   --color-error: #d1554f;
-  --color-info: #767579;
+  --color-info: #999;
 
   --gradient-primary: #e0142f;
   --gradient-hero: #1a1717;
