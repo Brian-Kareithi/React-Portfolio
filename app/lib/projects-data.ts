@@ -73,7 +73,7 @@ export const caseStudies: CaseStudy[] = [
     access: {
       kind: "client",
       demo: "https://sapio-homes.vercel.app",
-      note: "Client project — source is proprietary",
+      note: "Client project : source is proprietary",
     },
   },
   {
@@ -168,7 +168,7 @@ export interface OtherProject {
 /** Smaller or archived builds, shown as a lighter-weight grid below the case studies. */
 export const otherProjects: OtherProject[] = [
   {
-    title: "Steadfast Academy — Library Module",
+    title: "Steadfast Academy : Library Module",
     type: "Web Application",
     status: "active",
     description: "Dedicated web-based library management solution integrated into the academy ecosystem.",

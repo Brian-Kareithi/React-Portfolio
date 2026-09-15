@@ -65,7 +65,7 @@ export default function NotFound() {
         </div>
 
         <p className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
-          brian@portfolio:~$ whoops — route not found
+          brian@portfolio:~$ whoops : route not found
         </p>
       </div>
     </section>

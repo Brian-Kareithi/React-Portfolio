@@ -11,7 +11,7 @@ import NextSection from "@/app/components/NextSection";
 const experience = {
   role: "IT Support / Frontend Development",
   company: "Steadfast Academy",
-  period: "2025 — Present",
+  period: "2025 : Present",
   summary: "Building and supporting digital systems used within an education environment.",
   duties: [
     "Developed responsive Teacher and Parent portals",

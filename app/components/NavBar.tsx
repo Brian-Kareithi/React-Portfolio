@@ -75,7 +75,7 @@ export default function Navbar() {
           <button
             onClick={() => go("/")}
             className="flex items-center gap-3 transition-opacity duration-200 hover:opacity-70"
-            aria-label="Brian Kareithi — home"
+            aria-label="Brian Kareithi : home"
           >
             <Image src="/logo.png" alt="" width={112} height={34} className="h-8 w-auto" priority />
           </button>

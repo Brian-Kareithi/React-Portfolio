@@ -15,7 +15,7 @@ interface NextSectionProps {
   links: NextSectionLink[];
 }
 
-const indexFor = (href: string) => routes.find((r) => r.path === href)?.index ?? "—";
+const indexFor = (href: string) => routes.find((r) => r.path === href)?.index ?? ":";
 
 export default function NextSection({
   title = "Keep exploring",
