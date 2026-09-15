@@ -25,8 +25,7 @@ export default function Footer() {
               Brian Kareithi
             </p>
             <p className="mt-3 max-w-[260px] text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-              Full-stack developer, React Native engineer and cybersecurity specialist based in
-              Nairobi, Kenya.
+              Software engineer building secure web and mobile products, based in Nairobi, Kenya.
             </p>
             <div className="mt-5 flex gap-2">
               {socials.map(({ href, icon: Icon, label }) => (
@@ -98,7 +97,7 @@ export default function Footer() {
             &copy; {year} Brian Kareithi
           </p>
           <p className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)", opacity: 0.7 }}>
-            Cybersecurity &amp; Full-Stack Developer · Nairobi, Kenya · Built with Next.js
+            Software Engineer · Nairobi, Kenya · Built with Next.js
           </p>
         </div>
       </div>

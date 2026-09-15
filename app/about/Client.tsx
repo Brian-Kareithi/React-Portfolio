@@ -1,11 +1,28 @@
 "use client";
 import { useMemo, useState } from "react";
+import { CheckCircle } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { CountUp } from "@/app/components/ui/CountUp";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
+
+const experience = {
+  role: "IT Support / Frontend Development",
+  company: "Steadfast Academy",
+  period: "2025 — Present",
+  summary: "Building and supporting digital systems used within an education environment.",
+  duties: [
+    "Developed responsive Teacher and Parent portals",
+    "Integrated frontend applications with backend APIs",
+    "Worked with Next.js and React",
+    "Built the Parent mobile application using Expo / React Native",
+    "Supported users and troubleshooting",
+    "Worked with school information systems",
+    "Assisted with IT infrastructure and technical support",
+  ],
+};
 
 interface TimelineItem {
   title: string;
@@ -30,7 +47,7 @@ const timeline: TimelineItem[] = [
   { title: "IBM Cybersecurity Analyst", institution: "IBM", period: "2024", year: 2024, category: "certification", description: "Advanced certification in threat intelligence and enterprise security management.", significance: "Enterprise security operations", metrics: ["Threat intelligence mastery", "SOC procedure implementation"] },
   { title: "Information Security Specialist", institution: "ICT Authority of Kenya", period: "2022 - 2024", year: 2022, category: "professional", description: "Secured government digital infrastructure and implemented security frameworks.", significance: "Public sector security impact", metrics: ["50,000+ user accounts protected", "75% security incident reduction", "Zero critical vulnerabilities"] },
   { title: "Freelance Full-Stack Developer", institution: "Fiverr & Upwork", period: "2022 - 2024", year: 2022, category: "professional", description: "Delivered secure, high-performance web applications for diverse clients.", significance: "Client-driven development", metrics: ["50+ projects delivered", "100% client satisfaction", "Full-stack architecture expertise"] },
-  { title: "Frontend Developer & ICT Support", institution: "Steadfast Academy", period: "2025 - Present", year: 2025, category: "professional", description: "Architected and deployed scalable frontend systems with focus on performance.", significance: "Enterprise-scale frontend", metrics: ["10,000+ users served", "40% UI performance improvement", "React architecture migration"] },
+  { title: "IT Support / Frontend Development", institution: "Steadfast Academy", period: "2025 - Present", year: 2025, category: "professional", description: "Building and supporting digital systems used within an education environment: Teacher and Parent portals, a companion mobile app, and day-to-day IT support.", significance: "Real users, real systems, real deployment", metrics: ["Teacher & Parent portals (Next.js, React)", "Parent mobile app (Expo / React Native)", "School information systems & IT support"] },
   { title: "Co-Founder & Backend Developer", institution: "Thee Entity Limited", period: "2025 - Present", year: 2025, category: "entrepreneurial", description: "Established technology startup, designed cloud-native solutions.", significance: "Entrepreneurial venture", metrics: ["60% infrastructure cost reduction", "15-minute deployment", "Cloud-native architecture"] },
   { title: "Cybersecurity Leadership", institution: "Future Focus", period: "2026 & Beyond", year: 2026, category: "professional", description: "Aspire to lead enterprise security initiatives and mentor emerging professionals.", significance: "Strategic career progression", metrics: ["Enterprise security leadership", "Open-source contribution", "Professional mentorship"] },
 ];
@@ -105,6 +122,38 @@ export default function AboutClient() {
                 <span className="field-label">{s.label}</span>
               </div>
             ))}
+          </div>
+
+          {/* Experience */}
+          <div className="mb-14 flat-card p-5 xs:p-6 md:p-8" style={{ borderColor: "var(--color-border)" }}>
+            <p className="field-label mb-4 flex items-center gap-2">
+              <span className="h-px w-4" style={{ backgroundColor: "var(--color-accent)" }} />
+              Experience
+            </p>
+            <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+              <div>
+                <h3 className="text-lg font-bold xs:text-xl" style={{ color: "var(--color-text-primary)" }}>
+                  {experience.role}
+                </h3>
+                <p className="text-xs uppercase tracking-wider mt-0.5" style={{ color: "var(--color-text-muted)" }}>
+                  {experience.company}
+                </p>
+              </div>
+              <span className="font-mono text-[11px]" style={{ color: "var(--color-text-muted)" }}>
+                {experience.period}
+              </span>
+            </div>
+            <p className="mb-5 max-w-2xl text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+              {experience.summary}
+            </p>
+            <div className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+              {experience.duties.map((duty) => (
+                <div key={duty} className="flex items-start gap-2 text-xs xs:text-sm" style={{ color: "var(--color-text-secondary)" }}>
+                  <CheckCircle className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
+                  {duty}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Filter */}
@@ -194,7 +243,7 @@ export default function AboutClient() {
                             )}
                             {item.metrics && (
                               <div className="border p-4" style={{ borderColor: "var(--color-glass-border-strong)" }}>
-                                <p className="field-label mb-2">Key Metrics</p>
+                                <p className="field-label mb-2">Highlights</p>
                                 <ul className="space-y-1.5">
                                   {item.metrics.map((m) => (
                                     <li
@@ -243,7 +292,7 @@ export default function AboutClient() {
             title="Explore the toolbox"
             description="The capabilities behind the journey, and the work it produces."
             links={[
-              { href: "/techstack", label: "Tech Stack", description: "Languages, frameworks, platforms and proficiency levels." },
+              { href: "/resume", label: "Resume", description: "The same background, tailored to the role you're hiring for." },
               { href: "/expertise", label: "Expertise", description: "Six hands-on domains, from silicon to cloud-native." },
               { href: "/projects", label: "Selected Work", description: "Delivered products, apps and experiments I'm proud of." },
             ]}

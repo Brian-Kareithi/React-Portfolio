@@ -3,7 +3,7 @@ import { siteConfig } from "@/app/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
-  const lastModified = new Date("2026-09-02");
+  const lastModified = new Date("2026-09-15");
 
   return [
     { url: `${base}/`, lastModified, changeFrequency: "weekly", priority: 1 },
@@ -15,5 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/projects`, lastModified, changeFrequency: "weekly", priority: 0.8 },
     { url: `${base}/contact`, lastModified, changeFrequency: "yearly", priority: 0.6 },
     { url: `${base}/hobbies`, lastModified, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/resume`, lastModified, changeFrequency: "monthly", priority: 0.7 },
   ];
 }

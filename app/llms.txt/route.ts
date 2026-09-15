@@ -3,15 +3,17 @@ import { siteConfig } from "@/app/lib/site";
 
 export function GET() {
   const text = `# Brian Kareithi — llms.txt
-> Full-Stack Developer, React Native & Cybersecurity Specialist (Nairobi, Kenya)
+> Software Engineer — Web, Mobile & Cloud-Native Systems (Nairobi, Kenya)
 
 ## About
-Brian Kareithi builds secure, scalable software end-to-end: typed full-stack
-applications, cross-platform mobile apps, and cloud-native infrastructure. He
-holds six certifications (Azure Fundamentals, CompTIA Security+, AWS Cloud
-Practitioner, Google Cybersecurity Professional, CCNA, IBM Cybersecurity
-Analyst) and has delivered 50+ projects across public, private and
-entrepreneurial sectors.
+Brian Kareithi builds secure, cloud-native products across three areas:
+software engineering (React, Next.js, TypeScript, Node.js), mobile
+development (React Native, Expo), and IT & infrastructure (Linux,
+networking, system administration). He works in IT support and frontend
+development at Steadfast Academy, holds six certifications (Azure
+Fundamentals, CompTIA Security+, AWS Cloud Practitioner, Google
+Cybersecurity Professional, CCNA, IBM Cybersecurity Analyst), and has
+delivered 50+ projects.
 
 ## Contact
 - Email: ${siteConfig.email}
@@ -33,8 +35,9 @@ entrepreneurial sectors.
 - [Engineering](${siteConfig.url}/engineering) — Principles, architecture, workflow
 - [Diagnostics](${siteConfig.url}/troubleshooting) — Troubleshooting method and case studies
 - [Tech Stack](${siteConfig.url}/techstack) — Languages, frameworks, tools by proficiency
-- [Selected Work](${siteConfig.url}/projects) — Projects, apps and experiments
+- [Selected Work](${siteConfig.url}/projects) — Case studies: problem, solution, architecture
 - [Homelab](${siteConfig.url}/hobbies) — Gear, builds and lab experiments
+- [Resume](${siteConfig.url}/resume) — Role-tailored resume: software, mobile, or IT
 - [Contact](${siteConfig.url}/contact) — Email and contact form
 `;
 

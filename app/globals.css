@@ -11,107 +11,110 @@
 
 /* ───────────────────────────────────────────────────────────
    Engineered Field Manual — flat surfaces, hairline structure,
-   one cobalt accent, editorial serif accent, mono metadata.
+   one crimson accent, editorial serif accent, mono metadata.
+
+   Palette: Thamar Black, Wood Bark, Dark Taupe, Maroon Oak,
+   Wolf's Fur, Astrogranite, Harvard Crimson, and cream.
    ─────────────────────────────────────────────────────────── */
 
 :root {
-  --color-accent: #0047ab;
-  --color-accent-light: #0a57c6;
-  --color-accent-dark: #003a8c;
-  --color-accent-glow: rgba(0, 71, 171, 0.08);
-  --color-accent-secondary: #0047ab;
+  --color-accent: #c80119; /* Harvard Crimson */
+  --color-accent-light: #e0122c;
+  --color-accent-dark: #540916; /* Maroon Oak */
+  --color-accent-glow: rgba(200, 1, 25, 0.08);
+  --color-accent-secondary: #c80119;
 
-  --color-bg-primary: #f4f2ec;
-  --color-bg-secondary: #fbfaf6;
-  --color-bg-tertiary: #e9e7df;
-  --color-bg-card: #fbfaf6;
-  --color-bg-card-hover: #f4f2ec;
+  --color-bg-primary: #f3ead8; /* Cream */
+  --color-bg-secondary: #faf4e9;
+  --color-bg-tertiary: #ebdfc8;
+  --color-bg-card: #faf4e9;
+  --color-bg-card-hover: #f3ead8;
 
-  --color-text-primary: #14130f;
-  --color-text-secondary: #3d3b34;
-  --color-text-muted: #77746a;
-  --color-text-light: #fbfaf6;
+  --color-text-primary: #1a1717; /* Thamar Black */
+  --color-text-secondary: #312724; /* Wood Bark */
+  --color-text-muted: #5d5452; /* Wolf's Fur */
+  --color-text-light: #faf4e9;
 
-  --color-border: #ddd9cd;
-  --color-border-hover: #c7c2b2;
+  --color-border: #ddd0b4;
+  --color-border-hover: #c9b88f;
 
-  --color-glass-bg: #fbfaf6;
-  --color-glass-nav-bg: rgba(251, 250, 246, 0.82);
-  --color-glass-nav-done: #0047ab;
-  --color-glass-border: #ddd9cd;
-  --color-glass-border-strong: #cec9ba;
+  --color-glass-bg: #faf4e9;
+  --color-glass-nav-bg: rgba(250, 244, 233, 0.82);
+  --color-glass-nav-done: #c80119;
+  --color-glass-border: #ddd0b4;
+  --color-glass-border-strong: #cbb88c;
   --color-glass-shadow: none;
   --color-glass-input-bg: transparent;
-  --color-glass-icon-bg: #ecebe3;
-  --color-glass-item-bg: #fbfaf6;
+  --color-glass-icon-bg: #ece0c7;
+  --color-glass-item-bg: #faf4e9;
 
-  --color-surface: rgba(0, 71, 171, 0.06);
-  --color-surface-strong: rgba(0, 71, 171, 0.1);
+  --color-surface: rgba(200, 1, 25, 0.06);
+  --color-surface-strong: rgba(200, 1, 25, 0.1);
 
-  --color-accent-gradient: #0047ab;
+  --color-accent-gradient: #c80119;
 
   --color-success: #1d7a3f;
   --color-warning: #8a6d1a;
-  --color-error: #b3261e;
-  --color-info: #1d5f8f;
+  --color-error: #8c1d1d;
+  --color-info: #4a3e3b;
 
   --shadow-sm: none;
   --shadow-md: none;
   --shadow-lg: none;
   --shadow-xl: none;
 
-  --gradient-primary: #0047ab;
-  --gradient-hero: #f4f2ec;
-  --gradient-card: #fbfaf6;
+  --gradient-primary: #c80119;
+  --gradient-hero: #f3ead8;
+  --gradient-card: #faf4e9;
 
   --hairline: color-mix(in srgb, var(--color-text-primary) 12%, transparent);
   --hairline-strong: color-mix(in srgb, var(--color-text-primary) 20%, transparent);
 }
 
 :root.dark {
-  --color-accent: #3f7fe0;
-  --color-accent-light: #5b93e8;
-  --color-accent-dark: #2c66c4;
-  --color-accent-glow: rgba(63, 127, 224, 0.14);
-  --color-accent-secondary: #3f7fe0;
+  --color-accent: #e0142f; /* Harvard Crimson, brightened for contrast on black */
+  --color-accent-light: #ed3350;
+  --color-accent-dark: #540916; /* Maroon Oak */
+  --color-accent-glow: rgba(224, 20, 47, 0.16);
+  --color-accent-secondary: #e0142f;
 
-  --color-bg-primary: #0e0e0f;
-  --color-bg-secondary: #161617;
-  --color-bg-tertiary: #202022;
-  --color-bg-card: #161617;
-  --color-bg-card-hover: #202022;
+  --color-bg-primary: #1a1717; /* Thamar Black */
+  --color-bg-secondary: #312724; /* Wood Bark */
+  --color-bg-tertiary: #4a3e3b; /* Dark Taupe */
+  --color-bg-card: #312724;
+  --color-bg-card-hover: #3a302d;
 
-  --color-text-primary: #f4f3ee;
-  --color-text-secondary: #cbc9c1;
-  --color-text-muted: #8b887f;
-  --color-text-light: #f4f3ee;
+  --color-text-primary: #f3ead8; /* Cream */
+  --color-text-secondary: #cbbca6;
+  --color-text-muted: #767579; /* Astrogranite */
+  --color-text-light: #f3ead8;
 
-  --color-border: #262629;
-  --color-border-hover: #3c3c40;
+  --color-border: #3a322f;
+  --color-border-hover: #4a3e3b; /* Dark Taupe */
 
-  --color-glass-bg: #161617;
-  --color-glass-nav-bg: rgba(14, 14, 15, 0.72);
-  --color-glass-nav-done: #3f7fe0;
-  --color-glass-border: #262629;
-  --color-glass-border-strong: #35353a;
+  --color-glass-bg: #312724;
+  --color-glass-nav-bg: rgba(26, 23, 23, 0.72);
+  --color-glass-nav-done: #e0142f;
+  --color-glass-border: #3a322f;
+  --color-glass-border-strong: #4a3e3b;
   --color-glass-shadow: none;
   --color-glass-input-bg: transparent;
-  --color-glass-icon-bg: #202022;
-  --color-glass-item-bg: #161617;
+  --color-glass-icon-bg: #3a302d;
+  --color-glass-item-bg: #312724;
 
-  --color-surface: rgba(63, 127, 224, 0.1);
-  --color-surface-strong: rgba(63, 127, 224, 0.16);
+  --color-surface: rgba(224, 20, 47, 0.1);
+  --color-surface-strong: rgba(224, 20, 47, 0.16);
 
-  --color-accent-gradient: #3f7fe0;
+  --color-accent-gradient: #e0142f;
 
   --color-success: #2d7d46;
   --color-warning: #9c7a1e;
-  --color-error: #e74c3c;
-  --color-info: #3a8fcc;
+  --color-error: #d1554f;
+  --color-info: #767579;
 
-  --gradient-primary: #3f7fe0;
-  --gradient-hero: #0e0e0f;
-  --gradient-card: #161617;
+  --gradient-primary: #e0142f;
+  --gradient-hero: #1a1717;
+  --gradient-card: #312724;
 
   --hairline: color-mix(in srgb, var(--color-text-primary) 14%, transparent);
   --hairline-strong: color-mix(in srgb, var(--color-text-primary) 24%, transparent);
@@ -385,7 +388,7 @@ body {
 .btn-neon-primary {
   background: var(--color-accent);
   border: 1px solid var(--color-accent);
-  color: #fbfaf6;
+  color: var(--color-text-light);
 }
 .btn-neon-primary:hover {
   background: var(--color-accent-dark);
@@ -437,6 +440,23 @@ body {
   background-color: var(--color-accent-glow);
 }
 .cursor-ring[data-hidden="true"] { opacity: 0; }
+
+/* ── Print (resume page) ───────────────────────────────── */
+@media print {
+  nav,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #111;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *,

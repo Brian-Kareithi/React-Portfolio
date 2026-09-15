@@ -7,16 +7,18 @@ import Magnetic from "@/app/components/ui/Magnetic";
 import useLocalTime from "@/app/components/ui/useLocalTime";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import { routes } from "@/app/lib/nav";
+import { focusAreas, alsoExploring } from "@/app/lib/focus";
+import { siteConfig } from "@/app/lib/site";
 
 const roles = [
-  "Fullstack Developer",
-  "Cybersecurity Engineer",
+  "Software Engineer",
   "React Native Developer",
+  "IT & Infrastructure Support",
   "Cloud & DevOps Enthusiast",
 ];
 
 const spec: { k: string; v: string }[] = [
-  { k: "Role", v: "Fullstack Developer, React Native & Cybersecurity Specialist" },
+  { k: "Role", v: siteConfig.role },
   { k: "Based in", v: "Nairobi, Kenya" },
   { k: "Focus", v: "Secure, scalable software — mobile to cloud-native" },
   { k: "Certifications", v: "6 · security, cloud & networking" },
@@ -104,20 +106,25 @@ export default function HomeContent() {
               className="mb-9 max-w-md text-sm leading-relaxed sm:text-[15px]"
               style={{ color: "var(--color-text-secondary)" }}
             >
-              I design and build <em className="font-serif-accent">secure</em>, scalable software,
-              from mobile apps to cloud-native platforms.
+              I build <em className="font-serif-accent">secure</em>, cloud-native products,
+              from React Native apps to hardened infrastructure.
             </p>
 
             <div className="mb-9 flex flex-wrap gap-3">
               <Magnetic>
                 <Link href="/projects" className="btn-neon btn-neon-primary" data-cursor="grow">
-                  View My Work
+                  View Systems Built
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </Magnetic>
               <Magnetic>
                 <Link href="/contact" className="btn-neon btn-neon-ghost" data-cursor="grow">
                   Get in Touch
+                </Link>
+              </Magnetic>
+              <Magnetic>
+                <Link href="/resume" className="btn-neon btn-neon-ghost" data-cursor="grow">
+                  View Resume
                 </Link>
               </Magnetic>
             </div>
@@ -183,7 +190,7 @@ export default function HomeContent() {
                     className="grid grid-cols-[5.5rem_1fr] gap-3 px-3.5 py-2"
                     style={{ borderTop: i === 0 ? "none" : "1px solid var(--color-border)" }}
                   >
-                    <dt className="field-label pt-0.5">{row.k}</dt>
+                    <dt className="field-label break-words pt-0.5" style={{ overflowWrap: "anywhere" }}>{row.k}</dt>
                     <dd className="text-[11px] leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                       {row.v}
                     </dd>
@@ -194,8 +201,40 @@ export default function HomeContent() {
           </div>
         </div>
 
-        {/* Section index */}
+        {/* Focus areas */}
         <div className="mt-20 border-t pt-8" style={{ borderColor: "var(--color-border)" }}>
+          <p className="field-label mb-6">What I hire out for</p>
+          <div className="grid gap-px sm:grid-cols-3" style={{ backgroundColor: "var(--color-border)" }}>
+            {focusAreas.map((area) => (
+              <div key={area.id} className="p-5 xs:p-6" style={{ backgroundColor: "var(--color-bg-primary)" }}>
+                <p className="index-num mb-3">{area.index}</p>
+                <h3 className="mb-3 text-sm font-bold uppercase tracking-wide xs:text-base" style={{ color: "var(--color-text-primary)" }}>
+                  {area.label}
+                </h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {area.tools.map((tool) => (
+                    <span key={tool} className="rounded px-2 py-1 font-mono text-[10px]"
+                      style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <span className="field-label">Also exploring</span>
+            {alsoExploring.map((tag) => (
+              <span key={tag} className="rounded px-2 py-1 font-mono text-[10px]"
+                style={{ border: "1px dashed var(--color-border-hover)", color: "var(--color-text-muted)" }}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Section index */}
+        <div className="mt-14 border-t pt-8" style={{ borderColor: "var(--color-border)" }}>
           <div className="mb-4 flex items-center justify-between">
             <p className="field-label">Index</p>
             <button
