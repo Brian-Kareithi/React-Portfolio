@@ -12,7 +12,7 @@ export const resumeRoles: ResumeRole[] = [
   {
     id: "software",
     label: "Software Engineering",
-    headline: "Software Engineer : Web & Cloud-Native Systems",
+    headline: "Software Engineer, Web & Cloud-Native Systems",
     summary:
       "I build full-stack web applications end to end, from data model to deployment, with Next.js, TypeScript and Node.js. Recent work spans a role-based platform for road-safety management and a client real-estate site with a 3D property viewer.",
     topSkills: ["React", "Next.js", "TypeScript", "Node.js", "REST APIs", "PostgreSQL", "Firebase", "Docker"],
@@ -33,7 +33,7 @@ export const resumeRoles: ResumeRole[] = [
   {
     id: "mobile",
     label: "Mobile Development",
-    headline: "Mobile Developer : React Native & Expo",
+    headline: "Mobile Developer, React Native & Expo",
     summary:
       "I ship cross-platform mobile apps with React Native and Expo, from the Steadfast Parent app used by real families to personal tools like a Kotlin fitness tracker I use every day.",
     topSkills: ["React Native", "Expo", "TypeScript", "Kotlin", "Android SDK", "Firebase", "REST APIs"],
@@ -75,17 +75,17 @@ export const resumeRoles: ResumeRole[] = [
 ];
 
 export const resumeCertifications = [
-  "Microsoft Azure Fundamentals : Microsoft (2022)",
-  "CompTIA Security+ : CompTIA (2022)",
-  "AWS Cloud Practitioner : Amazon Web Services (2023)",
-  "Google Cybersecurity Professional : Google (2023)",
-  "CCNA : Cisco (2023)",
-  "IBM Cybersecurity Analyst : IBM (2024)",
+  "Microsoft Azure Fundamentals (Microsoft, 2022)",
+  "CompTIA Security+ (CompTIA, 2022)",
+  "AWS Cloud Practitioner (Amazon Web Services, 2023)",
+  "Google Cybersecurity Professional (Google, 2023)",
+  "CCNA (Cisco, 2023)",
+  "IBM Cybersecurity Analyst (IBM, 2024)",
 ];
 
 export const resumeEducation = {
   degree: "BSc Information Technology",
   institution: "Umma University",
-  period: "2021 : Present",
+  period: "2021 - Present",
   note: "Cybersecurity focus",
 };

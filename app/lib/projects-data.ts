@@ -15,6 +15,12 @@ export interface CaseStudy {
     demo?: string;
     note: string;
   };
+  /** Optional supporting document (e.g. a presentation deck) shown as an inline exhibit. */
+  exhibit?: {
+    label: string;
+    fileUrl: string;
+    fileName: string;
+  };
 }
 
 /** Featured systems, told as problem → solution → architecture → contribution. */
@@ -44,8 +50,13 @@ export const caseStudies: CaseStudy[] = [
     access: {
       kind: "public",
       repo: "https://github.com/Brian-Kareithi/RoadSafe360",
-      demo: "https://roadsafe-opal.vercel.app",
+      demo: "https://roadsafe-opal.vercel.app/auth",
       note: "Public repository",
+    },
+    exhibit: {
+      label: "Project Deck",
+      fileUrl: "/roadsafe360-pbl-road-safety-system.pptx",
+      fileName: "RoadSafe360 PBL Road Safety System.pptx",
     },
   },
   {
@@ -73,7 +84,7 @@ export const caseStudies: CaseStudy[] = [
     access: {
       kind: "client",
       demo: "https://sapio-homes.vercel.app",
-      note: "Client project : source is proprietary",
+      note: "Client project: source is proprietary",
     },
   },
   {
@@ -168,7 +179,7 @@ export interface OtherProject {
 /** Smaller or archived builds, shown as a lighter-weight grid below the case studies. */
 export const otherProjects: OtherProject[] = [
   {
-    title: "Steadfast Academy : Library Module",
+    title: "Steadfast Library Module",
     type: "Web Application",
     status: "active",
     description: "Dedicated web-based library management solution integrated into the academy ecosystem.",

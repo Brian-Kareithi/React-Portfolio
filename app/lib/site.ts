@@ -1,10 +1,10 @@
 export const siteConfig = {
   name: "Brian Kareithi",
   fullName: "Brian Kareithi",
-  role: "Software Engineer : Web, Mobile & Cloud-Native Systems",
+  role: "Software Engineer, Web, Mobile & Cloud-Native Systems",
   tagline: "I build secure, cloud-native products, from React Native apps to hardened infrastructure.",
   url: "https://kareithi.vercel.app",
-  title: "Brian Kareithi | Software Engineer : Web, Mobile & Cloud-Native Systems",
+  title: "Brian Kareithi | Software Engineer, Web, Mobile & Cloud-Native Systems",
   description:
     "Brian Kareithi is a Software Engineer based in Nairobi, Kenya, building secure web and mobile products with Next.js, React Native and TypeScript, from architecture through deployment. IT support and infrastructure background, 6 certifications, 50+ projects delivered.",
   email: "kareithibrian2@gmail.com",
