@@ -91,7 +91,7 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 800,
         height: 800,
-        alt: "Brian Kareithi : Software Engineer, Nairobi, Kenya",
+        alt: "Brian Kareithi, Software Engineer, Nairobi, Kenya",
       },
     ],
   },

@@ -13,8 +13,7 @@ const ThemeContext = createContext<ThemeContextType>({
   toggleTheme: () => {},
 });
 
-function getInitialTheme(): Theme {
-  if (typeof window === "undefined") return "dark";
+function getStoredTheme(): Theme {
   try {
     const stored = window.localStorage.getItem("theme");
     if (stored === "light" || stored === "dark") return stored;
@@ -25,23 +24,31 @@ function getInitialTheme(): Theme {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme());
+  // Starts at "dark" to match the server-rendered markup exactly (the <html>
+  // element always renders with the "dark" class server-side). The inline
+  // script in layout.tsx's <head> already applies the real class before
+  // paint, so this state only needs to catch React-driven UI (the toggle
+  // icon) up to the stored preference after mount — reading storage inside
+  // the initializer would run during hydration too and desync from SSR.
+  const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
     /* eslint-disable-next-line react-hooks/set-state-in-effect */
-    setTheme(getInitialTheme());
+    setTheme(getStoredTheme());
   }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    try {
-      window.localStorage.setItem("theme", theme);
-    } catch {
-      /* storage unavailable */
-    }
-  }, [theme]);
-
-  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const next = prev === "dark" ? "light" : "dark";
+      document.documentElement.classList.toggle("dark", next === "dark");
+      try {
+        window.localStorage.setItem("theme", next);
+      } catch {
+        /* storage unavailable */
+      }
+      return next;
+    });
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

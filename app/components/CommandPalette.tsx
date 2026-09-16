@@ -261,7 +261,7 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
               className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 border-t"
               style={{ borderColor: "var(--color-border)" }}
             >
-              <span className="field-label min-w-0">Brian Kareithi : index</span>
+              <span className="field-label min-w-0">Brian Kareithi · index</span>
               <span className="flex items-center gap-2 font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
                 <span>↑↓ move</span>
                 <span>↵ open</span>

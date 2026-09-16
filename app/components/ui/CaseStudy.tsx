@@ -1,6 +1,7 @@
-import { ExternalLink, Github, Lock } from "lucide-react";
+import { ExternalLink, Github, Lock, FileDown } from "lucide-react";
 import { ArchitectureFlow } from "@/app/components/ui/ArchitectureFlow";
 import type { CaseStudy as CaseStudyType } from "@/app/lib/projects-data";
+import { siteConfig } from "@/app/lib/site";
 
 export function CaseStudy({ study }: { study: CaseStudyType }) {
   return (
@@ -74,6 +75,34 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
           </p>
         </div>
       </div>
+
+      {study.exhibit && (
+        <div className="mt-6 border-t pt-6" style={{ borderColor: "var(--color-border)" }}>
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <p className="field-label">
+              Exhibit <span style={{ color: "var(--color-text-muted)", textTransform: "none", letterSpacing: "normal" }}>· {study.exhibit.label}</span>
+            </p>
+            <a
+              href={study.exhibit.fileUrl}
+              download={study.exhibit.fileName}
+              className="flex items-center gap-1.5 font-mono text-[10px] transition-colors duration-200"
+              style={{ color: "var(--color-accent)" }}
+            >
+              <FileDown className="h-3 w-3" />
+              Download
+            </a>
+          </div>
+          <div className="overflow-hidden border" style={{ borderColor: "var(--color-border-hover)" }}>
+            <iframe
+              src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(`${siteConfig.url}${study.exhibit.fileUrl}`)}`}
+              className="h-[260px] w-full"
+              style={{ backgroundColor: "var(--color-bg-secondary)" }}
+              loading="lazy"
+              title={`${study.title} exhibit: ${study.exhibit.label}`}
+            />
+          </div>
+        </div>
+      )}
 
       <div className="mt-6 flex flex-wrap items-center gap-3 border-t pt-6" style={{ borderColor: "var(--color-border)" }}>
         {study.access.demo && (

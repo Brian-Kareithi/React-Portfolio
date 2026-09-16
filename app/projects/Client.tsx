@@ -106,7 +106,7 @@ export default function ProjectsClient() {
                 <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                   Built on Next.js 16 with TypeScript and Tailwind CSS v4. Server-rendered pages with per-route
                   metadata, schema.org structured data, breadcrumbs, and code-split bundles sized by performance
-                  budget : the same discipline I apply to client work.
+                  budget, the same discipline I apply to client work.
                 </p>
                 <div className="flex flex-wrap gap-1.5 mt-3">
                   {["Next.js", "TypeScript", "Tailwind CSS"].map((tech) => (
