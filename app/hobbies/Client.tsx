@@ -49,7 +49,7 @@ const gearCategories: GearCategory[] = [
         outcome: "Self-hosted Proxmox node that virtualises the whole lab: media server, backups and dev services running 24/7 with RAID-1 resilience.",
         skill: "Server Administration",
         icon: <Server className="w-3.5 h-3.5" />,
-        specs: ["Intel Xeon / Core i5", "16GB ECC DDR4 RAM", "2TB HDD Storage", "RAID 1 Config", "Proxmox VE", "24/7 Self-Hosted"],
+        specs: ["Intel Xeon / Core i5", "16GB ECC DDR4 RAM", "3TB HDD Storage", "RAID 1 Config", "Proxmox VE", "24/7 Self-Hosted"],
       },
     ],
   },
@@ -160,7 +160,7 @@ const gearCategories: GearCategory[] = [
     icon: <HardDrive className="w-3.5 h-3.5" />,
     items: [
       {
-        name: "2TB HDDs & SSDs",
+        name: "3TB HDDs & SSDs",
         outcome: "RAID-1 storage for backups and archives, with redundancy configured, tested and verified.",
         skill: "Storage",
         icon: <HardDrive className="w-3.5 h-3.5" />,
@@ -194,7 +194,7 @@ const builds = [
   },
   {
     title: "Media & Backup Server",
-    outcome: "An always-on server streaming 4K to every screen in the lab while automated nightly backups protect 2TB of RAID-1 storage, with no data lost since day one.",
+    outcome: "An always-on server streaming 4K to every screen in the lab while automated nightly backups protect 3TB of RAID-1 storage, with no data lost since day one.",
     stack: "Proxmox VE · RAID 1 · cron automation · self-hosted services",
     status: "Live 24/7",
     icon: <Server className="w-3.5 h-3.5" />,
@@ -210,7 +210,7 @@ const builds = [
 
 const labStats = [
   { label: "Server Uptime", value: "24/7", note: "Proxmox node, always on", icon: <Activity className="w-3.5 h-3.5" /> },
-  { label: "Storage Protected", value: "2TB", note: "RAID-1 mirrored array", icon: <Database className="w-3.5 h-3.5" /> },
+  { label: "Storage Protected", value: "3TB", note: "RAID-1 mirrored array", icon: <Database className="w-3.5 h-3.5" /> },
   { label: "Data Lost", value: "0 B", note: "since day one", icon: <ShieldCheck className="w-3.5 h-3.5" /> },
   { label: "Devices Managed", value: "18", note: "every lease assigned by me", icon: <Radio className="w-3.5 h-3.5" /> },
 ];
@@ -360,7 +360,7 @@ export default function HobbiesClient() {
               <span className="my-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
               <div className="border px-5 py-2.5 text-center" style={{ borderColor: "var(--color-accent)" }}>
                 <p className="font-medium" style={{ color: "var(--color-accent)" }}>HP Tower Server</p>
-                <p className="text-[9px]" style={{ color: "var(--color-text-muted)" }}>Proxmox VE · 24/7 · RAID-1 · 2TB</p>
+                <p className="text-[9px]" style={{ color: "var(--color-text-muted)" }}>Proxmox VE · 24/7 · RAID-1 · 3TB</p>
               </div>
               <span className="my-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
               <div className="mb-2 h-px w-full max-w-md" style={{ backgroundColor: "var(--color-border-hover)" }} aria-hidden="true" />

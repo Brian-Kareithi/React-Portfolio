@@ -200,7 +200,7 @@ const spearhead = [
   { value: "18", label: "Devices Managed" },
   { value: "9", label: "Languages" },
   { value: "3", label: "Clouds" },
-  { value: "2TB", label: "RAID Protected" },
+  { value: "3TB", label: "RAID Protected" },
 ];
 
 export default function ExpertiseClient() {

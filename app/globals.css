@@ -441,20 +441,441 @@ body {
 }
 .cursor-ring[data-hidden="true"] { opacity: 0; }
 
-/* ── Print (resume page) ───────────────────────────────── */
+/* ── Print: resume PDF document ──────────────────────────
+   The resume page renders two variants:
+   .resume-screen (interactive page, hidden in print) and
+   .resume-print  (dedicated A4 sheet, hidden on screen).
+   Fixed hex palette below so dark mode never bleeds into PDF. */
+
+/* Hidden on screen, always */
+.resume-print {
+  display: none;
+}
+
+@page {
+  size: A4;
+  margin: 9mm 9mm 11mm 9mm;
+}
+
 @media print {
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
   nav,
   footer,
-  .no-print {
+  .no-print,
+  .resume-screen,
+  .cursor-ring {
     display: none !important;
   }
-  body {
-    background: #fff;
-    color: #111;
+
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
+
+  body {
+    background: #ffffff !important;
+    color: #1a1717 !important;
+  }
+
+  main {
+    display: block !important;
+  }
+
+  #resume {
+    min-height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+  }
+
+  #resume > div,
+  #resume .max-w-5xl {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
   a {
     color: inherit;
     text-decoration: none;
+  }
+
+  /* ── The print sheet ── */
+  .resume-print {
+    display: block !important;
+    font-family: var(--font-dm-sans), Arial, Helvetica, sans-serif;
+    color: #1a1717;
+    background: #ffffff;
+    font-size: 9.2pt;
+    line-height: 1.5;
+  }
+
+  .rp-banner {
+    background: #1a1717 !important;
+    color: #faf4e9 !important;
+    border-bottom: 3.5pt solid #c80119 !important;
+    border-radius: 6pt;
+    padding: 14pt 16pt 12pt 16pt;
+    margin-bottom: 9pt;
+  }
+
+  .rp-banner-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8pt;
+    margin-bottom: 6pt;
+  }
+
+  .rp-kicker {
+    font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+    font-size: 6.8pt;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #f0b7be !important;
+  }
+
+  .rp-kicker-right {
+    color: #b9aca4 !important;
+    letter-spacing: 0.12em;
+  }
+
+  .rp-name {
+    font-size: 24pt;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #ffffff !important;
+    margin: 0 0 3pt 0;
+  }
+
+  .rp-headline {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #f3c1c7 !important;
+    margin: 0 0 6pt 0;
+  }
+
+  .rp-contact {
+    font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+    font-size: 7.4pt;
+    line-height: 1.6;
+    color: #e8e4e0 !important;
+    margin: 0;
+  }
+
+  .rp-summary {
+    background: #faf4e9 !important;
+    border: 0.75pt solid #ddd0b4 !important;
+    border-left: 3pt solid #c80119 !important;
+    border-radius: 4pt;
+    padding: 8pt 10pt;
+    margin-bottom: 10pt;
+  }
+
+  .rp-section-label {
+    font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #c80119 !important;
+    margin: 0 0 3pt 0;
+  }
+
+  .rp-summary-text {
+    font-size: 9pt;
+    line-height: 1.55;
+    color: #312724 !important;
+    margin: 0;
+  }
+
+  .rp-grid {
+    display: grid;
+    grid-template-columns: 1.9fr 1fr;
+    gap: 10pt;
+  }
+
+  .rp-main,
+  .rp-side {
+    min-width: 0;
+  }
+
+  .rp-block {
+    border: 0.75pt solid #ddd0b4 !important;
+    border-radius: 4pt;
+    background: #ffffff !important;
+    padding: 9pt 10pt;
+    margin-bottom: 9pt;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .rp-side-block {
+    background: #faf4e9 !important;
+  }
+
+  .rp-section-head {
+    display: flex;
+    align-items: center;
+    gap: 6pt;
+    border-bottom: 0.75pt solid #ddd0b4 !important;
+    padding-bottom: 5pt;
+    margin-bottom: 7pt;
+  }
+
+  .rp-dot {
+    width: 6pt;
+    height: 6pt;
+    border-radius: 50%;
+    background: #c80119 !important;
+    flex-shrink: 0;
+  }
+
+  .rp-section-title {
+    font-size: 11pt;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: #1a1717 !important;
+    margin: 0;
+  }
+
+  .rp-section-title-sm {
+    font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #c80119 !important;
+    border-bottom: 0.75pt solid #ddd0b4 !important;
+    padding-bottom: 5pt;
+    margin: 0 0 7pt 0;
+  }
+
+  .rp-job-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8pt;
+    margin-bottom: 5pt;
+  }
+
+  .rp-job-title {
+    font-size: 9.4pt;
+    font-weight: 700;
+    color: #1a1717 !important;
+    margin: 0;
+  }
+
+  .rp-job-period {
+    font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+    font-size: 7pt;
+    font-weight: 500;
+    color: #ffffff !important;
+    background: #c80119 !important;
+    border-radius: 3pt;
+    padding: 1.5pt 5pt;
+    white-space: nowrap;
+  }
+
+  .rp-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5pt;
+  }
+
+  .rp-list-item {
+    display: flex;
+    gap: 6pt;
+    align-items: flex-start;
+    font-size: 8.8pt;
+    color: #312724 !important;
+  }
+
+  .rp-bullet {
+    width: 4.5pt;
+    height: 4.5pt;
+    border-radius: 50%;
+    background: #c80119 !important;
+    margin-top: 4.5pt;
+    flex-shrink: 0;
+  }
+
+  .rp-projects {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rp-project {
+    padding: 6pt 0;
+  }
+
+  .rp-project + .rp-project {
+    border-top: 0.75pt solid #ddd0b4 !important;
+  }
+
+  .rp-project:first-child {
+    padding-top: 0;
+  }
+
+  .rp-project:last-child {
+    padding-bottom: 0;
+  }
+
+  .rp-project-title {
+    font-size: 9.2pt;
+    font-weight: 700;
+    color: #1a1717 !important;
+    margin: 0 0 1pt 0;
+  }
+
+  .rp-project-note {
+    font-size: 8.4pt;
+    color: #5d5452 !important;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .rp-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4pt;
+  }
+
+  .rp-skill {
+    font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+    font-size: 7.2pt;
+    font-weight: 500;
+    color: #540916 !important;
+    background: rgba(200, 1, 25, 0.08) !important;
+    border: 0.75pt solid #c80119 !important;
+    border-radius: 3pt;
+    padding: 2pt 5pt;
+    white-space: nowrap;
+  }
+
+  .rp-edu-degree {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #1a1717 !important;
+    margin: 0 0 1pt 0;
+  }
+
+  .rp-edu-meta {
+    font-size: 8pt;
+    color: #5d5452 !important;
+    margin: 0 0 3pt 0;
+  }
+
+  .rp-edu-note {
+    display: inline-block;
+    font-size: 7.6pt;
+    font-weight: 600;
+    color: #540916 !important;
+    background: #ebdfc8 !important;
+    border-radius: 3pt;
+    padding: 1.5pt 6pt;
+    margin: 0;
+  }
+
+  .rp-certs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3pt;
+  }
+
+  .rp-cert {
+    display: flex;
+    gap: 5pt;
+    align-items: flex-start;
+    font-size: 7.8pt;
+    line-height: 1.45;
+    color: #312724 !important;
+  }
+
+  .rp-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 9pt;
+    height: 9pt;
+    border-radius: 50%;
+    background: #c80119 !important;
+    color: #ffffff !important;
+    font-size: 6.5pt;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1.5pt;
+  }
+
+  .rp-contact-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rp-contact-row {
+    display: grid;
+    grid-template-columns: 52pt 1fr;
+    gap: 6pt;
+    padding: 3.5pt 0;
+  }
+
+  .rp-contact-row + .rp-contact-row {
+    border-top: 0.75pt solid #ddd0b4 !important;
+  }
+
+  .rp-contact-row dt {
+    font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+    font-size: 6.8pt;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5d5452 !important;
+  }
+
+  .rp-contact-row dd {
+    font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+    font-size: 7.2pt;
+    color: #1a1717 !important;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .rp-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8pt;
+    border-top: 1.5pt solid #c80119 !important;
+    margin-top: 2pt;
+    padding-top: 6pt;
+    font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+    font-size: 6.8pt;
+    letter-spacing: 0.06em;
+    color: #5d5452 !important;
+  }
+
+  .rp-footer-accent {
+    color: #c80119 !important;
+    letter-spacing: 0.2em;
   }
 }
 
