@@ -121,7 +121,7 @@ export default function Navbar() {
 
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg transition-colors duration-200 hover:text-[var(--color-accent)]"
+              className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg p-2 transition-colors duration-200 hover:text-[var(--color-accent)]"
               style={{ color: "var(--color-text-muted)" }}
               aria-label="Toggle theme"
             >
@@ -129,7 +129,7 @@ export default function Navbar() {
             </button>
 
             <button
-              className="md:hidden relative flex h-9 w-9 flex-col items-center justify-center gap-[5px]"
+              className="relative flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
@@ -162,8 +162,8 @@ export default function Navbar() {
         style={{ backgroundColor: "var(--color-bg-primary)" }}
         aria-hidden={!menuOpen}
       >
-        <div className="flex h-full flex-col px-6 pt-20 pb-8 overflow-y-auto">
-          <p className="field-label mb-6">Index</p>
+        <div className="flex h-full flex-col overflow-y-auto px-6 pb-8 pt-20">
+          <p className="field-label mb-4">Index</p>
           <ul className="flex-1 space-y-1">
             {routes.map((r, i) => {
               const active = r.path === pathname;
@@ -181,7 +181,7 @@ export default function Navbar() {
                 >
                   <button
                     onClick={() => go(r.path)}
-                    className="group flex w-full items-baseline gap-4 border-b py-3.5 text-left"
+                    className="group flex min-h-[44px] w-full items-baseline gap-4 border-b py-3 text-left"
                     style={{ borderColor: "var(--color-border)" }}
                   >
                     <span className="index-num" style={{ color: active ? "var(--color-accent)" : "var(--color-text-muted)" }}>
@@ -189,7 +189,7 @@ export default function Navbar() {
                     </span>
                     <span className="flex-1">
                       <span
-                        className="block text-2xl font-bold tracking-tight"
+                        className="block text-xl font-bold tracking-tight sm:text-2xl"
                         style={{ color: active ? "var(--color-accent)" : "var(--color-text-primary)" }}
                       >
                         {r.label}

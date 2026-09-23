@@ -8,8 +8,8 @@ export const siteConfig = {
   description:
     "Brian Kareithi is a Software Engineer based in Nairobi, Kenya, building secure web and mobile products with Next.js, React Native and TypeScript, from architecture through deployment. IT support and infrastructure background, 6 certifications, 50+ projects delivered.",
   email: "kareithibrian2@gmail.com",
-  phone: "+254718593392",
-  phoneDisplay: "+254 718 593 392",
+  phone: "+254119343294",
+  phoneDisplay: "+254 119 343 294",
   location: "Nairobi, Kenya",
   github: "https://github.com/Brian-Kareithi",
   linkedin: "https://www.linkedin.com/in/brian-kareithi-04007637b/",

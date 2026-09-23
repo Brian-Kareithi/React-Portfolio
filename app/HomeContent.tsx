@@ -91,10 +91,10 @@ export default function HomeContent() {
               </span>
             </h1>
 
-            <div className="mb-6 h-8 sm:h-10">
+            <div className="mb-6 min-h-8 sm:min-h-10">
               <p
                 aria-live="polite"
-                className="font-mono text-base sm:text-lg tracking-tight"
+                className="font-mono text-base tracking-tight sm:text-lg"
                 style={{ color: "var(--color-text-secondary)" }}
               >
                 <span>{displayText}</span>
@@ -137,7 +137,7 @@ export default function HomeContent() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="icon-chip flex h-10 w-10 items-center justify-center rounded-lg"
+                  className="icon-chip flex h-11 w-11 items-center justify-center rounded-lg"
                   style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}
                 >
                   <Icon className="w-4 h-4" />
@@ -191,7 +191,7 @@ export default function HomeContent() {
                     style={{ borderTop: i === 0 ? "none" : "1px solid var(--color-border)" }}
                   >
                     <dt className="field-label break-words pt-0.5" style={{ overflowWrap: "anywhere" }}>{row.k}</dt>
-                    <dd className="text-[11px] leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                    <dd className="text-[11px] leading-relaxed" style={{ color: "var(--color-text-secondary)", overflowWrap: "anywhere" }}>
                       {row.v}
                     </dd>
                   </div>
@@ -203,14 +203,14 @@ export default function HomeContent() {
 
         {/* Focus areas */}
         <div className="mt-20 border-t pt-8" style={{ borderColor: "var(--color-border)" }}>
-          <p className="field-label mb-6">What I hire out for</p>
+          <p className="field-label mb-6">Focus areas</p>
           <div className="grid gap-px sm:grid-cols-3" style={{ backgroundColor: "var(--color-border)" }}>
             {focusAreas.map((area) => (
               <div key={area.id} className="p-5 xs:p-6" style={{ backgroundColor: "var(--color-bg-primary)" }}>
                 <p className="index-num mb-3">{area.index}</p>
-                <h3 className="mb-3 text-sm font-bold uppercase tracking-wide xs:text-base" style={{ color: "var(--color-text-primary)" }}>
+                <h2 className="mb-3 text-sm font-bold uppercase tracking-wide xs:text-base" style={{ color: "var(--color-text-primary)" }}>
                   {area.label}
-                </h3>
+                </h2>
                 <div className="flex flex-wrap gap-1.5">
                   {area.tools.map((tool) => (
                     <span key={tool} className="rounded px-2 py-1 font-mono text-[10px]"

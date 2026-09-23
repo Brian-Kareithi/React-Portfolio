@@ -16,7 +16,7 @@ export default function Footer() {
   return (
     <footer
       className="relative z-10 border-t"
-      style={{ borderColor: "var(--color-border-hover)", backgroundColor: "var(--color-bg-primary)" }}
+      style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-primary)" }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid gap-10 md:grid-cols-12">
@@ -35,7 +35,7 @@ export default function Footer() {
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
-                  className="icon-chip flex h-9 w-9 items-center justify-center rounded-lg"
+                  className="icon-chip flex h-11 w-11 items-center justify-center rounded-lg"
                   style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -71,8 +71,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="tel:+254718593392" className="link-underline hover:text-[var(--color-accent)]">
-                  +254 718 593 392
+                <a href="tel:+254119343294" className="link-underline hover:text-[var(--color-accent)]">
+                  +254 119 343 294
                 </a>
               </li>
               <li style={{ color: "var(--color-text-muted)" }}>Nairobi, Kenya</li>
@@ -96,8 +96,8 @@ export default function Footer() {
           <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
             &copy; {year} Brian Kareithi
           </p>
-          <p className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)", opacity: 0.7 }}>
-            Software Engineer · Nairobi, Kenya · Built with Next.js
+          <p className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
+            Available for select projects · Nairobi, Kenya · Built with Next.js
           </p>
         </div>
       </div>

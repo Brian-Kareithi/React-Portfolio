@@ -153,16 +153,20 @@ export default function ProjectsClient() {
                 <div key={index}
                   className="flat-card"
                   style={{ borderColor: "var(--color-border)" }}>
-                  <div className="p-6 md:p-8 cursor-pointer"
-                    onClick={() => setExpanded(isExpanded ? null : index)}>
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-1">
+                  <button
+                    className="block w-full p-6 text-left md:p-8"
+                    onClick={() => setExpanded(isExpanded ? null : index)}
+                    aria-expanded={isExpanded}
+                    aria-controls={`project-details-${index}`}
+                  >
+                    <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                      <div className="min-w-0 flex-1">
+                        <div className="mb-1 flex flex-wrap items-center gap-3">
                           <h3 className="text-lg font-bold"
                             style={{ color: "var(--color-text-primary)" }}>
                             {project.title}
                           </h3>
-                          <span className="text-[9px] px-2 py-0.5 rounded tracking-wider uppercase font-mono"
+                          <span className="whitespace-nowrap rounded px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider"
                             style={{
                               border: "1px solid var(--color-border)",
                               color: "var(--color-text-muted)",
@@ -170,34 +174,34 @@ export default function ProjectsClient() {
                             {project.status}
                           </span>
                         </div>
-                        <p className="text-sm mt-2 leading-relaxed"
+                        <p className="mt-2 text-sm leading-relaxed"
                           style={{ color: "var(--color-text-secondary)" }}>
                           {project.description}
                         </p>
                       </div>
-                      <button className="ml-4 mt-1 p-2 transition-transform duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
-                        style={{ color: "var(--color-text-muted)" }}>
-                        {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                      </button>
+                      <span className="mt-1 flex min-h-[44px] min-w-[44px] items-center justify-center transition-transform duration-200"
+                        style={{ color: "var(--color-text-muted)" }} aria-hidden="true">
+                        {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                      </span>
                     </div>
 
-                    <div className="flex items-center gap-4 mb-4">
-                      <span className="text-[9px] tracking-wider uppercase font-mono"
+                    <div className="mb-4 flex flex-wrap items-center gap-4">
+                      <span className="font-mono text-[9px] uppercase tracking-wider"
                         style={{ color: "var(--color-accent)" }}>
                         {project.type}
                       </span>
                       {project.repoType === "private" && (
-                        <span className="flex items-center gap-1 text-[9px] tracking-wider uppercase font-mono"
+                        <span className="flex items-center gap-1 font-mono text-[9px] uppercase tracking-wider"
                           style={{ color: "var(--color-text-muted)" }}>
-                          <Lock className="w-3 h-3" />
+                          <Lock className="h-3 w-3" aria-hidden="true" />
                           Private
                         </span>
                       )}
                     </div>
 
-                    <div className="flex flex-wrap gap-1.5">
+                    <span className="flex flex-wrap gap-1.5">
                       {project.stack.slice(0, 4).map((tech, i) => (
-                        <span key={i} className="text-[9px] font-mono px-2 py-1 rounded"
+                        <span key={i} className="rounded px-2 py-1 font-mono text-[9px]"
                           style={{
                             border: "1px solid var(--color-border)",
                             color: "var(--color-text-muted)",
@@ -206,7 +210,7 @@ export default function ProjectsClient() {
                         </span>
                       ))}
                       {project.stack.length > 4 && (
-                        <span className="text-[9px] font-mono px-2 py-1 rounded"
+                        <span className="rounded px-2 py-1 font-mono text-[9px]"
                           style={{
                             border: "1px solid var(--color-border)",
                             color: "var(--color-text-muted)",
@@ -214,11 +218,11 @@ export default function ProjectsClient() {
                           +{project.stack.length - 4}
                         </span>
                       )}
-                    </div>
-                  </div>
+                    </span>
+                  </button>
 
                   {isExpanded && (
-                    <div className="px-6 md:px-8 pb-8 border-t animate-fade-in-up"
+                    <div id={`project-details-${index}`} className="animate-fade-in-up border-t px-6 pb-8 md:px-8"
                       style={{ borderColor: "var(--color-border)" }}>
                       <div className="pt-6 space-y-6">
                         <div>
@@ -238,7 +242,7 @@ export default function ProjectsClient() {
                           </ul>
                         </div>
 
-                        <div className="flex gap-3 pt-6"
+                        <div className="flex flex-col gap-3 pt-6 xs:flex-row"
                           style={{ borderTop: "1px solid var(--color-border)" }}>
                           {project.repo && (
                             <a href={project.repo} target="_blank" rel="noopener noreferrer"

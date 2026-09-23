@@ -5,7 +5,7 @@ export interface FocusArea {
   tools: string[];
 }
 
-/** The three areas I hire out for, kept distinct on purpose. */
+/** Core focus areas: software, mobile, and infrastructure. */
 export const focusAreas: FocusArea[] = [
   {
     id: "software",

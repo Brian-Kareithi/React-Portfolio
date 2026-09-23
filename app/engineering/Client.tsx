@@ -38,7 +38,7 @@ const architecture = [
     title: "Frontend",
     icon: <Boxes className="w-4 h-4" />,
     stack: "Next.js · React · TypeScript · Tailwind",
-    desc: "Server components, incremental rendering, and design systems. I've driven a 40% UI performance improvement through architecture, not hacks.",
+    desc: "Server components, incremental rendering, and design systems. I improve UI performance through architecture, not hacks.",
   },
   {
     title: "Mobile",
@@ -62,13 +62,13 @@ const architecture = [
     title: "Cloud & Infra",
     icon: <Cloud className="w-4 h-4" />,
     stack: "AWS · Azure · GCP · Docker · Proxmox",
-    desc: "Multi-cloud architecture with containers, virtualization, and automation. Cut infrastructure costs 60% without losing reliability.",
+    desc: "Multi-cloud architecture with containers, virtualization, and automation. Built to keep infrastructure costs low without losing reliability.",
   },
   {
     title: "Delivery",
     icon: <GitPullRequest className="w-4 h-4" />,
     stack: "Git · CI/CD · Automated deploy",
-    desc: "Repeatable pipelines that take a commit to production in about 15 minutes, with monitoring and backups built in.",
+    desc: "Repeatable pipelines that take a commit to production automatically, with monitoring and backups built in.",
   },
 ];
 
@@ -233,12 +233,12 @@ export default function EngineeringClient() {
             <div className="border" style={{ borderColor: "var(--color-border)" }}>
               {stack.map((s, i) => (
                 <div key={s.item}
-                  className={`flex items-center justify-between gap-4 px-4 py-3 ${i < stack.length - 1 ? "border-b" : ""}`}
+                  className={`flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 ${i < stack.length - 1 ? "border-b" : ""}`}
                   style={{ borderColor: "var(--color-border)" }}>
-                  <span className="text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+                  <span className="min-w-0 text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
                     {s.item}
                   </span>
-                  <span className="text-[11px] font-mono" style={{ color: "var(--color-text-muted)" }}>
+                  <span className="text-right font-mono text-[11px]" style={{ color: "var(--color-text-muted)" }}>
                     {s.use}
                   </span>
                 </div>
