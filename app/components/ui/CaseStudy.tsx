@@ -95,12 +95,19 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
           <div className="overflow-hidden border" style={{ borderColor: "var(--color-border-hover)" }}>
             <iframe
               src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(`${siteConfig.url}${study.exhibit.fileUrl}`)}`}
-              className="h-[260px] w-full"
+              className="h-[260px] w-full landscape:h-[180px]"
               style={{ backgroundColor: "var(--color-bg-secondary)" }}
               loading="lazy"
               title={`${study.title} exhibit: ${study.exhibit.label}`}
             />
           </div>
+          <p className="mt-2 font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
+            Cannot load the preview?{" "}
+            <a href={study.exhibit.fileUrl} download={study.exhibit.fileName} className="link-underline" style={{ color: "var(--color-accent)" }}>
+              Download the exhibit
+            </a>
+            .
+          </p>
         </div>
       )}
 
@@ -110,7 +117,7 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
             href={study.access.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-medium transition-colors duration-200 min-h-[40px]"
+            className="flex min-h-[44px] items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-medium transition-colors duration-200"
             style={{ border: "1px solid var(--color-accent)", color: "var(--color-accent)" }}
           >
             <ExternalLink className="h-3.5 w-3.5" />
@@ -122,7 +129,7 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
             href={study.access.repo}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-medium transition-colors duration-200 min-h-[40px]"
+            className="flex min-h-[44px] items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-medium transition-colors duration-200"
             style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}
           >
             <Github className="h-3.5 w-3.5" />

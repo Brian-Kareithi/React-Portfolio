@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description,
-    images: [{ url: siteConfig.ogImage, width: 800, height: 800, alt: siteConfig.name }],
+    images: [{ url: siteConfig.ogImage, width: 800, height: 800, alt: "Portrait of Brian Kareithi, Software Engineer based in Nairobi, Kenya" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -37,7 +37,7 @@ const jsonLd = {
       description: "Web and mobile software engineering, React Native apps, and IT infrastructure support based in Nairobi, Kenya.",
       slogan: siteConfig.role,
       email: siteConfig.email,
-      telephone: siteConfig.phoneDisplay,
+      telephone: siteConfig.phone,
       priceRange: "$$",
       image: siteConfig.ogImage,
       founder: { "@id": `${siteConfig.url}/#person` },
@@ -61,8 +61,8 @@ const jsonLd = {
       jobTitle: siteConfig.role,
       description,
       url: siteConfig.url,
-      email: `mailto:${siteConfig.email}`,
-      telephone: siteConfig.phoneDisplay,
+      email: siteConfig.email,
+      telephone: siteConfig.phone,
       image: siteConfig.ogImage,
       address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" },
       alumniOf: [

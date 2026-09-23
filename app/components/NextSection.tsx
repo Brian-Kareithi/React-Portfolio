@@ -56,7 +56,7 @@ export default function NextSection({
                   >
                     {link.label}
                   </span>
-                  <span className="block truncate text-[11px]" style={{ color: "var(--color-text-muted)" }}>
+                  <span className="line-clamp-2 block break-words text-[11px]" style={{ color: "var(--color-text-muted)" }}>
                     {link.description}
                   </span>
                 </span>

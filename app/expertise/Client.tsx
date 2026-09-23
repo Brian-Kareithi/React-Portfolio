@@ -35,7 +35,7 @@ const domains: SkillDomain[] = [
     label: "Programming",
     index: "01",
     icon: <Code className="w-4 h-4" />,
-    tagline: "I don't just write code, I engineer software.",
+    tagline: "Engineered software, not just written code.",
     summary:
       "Nine languages and counting. From typed full-stack TypeScript to embedded C/C++, I think in terms of architecture, testability, and long-term maintainability, not just syntax.",
     capabilities: [
@@ -62,13 +62,13 @@ const domains: SkillDomain[] = [
     label: "Troubleshooting",
     index: "02",
     icon: <Wrench className="w-4 h-4" />,
-    tagline: "Anyone can restart a machine. I find out why it crashed.",
+    tagline: "Root-cause diagnostics, not restarts.",
     summary:
       "A systematic, evidence-driven diagnostic method. I isolate variables, reproduce failures, and trace root causes down to the exact line of code, packet, or hardware component.",
     capabilities: [
       {
         title: "Diagnostic Methodology",
-        description: "A repeatable process: reproduce, isolate, hypothesize, test, and verify. No guesswork, no cargo-cult fixes.",
+        description: "A repeatable process: reproduce, isolate, hypothesize, test, and verify. Evidence-driven fixes, verified under real conditions.",
         points: ["Root-cause analysis, not symptom-patching", "Binary search through problem space", "Log-driven evidence gathering"],
       },
       {
@@ -118,7 +118,7 @@ const domains: SkillDomain[] = [
     icon: <ShieldCheck className="w-4 h-4" />,
     tagline: "Security is a property of the whole system, not a feature.",
     summary:
-      "Six security certifications and real public-sector experience. I protect infrastructure at every layer, from network hardening to secure application design and mobile threat defense.",
+      "Six certifications across security, cloud and networking, plus hands-on security support work. I protect infrastructure at every layer, from network hardening to secure application design and mobile threat defense.",
     capabilities: [
       {
         title: "Network & Infrastructure Hardening",
@@ -177,7 +177,7 @@ const domains: SkillDomain[] = [
       {
         title: "Cloud Platforms & Services",
         description: "Multi-cloud fluency across the big three, from foundational services to cost-optimized architecture.",
-        points: ["AWS / Azure / GCP services", "Serverless & containers", "Cost optimization (60% saved)"],
+        points: ["AWS / Azure / GCP services", "Serverless & containers", "Cost-conscious architecture"],
       },
       {
         title: "Containers & Virtualization",
@@ -187,7 +187,7 @@ const domains: SkillDomain[] = [
       {
         title: "CI/CD & Infrastructure as Code",
         description: "Deployments that run themselves: pipelines, automation, and infrastructure defined in code.",
-        points: ["Automated build & deploy", "15-minute deployments", "Backups & monitoring (24/7)"],
+        points: ["Automated build & deploy", "Repeatable deployments", "Backups & monitoring (24/7)"],
       },
     ],
     tools: ["AWS", "Azure", "GCP", "Docker", "Proxmox", "CI/CD Pipelines"],
@@ -222,14 +222,14 @@ export default function ExpertiseClient() {
 
         {/* Spearhead stats */}
         <StaggerReveal staggerDelay={60}>
-        <div className="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-6 border divide-x divide-y lg:divide-y-0 mb-14 xs:mb-16 sm:mb-20"
-          style={{ borderColor: "var(--color-border)" }}>
+        <div className="mb-14 grid grid-cols-2 border xs:mb-16 xs:grid-cols-3 sm:mb-20 lg:grid-cols-6"
+          style={{ borderColor: "var(--color-border)", borderBottomWidth: 0 }}>
           {spearhead.map((s) => (
-            <div key={s.label} className="py-6 px-2 text-center">
-              <span className="text-2xl sm:text-3xl font-bold block" style={{ color: "var(--color-accent)" }}>
+            <div key={s.label} className="border-b px-2 py-6 text-center" style={{ borderColor: "var(--color-border)" }}>
+              <span className="block text-2xl font-bold sm:text-3xl" style={{ color: "var(--color-accent)" }}>
                 {s.value}
               </span>
-              <span className="text-[9px] tracking-[0.2em] uppercase" style={{ color: "var(--color-text-muted)" }}>
+              <span className="text-[9px] uppercase tracking-[0.2em]" style={{ color: "var(--color-text-muted)" }}>
                 {s.label}
               </span>
             </div>
@@ -240,16 +240,16 @@ export default function ExpertiseClient() {
         {/* Domain selector */}
         <div className="border" style={{ borderColor: "var(--color-border)" }}>
           <StaggerReveal staggerDelay={60}>
-          <div className="flex flex-wrap lg:grid lg:grid-cols-6 border-b" style={{ borderColor: "var(--color-border)" }}>
+          <div className="flex flex-wrap border-b lg:grid lg:grid-cols-6" style={{ borderColor: "var(--color-border)" }} role="tablist" aria-label="Skill domains">
             {domains.map((d) => {
               const active = d.id === activeDomain;
               return (
-                <button key={d.id} onClick={() => setActiveDomain(d.id)}
-                  className="group flex-1 lg:flex-none px-3 py-3 sm:py-4 text-[10px] sm:text-xs font-medium tracking-wider uppercase transition-all duration-300 relative min-w-[120px]"
+                <button key={d.id} onClick={() => setActiveDomain(d.id)} role="tab" aria-selected={active}
+                  className="group relative min-h-[44px] min-w-[120px] flex-1 px-3 py-3 text-[10px] font-medium uppercase tracking-wider transition-all duration-300 sm:py-4 sm:text-xs lg:flex-none"
                   style={{
                     color: active ? "var(--color-accent)" : "var(--color-text-muted)",
                   }}>
-                  <span className="mr-1.5 inline-flex align-middle">{d.icon}</span>
+                  <span className="mr-1.5 inline-flex align-middle" aria-hidden="true">{d.icon}</span>
                   {d.label}
                   <span className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ease-in-out ${active ? "w-full" : "w-0 group-hover:w-full"}`}
                     style={{ backgroundColor: "var(--color-accent)" }} />

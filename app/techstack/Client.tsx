@@ -176,7 +176,7 @@ export default function TechStackClient() {
                       style={{
                         borderColor: "var(--color-glass-border)",
                       }}>
-                      <span className="text-base" style={{ color: "var(--color-text-secondary)" }}>
+                      <span className="text-base" style={{ color: "var(--color-text-secondary)" }} aria-hidden="true">
                         {item.icon}
                       </span>
                       <span className="font-medium" style={{ color: "var(--color-text-primary)" }}>

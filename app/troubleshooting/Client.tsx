@@ -1,7 +1,7 @@
 "use client";
 import {
   Bug, SearchCheck, ScanLine, Brain,
-  ListChecks, IterationCw, Flame, Cpu, MemoryStick, Network,
+  ListChecks, IterationCw, Flame, Database, HardDrive, MemoryStick, Network,
   Wrench, CircleAlert, CheckCircle,
 } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
@@ -24,7 +24,7 @@ const steps = [
   {
     title: "Form a Hypothesis",
     icon: <Brain className="w-4 h-4" />,
-    desc: "Root causes, not symptoms. I ask why until the answer can't be answered again, and frame each theory as a testable prediction.",
+    desc: "Root causes, not symptoms. I keep asking why until there is no deeper answer, and frame each theory as a testable prediction.",
   },
   {
     title: "Test & Validate",
@@ -42,11 +42,11 @@ const cases = [
   {
     title: "Mystery Disk-Full Server",
     domain: "Linux / Storage",
-    icon: <Cpu className="w-4 h-4" />,
+    icon: <Database className="w-4 h-4" />,
     summary: "A server kept filling its disk overnight with no obvious culprit.",
-    approach: "Checked df first, then traced the biggest offenders with du while the culprit rotated. Monitored inotify and cron to catch the writer red-handed.",
-    rootCause: "A misconfigured log-rotation job was growing an unbounded log each night.",
-    resolution: "Fixed rotation, added a disk-usage alert, and confirmed two weeks of stable capacity.",
+    approach: "Checked df first, then traced the largest directories with du. Because the growth only happened overnight, I watched writes with inotify and reviewed the cron schedule to catch the writer.",
+    rootCause: "A misconfigured log-rotation job never rotated one log, so it grew without limit each night.",
+    resolution: "Fixed the rotation config, added a disk-usage alert, and confirmed two weeks of stable capacity.",
   },
   {
     title: "Dropped Wi-Fi, Working Router",
@@ -55,16 +55,25 @@ const cases = [
     summary: "Intermittent drops on one device while everything else stayed connected.",
     approach: "Isolated the physical layer first, then checked channels, power output, and the specific adapter's driver and power management.",
     rootCause: "The laptop's Wi-Fi power-save mode was dropping the link during idle windows.",
-    resolution: "Disabled power-saving on the adapter; connectivity stabilised permanently.",
+    resolution: "Disabled power-saving on the adapter, and the connection has stayed stable since.",
   },
   {
     title: "Silent Reboot Loop",
-    domain: "Hardware / Firmware",
+    domain: "Hardware",
     icon: <MemoryStick className="w-4 h-4" />,
-    summary: "A PC rebooted moments after POST with no error on screen.",
-    approach: "Isolated hardware component by component, tested RAM and PSU, then checked thermal behaviour under load.",
+    summary: "A PC rebooted itself a few minutes after starting, with no error on screen.",
+    approach: "Swapped components one at a time, tested the PSU, then ran a memory test once the machine had warmed up.",
     rootCause: "A failing RAM stick with marginal errors that only surfaced after warm-up.",
-    resolution: "Identified the faulty module, replaced it, and ran a full memory test to confirm.",
+    resolution: "Identified the faulty module, replaced it, and re-ran the full memory test to confirm.",
+  },
+  {
+    title: "Blue Screens on a Failing SSD",
+    domain: "Hardware / Storage",
+    icon: <HardDrive className="w-4 h-4" />,
+    summary: "A PC kept crashing with blue screens at random, with nothing in the software changing between crashes.",
+    approach: "Read the stop codes and crash dumps first, then ruled out RAM and drivers. The evidence kept pointing at storage, so I checked the drive's SMART health data and error logs.",
+    rootCause: "The SSD was failing and returning read errors, which the operating system surfaced as blue screens.",
+    resolution: "Secured the data, replaced the SSD, restored the system, and confirmed stability under sustained load.",
   },
   {
     title: "Thermal Throttle Slump",
@@ -73,14 +82,14 @@ const cases = [
     summary: "A build degraded to a crawl under load despite adequate specs.",
     approach: "Monitored core temps and clock speeds in real time, then inspected mounting and airflow.",
     rootCause: "Dried-out thermal paste and a clogged cooler causing aggressive throttling.",
-    resolution: "Re-applied paste, cleaned the loop, and reclaimed full sustained performance.",
+    resolution: "Re-applied paste, cleaned the cooler, and restored full sustained performance.",
   },
   {
     title: "Application Crash, No Stack Trace",
     domain: "Software",
     icon: <Bug className="w-4 h-4" />,
     summary: "A release crashed intermittently in production with an empty-looking trace.",
-    approach: "Reproduced locally with instrumented builds, enabled verbose logging, and reproduced on a staging copy with identical inputs.",
+    approach: "Added instrumented builds and verbose logging, then reproduced the crash on a staging copy with identical inputs.",
     rootCause: "A race condition between two async writes to shared state.",
     resolution: "Serialized the writes, added a regression test, and shipped a clean fix.",
   },
@@ -89,9 +98,9 @@ const cases = [
     domain: "Security / Network",
     icon: <CircleAlert className="w-4 h-4" />,
     summary: "A trusted app kept flagging data corruption across the wire.",
-    approach: "Captured and decrypted the session, then compared every byte end-to-end across the full path.",
-    rootCause: "A middlebox was transparently re-encrypting and corrupting handshakes.",
-    resolution: "Bypassed the culprit, verified integrity end-to-end, and hardened the TLS config.",
+    approach: "Captured the session, decrypted it with the endpoint's session keys, and compared the payload at both ends of the path.",
+    rootCause: "A middlebox performing transparent TLS inspection was altering payloads in transit.",
+    resolution: "Routed traffic around the middlebox, verified integrity end-to-end, and tightened the TLS config.",
   },
 ];
 
@@ -115,7 +124,7 @@ export default function TroubleshootingClient() {
           index="06"
           label="Diagnostics"
           title={<>Troubleshooting <em className="font-serif-accent">method</em></>}
-          description="A repeatable, evidence-driven approach to finding root causes across software, hardware, and networks. No guesswork, no cargo-cult fixes, no restarting-and-hoping."
+          description="A repeatable, evidence-driven approach to finding root causes across software, hardware, and networks. Data first, verified fixes, documented outcomes."
         />
 
         {/* Method banner */}
@@ -276,7 +285,7 @@ export default function TroubleshootingClient() {
           links={[
             { href: "/engineering", label: "Engineering", description: "How I design, build and ship production software." },
             { href: "/expertise", label: "Expertise", description: "Programming, security, networking and cloud capabilities." },
-            { href: "/hobbies", label: "Homelab", description: "A live lab where the method gets stress-tested for fun." },
+            { href: "/hobbies", label: "Homelab", description: "A live lab where the method is validated under real-world conditions." },
           ]}
         />
       </div>

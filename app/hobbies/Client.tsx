@@ -278,7 +278,7 @@ export default function HobbiesClient() {
         <div className="flex items-center justify-between h-14 max-w-5xl mx-auto px-4 sm:px-6">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2.5 text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
+            className="group inline-flex min-h-[44px] items-center gap-2.5 text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
             style={{ color: "var(--color-text-secondary)" }}
           >
             <span
@@ -306,7 +306,7 @@ export default function HobbiesClient() {
           index="08"
           label="Homelab"
           title={<>Life outside the <em className="font-serif-accent">terminal</em></>}
-          description="Servers, sensors and solder-side experiments: a homelab that never sleeps, where professional skills get stress-tested for fun."
+          description="Servers, sensors and solder-side experiments: a homelab running 24/7, where professional skills are validated under real-world conditions."
         />
 
         {/* Lab status: terminal strip */}
@@ -337,7 +337,7 @@ export default function HobbiesClient() {
                 <p className="text-[9px] font-medium tracking-[0.2em] uppercase mt-1" style={{ color: "var(--color-accent)" }}>
                   {s.label}
                 </p>
-                <p className="text-[10px] mt-0.5 opacity-70" style={{ color: "var(--color-text-muted)" }}>
+                <p className="mt-0.5 text-[10px]" style={{ color: "var(--color-text-muted)" }}>
                   {s.note}
                 </p>
               </div>
@@ -350,7 +350,7 @@ export default function HobbiesClient() {
         <div className="mb-14 xs:mb-16 sm:mb-20">
           <SubHead label="Topology" title="How it's wired together" />
           <div className="flat-card overflow-x-auto p-5 xs:p-6 sm:p-8">
-            <div className="flex min-w-[420px] flex-col items-center font-mono text-[11px]">
+            <div className="mx-auto flex w-full max-w-md flex-col items-center font-mono text-[11px]">
               <span className="tracking-[0.2em]" style={{ color: "var(--color-text-muted)" }}>INTERNET</span>
               <span className="my-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
               <div className="border px-5 py-2.5 text-center" style={{ borderColor: "var(--color-border-hover)" }}>
@@ -387,17 +387,17 @@ export default function HobbiesClient() {
         <div className="mb-14 xs:mb-16 sm:mb-20">
           <SubHead label="Equipment" title="The gear that runs it" />
 
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="mb-6 flex flex-wrap gap-2">
             {tabs.map((t) => {
               const active = activeCat === t.title;
               return (
-                <button key={t.title} onClick={() => setActiveCat(t.title)}
-                  className="px-3 py-1.5 rounded-lg text-[10px] font-semibold tracking-wider uppercase whitespace-nowrap transition-all duration-200"
+                <button key={t.title} onClick={() => setActiveCat(t.title)} aria-pressed={active}
+                  className="whitespace-nowrap rounded-lg px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider transition-all duration-200 min-h-[44px]"
                   style={active
                     ? { backgroundColor: "var(--color-accent)", color: "var(--color-text-light)" }
                     : { border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>
                   {t.title}
-                  <span className="ml-1.5 opacity-60 font-mono">{t.count}</span>
+                  <span className="ml-1.5 font-mono opacity-60">{t.count}</span>
                 </button>
               );
             })}
@@ -408,25 +408,26 @@ export default function HobbiesClient() {
             {visibleItems.map((item) => {
               const open = expandedItem === item.key;
               return (
-                <div key={item.key} className={`flat-card p-4 flex flex-col ${open ? "!border-[var(--color-accent)]" : ""}`}>
+                <div key={item.key} className="flat-card flex flex-col p-4" style={open ? { borderColor: "var(--color-accent)" } : undefined}>
                   <button onClick={() => toggleItem(item.key)}
-                    className="flex items-start justify-between gap-2 text-left w-full group">
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <span className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
+                    aria-expanded={open}
+                    className="group flex min-h-[44px] w-full items-start justify-between gap-2 text-left">
+                    <div className="flex min-w-0 items-center gap-2.5">
+                      <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg"
+                        style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }} aria-hidden="true">
                         {item.icon}
                       </span>
                       <div className="min-w-0">
-                        <p className="text-sm font-medium truncate" style={{ color: "var(--color-text-primary)" }}>
+                        <h3 className="truncate text-sm font-medium" style={{ color: "var(--color-text-primary)" }} title={item.name}>
                           {item.name}
-                        </p>
-                        <p className="font-mono text-[9px] uppercase tracking-wider truncate" style={{ color: "var(--color-text-muted)" }}>
+                        </h3>
+                        <p className="truncate font-mono text-[9px] uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }} title={item.category}>
                           {item.category}
                         </p>
                       </div>
                     </div>
-                    <ChevronDown className={`w-3.5 h-3.5 flex-shrink-0 mt-1 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-                      style={{ color: "var(--color-text-muted)" }} />
+                    <ChevronDown className={`mt-1 h-3.5 w-3.5 flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+                      style={{ color: "var(--color-text-muted)" }} aria-hidden="true" />
                   </button>
 
                   <p className="text-xs leading-relaxed mt-3 flex-1" style={{ color: "var(--color-text-secondary)" }}>
@@ -439,7 +440,8 @@ export default function HobbiesClient() {
                       {item.skill}
                     </span>
                     <button onClick={() => toggleItem(item.key)}
-                      className="font-mono text-[10px] transition-colors duration-200 hover:text-[var(--color-accent)]"
+                      aria-expanded={open}
+                      className="min-h-[44px] font-mono text-[10px] transition-colors duration-200 hover:text-[var(--color-accent)]"
                       style={{ color: "var(--color-text-muted)" }}>
                       [{item.specs.length}] specs
                     </button>
@@ -468,7 +470,7 @@ export default function HobbiesClient() {
         <div className="mb-14 xs:mb-16 sm:mb-20">
           <SubHead label="What I Build" title="Weekend deployments" />
           <StaggerReveal staggerDelay={80}>
-          <div className="grid sm:grid-cols-3 gap-3 xs:gap-4">
+          <div className="grid gap-3 xs:gap-4 md:grid-cols-2 lg:grid-cols-3">
             {builds.map((p) => (
               <div key={p.title} className="flat-card p-4 md:p-5 flex flex-col">
                 <div className="flex items-center justify-between gap-2 mb-3">
@@ -526,9 +528,8 @@ export default function HobbiesClient() {
           <div className="lg:col-span-2 flex items-center">
             <blockquote className="border-l-2 pl-4"
               style={{ borderColor: "var(--color-accent)" }}>
-              <p className="text-xs md:text-sm leading-relaxed italic" style={{ color: "var(--color-text-secondary)" }}>
-                &ldquo;Every device in this lab tells a story, of late-night debugging, of breakthrough moments,
-                of systems built to serve real life, not just demos.&rdquo;
+              <p className="text-xs leading-relaxed italic md:text-sm" style={{ color: "var(--color-text-secondary)" }}>
+                &ldquo;Every device in this lab serves real life: monitored, backed up, and refined until it is reliable.&rdquo;
               </p>
               <footer className="font-mono text-[10px] mt-3 tracking-wider uppercase" style={{ color: "var(--color-text-muted)" }}>
                 · brian@homelab

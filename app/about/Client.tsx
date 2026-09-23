@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, GraduationCap, BadgeCheck, Briefcase, Rocket } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
@@ -52,12 +52,12 @@ const timeline: TimelineItem[] = [
   { title: "Cybersecurity Leadership", institution: "Future Focus", period: "2026 & Beyond", year: 2026, category: "professional", description: "Aspire to lead enterprise security initiatives and mentor emerging professionals.", significance: "Strategic career progression", metrics: ["Enterprise security leadership", "Open-source contribution", "Professional mentorship"] },
 ];
 
-const categoryConfig: Record<TimelineItem["category"], { label: string; glyph: string }> = {
-  education: { label: "Education", glyph: "▣" },
-  certification: { label: "Certifications", glyph: "◈" },
-  professional: { label: "Professional", glyph: "◇" },
-  entrepreneurial: { label: "Entrepreneurial", glyph: "○" },
-};
+const categoryConfig = {
+  education: { label: "Education", Icon: GraduationCap },
+  certification: { label: "Certifications", Icon: BadgeCheck },
+  professional: { label: "Professional", Icon: Briefcase },
+  entrepreneurial: { label: "Entrepreneurial", Icon: Rocket },
+} as const;
 
 const filters = ["all", ...Object.keys(categoryConfig)] as const;
 
@@ -106,15 +106,12 @@ export default function AboutClient() {
           />
 
           {/* Stats */}
-          <div className="mb-14 grid grid-cols-2 border-y md:grid-cols-4" style={{ borderColor: "var(--color-border)" }}>
-            {stats.map((s, i) => (
+          <div className="mb-14 grid grid-cols-2 border-b border-l md:grid-cols-4" style={{ borderColor: "var(--color-border)" }}>
+            {stats.map((s) => (
               <div
                 key={s.label}
-                className="px-3 py-6 text-center xs:py-8"
-                style={{
-                  borderLeft: i % 2 === 0 ? "none" : "1px solid var(--color-border)",
-                  borderTop: i >= 2 ? "1px solid var(--color-border)" : "none",
-                }}
+                className="border-r border-t px-3 py-6 text-center xs:py-8"
+                style={{ borderColor: "var(--color-border)" }}
               >
                 <span className="mb-1 block text-3xl font-bold xs:text-4xl" style={{ color: "var(--color-accent)" }}>
                   <CountUp value={s.value} suffix={s.suffix} />
@@ -164,11 +161,12 @@ export default function AboutClient() {
               return (
                 <button
                   key={f}
+                  aria-pressed={active}
                   onClick={() => {
                     setFilter(f);
                     setOpenId(null);
                   }}
-                  className="rounded-md px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-colors duration-200"
+                  className="min-h-[44px] rounded-md px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-colors duration-200"
                   style={
                     active
                       ? { backgroundColor: "var(--color-accent)", color: "var(--color-text-light)" }
@@ -203,12 +201,17 @@ export default function AboutClient() {
                       />
                       <button
                         onClick={() => setOpenId(open ? null : id)}
-                        className="group w-full py-3.5 text-left"
+                        className="group min-h-[44px] w-full py-3.5 text-left"
                         aria-expanded={open}
+                        aria-controls={`timeline-details-${id}`}
                       >
                         <div className="mb-1 flex flex-wrap items-center gap-2">
-                          <span className="field-label" style={{ color: "var(--color-accent)" }}>
-                            {categoryConfig[item.category].glyph} {categoryConfig[item.category].label}
+                          <span className="field-label inline-flex items-center gap-1.5" style={{ color: "var(--color-accent)" }}>
+                            {(() => {
+                              const { Icon } = categoryConfig[item.category];
+                              return <Icon className="h-3 w-3" aria-hidden="true" />;
+                            })()}
+                            {categoryConfig[item.category].label}
                           </span>
                           <span className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
                             {item.period}
@@ -229,7 +232,7 @@ export default function AboutClient() {
                       </button>
 
                       {(item.significance || item.metrics) && (
-                        <div className={open ? "animate-fade-in-up pb-4" : "hidden"}>
+                        <div id={`timeline-details-${id}`} className={open ? "animate-fade-in-up pb-4" : "hidden"}>
                           <div className="grid gap-3 sm:grid-cols-2">
                             {item.significance && (
                               <div className="border p-4" style={{ borderColor: "var(--color-glass-border-strong)" }}>

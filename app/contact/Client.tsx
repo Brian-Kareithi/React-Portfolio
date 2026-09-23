@@ -6,7 +6,7 @@ import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
-import { Github, Linkedin, Instagram, Mail, Phone, MapPin, User, Send } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Phone, MapPin, User, Send, CheckCircle2, TriangleAlert } from "lucide-react";
 
 export default function ContactClient() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -74,7 +74,7 @@ export default function ContactClient() {
   });
 
   return (
-    <section id="contact" className="w-full pt-24 md:pt-32 pb-8 md:pb-10 px-4 relative"
+    <section id="contact" className="relative w-full px-4 pb-20 pt-24 md:pb-24 md:pt-32"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
         <div className="max-w-4xl mx-auto w-full">
@@ -103,26 +103,34 @@ export default function ContactClient() {
                 <div>
                   {[
                     { icon: Mail, label: "Email", value: "kareithibrian2@gmail.com", href: "mailto:kareithibrian2@gmail.com" },
-                    { icon: Phone, label: "Phone", value: "+254 718 593 392", href: "tel:+254718593392" },
-                    { icon: MapPin, label: "Location", value: "Nairobi, Kenya", href: "#" },
+                    { icon: Phone, label: "Phone", value: "+254 119 343 294", href: "tel:+254119343294" },
+                    { icon: MapPin, label: "Location", value: "Nairobi, Kenya", href: null as string | null },
                   ].map((item, i) => (
                     <div key={item.label}
                       className={`group flex items-center gap-3 py-2.5 transition-colors duration-300 ${i < 2 ? "border-b" : ""}`}
                       style={{
                         borderColor: "var(--color-border)",
                       }}>
-                      <item.icon className="w-3.5 h-3.5 flex-shrink-0 transition-colors duration-300 group-hover:text-current"
-                        style={{ color: "var(--color-accent)" }} />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[8px] tracking-wider uppercase mb-0.5"
+                      <item.icon className="h-3.5 w-3.5 flex-shrink-0 transition-colors duration-300 group-hover:text-current"
+                        style={{ color: "var(--color-accent)" }} aria-hidden="true" />
+                      <div className="min-w-0 flex-1">
+                        <p className="mb-0.5 text-[8px] uppercase tracking-wider"
                           style={{ color: "var(--color-text-muted)" }}>
                           {item.label}
                         </p>
-                        <a href={item.href}
-                          className="text-xs font-medium truncate block transition-colors duration-200 hover:opacity-70"
-                          style={{ color: "var(--color-text-primary)" }}>
-                          {item.value}
-                        </a>
+                        {item.href ? (
+                          <a href={item.href}
+                            title={item.value}
+                            className="block break-all text-xs font-medium transition-colors duration-200 hover:opacity-70"
+                            style={{ color: "var(--color-text-primary)" }}>
+                            {item.value}
+                          </a>
+                        ) : (
+                          <span className="block break-all text-xs font-medium"
+                            style={{ color: "var(--color-text-primary)" }}>
+                            {item.value}
+                          </span>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -139,15 +147,16 @@ export default function ContactClient() {
                 <div className="flex gap-2">
                   {[
                     { icon: Github, href: "https://github.com/Brian-Kareithi", label: "GitHub" },
-                    { icon: Linkedin, href: "https://linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
+                    { icon: Linkedin, href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
                     { icon: Instagram, href: "https://www.instagram.com/kareithiv", label: "Instagram" },
                   ].map((item) => (
                     <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
-                      className="icon-chip w-9 h-9 rounded-lg flex items-center justify-center liquid-glass"
+                      aria-label={item.label}
+                      className="icon-chip liquid-glass flex h-11 w-11 items-center justify-center rounded-lg"
                       style={{
                         color: "var(--color-text-secondary)",
                       }}>
-                      <item.icon className="w-4 h-4" />
+                      <item.icon className="h-4 w-4" />
                     </a>
                   ))}
                 </div>
@@ -181,52 +190,60 @@ export default function ContactClient() {
                 </p>
 
                 <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div className="relative group">
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                    <div className="group relative">
                       <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                         style={{ color: activeField === "name" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
-                        <User className="w-3.5 h-3.5" />
+                        <User className="h-3.5 w-3.5" aria-hidden="true" />
                       </div>
+                      <label htmlFor="contact-name" className="sr-only">Your name</label>
                       <input
+                        id="contact-name"
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
                         onFocus={() => setActiveField("name")}
                         onBlur={() => setActiveField(null)}
-                        placeholder="Your Name"
+                        placeholder="Your name"
+                        autoComplete="name"
                         required
-                        className="w-full pl-7 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
+                        className="w-full py-2.5 pl-7 pr-3.5 text-sm outline-none transition-all duration-300"
                         style={underlineStyle("name")}
                       />
                     </div>
 
-                    <div className="relative group">
+                    <div className="group relative">
                       <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                         style={{ color: activeField === "email" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
-                        <Mail className="w-3.5 h-3.5" />
+                        <Mail className="h-3.5 w-3.5" aria-hidden="true" />
                       </div>
+                      <label htmlFor="contact-email" className="sr-only">Email address</label>
                       <input
+                        id="contact-email"
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
                         onFocus={() => setActiveField("email")}
                         onBlur={() => setActiveField(null)}
-                        placeholder="your@email.com"
+                        placeholder="you@example.com"
+                        autoComplete="email"
                         required
-                        className="w-full pl-7 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
+                        className="w-full py-2.5 pl-7 pr-3.5 text-sm outline-none transition-all duration-300"
                         style={underlineStyle("email")}
                       />
                     </div>
                   </div>
 
-                  <div className="relative group">
+                  <div className="group relative">
                     <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                       style={{ color: activeField === "subject" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
-                      <Send className="w-3.5 h-3.5" />
+                      <Send className="h-3.5 w-3.5" aria-hidden="true" />
                     </div>
+                    <label htmlFor="contact-subject" className="sr-only">Subject</label>
                     <input
+                      id="contact-subject"
                       type="text"
                       name="subject"
                       value={formData.subject}
@@ -234,27 +251,30 @@ export default function ContactClient() {
                       onFocus={() => setActiveField("subject")}
                       onBlur={() => setActiveField(null)}
                       placeholder="Subject"
+                      autoComplete="off"
                       required
-                      className="w-full pl-7 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300"
+                      className="w-full py-2.5 pl-7 pr-3.5 text-sm outline-none transition-all duration-300"
                       style={underlineStyle("subject")}
                     />
                   </div>
 
-                  <div className="relative group">
+                  <div className="group relative">
                     <div className="absolute left-0 top-3 z-10 transition-all duration-300"
                       style={{ color: activeField === "message" ? "var(--color-accent)" : "var(--color-text-muted)" }}>
-                      <Send className="w-3.5 h-3.5" />
+                      <Send className="h-3.5 w-3.5" aria-hidden="true" />
                     </div>
+                    <label htmlFor="contact-message" className="sr-only">Message</label>
                     <textarea
+                      id="contact-message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       onFocus={() => setActiveField("message")}
                       onBlur={() => setActiveField(null)}
-                      placeholder="Tell me about your project..."
+                      placeholder="Tell me about your project…"
                       required
                       rows={4}
-                      className="w-full pl-7 pr-3.5 py-2.5 text-sm outline-none transition-all duration-300 resize-none"
+                      className="w-full resize-none py-2.5 pl-7 pr-3.5 text-sm outline-none transition-all duration-300"
                       style={underlineStyle("message")}
                     />
                   </div>
@@ -265,44 +285,43 @@ export default function ContactClient() {
                     
                     {isSubmitting ? (
                       <span className="flex items-center gap-2.5">
-                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
                         Sending...
                       </span>
                     ) : submitStatus === "success" ? (
                       <span className="flex items-center gap-2.5">
-                        <span className="text-lg">✓</span>
+                        <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
                         Sent!
                       </span>
                     ) : (
                       <>
-                        <Send className="w-3.5 h-3.5" />
+                        <Send className="h-3.5 w-3.5" aria-hidden="true" />
                         Send Message
                       </>
                     )}
                   </button>
 
-                  <div className="min-h-[46px]">
+                  <div className="min-h-[46px]" role="status" aria-live="polite">
                     {submitStatus === "success" && (
-                      <div className="p-2.5 text-[11px] animate-fade-in-up rounded-lg flex items-center gap-2.5"
+                      <div className="animate-fade-in-up flex items-center gap-2.5 rounded-lg p-2.5 text-[11px]"
                         style={{
                           border: "1px solid var(--color-accent)",
                           backgroundColor: "var(--color-bg-tertiary)",
                           color: "var(--color-accent)",
                         }}>
-                        <span className="w-6 h-6 flex items-center justify-center text-[11px] font-bold flex-shrink-0"
-                          style={{ backgroundColor: "var(--color-accent)", color: "var(--color-text-light)" }}>✓</span>
+                        <CheckCircle2 className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
                         Message sent! I usually respond within 24 hours.
                       </div>
                     )}
                     {submitStatus === "error" && (
-                      <div className="p-2.5 text-[11px] animate-fade-in-up rounded-lg flex items-center gap-2.5"
+                      <div className="animate-fade-in-up flex items-center gap-2.5 rounded-lg p-2.5 text-[11px]"
                         style={{
-                          border: "1px solid var(--color-border)",
+                          border: "1px solid var(--color-error)",
                           backgroundColor: "var(--color-bg-tertiary)",
-                          color: "var(--color-text-muted)",
+                          color: "var(--color-error)",
                         }}>
-                        <span className="text-sm flex-shrink-0">⚠️</span>
-                        Something went wrong. Please try again.
+                        <TriangleAlert className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+                        Something went wrong. Please try again or email me directly.
                       </div>
                     )}
                   </div>

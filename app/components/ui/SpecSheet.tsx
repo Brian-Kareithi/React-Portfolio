@@ -26,7 +26,7 @@ export function SpecSheet({ title, rows, className = "" }: SpecSheetProps) {
           style={{ borderTop: i === 0 && !title ? "none" : "1px solid var(--color-border)" }}
         >
           <dt className="field-label break-words pt-0.5" style={{ overflowWrap: "anywhere" }}>{row.k}</dt>
-          <dd className="text-[11px] leading-relaxed xs:text-xs" style={{ color: "var(--color-text-secondary)" }}>
+          <dd className="text-[11px] leading-relaxed xs:text-xs" style={{ color: "var(--color-text-secondary)", overflowWrap: "anywhere" }}>
             {row.v}
           </dd>
         </div>

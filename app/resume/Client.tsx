@@ -61,7 +61,7 @@ export default function ResumeClient() {
 
           {/* Role switcher */}
           <div className="no-print mb-10 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-wrap gap-2" role="tablist" aria-label="Resume role">
+            <div className="flex min-h-[44px] flex-wrap items-center gap-2" role="tablist" aria-label="Resume role">
               {resumeRoles.map((r) => {
                 const active = r.id === activeRole;
                 return (
@@ -70,7 +70,7 @@ export default function ResumeClient() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setActiveRole(r.id)}
-                    className="rounded-md px-3.5 py-2 text-[11px] font-semibold uppercase tracking-wider transition-colors duration-200"
+                    className="min-h-[44px] rounded-md px-3.5 py-2 text-[11px] font-semibold uppercase tracking-wider transition-colors duration-200"
                     style={
                       active
                         ? { backgroundColor: "var(--color-accent)", color: "var(--color-text-light)" }
@@ -84,10 +84,10 @@ export default function ResumeClient() {
             </div>
             <button
               onClick={handlePrint}
-              className="flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-medium transition-colors duration-200"
+              className="flex min-h-[44px] items-center gap-2 rounded-lg px-4 py-2 text-xs font-medium transition-colors duration-200"
               style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}
             >
-              <Printer className="h-3.5 w-3.5" />
+              <Printer className="h-3.5 w-3.5" aria-hidden="true" />
               Print / Save as PDF — {role.label}
             </button>
           </div>
@@ -122,7 +122,7 @@ export default function ResumeClient() {
                   { k: "Phone", v: siteConfig.phoneDisplay },
                   { k: "Location", v: siteConfig.location },
                   { k: "GitHub", v: "github.com/Brian-Kareithi" },
-                  { k: "LinkedIn", v: "linkedin.com/in/brian-kareithi" },
+                  { k: "LinkedIn", v: "linkedin.com/in/brian-kareithi-04007637b" },
                 ]}
               />
 
@@ -221,7 +221,7 @@ export default function ResumeClient() {
             <p className="rp-contact">
               {siteConfig.email} &nbsp;•&nbsp; {siteConfig.phoneDisplay} &nbsp;•&nbsp; {siteConfig.location}
               <br />
-              github.com/Brian-Kareithi &nbsp;•&nbsp; linkedin.com/in/brian-kareithi &nbsp;•&nbsp; kareithi.vercel.app
+              github.com/Brian-Kareithi &nbsp;•&nbsp; linkedin.com/in/brian-kareithi-04007637b &nbsp;•&nbsp; kareithi.vercel.app
             </p>
           </div>
 
@@ -307,7 +307,7 @@ export default function ResumeClient() {
                   <div className="rp-contact-row"><dt>Phone</dt><dd>{siteConfig.phoneDisplay}</dd></div>
                   <div className="rp-contact-row"><dt>Location</dt><dd>{siteConfig.location}</dd></div>
                   <div className="rp-contact-row"><dt>GitHub</dt><dd>github.com/Brian-Kareithi</dd></div>
-                  <div className="rp-contact-row"><dt>LinkedIn</dt><dd>linkedin.com/in/brian-kareithi</dd></div>
+                  <div className="rp-contact-row"><dt>LinkedIn</dt><dd>linkedin.com/in/brian-kareithi-04007637b</dd></div>
                   <div className="rp-contact-row"><dt>Portfolio</dt><dd>kareithi.vercel.app</dd></div>
                 </dl>
               </div>
