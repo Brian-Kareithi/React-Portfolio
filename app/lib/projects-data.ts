@@ -163,6 +163,60 @@ export const caseStudies: CaseStudy[] = [
       note: "Public repository",
     },
   },
+  {
+    id: "flip-book-portfolio",
+    index: "06",
+    title: "Flip-Book Portfolio",
+    tagline: "A portfolio bound as an interactive book, with a full page-flipping experience",
+    status: "Shipped",
+    problem:
+      "Portfolio sites all look the same: grids of cards and scroll sections. I wanted a portfolio that reads like a bound volume, where each chapter (identity, journey, tech stack, selected work, expertise, homelab, contact) is a leaf you physically turn.",
+    solution: [
+      "A skeuomorphic book with drag-a-corner, swipe, arrow-key and Home/End page turning",
+      "Seventeen leaves from Cover and Title Page through eleven chapters to Finis and Back Cover",
+      "An Index of Leaves drawer for jumping to any chapter, with live reading progress",
+      "Candlelight day/night theme and toggleable page-turn sounds for atmosphere",
+    ],
+    architecture: {
+      stages: ["Next.js Frontend", "Book Engine (Page Flip)", "Static Content"],
+      branch: { under: 1, label: "Sound & Theme" },
+    },
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Web Audio API"],
+    contribution:
+      "Designed and built solo: the book engine, the chapter content model, the candlelight theming and the sound design.",
+    access: {
+      kind: "public",
+      repo: "https://github.com/Brian-Kareithi/Flip-book-portfolio",
+      demo: "https://flip-book-portfolio-omega.vercel.app/",
+      note: "Public repository",
+    },
+  },
+  {
+    id: "portfolio-v2-3d",
+    index: "07",
+    title: "Portfolio V2 (3D)",
+    tagline: "Scroll-driven 3D portfolio experience built with Three.js",
+    status: "Shipped",
+    problem:
+      "My first portfolio proved I could ship clean UI, but I wanted a second version that showed range: real-time 3D, scroll-choreographed storytelling and a themeable experience, while still carrying the full resume (about, projects, experience, contact).",
+    solution: [
+      "A Three.js experience canvas choreographed to scroll, with preloader and section transitions",
+      "Light/dark theme toggle carried across the 3D scene and the content layer",
+      "Full portfolio content: hero, about and skills grid, project archive, experience cards, contact dashboard",
+      "Personal-portfolio lineage section linking V1 (Vite) and V2 (Next.js) to show growth",
+    ],
+    architecture: {
+      stages: ["Vite Frontend", "Three.js Scene", "GSAP Scroll Rig"],
+    },
+    stack: ["Vite", "Three.js", "JavaScript", "GSAP", "CSS3"],
+    contribution: "Solo build: the 3D scene, scroll choreography, theming and all content sections.",
+    access: {
+      kind: "public",
+      repo: "https://github.com/Brian-Kareithi/3d-website",
+      demo: "https://portfoliov2-ruby.vercel.app/",
+      note: "Public repository",
+    },
+  },
 ];
 
 export interface OtherProject {

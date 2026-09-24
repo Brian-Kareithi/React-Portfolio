@@ -43,7 +43,7 @@ export default function ProjectsClient() {
           index="03"
           label="Systems I've Built"
           title={<>Not websites. <em className="font-serif-accent">Systems</em>.</>}
-          description="Five case studies, told as problem, solution, architecture and contribution, plus a lighter-weight archive of smaller builds and experiments below."
+          description="Seven case studies, told as problem, solution, architecture and contribution, plus a lighter-weight archive of smaller builds and experiments below."
         />
 
         {/* Case studies */}
