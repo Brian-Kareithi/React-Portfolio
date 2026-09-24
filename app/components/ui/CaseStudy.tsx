@@ -1,6 +1,6 @@
 import { ExternalLink, Github, Lock, FileDown } from "lucide-react";
 import { ArchitectureFlow } from "@/app/components/ui/ArchitectureFlow";
-import type { CaseStudy as CaseStudyType } from "@/app/lib/projects-data";
+import { caseStudies, type CaseStudy as CaseStudyType } from "@/app/lib/projects-data";
 import { siteConfig } from "@/app/lib/site";
 
 export function CaseStudy({ study }: { study: CaseStudyType }) {
@@ -8,7 +8,7 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
     <article className="flat-card p-5 xs:p-6 md:p-8" style={{ borderColor: "var(--color-border)" }}>
       <div className="mb-6 flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="index-num mb-2">{study.index} / 05</p>
+          <p className="index-num mb-2">{study.index} / {String(caseStudies.length).padStart(2, "0")}</p>
           <h3 className="text-xl font-bold xs:text-2xl" style={{ color: "var(--color-text-primary)" }}>
             {study.title}
           </h3>
