@@ -185,10 +185,9 @@ export const caseStudies: CaseStudy[] = [
     contribution:
       "Designed and built solo: the book engine, the chapter content model, the candlelight theming and the sound design.",
     access: {
-      kind: "public",
-      repo: "https://github.com/Brian-Kareithi/Flip-book-portfolio",
+      kind: "internal",
       demo: "https://flip-book-portfolio-omega.vercel.app/",
-      note: "Public repository",
+      note: "Private repository",
     },
   },
   {
@@ -211,10 +210,9 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Vite", "Three.js", "JavaScript", "GSAP", "CSS3"],
     contribution: "Solo build: the 3D scene, scroll choreography, theming and all content sections.",
     access: {
-      kind: "public",
-      repo: "https://github.com/Brian-Kareithi/3d-website",
+      kind: "internal",
       demo: "https://portfoliov2-ruby.vercel.app/",
-      note: "Public repository",
+      note: "Private repository",
     },
   },
 ];
