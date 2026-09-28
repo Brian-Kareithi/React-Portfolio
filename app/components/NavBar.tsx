@@ -67,7 +67,7 @@ export default function Navbar() {
           right: scrolled ? 0 : 12,
           borderColor: "var(--color-border)",
           borderRadius: scrolled ? 0 : "0.75rem",
-          boxShadow: scrolled ? "none" : "0 8px 32px rgba(0, 0, 0, 0.08)",
+          boxShadow: scrolled ? "none" : "var(--shadow-md)",
         }}
         aria-label="Primary"
       >
