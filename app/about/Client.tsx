@@ -169,7 +169,7 @@ export default function AboutClient() {
                   className="min-h-[44px] rounded-md px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-colors duration-200"
                   style={
                     active
-                      ? { backgroundColor: "var(--color-accent)", color: "var(--color-text-light)" }
+                      ? { backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }
                       : { border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }
                   }
                 >

@@ -394,7 +394,7 @@ export default function HobbiesClient() {
                 <button key={t.title} onClick={() => setActiveCat(t.title)} aria-pressed={active}
                   className="whitespace-nowrap rounded-lg px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider transition-all duration-200 min-h-[44px]"
                   style={active
-                    ? { backgroundColor: "var(--color-accent)", color: "var(--color-text-light)" }
+                    ? { backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }
                     : { border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>
                   {t.title}
                   <span className="ml-1.5 font-mono opacity-60">{t.count}</span>
