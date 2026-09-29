@@ -94,6 +94,7 @@ export default function Navbar() {
                     {r.index}
                   </span>
                   {r.label}
+                  {r.tag && <NavTag label={r.tag} />}
                   <span
                     className="absolute -bottom-[1px] left-3 right-3 h-px origin-left transition-transform duration-300"
                     style={{
@@ -193,6 +194,7 @@ export default function Navbar() {
                         style={{ color: active ? "var(--color-accent)" : "var(--color-text-primary)" }}
                       >
                         {r.label}
+                        {r.tag && <NavTag label={r.tag} />}
                       </span>
                       <span className="block text-xs" style={{ color: "var(--color-text-muted)" }}>
                         {r.description}
@@ -219,5 +221,16 @@ export default function Navbar() {
         </div>
       </div>
     </>
+  );
+}
+
+function NavTag({ label }: { label: string }) {
+  return (
+    <span
+      className="ml-1.5 inline-block rounded-full px-1.5 py-px align-middle text-[9px] font-semibold uppercase tracking-wider"
+      style={{ backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }}
+    >
+      {label}
+    </span>
   );
 }
