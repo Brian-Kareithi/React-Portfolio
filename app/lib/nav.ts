@@ -6,6 +6,8 @@ export interface NavRoute {
   /** Field-manual index, matches the page's own SectionHeader index. */
   index: string;
   description: string;
+  /** Optional pill shown beside the label in the navbar. */
+  tag?: string;
 }
 
 /** Every internal route, in reading order. */
@@ -20,11 +22,12 @@ export const routes: NavRoute[] = [
   { path: "/engineering", label: "Engineering", index: "07", description: "How the software gets built" },
   { path: "/hobbies", label: "Homelab", index: "08", description: "Servers, sensors & firmware" },
   { path: "/resume", label: "Resume", index: "09", description: "Role-tailored CV, three ways" },
+  { path: "/friday", label: "Friday", index: "10", description: "An Iron Man–style AI assistant", tag: "Surprise" },
 ];
 
 /** Tight primary set shown in the desktop bar; the palette covers the rest. */
 export const primaryNav: NavRoute[] = routes.filter((r) =>
-  ["/", "/about", "/techstack", "/projects", "/contact"].includes(r.path)
+  ["/", "/about", "/techstack", "/projects", "/contact", "/friday"].includes(r.path)
 );
 
 export interface ExternalLink {

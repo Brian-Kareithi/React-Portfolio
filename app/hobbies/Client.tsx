@@ -10,6 +10,7 @@ import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
+import FridaySurprise from "./FridaySurprise";
 
 interface GearItem {
   name: string;
@@ -536,6 +537,12 @@ export default function HobbiesClient() {
               </footer>
             </blockquote>
           </div>
+        </div>
+
+        {/* End-of-week surprise */}
+        <div className="mb-14 xs:mb-16 sm:mb-20">
+          <SubHead label="Off the clock" title="Is it Friday yet?" />
+          <FridaySurprise />
         </div>
 
         <StaggerReveal>
