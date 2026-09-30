@@ -131,6 +131,7 @@ export default function FridayClient() {
     >
       <ScrollReveal>
         <div className="max-w-2xl mx-auto w-full">
+          <h1 className="sr-only">Friday, Brian Kareithi&apos;s portfolio assistant</h1>
           <div
             className="overflow-hidden rounded-3xl border"
             style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border)", boxShadow: "var(--shadow-md)" }}

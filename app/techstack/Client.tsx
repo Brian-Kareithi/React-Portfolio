@@ -165,14 +165,14 @@ export default function TechStackClient() {
         </div>
 
         {/* Periodic-table style tiles, grouped by category */}
-        <div className="space-y-14">
+        <div className="space-y-10">
           {techs.map((category, catIndex) => (
             <div key={category.heading}>
               <div className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                <span className="font-serif-accent text-3xl" style={{ color: "var(--color-accent-secondary)" }}>
+                <span className="font-serif-accent text-2xl" style={{ color: "var(--color-accent-secondary)" }}>
                   {String(catIndex + 1).padStart(2, "0")}
                 </span>
-                <h3 className="display-xl text-3xl" style={{ color: "var(--color-text-primary)" }}>
+                <h3 className="display-xl text-2xl" style={{ color: "var(--color-text-primary)" }}>
                   {category.heading}
                 </h3>
                 <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
@@ -181,11 +181,11 @@ export default function TechStackClient() {
               </div>
 
               <StaggerReveal staggerDelay={40}>
-              <div className="grid grid-cols-2 gap-3 xs:grid-cols-3 md:grid-cols-5">
+              <div className="grid grid-cols-2 gap-2.5 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-6">
                 {category.items.map((item) => (
-                  <div key={item.title} className="flat-card flex aspect-square flex-col justify-between p-4">
+                  <div key={item.title} className="flat-card flex flex-col gap-3 p-3">
                     <div className="flex items-start justify-between">
-                      <span className="text-3xl" style={{ color: "var(--color-accent)" }} aria-hidden="true">
+                      <span className="text-xl" style={{ color: "var(--color-accent)" }} aria-hidden="true">
                         {item.icon}
                       </span>
                       <span className="font-mono text-[10px] uppercase" style={{ color: "var(--color-text-muted)" }}>
@@ -193,7 +193,7 @@ export default function TechStackClient() {
                       </span>
                     </div>
                     <div>
-                      <p className="mb-2 text-sm font-semibold leading-tight" style={{ color: "var(--color-text-primary)" }}>
+                      <p className="mb-1.5 text-xs font-semibold leading-tight" style={{ color: "var(--color-text-primary)" }}>
                         {item.title}
                       </p>
                       <LevelBar level={item.level} wide />

@@ -24,6 +24,27 @@ const surprises = [
   "No deploys after 4pm. That's not a rule, it's a kindness.",
   "The bug will still be there on Monday. So will you, rested.",
   "git commit -m \"weekend\" && git push --force-with-joy",
+  // Tech dad jokes
+  "Why do programmers prefer dark mode? Because light attracts bugs.",
+  "I would tell you a UDP joke, but you might not get it.",
+  "Why did the developer go broke? He used up all his cache.",
+  "There are 10 types of people: those who understand binary and those who don't.",
+  "Why was the JavaScript developer sad? He didn't know how to null his feelings.",
+  "I told my Wi-Fi we needed to talk. It lost connection.",
+  "Why do Java developers wear glasses? Because they don't C#.",
+  "A SQL query walks into a bar, sees two tables and asks: can I join you?",
+  "Why did the computer go to the doctor? It had a virus. Doctor said: take two restarts and call me in the morning.",
+  "My password is the last 8 digits of pi. Nobody's getting that one.",
+  "Why was the server so calm? It had plenty of bandwidth to process its feelings.",
+  "I'd tell you a TCP joke, but I'd have to keep repeating it until you acknowledge it.",
+  "Why did the router break up with the switch? It needed more space on the network.",
+  "Debugging: being the detective in a crime movie where you're also the murderer.",
+  "Why don't keyboards ever sleep? Two shifts, every day.",
+  "What's a computer's favourite snack? Microchips.",
+  "Why did the IT guy bring a ladder? He heard the issue was on a higher level.",
+  "Why did the developer quit his job? He didn't get arrays.",
+  "How does a Proxmox server stay cool? It leaves all its windows open. Just kidding, it runs Linux.",
+  "Why was the ESP32 always invited to parties? It really knew how to connect.",
 ];
 
 const confettiColors = ["var(--color-accent)", "var(--color-accent-secondary)", "var(--color-accent-light)", "var(--color-border-hover)"];
@@ -45,7 +66,12 @@ export default function FridaySurprise() {
   }, []);
 
   const unwrap = () => {
-    setPick((p) => (opened ? (p + 1) % surprises.length : Math.floor(Math.random() * surprises.length)));
+    // Random pick, never the same one twice in a row.
+    setPick((p) => {
+      let next = Math.floor(Math.random() * surprises.length);
+      if (opened && next === p) next = (next + 1) % surprises.length;
+      return next;
+    });
     setOpened(true);
   };
 
@@ -81,7 +107,7 @@ export default function FridaySurprise() {
           {!weekend && (
             <div className="mt-5 grid grid-cols-4 gap-2">
               {parts.map((p) => (
-                <div key={p.label} className="rounded-lg border px-2 py-3 text-center" style={{ borderColor: "var(--color-border)" }}>
+                <div key={p.label} className="rounded-2xl border px-2 py-3 text-center" style={{ borderColor: "var(--color-border)" }}>
                   <p className="font-mono text-xl font-bold" style={{ color: "var(--color-accent)" }}>
                     {now ? String(p.value).padStart(2, "0") : "--"}
                   </p>
@@ -113,7 +139,7 @@ export default function FridaySurprise() {
           </div>
         )}
         <span
-          className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
+          className="mb-4 flex h-12 w-12 items-center justify-center rounded-full"
           style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}
         >
           {opened ? <PartyPopper className="w-5 h-5" /> : <Gift className="w-5 h-5" />}

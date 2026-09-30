@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import ClientLayout from "./ClientLayout";
 import { JsonLd } from "@/app/components/JsonLd";
-import { siteConfig } from "@/app/lib/site";
+import { siteConfig, ogImageFor } from "@/app/lib/site";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -45,6 +45,11 @@ const organizationJsonLd = {
   sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.instagram],
 };
 
+export const viewport: Viewport = {
+  themeColor: "#ece7f6",
+  colorScheme: "light",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -77,20 +82,13 @@ export const metadata: Metadata = {
     siteName: "Brian Kareithi Portfolio",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 800,
-        height: 800,
-        alt: "Brian Kareithi, Software Engineer, Nairobi, Kenya",
-      },
-    ],
+    images: [ogImageFor(siteConfig.name, siteConfig.tagline)],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [siteConfig.ogImage],
+    images: [ogImageFor(siteConfig.name, siteConfig.tagline).url],
   },
   robots: {
     index: true,

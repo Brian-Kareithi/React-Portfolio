@@ -142,6 +142,7 @@ const gearAliases: Record<string, string[]> = {
   "HP 745 G7": ["745", "daily driver laptop"],
   "HP 820 G3": ["820"],
   "HP Tower Server": ["tower server"],
+  "HP Tower (Kali Linux)": ["kali", "kali linux", "pentest", "pentesting", "penetration testing", "pen testing"],
   "Galaxy A05s": ["galaxy", "samsung"],
   "ORAiMO SpaceBuds Neo Plus": ["spacebuds", "earbuds"],
   "ORAiMO SmartWatch 5N": ["smartwatch", "smart watch"],

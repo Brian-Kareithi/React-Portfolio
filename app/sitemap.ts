@@ -3,7 +3,7 @@ import { siteConfig } from "@/app/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
-  const lastModified = new Date("2026-09-15");
+  const lastModified = new Date("2026-09-30");
 
   return [
     { url: `${base}/`, lastModified, changeFrequency: "weekly", priority: 1 },

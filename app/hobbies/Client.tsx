@@ -52,6 +52,13 @@ export const gearCategories: GearCategory[] = [
         icon: <Server className="w-3.5 h-3.5" />,
         specs: ["Intel Xeon / Core i5", "16GB ECC DDR4 RAM", "3TB HDD Storage", "RAID 1 Config", "Proxmox VE", "24/7 Self-Hosted"],
       },
+      {
+        name: "HP Tower (Kali Linux)",
+        outcome: "A second HP tower running Kali Linux, dedicated purely to penetration testing and security practice.",
+        skill: "Penetration Testing",
+        icon: <ShieldCheck className="w-3.5 h-3.5" />,
+        specs: ["HP Tower", "Kali Linux", "Dedicated to penetration testing"],
+      },
     ],
   },
   {
@@ -236,18 +243,51 @@ export const tinkering = [
 
 function SubHead({ label, title }: { label: string; title: string }) {
   return (
-    <div className="mb-5 xs:mb-6">
-      <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-1.5 flex items-center gap-2"
-        style={{ color: "var(--color-text-muted)" }}>
-        <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
+    <div className="mb-8">
+      <p className="field-label mb-2 flex items-center gap-2">
+        <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
         {label}
       </p>
-      <h2 className="text-lg md:text-xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
+      <h2 className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
         {title}
       </h2>
     </div>
   );
 }
+
+const services = [
+  { label: "Jellyfin", note: "Media server", icon: <Monitor className="w-4 h-4" /> },
+  { label: "Backups", note: "Nightly", icon: <HardDrive className="w-4 h-4" /> },
+  { label: "ESP32 Mesh", note: "Automation", icon: <Radio className="w-4 h-4" /> },
+];
+
+function TopologyNode({ icon, title, note, strong = false }: { icon: ReactNode; title: string; note: string; strong?: boolean }) {
+  return (
+    <div
+      className="flex items-center gap-3 rounded-full border px-4 py-2.5"
+      style={{
+        backgroundColor: strong ? "var(--color-accent)" : "var(--color-bg-card)",
+        borderColor: strong ? "var(--color-accent)" : "var(--color-border)",
+        color: strong ? "var(--color-on-accent)" : "var(--color-text-primary)",
+      }}
+    >
+      <span
+        className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full"
+        style={{ backgroundColor: strong ? "var(--palette-lavender-mist)" : "var(--color-highlight)", color: "var(--palette-true-cobalt)" }}
+      >
+        {icon}
+      </span>
+      <span className="text-left">
+        <span className="block text-sm font-semibold leading-tight">{title}</span>
+        <span className="block text-[11px] opacity-75">{note}</span>
+      </span>
+    </div>
+  );
+}
+
+const Wire = ({ dashed = false }: { dashed?: boolean }) => (
+  <span aria-hidden="true" className="h-8 w-0" style={{ borderLeft: `2px ${dashed ? "dashed" : "solid"} var(--color-accent-secondary)` }} />
+);
 
 export default function HobbiesClient() {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
@@ -267,37 +307,28 @@ export default function HobbiesClient() {
 
   return (
     <>
-      <header
-        className="fixed top-0 left-0 right-0 z-50 glass-nav"
-        style={{
-          borderLeft: "none",
-          borderRight: "none",
-          borderTop: "none",
-          borderBottom: "1px solid var(--color-glass-border)",
-        }}
-      >
-        <div className="flex items-center justify-between h-14 max-w-5xl mx-auto px-4 sm:px-6">
+      <header className="fixed left-5 right-5 top-3.5 z-50 mx-auto max-w-5xl overflow-hidden rounded-full glass-nav">
+        <div className="flex h-14 items-center justify-between pl-2 pr-5">
           <Link
             href="/"
-            className="group inline-flex min-h-[44px] items-center gap-2.5 text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
+            className="group inline-flex min-h-[44px] items-center gap-2.5 rounded-full pr-4 text-sm font-medium transition-colors duration-200 hover:text-[var(--color-accent)]"
             style={{ color: "var(--color-text-secondary)" }}
           >
             <span
-              className="w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:-translate-x-0.5"
-              style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}
+              className="flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-300 group-hover:-translate-x-0.5"
+              style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-4 h-4" />
             </span>
             Back to Portfolio
           </Link>
-          <span className="hidden sm:block text-[10px] font-semibold tracking-[0.25em] uppercase"
-            style={{ color: "var(--color-text-muted)" }}>
+          <span className="hidden font-serif-accent text-lg sm:block" style={{ color: "var(--color-text-primary)" }}>
             Homelab
           </span>
         </div>
       </header>
 
-      <section id="hobbies" className="min-h-screen w-full pt-24 md:pt-28 pb-24 md:pb-32 px-5 sm:px-10 lg:px-16 relative overflow-hidden isolate"
+      <section id="hobbies" className="min-h-screen w-full pt-28 md:pt-32 pb-24 md:pb-32 px-5 sm:px-10 lg:px-16 relative overflow-hidden isolate"
         style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal className="relative z-10">
       <div className="max-w-5xl mx-auto w-full">
@@ -310,37 +341,25 @@ export default function HobbiesClient() {
           description="Servers, sensors and solder-side experiments: a homelab running 24/7, where professional skills are validated under real-world conditions."
         />
 
-        {/* Lab status: terminal strip */}
+        {/* Lab status */}
         <StaggerReveal staggerDelay={80}>
-        <div className="flat-card overflow-hidden mb-14 xs:mb-16 sm:mb-20">
-          <div className="flex items-center gap-2 px-4 py-2.5 border-b"
-            style={{ borderColor: "var(--color-border)" }}>
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--color-border)" }} />
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--color-border)" }} />
-            <p className="font-mono text-[11px] ml-2 truncate" style={{ color: "var(--color-text-muted)" }}>
-              brian@homelab:~$ ./status.sh
-            </p>
-            <span className="hidden sm:block ml-auto font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
-              exit 0
+        <div className="ink-slab mb-20 px-6 py-8 sm:px-10">
+          <p className="mb-8 flex items-center gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ backgroundColor: "var(--color-accent)" }} />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
             </span>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4">
+            All systems normal
+          </p>
+          <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
             {labStats.map((s) => (
-              <div key={s.label} className="p-4 md:p-5">
-                <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg mb-3"
-                  style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
+              <div key={s.label}>
+                <span className="mb-3 flex h-9 w-9 items-center justify-center rounded-full" style={{ backgroundColor: "var(--color-surface-strong)", color: "var(--color-accent)" }}>
                   {s.icon}
                 </span>
-                <p className="text-xl md:text-2xl font-bold tracking-tight font-mono" style={{ color: "var(--color-text-primary)" }}>
-                  {s.value}
-                </p>
-                <p className="text-[9px] font-medium tracking-[0.2em] uppercase mt-1" style={{ color: "var(--color-accent)" }}>
-                  {s.label}
-                </p>
-                <p className="mt-0.5 text-[10px]" style={{ color: "var(--color-text-muted)" }}>
-                  {s.note}
-                </p>
+                <p className="display-xl text-4xl" style={{ color: "var(--color-text-primary)" }}>{s.value}</p>
+                <p className="mt-1 text-sm font-medium" style={{ color: "var(--color-accent)" }}>{s.label}</p>
+                <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>{s.note}</p>
               </div>
             ))}
           </div>
@@ -348,35 +367,23 @@ export default function HobbiesClient() {
         </StaggerReveal>
 
         {/* Network topology */}
-        <div className="mb-14 xs:mb-16 sm:mb-20">
+        <div className="mb-20">
           <SubHead label="Topology" title="How it's wired together" />
-          <div className="flat-card overflow-x-auto p-5 xs:p-6 sm:p-8">
-            <div className="mx-auto flex w-full max-w-md flex-col items-center font-mono text-[11px]">
-              <span className="tracking-[0.2em]" style={{ color: "var(--color-text-muted)" }}>INTERNET</span>
-              <span className="my-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
-              <div className="border px-5 py-2.5 text-center" style={{ borderColor: "var(--color-border-hover)" }}>
-                <p className="font-medium" style={{ color: "var(--color-text-primary)" }}>Router</p>
-                <p className="text-[9px]" style={{ color: "var(--color-text-muted)" }}>Safaricom 4G LTE</p>
-              </div>
-              <span className="my-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
-              <div className="border px-5 py-2.5 text-center" style={{ borderColor: "var(--color-accent)" }}>
-                <p className="font-medium" style={{ color: "var(--color-accent)" }}>HP Tower Server</p>
-                <p className="text-[9px]" style={{ color: "var(--color-text-muted)" }}>Proxmox VE · 24/7 · RAID-1 · 3TB</p>
-              </div>
-              <span className="my-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
-              <div className="mb-2 h-px w-full max-w-md" style={{ backgroundColor: "var(--color-border-hover)" }} aria-hidden="true" />
-              <div className="grid w-full max-w-md grid-cols-3 gap-3">
-                {[
-                  { label: "Jellyfin", note: "Media server" },
-                  { label: "Backups", note: "Nightly" },
-                  { label: "ESP32 Mesh", note: "Automation" },
-                ].map((s) => (
+          <div className="flex flex-col items-center rounded-[2rem] px-5 py-10 sm:px-10" style={{ backgroundColor: "var(--color-highlight)" }}>
+            <span className="pill font-mono !text-[11px]"><Wifi className="w-3.5 h-3.5" /> Internet</span>
+            <Wire dashed />
+            <TopologyNode icon={<Wifi className="w-4 h-4" />} title="Router" note="Safaricom 4G LTE" />
+            <Wire />
+            <TopologyNode icon={<Server className="w-4 h-4" />} title="HP Tower Server" note="Proxmox VE · 24/7 · RAID-1 · 3TB" strong />
+            <Wire />
+            {/* Fan-out bar to the three services */}
+            <div className="relative w-full max-w-2xl">
+              <span aria-hidden="true" className="absolute left-[16.66%] right-[16.66%] top-0 hidden sm:block" style={{ borderTop: "2px solid var(--color-accent-secondary)" }} />
+              <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
+                {services.map((s) => (
                   <div key={s.label} className="flex flex-col items-center">
-                    <span className="mb-1" style={{ color: "var(--color-text-muted)" }} aria-hidden="true">│</span>
-                    <div className="w-full border px-2 py-2 text-center" style={{ borderColor: "var(--color-border-hover)" }}>
-                      <p className="text-[10px] font-medium" style={{ color: "var(--color-text-primary)" }}>{s.label}</p>
-                      <p className="text-[9px]" style={{ color: "var(--color-text-muted)" }}>{s.note}</p>
-                    </div>
+                    <span aria-hidden="true" className="hidden h-6 w-0 sm:block" style={{ borderLeft: "2px solid var(--color-accent-secondary)" }} />
+                    <TopologyNode icon={s.icon} title={s.label} note={s.note} />
                   </div>
                 ))}
               </div>
@@ -385,7 +392,7 @@ export default function HobbiesClient() {
         </div>
 
         {/* Gear */}
-        <div className="mb-14 xs:mb-16 sm:mb-20">
+        <div className="mb-20">
           <SubHead label="Equipment" title="The gear that runs it" />
 
           <div className="mb-6 flex flex-wrap gap-2">
@@ -393,71 +400,54 @@ export default function HobbiesClient() {
               const active = activeCat === t.title;
               return (
                 <button key={t.title} onClick={() => setActiveCat(t.title)} aria-pressed={active}
-                  className="whitespace-nowrap rounded-lg px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider transition-all duration-200 min-h-[44px]"
+                  className="min-h-[44px] whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
                   style={active
-                    ? { backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }
-                    : { border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>
+                    ? { backgroundColor: "var(--color-accent)", borderColor: "var(--color-accent)", color: "var(--color-on-accent)" }
+                    : { borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }}>
                   {t.title}
-                  <span className="ml-1.5 font-mono opacity-60">{t.count}</span>
+                  <span className="ml-1.5 font-mono text-xs opacity-70">{t.count}</span>
                 </button>
               );
             })}
           </div>
 
           <StaggerReveal key={activeCat} staggerDelay={50}>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {visibleItems.map((item) => {
               const open = expandedItem === item.key;
               return (
-                <div key={item.key} className="flat-card flex flex-col p-4" style={open ? { borderColor: "var(--color-accent)" } : undefined}>
-                  <button onClick={() => toggleItem(item.key)}
-                    aria-expanded={open}
-                    className="group flex min-h-[44px] w-full items-start justify-between gap-2 text-left">
-                    <div className="flex min-w-0 items-center gap-2.5">
-                      <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg"
-                        style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }} aria-hidden="true">
-                        {item.icon}
-                      </span>
-                      <div className="min-w-0">
-                        <h3 className="truncate text-sm font-medium" style={{ color: "var(--color-text-primary)" }} title={item.name}>
-                          {item.name}
-                        </h3>
-                        <p className="truncate font-mono text-[9px] uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }} title={item.category}>
-                          {item.category}
-                        </p>
-                      </div>
-                    </div>
-                    <ChevronDown className={`mt-1 h-3.5 w-3.5 flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-                      style={{ color: "var(--color-text-muted)" }} aria-hidden="true" />
-                  </button>
-
-                  <p className="text-xs leading-relaxed mt-3 flex-1" style={{ color: "var(--color-text-secondary)" }}>
+                <div key={item.key} className="flat-card flex flex-col p-5" style={open ? { borderColor: "var(--color-accent)" } : undefined}>
+                  <div className="mb-3 flex items-start justify-between gap-2">
+                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full"
+                      style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }} aria-hidden="true">
+                      {item.icon}
+                    </span>
+                    <span className="pill !py-1 !text-[10px]">{item.skill}</span>
+                  </div>
+                  <h3 className="font-serif-accent text-xl leading-tight" style={{ color: "var(--color-text-primary)" }}>
+                    {item.name}
+                  </h3>
+                  <p className="mb-3 text-[11px]" style={{ color: "var(--color-text-muted)" }}>{item.category}</p>
+                  <p className="flex-1 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                     {item.outcome}
                   </p>
 
-                  <div className="flex items-center justify-between gap-2 mt-3">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-semibold tracking-wider uppercase"
-                      style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
-                      {item.skill}
-                    </span>
-                    <button onClick={() => toggleItem(item.key)}
-                      aria-expanded={open}
-                      className="min-h-[44px] font-mono text-[10px] transition-colors duration-200 hover:text-[var(--color-accent)]"
-                      style={{ color: "var(--color-text-muted)" }}>
-                      [{item.specs.length}] specs
-                    </button>
-                  </div>
+                  <button onClick={() => toggleItem(item.key)}
+                    aria-expanded={open}
+                    className="mt-4 flex min-h-[44px] items-center gap-1.5 self-start text-xs font-medium transition-colors duration-200 hover:text-[var(--color-accent)]"
+                    style={{ color: "var(--color-text-muted)" }}>
+                    {open ? "Hide" : "Show"} {item.specs.length} specs
+                    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+                  </button>
 
                   {open && (
-                    <div className="mt-3 pt-3 border-t animate-fade-in-up" style={{ borderColor: "var(--color-border)" }}>
-                      <div className="flex flex-wrap gap-1.5">
-                        {item.specs.map((spec, si) => (
-                          <span key={si} className="font-mono text-[10px] px-2 py-1 rounded-md"
-                            style={{ backgroundColor: "var(--color-surface)", color: "var(--color-text-secondary)" }}>
-                            {spec}
-                          </span>
-                        ))}
-                      </div>
+                    <div className="animate-fade-in-up flex flex-wrap gap-1.5 border-t pt-3" style={{ borderColor: "var(--color-border)" }}>
+                      {item.specs.map((spec) => (
+                        <span key={spec} className="rounded-full px-2.5 py-1 font-mono text-[10px]"
+                          style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-secondary)" }}>
+                          {spec}
+                        </span>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -468,30 +458,29 @@ export default function HobbiesClient() {
         </div>
 
         {/* Builds */}
-        <div className="mb-14 xs:mb-16 sm:mb-20">
-          <SubHead label="What I Build" title="Weekend deployments" />
+        <div className="mb-20">
+          <SubHead label="What I build" title="Weekend deployments" />
           <StaggerReveal staggerDelay={80}>
-          <div className="grid gap-3 xs:gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-3">
             {builds.map((p) => (
-              <div key={p.title} className="flat-card p-4 md:p-5 flex flex-col">
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="w-7 h-7 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
+              <div key={p.title} className="plate flex flex-col p-6">
+                <div className="mb-4 flex items-center justify-between gap-2">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full"
+                    style={{ backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }}>
                     {p.icon}
                   </span>
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-semibold tracking-wider uppercase"
-                    style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
-                    <span className="w-1 h-1 rounded-full animate-pulse" style={{ backgroundColor: "var(--color-accent)" }} />
+                  <span className="pill !py-1 !text-[10px]">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full" style={{ backgroundColor: "var(--color-success)" }} />
                     {p.status}
                   </span>
                 </div>
-                <h3 className="text-sm font-semibold mb-1.5" style={{ color: "var(--color-text-primary)" }}>
+                <h3 className="font-serif-accent mb-2 text-2xl" style={{ color: "var(--color-text-primary)" }}>
                   {p.title}
                 </h3>
-                <p className="text-xs leading-relaxed flex-1" style={{ color: "var(--color-text-secondary)" }}>
+                <p className="flex-1 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                   {p.outcome}
                 </p>
-                <p className="font-mono text-[10px] leading-relaxed mt-3 pt-3 border-t" style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
+                <p className="mt-4 border-t pt-4 font-mono text-[11px] leading-relaxed" style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
                   {p.stack}
                 </p>
               </div>
@@ -501,60 +490,56 @@ export default function HobbiesClient() {
         </div>
 
         {/* Tinkering + quote */}
-        <div className="grid lg:grid-cols-5 gap-3 xs:gap-4 mb-14 xs:mb-16 sm:mb-20">
+        <div className="mb-20 grid gap-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <SubHead label="On the Bench" title="Currently tinkering" />
-            <div className="flat-card">
-              {tinkering.map((t, i) => (
-                <div key={t.title}
-                  className={`flex items-start gap-3 p-4 ${i < tinkering.length - 1 ? "border-b" : ""}`}
-                  style={{ borderColor: "var(--color-border)" }}>
-                  <span className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
+            <SubHead label="On the bench" title="Currently tinkering" />
+            <ul className="space-y-3">
+              {tinkering.map((t) => (
+                <li key={t.title} className="flex items-start gap-4 rounded-2xl border p-4" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
+                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full"
+                    style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}>
                     {t.icon}
                   </span>
                   <div>
-                    <p className="text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+                    <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
                       {t.title}
                     </p>
-                    <p className="text-xs leading-relaxed mt-0.5" style={{ color: "var(--color-text-muted)" }}>
+                    <p className="mt-0.5 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                       {t.desc}
                     </p>
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
-          <div className="lg:col-span-2 flex items-center">
-            <blockquote className="border-l-2 pl-4"
-              style={{ borderColor: "var(--color-accent)" }}>
-              <p className="text-xs leading-relaxed italic md:text-sm" style={{ color: "var(--color-text-secondary)" }}>
-                &ldquo;Every device in this lab serves real life: monitored, backed up, and refined until it is reliable.&rdquo;
+          <div className="flex items-center lg:col-span-2">
+            <blockquote>
+              <span className="font-serif-accent block text-7xl leading-none" style={{ color: "var(--color-accent-secondary)" }} aria-hidden="true">&ldquo;</span>
+              <p className="display-xl -mt-4 text-2xl leading-snug sm:text-3xl" style={{ color: "var(--color-text-primary)" }}>
+                Every device in this lab serves real life: monitored, backed up, and refined until it is reliable.
               </p>
-              <footer className="font-mono text-[10px] mt-3 tracking-wider uppercase" style={{ color: "var(--color-text-muted)" }}>
-                · brian@homelab
+              <footer className="mt-4 font-mono text-xs" style={{ color: "var(--color-text-muted)" }}>
+                brian@homelab
               </footer>
             </blockquote>
           </div>
         </div>
 
         {/* End-of-week surprise */}
-        <div className="mb-14 xs:mb-16 sm:mb-20">
+        <div className="mb-20">
           <SubHead label="Off the clock" title="Is it Friday yet?" />
           <FridaySurprise />
         </div>
 
         <StaggerReveal>
-        <div className="pt-8 text-center border-t" style={{ borderColor: "var(--color-border)" }}>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href="/" className="btn-neon btn-neon-ghost">
-              Back to Portfolio
-            </Link>
-            <Link href="/contact" className="btn-neon btn-neon-primary">
-              Get in Touch
-            </Link>
-          </div>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Link href="/" className="btn-neon btn-neon-ghost">
+            Back to Portfolio
+          </Link>
+          <Link href="/contact" className="btn-neon btn-neon-primary">
+            Get in Touch
+          </Link>
         </div>
         </StaggerReveal>
 
