@@ -2,8 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import { Sun, Moon, Command } from "lucide-react";
-import { useTheme } from "@/app/components/ThemeProvider";
+import { Command } from "lucide-react";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
 import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
@@ -11,7 +10,6 @@ import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { theme, toggleTheme } = useTheme();
   const { open: openPalette } = useCommandPalette();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -60,18 +58,16 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed inset-x-0 z-[60] glass-nav transition-[top,border-radius,box-shadow,border-color] duration-300 ease-out"
+        className="fixed left-5 right-5 z-[60] mx-auto max-w-5xl overflow-hidden glass-nav transition-[top,box-shadow] duration-300 ease-out"
         style={{
-          top: scrolled ? 0 : 12,
-          left: scrolled ? 0 : 12,
-          right: scrolled ? 0 : 12,
+          top: scrolled ? 8 : 14,
           borderColor: "var(--color-border)",
-          borderRadius: scrolled ? 0 : "0.75rem",
-          boxShadow: scrolled ? "none" : "var(--shadow-md)",
+          borderRadius: 999,
+          boxShadow: scrolled ? "3px 3px 0 var(--color-highlight)" : "none",
         }}
         aria-label="Primary"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 h-14">
+        <div className="flex items-center justify-between gap-4 pl-5 pr-2 sm:pl-6 h-14">
           <button
             onClick={() => go("/")}
             className="flex items-center gap-3 transition-opacity duration-200 hover:opacity-70"
@@ -87,21 +83,15 @@ export default function Navbar() {
                 <button
                   key={r.path}
                   onClick={() => go(r.path)}
-                  className="group relative px-3 py-2 text-[13px] font-medium transition-colors duration-200"
-                  style={{ color: active ? "var(--color-text-primary)" : "var(--color-text-muted)" }}
+                  className="rounded-full px-3.5 py-2 text-[13px] font-medium transition-colors duration-200 hover:text-[var(--color-accent)]"
+                  style={{
+                    color: active ? "var(--color-text-primary)" : "var(--color-text-muted)",
+                    backgroundColor: active ? "var(--color-highlight)" : "transparent",
+                  }}
+                  aria-current={active ? "page" : undefined}
                 >
-                  <span className="index-num mr-1.5 align-middle opacity-0 transition-opacity duration-200 group-hover:opacity-100" style={{ color: "var(--color-accent)" }}>
-                    {r.index}
-                  </span>
                   {r.label}
                   {r.tag && <NavTag label={r.tag} />}
-                  <span
-                    className="absolute -bottom-[1px] left-3 right-3 h-px origin-left transition-transform duration-300"
-                    style={{
-                      backgroundColor: "var(--color-accent)",
-                      transform: active ? "scaleX(1)" : "scaleX(0)",
-                    }}
-                  />
                 </button>
               );
             })}
@@ -110,7 +100,7 @@ export default function Navbar() {
           <div className="flex items-center gap-1.5">
             <button
               onClick={openPalette}
-              className="hidden sm:flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
+              className="hidden sm:flex items-center gap-1.5 rounded-full px-3 py-2 text-[11px] font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
               style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}
               aria-label="Open command palette (Ctrl+K)"
             >
@@ -118,15 +108,6 @@ export default function Navbar() {
               <span className="font-mono">
                 Ctrl <span className="ml-px rounded-sm px-1 py-px text-[10px]" style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}>K</span>
               </span>
-            </button>
-
-            <button
-              onClick={toggleTheme}
-              className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg p-2 transition-colors duration-200 hover:text-[var(--color-accent)]"
-              style={{ color: "var(--color-text-muted)" }}
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
 
             <button
@@ -190,7 +171,7 @@ export default function Navbar() {
                     </span>
                     <span className="flex-1">
                       <span
-                        className="block text-xl font-bold tracking-tight sm:text-2xl"
+                        className="block font-serif-accent text-3xl leading-tight sm:text-4xl"
                         style={{ color: active ? "var(--color-accent)" : "var(--color-text-primary)" }}
                       >
                         {r.label}

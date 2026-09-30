@@ -14,20 +14,25 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer
-      className="relative z-10 border-t"
-      style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-primary)" }}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid gap-10 md:grid-cols-12">
+    <footer className="ink-slab relative z-10 w-full !rounded-none">
+      <div className="mx-auto max-w-5xl px-5 py-8 sm:px-10 lg:px-0">
+        <div className="mb-6 flex flex-col gap-4 border-b pb-6 md:flex-row md:items-center md:justify-between" style={{ borderColor: "var(--color-border)" }}>
+          <p className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
+            Let&apos;s build something <span className="font-serif-accent" style={{ color: "var(--color-accent)" }}>good.</span>
+          </p>
+          <a href="mailto:kareithibrian2@gmail.com" className="btn-neon btn-neon-primary self-start md:self-auto">
+            <Mail className="w-4 h-4" /> Say hello
+          </a>
+        </div>
+        <div className="grid gap-6 md:grid-cols-12">
           <div className="md:col-span-4">
-            <p className="text-lg font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
+            <p className="font-serif-accent text-2xl" style={{ color: "var(--color-text-primary)" }}>
               Brian Kareithi
             </p>
             <p className="mt-3 max-w-[260px] text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
               Software engineer building secure web and mobile products, based in Nairobi, Kenya.
             </p>
-            <div className="mt-5 flex gap-2">
+            <div className="mt-3 flex gap-2">
               {socials.map(({ href, icon: Icon, label }) => (
                 <a
                   key={label}
@@ -35,7 +40,7 @@ export default function Footer() {
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
-                  className="icon-chip flex h-11 w-11 items-center justify-center rounded-lg"
+                  className="icon-chip flex h-11 w-11 items-center justify-center rounded-full"
                   style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -45,8 +50,8 @@ export default function Footer() {
           </div>
 
           <nav className="md:col-span-5" aria-label="Site index">
-            <p className="field-label mb-4">Index</p>
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-2.5">
+            <p className="field-label mb-2.5">Index</p>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5 sm:grid-cols-3">
               {routes.map((r) => (
                 <li key={r.path}>
                   <Link
@@ -63,8 +68,8 @@ export default function Footer() {
           </nav>
 
           <div className="md:col-span-3">
-            <p className="field-label mb-4">Direct</p>
-            <ul className="space-y-2.5 text-xs" style={{ color: "var(--color-text-secondary)" }}>
+            <p className="field-label mb-2.5">Direct</p>
+            <ul className="space-y-1.5 text-xs" style={{ color: "var(--color-text-secondary)" }}>
               <li>
                 <a href="mailto:kareithibrian2@gmail.com" className="link-underline break-all hover:text-[var(--color-accent)]">
                   kareithibrian2@gmail.com
@@ -90,14 +95,14 @@ export default function Footer() {
         </div>
 
         <div
-          className="mt-12 flex flex-col gap-2 border-t pt-6 sm:flex-row sm:items-center sm:justify-between"
+          className="mt-6 flex flex-col gap-2 border-t pt-4 sm:flex-row sm:items-center sm:justify-between"
           style={{ borderColor: "var(--color-border)" }}
         >
           <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
             &copy; {year} Brian Kareithi
           </p>
           <p className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
-            Available for select projects · Nairobi, Kenya · Built with Next.js
+            Nairobi, Kenya · Built with Next.js
           </p>
         </div>
       </div>

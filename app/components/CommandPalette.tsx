@@ -10,9 +10,8 @@ import {
   useState,
 } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { ArrowUpRight, CornerDownLeft, Search, SunMedium, MoonStar } from "lucide-react";
+import { ArrowUpRight, CornerDownLeft, Search } from "lucide-react";
 import { routes, externalLinks } from "@/app/lib/nav";
-import { useTheme } from "@/app/components/ThemeProvider";
 
 interface PaletteContextValue {
   open: () => void;
@@ -40,7 +39,6 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
   const [active, setActive] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
@@ -95,16 +93,8 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
       sub: l.hint,
       href: l.href,
     }));
-    const actions: Item[] = [
-      {
-        kind: "action" as const,
-        label: theme === "dark" ? "Switch to light theme" : "Switch to dark theme",
-        sub: "Toggle appearance",
-        run: toggleTheme,
-      },
-    ];
-    return [...routeItems, ...actions, ...externals];
-  }, [pathname, theme, toggleTheme]);
+    return [...routeItems, ...externals];
+  }, [pathname]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -243,12 +233,6 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
                     {isActive &&
                       (it.kind === "external" ? (
                         <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
-                      ) : it.kind === "action" ? (
-                        theme === "dark" ? (
-                          <SunMedium className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
-                        ) : (
-                          <MoonStar className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
-                        )
                       ) : (
                         <CornerDownLeft className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
                       ))}

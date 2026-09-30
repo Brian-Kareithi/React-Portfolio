@@ -26,7 +26,7 @@ interface GearCategory {
   items: GearItem[];
 }
 
-const gearCategories: GearCategory[] = [
+export const gearCategories: GearCategory[] = [
   {
     title: "Computing",
     icon: <Cpu className="w-3.5 h-3.5" />,
@@ -185,7 +185,7 @@ const gearCategories: GearCategory[] = [
   },
 ];
 
-const builds = [
+export const builds = [
   {
     title: "Home Automation",
     outcome: "The lab lights, locks and devices run on my own automation: phone presence detection switches rooms automatically, RGB scenes coordinate across multiple rooms, and voice commands control it all.",
@@ -209,14 +209,14 @@ const builds = [
   },
 ];
 
-const labStats = [
+export const labStats = [
   { label: "Server Uptime", value: "24/7", note: "Proxmox node, always on", icon: <Activity className="w-3.5 h-3.5" /> },
   { label: "Storage Protected", value: "3TB", note: "RAID-1 mirrored array", icon: <Database className="w-3.5 h-3.5" /> },
   { label: "Data Lost", value: "0 B", note: "since day one", icon: <ShieldCheck className="w-3.5 h-3.5" /> },
   { label: "Devices Managed", value: "18", note: "every lease assigned by me", icon: <Radio className="w-3.5 h-3.5" /> },
 ];
 
-const tinkering = [
+export const tinkering = [
   {
     title: "ESP32 Sensor Mesh",
     desc: "Room-presence detection nodes feeding the automation engine over WiFi.",
@@ -297,7 +297,7 @@ export default function HobbiesClient() {
         </div>
       </header>
 
-      <section id="hobbies" className="min-h-screen w-full pt-24 md:pt-28 pb-24 md:pb-32 px-4 relative overflow-hidden isolate"
+      <section id="hobbies" className="min-h-screen w-full pt-24 md:pt-28 pb-24 md:pb-32 px-5 sm:px-10 lg:px-16 relative overflow-hidden isolate"
         style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal className="relative z-10">
       <div className="max-w-5xl mx-auto w-full">

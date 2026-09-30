@@ -74,7 +74,7 @@ export default function ContactClient() {
   });
 
   return (
-    <section id="contact" className="relative w-full px-4 pb-20 pt-24 md:pb-24 md:pt-32"
+    <section id="contact" className="relative w-full px-5 sm:px-10 lg:px-16 pb-20 pt-24 md:pb-24 md:pt-32"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
         <div className="max-w-4xl mx-auto w-full">

@@ -63,6 +63,43 @@ npm start
 
 The contact form uses EmailJS. Credentials (public key, service ID, template ID) are configured directly in `app/contact/Client.tsx`. See the EmailJS dashboard for your IDs.
 
+### FRIDAY (Firebase + Claude)
+
+FRIDAY's Anthropic key is stored as a Firebase Function secret and is never sent to the browser. The Firebase function verifies Firebase App Check requests before calling Claude.
+
+1. Create/select a Firebase project, install the Firebase CLI, then run `firebase login` and `firebase use --add` from this repository.
+2. In the Firebase console, register a Web app and enable **App Check** with reCAPTCHA v3. Add your local and production site domains to the reCAPTCHA key's allowed domains.
+3. Add the web app's settings, your reCAPTCHA v3 **site key** and the deployed function URL to `.env.local`:
+
+   ```dotenv
+   NEXT_PUBLIC_FIREBASE_API_KEY=...
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project
+   NEXT_PUBLIC_FIREBASE_APP_ID=...
+   NEXT_PUBLIC_RECAPTCHA_V3_SITE_KEY=...
+   NEXT_PUBLIC_FRIDAY_FUNCTION_URL=https://us-central1-your-project.cloudfunctions.net/friday
+   ```
+
+4. Create an Anthropic API key and store it in Firebase Secret Manager (do not put it in source code, `.env.local`, or any `NEXT_PUBLIC_` variable). `YOUR_ANTHROPIC_API_KEY` is only a placeholder name; enter the real replacement key when prompted:
+
+   ```powershell
+   firebase functions:secrets:set ANTHROPIC_API_KEY
+   ```
+
+5. Install and deploy the backend from the repository root:
+
+   ```powershell
+   cd functions
+   npm install
+   npm run build
+   cd ..
+   firebase deploy --only functions
+   ```
+
+6. Set `.env.local` as above and run the Next.js app. Enable App Check enforcement for the deployed function after confirming requests from your registered site work. In local development, use the Firebase App Check debug provider/token as documented by Firebase and register its debug token in the Firebase console.
+
+The function is named `friday`, runs in `us-central1` by default, accepts `{ "messages": [{ "role": "user" | "assistant", "content": "..." }] }`, and returns FRIDAY's reply as plain text. Anthropic API usage and Firebase Functions may require billing to be enabled on their respective accounts.
+
 ## Deployment
 
 Deployed on Vercel at [https://kareithi.vercel.app](https://kareithi.vercel.app).

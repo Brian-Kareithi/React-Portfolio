@@ -8,7 +8,7 @@ import { CountUp } from "@/app/components/ui/CountUp";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 
-const experience = {
+export const experience = {
   role: "IT Support / Frontend Development",
   company: "Steadfast Academy",
   period: "2025 - Present",
@@ -35,7 +35,7 @@ interface TimelineItem {
   metrics?: string[];
 }
 
-const timeline: TimelineItem[] = [
+export const timeline: TimelineItem[] = [
   { title: "KCPE Certificate", institution: "Lily Academy", period: "2013 - 2016", year: 2013, category: "education", description: "Primary education completion with distinction in mathematics and sciences.", significance: "Foundation for analytical thinking", metrics: ["Distinction in STEM subjects", "Early exposure to technology"] },
   { title: "KCSE - Science & Technology", institution: "Thika High School", period: "2017 - 2020", year: 2017, category: "education", description: "Secondary education with focus on sciences and technology.", significance: "Technical foundation development", metrics: ["STEM specialization", "Science competitions participation"] },
   { title: "BSc Information Technology", institution: "Umma University", period: "2021 - Present", year: 2021, category: "education", description: "Undergraduate degree in Information Technology with cybersecurity focus.", significance: "Formal academic foundation in IT", metrics: ["Cybersecurity Club Leadership", "AI/ML research focus"] },
@@ -61,7 +61,7 @@ const categoryConfig = {
 
 const filters = ["all", ...Object.keys(categoryConfig)] as const;
 
-const stats = [
+export const stats = [
   { value: 3, suffix: "+", label: "Years in Tech" },
   { value: 6, suffix: "", label: "Certifications" },
   { value: 3, suffix: "", label: "Sectors" },
@@ -92,69 +92,59 @@ export default function AboutClient() {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-full px-3 py-24 xs:px-4 xs:py-28 sm:py-32 md:py-36"
+      className="relative min-h-screen w-full px-5 sm:px-10 lg:px-16 py-24 xs:py-28 sm:py-32 md:py-36"
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
       <ScrollReveal>
-        <div className="mx-auto w-full max-w-6xl">
+        <div className="mx-auto w-full max-w-5xl">
           <Breadcrumbs />
           <SectionHeader
             index="01"
             label="Journey"
+            variant="split"
             title={<>Professional <em className="font-serif-accent">journey</em></>}
             description="Academic foundation, technical certifications, and professional experience demonstrating deliberate growth and specialization."
           />
 
-          {/* Stats */}
-          <div className="mb-14 grid grid-cols-2 border-b border-l md:grid-cols-4" style={{ borderColor: "var(--color-border)" }}>
-            {stats.map((s) => (
-              <div
-                key={s.label}
-                className="border-r border-t px-3 py-6 text-center xs:py-8"
-                style={{ borderColor: "var(--color-border)" }}
-              >
-                <span className="mb-1 block text-3xl font-bold xs:text-4xl" style={{ color: "var(--color-accent)" }}>
+          {/* Stats band */}
+          <div
+            className="mb-14 grid grid-cols-2 gap-y-8 rounded-[2rem] px-6 py-8 md:grid-cols-4 md:px-10"
+            style={{ backgroundColor: "var(--color-highlight)" }}
+          >
+            {stats.map((s, i) => (
+              <div key={s.label} className={`text-center md:text-left ${i > 0 ? "md:border-l md:pl-8" : ""}`} style={{ borderColor: "var(--color-accent-secondary)" }}>
+                <span className="display-xl block text-5xl xs:text-6xl" style={{ color: "var(--color-accent)" }}>
                   <CountUp value={s.value} suffix={s.suffix} />
                 </span>
-                <span className="field-label">{s.label}</span>
+                <span className="mt-1 block text-xs font-medium" style={{ color: "var(--color-text-secondary)" }}>{s.label}</span>
               </div>
             ))}
           </div>
 
-          {/* Experience */}
-          <div className="mb-14 flat-card p-5 xs:p-6 md:p-8" style={{ borderColor: "var(--color-border)" }}>
-            <p className="field-label mb-4 flex items-center gap-2">
-              <span className="h-px w-4" style={{ backgroundColor: "var(--color-accent)" }} />
-              Experience
-            </p>
-            <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
-              <div>
-                <h3 className="text-lg font-bold xs:text-xl" style={{ color: "var(--color-text-primary)" }}>
-                  {experience.role}
-                </h3>
-                <p className="text-xs uppercase tracking-wider mt-0.5" style={{ color: "var(--color-text-muted)" }}>
-                  {experience.company}
-                </p>
-              </div>
-              <span className="font-mono text-[11px]" style={{ color: "var(--color-text-muted)" }}>
-                {experience.period}
-              </span>
+          {/* Now */}
+          <div className="ink-slab mb-16 grid gap-8 p-7 xs:p-8 md:grid-cols-5 md:p-12">
+            <div className="md:col-span-2">
+              <p className="pill mb-5 font-mono !text-[11px]">
+                <Briefcase className="h-3 w-3" style={{ color: "var(--color-accent)" }} /> Now · {experience.period}
+              </p>
+              <h2 className="display-xl mb-2 text-3xl sm:text-4xl">{experience.role}</h2>
+              <p className="font-serif-accent text-xl" style={{ color: "var(--color-accent)" }}>{experience.company}</p>
+              <p className="mt-5 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                {experience.summary}
+              </p>
             </div>
-            <p className="mb-5 max-w-2xl text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-              {experience.summary}
-            </p>
-            <div className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+            <ul className="grid content-start gap-2.5 sm:grid-cols-2 md:col-span-3">
               {experience.duties.map((duty) => (
-                <div key={duty} className="flex items-start gap-2 text-xs xs:text-sm" style={{ color: "var(--color-text-secondary)" }}>
-                  <CheckCircle className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
+                <li key={duty} className="flex items-start gap-2.5 rounded-2xl border px-4 py-3 text-sm" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
+                  <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
                   {duty}
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           {/* Filter */}
-          <div className="mb-10 flex flex-wrap gap-2">
+          <div className="mb-12 flex flex-wrap items-center justify-center gap-2">
             {filters.map((f) => {
               const active = f === filter;
               const label = f === "all" ? "All" : categoryConfig[f as TimelineItem["category"]].label;
@@ -166,121 +156,101 @@ export default function AboutClient() {
                     setFilter(f);
                     setOpenId(null);
                   }}
-                  className="min-h-[44px] rounded-md px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-colors duration-200"
+                  className="min-h-[44px] rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
                   style={
                     active
-                      ? { backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }
-                      : { border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }
+                      ? { backgroundColor: "var(--color-accent)", borderColor: "var(--color-accent)", color: "var(--color-on-accent)" }
+                      : { borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }
                   }
                 >
                   {label}
-                  <span className="ml-1.5 font-mono opacity-60">{counts[f] ?? 0}</span>
+                  <span className="ml-1.5 font-mono text-xs opacity-70">{counts[f] ?? 0}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Timeline */}
-          <div>
-            <ol className="relative">
-              {items.map((item) => {
-                const id = timeline.indexOf(item);
-                const open = openId === id;
-                return (
-                  <li
-                    key={id}
-                    className="grid grid-cols-[3.25rem_1fr] gap-3 xs:grid-cols-[4.5rem_1fr] xs:gap-5"
+          {/* Timeline: a central spine with cards alternating either side on wide screens */}
+          <ol className="relative">
+            <span aria-hidden="true" className="absolute bottom-0 left-4 top-0 w-px md:left-1/2" style={{ backgroundColor: "var(--color-accent-secondary)" }} />
+            {items.map((item, i) => {
+              const id = timeline.indexOf(item);
+              const open = openId === id;
+              const right = i % 2 === 1;
+              const { Icon, label } = categoryConfig[item.category];
+              return (
+                <li key={id} className="relative mb-6 pl-12 md:grid md:grid-cols-2 md:gap-16 md:pl-0">
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-4 top-7 flex h-7 w-7 -translate-x-1/2 items-center justify-center rounded-full border-2 md:left-1/2"
+                    style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-accent)", color: "var(--color-accent)" }}
                   >
-                    <div className="pt-4 text-right">
-                      <span className="index-num text-xs xs:text-sm">{item.year}</span>
-                    </div>
-                    <div className="relative border-l pb-2 pl-4 xs:pl-6" style={{ borderColor: "var(--color-border)" }}>
-                      <span
-                        className="absolute -left-[4.5px] top-[1.35rem] h-2 w-2 rounded-full"
-                        style={{ backgroundColor: "var(--color-accent)" }}
-                      />
+                    <Icon className="h-3.5 w-3.5" />
+                  </span>
+                  <div className={right ? "md:col-start-2" : "md:text-right"}>
+                    <div className="flat-card p-5 xs:p-6 text-left">
                       <button
                         onClick={() => setOpenId(open ? null : id)}
-                        className="group min-h-[44px] w-full py-3.5 text-left"
+                        className="group min-h-[44px] w-full text-left"
                         aria-expanded={open}
                         aria-controls={`timeline-details-${id}`}
                       >
-                        <div className="mb-1 flex flex-wrap items-center gap-2">
-                          <span className="field-label inline-flex items-center gap-1.5" style={{ color: "var(--color-accent)" }}>
-                            {(() => {
-                              const { Icon } = categoryConfig[item.category];
-                              return <Icon className="h-3 w-3" aria-hidden="true" />;
-                            })()}
-                            {categoryConfig[item.category].label}
-                          </span>
-                          <span className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
-                            {item.period}
-                          </span>
+                        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                          <span className="font-serif-accent text-3xl leading-none" style={{ color: "var(--color-accent)" }}>{item.year}</span>
+                          <span className="pill !py-1 !text-[11px]">{label} · {item.period}</span>
                         </div>
                         <h3
-                          className="text-base font-bold transition-colors duration-200 group-hover:text-[var(--color-accent)] xs:text-lg"
+                          className="text-lg font-semibold transition-colors duration-200 group-hover:text-[var(--color-accent)]"
                           style={{ color: "var(--color-text-primary)" }}
                         >
                           {item.title}
                         </h3>
-                        <p className="text-xs uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }}>
+                        <p className="text-xs font-medium" style={{ color: "var(--color-text-muted)" }}>
                           {item.institution}
                         </p>
-                        <p className="mt-2 max-w-2xl text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                        <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                           {item.description}
                         </p>
+                        {(item.significance || item.metrics) && (
+                          <span className="mt-3 inline-block text-xs font-medium" style={{ color: "var(--color-accent)" }}>
+                            {open ? "Show less" : "Show highlights"}
+                          </span>
+                        )}
                       </button>
 
                       {(item.significance || item.metrics) && (
-                        <div id={`timeline-details-${id}`} className={open ? "animate-fade-in-up pb-4" : "hidden"}>
-                          <div className="grid gap-3 sm:grid-cols-2">
-                            {item.significance && (
-                              <div className="border p-4" style={{ borderColor: "var(--color-glass-border-strong)" }}>
-                                <p className="field-label mb-2" style={{ color: "var(--color-accent)" }}>
-                                  Significance
-                                </p>
-                                <p className="text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
-                                  {item.significance}
-                                </p>
-                              </div>
-                            )}
-                            {item.metrics && (
-                              <div className="border p-4" style={{ borderColor: "var(--color-glass-border-strong)" }}>
-                                <p className="field-label mb-2">Highlights</p>
-                                <ul className="space-y-1.5">
-                                  {item.metrics.map((m) => (
-                                    <li
-                                      key={m}
-                                      className="flex items-start gap-2 text-xs xs:text-sm"
-                                      style={{ color: "var(--color-text-secondary)" }}
-                                    >
-                                      <span
-                                        className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full"
-                                        style={{ backgroundColor: "var(--color-accent)" }}
-                                      />
-                                      {m}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                          </div>
+                        <div id={`timeline-details-${id}`} className={open ? "animate-fade-in-up mt-4 space-y-3" : "hidden"}>
+                          {item.significance && (
+                            <p className="rounded-2xl px-4 py-3 text-sm font-medium" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-primary)" }}>
+                              {item.significance}
+                            </p>
+                          )}
+                          {item.metrics && (
+                            <ul className="space-y-1.5">
+                              {item.metrics.map((m) => (
+                                <li key={m} className="flex items-start gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
+                                  <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+                                  {m}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
                         </div>
                       )}
                     </div>
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
 
           {/* Closing */}
           <StaggerReveal staggerDelay={90}>
-            <div className="mt-14 grid gap-3 xs:grid-cols-2 md:grid-cols-3">
-              {closing.map((c) => (
-                <div key={c.title} className="border p-5 xs:p-6" style={{ borderColor: "var(--color-glass-border-strong)" }}>
-                  <div className="mb-3 h-px w-8" style={{ backgroundColor: "var(--color-accent)" }} />
-                  <h4 className="mb-1.5 text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
+            <div className="mt-16 grid gap-4 xs:grid-cols-2 md:grid-cols-3">
+              {closing.map((c, i) => (
+                <div key={c.title} className="flat-card p-6">
+                  <p className="font-serif-accent mb-3 text-4xl" style={{ color: "var(--color-accent-secondary)" }}>0{i + 1}</p>
+                  <h4 className="mb-1.5 text-base font-semibold" style={{ color: "var(--color-text-primary)" }}>
                     {c.title}
                   </h4>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>

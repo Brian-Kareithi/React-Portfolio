@@ -7,9 +7,16 @@ interface SectionHeaderProps {
   label: string;
   title: ReactNode;
   description?: string;
+  /**
+   * Layout, so pages open differently:
+   * - "stack": title over description, with a giant outlined page number behind
+   * - "split": title on the left, description on the right
+   * - "center": centred, for short standalone pages
+   */
+  variant?: "stack" | "split" | "center";
 }
 
-export function SectionHeader({ index, label, title, description }: SectionHeaderProps) {
+export function SectionHeader({ index, label, title, description, variant = "stack" }: SectionHeaderProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -63,37 +70,77 @@ export function SectionHeader({ index, label, title, description }: SectionHeade
     return () => { observer.disconnect(); clearTimeout(fallback); };
   }, []);
 
-  return (
-    <div ref={rootRef} className="mb-12 xs:mb-16 sm:mb-20">
-      <div className="flex items-center gap-3 xs:gap-4 mb-5 xs:mb-6">
-        <span data-fade className="index-num">
-          {index}
-        </span>
-        <span
-          data-line
-          className="h-px w-10 flex-shrink-0 origin-left"
-          style={{ backgroundColor: "var(--color-accent)" }}
-        />
-        <span data-fade className="field-label">
-          {label}
-        </span>
+  const labelRow = (
+    <div className={`flex items-center gap-3 mb-5 xs:mb-6 ${variant === "center" ? "justify-center" : ""}`}>
+      <span data-fade className="pill font-mono !text-[11px]">
+        <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+        <span className="index-num">{index}</span>
+        <span style={{ color: "var(--color-text-secondary)" }}>{label}</span>
+      </span>
+      <span
+        data-line
+        className={`h-px w-12 flex-shrink-0 origin-left ${variant === "center" ? "hidden" : ""}`}
+        style={{ backgroundColor: "var(--color-accent-secondary)" }}
+      />
+    </div>
+  );
+
+  const heading = (
+    <h1
+      data-fade
+      className="display-xl text-[2.6rem] xs:text-5xl sm:text-6xl md:text-7xl mb-5"
+      style={{ color: "var(--color-text-primary)" }}
+    >
+      {title}
+    </h1>
+  );
+
+  const body = description && (
+    <p
+      data-fade
+      className={`text-[15px] xs:text-base leading-relaxed ${variant === "center" ? "mx-auto max-w-xl" : "max-w-2xl"}`}
+      style={{ color: "var(--color-text-secondary)" }}
+    >
+      {description}
+    </p>
+  );
+
+  if (variant === "split") {
+    return (
+      <div ref={rootRef} className="mb-14 xs:mb-16 sm:mb-20 grid gap-6 md:grid-cols-12 md:items-end">
+        <div className="md:col-span-7">
+          {labelRow}
+          {heading}
+        </div>
+        {body && (
+          <div className="md:col-span-5 md:border-l md:pl-8 md:pb-6" style={{ borderColor: "var(--color-accent-secondary)" }}>
+            {body}
+          </div>
+        )}
       </div>
-      <h1
-        data-fade
-        className="display-xl text-[2rem] xs:text-4xl sm:text-5xl md:text-[3.5rem] mb-5"
-        style={{ color: "var(--color-text-primary)" }}
-      >
-        {title}
-      </h1>
-      {description && (
-        <p
-          data-fade
-          className="max-w-2xl text-sm xs:text-[15px] leading-relaxed"
-          style={{ color: "var(--color-text-secondary)" }}
-        >
-          {description}
-        </p>
-      )}
+    );
+  }
+
+  if (variant === "center") {
+    return (
+      <div ref={rootRef} className="mb-14 xs:mb-16 sm:mb-20 text-center">
+        {labelRow}
+        {heading}
+        {body}
+      </div>
+    );
+  }
+
+  return (
+    <div ref={rootRef} className="relative mb-14 xs:mb-16 sm:mb-20">
+      <span aria-hidden="true" className="ghost-num absolute -top-6 right-0 hidden text-[10rem] sm:block md:text-[13rem]">
+        {index}
+      </span>
+      <div className="relative">
+        {labelRow}
+        {heading}
+        {body}
+      </div>
     </div>
   );
 }

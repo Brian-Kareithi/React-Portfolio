@@ -6,11 +6,10 @@ import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
 import Cursor from "@/app/components/Cursor";
 import LoadingScreen from "@/app/components/LoadingScreen";
-import { ThemeProvider } from "@/app/components/ThemeProvider";
 import { CommandPaletteProvider } from "@/app/components/CommandPalette";
 
-const INITIAL_LOAD_MS = 2100;
-const ROUTE_LOAD_MS = 900;
+const INITIAL_LOAD_MS = 1200;
+const ROUTE_LOAD_MS = 450;
 const EXIT_FADE_MS = 500;
 const REDUCED_LOAD_MS = 400;
 
@@ -42,7 +41,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     );
   }, []);
 
-  // Initial page load: let the Lottie loop play once before revealing.
+  // Initial page load: a short branded beat before revealing.
   // State updates live inside timeout callbacks (subscriptions), keeping
   // the effect body to DOM sync + timer setup only.
   useEffect(() => {
@@ -76,8 +75,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   }, [pathname, playLoader]);
 
   return (
-    <ThemeProvider>
-      <CommandPaletteProvider>
+    <CommandPaletteProvider>
         <Cursor />
         {showLoader && <LoadingScreen isExiting={isExiting} />}
         <div className="flex min-h-screen flex-col overflow-x-clip">
@@ -86,7 +84,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           <main className="relative flex-1">{children}</main>
           <Footer />
         </div>
-      </CommandPaletteProvider>
-    </ThemeProvider>
+    </CommandPaletteProvider>
   );
 }

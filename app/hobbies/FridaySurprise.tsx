@@ -26,7 +26,7 @@ const surprises = [
   "git commit -m \"weekend\" && git push --force-with-joy",
 ];
 
-const confettiColors = ["var(--color-accent)", "var(--color-text-primary)", "var(--color-border-hover)"];
+const confettiColors = ["var(--color-accent)", "var(--color-accent-secondary)", "var(--color-accent-light)", "var(--color-border-hover)"];
 
 /** "Is it Friday yet?" countdown plus a click-to-unwrap surprise. */
 export default function FridaySurprise() {
