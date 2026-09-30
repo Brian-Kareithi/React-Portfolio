@@ -46,34 +46,30 @@ export default function ProjectsClient() {
           description="Seven case studies, told as problem, solution, architecture and contribution, plus a lighter-weight archive of smaller builds and experiments below."
         />
 
-        {/* Case studies */}
-        <div className="mb-16 xs:mb-20 flex flex-col gap-6">
-          {caseStudies.map((study) => (
-            <CaseStudy key={study.id} study={study} />
+        {/* Case studies as alternating spreads */}
+        <div className="mb-20 flex flex-col gap-8">
+          {caseStudies.map((study, i) => (
+            <CaseStudy key={study.id} study={study} ink={i % 2 === 1} />
           ))}
         </div>
 
         {/* Now building */}
-        <div className="mb-16 xs:mb-20">
-          <p className="field-label mb-1.5 flex items-center gap-2">
-            <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-            Now Building
-          </p>
-          <h2 className="mb-6 text-lg font-bold tracking-tight md:text-xl" style={{ color: "var(--color-text-primary)" }}>
-            What&rsquo;s currently in progress
-          </h2>
+        <div className="mb-20">
+          <SubTitle kicker="Now building" title="What's currently in progress" />
           <div className="grid gap-4 sm:grid-cols-2">
             {nowBuilding.map((n) => (
-              <div key={n.title} className="flat-card p-5 md:p-6">
-                <div className="mb-3 flex items-center gap-2.5">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg"
-                    style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
+              <div key={n.title} className="rounded-[1.5rem] border-2 border-dashed p-6" style={{ borderColor: "var(--color-accent-secondary)" }}>
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}>
                     {n.icon}
                   </span>
-                  <h3 className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>{n.title}</h3>
+                  <h3 className="font-serif-accent text-xl" style={{ color: "var(--color-text-primary)" }}>{n.title}</h3>
                 </div>
-                <p className="text-xs leading-relaxed mb-3" style={{ color: "var(--color-text-secondary)" }}>{n.desc}</p>
-                <p className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>{n.stack}</p>
+                <p className="mb-4 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{n.desc}</p>
+                <span className="pill font-mono !text-[11px]">
+                  <span className="loader-dot h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+                  {n.stack}
+                </span>
               </div>
             ))}
           </div>
@@ -81,54 +77,31 @@ export default function ProjectsClient() {
 
         {/* This portfolio */}
         <StaggerReveal>
-        <div className="mb-16 xs:mb-20">
-          <div className="flat-card p-4 xs:p-6 md:p-8"
-            style={{ borderColor: "var(--color-border)" }}>
-            <p className="text-[9px] font-medium tracking-[0.2em] uppercase mb-4"
-              style={{ color: "var(--color-text-muted)" }}>
-              This Portfolio
+        <div className="mb-20 grid gap-6 rounded-[2rem] p-7 sm:p-10 md:grid-cols-5" style={{ backgroundColor: "var(--color-highlight)" }}>
+          <div className="md:col-span-3">
+            <p className="field-label mb-3">This portfolio</p>
+            <h3 className="display-xl mb-4 text-4xl" style={{ color: "var(--color-text-primary)" }}>
+              You&apos;re <span className="font-serif-accent">looking at it</span>
+            </h3>
+            <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+              Built on Next.js 16 with TypeScript and Tailwind CSS v4. Server-rendered pages with per-route
+              metadata, schema.org structured data, breadcrumbs, and code-split bundles sized by performance
+              budget, the same discipline I apply to client work.
             </p>
-            <div className="flex flex-col md:flex-row gap-4 mb-4">
-              <div className="flex-1 p-4 flat-card"
-                style={{ borderColor: "var(--color-accent)" }}>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[9px] px-2 py-0.5 rounded tracking-wider uppercase font-mono"
-                    style={{
-                      border: "1px solid var(--color-accent)",
-                      color: "var(--color-accent)",
-                    }}>
-                    Current
-                  </span>
-                  <h4 className="text-sm font-bold" style={{ color: "var(--color-text-primary)" }}>
-                    You&apos;re looking at it
-                  </h4>
-                </div>
-                <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                  Built on Next.js 16 with TypeScript and Tailwind CSS v4. Server-rendered pages with per-route
-                  metadata, schema.org structured data, breadcrumbs, and code-split bundles sized by performance
-                  budget, the same discipline I apply to client work.
-                </p>
-                <div className="flex flex-wrap gap-1.5 mt-3">
-                  {["Next.js", "TypeScript", "Tailwind CSS"].map((tech) => (
-                    <span key={tech} className="text-[9px] font-mono px-2 py-0.5 rounded"
-                      style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+          </div>
+          <div className="flex flex-col justify-end gap-4 md:col-span-2">
+            <div className="flex flex-wrap gap-1.5">
+              {["Next.js", "TypeScript", "Tailwind CSS"].map((tech) => (
+                <span key={tech} className="pill font-mono !text-[11px]">{tech}</span>
+              ))}
             </div>
             <div className="flex flex-wrap gap-3">
-              <a href="https://kareithi.vercel.app/" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-lg text-xs font-medium transition-colors duration-200 min-h-[44px]"
-                style={{ border: "1px solid var(--color-accent)", color: "var(--color-accent)" }}>
-                <ExternalLink className="w-3 h-3" />
+              <a href="https://kareithi.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-neon btn-neon-primary">
+                <ExternalLink className="w-4 h-4" />
                 Live Demo
               </a>
-              <a href="https://github.com/Brian-Kareithi/React-Portfolio" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-lg text-xs font-medium transition-colors duration-200 min-h-[44px]"
-                style={{ border: "1px solid var(--color-glass-border)", color: "var(--color-text-secondary)" }}>
-                <ExternalLink className="w-3 h-3" />
+              <a href="https://github.com/Brian-Kareithi/React-Portfolio" target="_blank" rel="noopener noreferrer" className="btn-neon btn-neon-ghost">
+                <Github className="w-4 h-4" />
                 View Source
               </a>
             </div>
@@ -136,172 +109,108 @@ export default function ProjectsClient() {
         </div>
         </StaggerReveal>
 
-        {/* Archive */}
-        <div className="mb-16 xs:mb-20">
-          <p className="field-label mb-1.5 flex items-center gap-2">
-            <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-            Archive
-          </p>
-          <h2 className="mb-6 text-lg font-bold tracking-tight md:text-xl" style={{ color: "var(--color-text-primary)" }}>
-            Smaller builds &amp; experiments
-          </h2>
+        {/* Archive as a compact expandable list */}
+        <div className="mb-20">
+          <SubTitle kicker="Archive" title="Smaller builds & experiments" />
           <StaggerReveal staggerDelay={80}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ul className="border-b" style={{ borderColor: "var(--color-border)" }}>
             {otherProjects.map((project, index) => {
               const isExpanded = expanded === index;
               return (
-                <div key={index}
-                  className="flat-card"
-                  style={{ borderColor: "var(--color-border)" }}>
+                <li key={project.title} className="border-t" style={{ borderColor: "var(--color-border)" }}>
                   <button
-                    className="block w-full p-6 text-left md:p-8"
+                    className="group grid w-full grid-cols-[1fr_auto] items-center gap-4 py-5 text-left md:grid-cols-12"
                     onClick={() => setExpanded(isExpanded ? null : index)}
                     aria-expanded={isExpanded}
                     aria-controls={`project-details-${index}`}
                   >
-                    <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
-                      <div className="min-w-0 flex-1">
-                        <div className="mb-1 flex flex-wrap items-center gap-3">
-                          <h3 className="text-lg font-bold"
-                            style={{ color: "var(--color-text-primary)" }}>
-                            {project.title}
-                          </h3>
-                          <span className="whitespace-nowrap rounded px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider"
-                            style={{
-                              border: "1px solid var(--color-border)",
-                              color: "var(--color-text-muted)",
-                            }}>
-                            {project.status}
+                    <span className="min-w-0 md:col-span-5">
+                      <span className="block font-serif-accent text-2xl transition-colors duration-200 group-hover:text-[var(--color-accent)]" style={{ color: "var(--color-text-primary)" }}>
+                        {project.title}
+                      </span>
+                      <span className="block text-xs" style={{ color: "var(--color-text-muted)" }}>
+                        {project.type}
+                        {project.repoType === "private" && (
+                          <span className="ml-2 inline-flex items-center gap-1">
+                            <Lock className="h-3 w-3" aria-hidden="true" /> Private
                           </span>
-                        </div>
-                        <p className="mt-2 text-sm leading-relaxed"
-                          style={{ color: "var(--color-text-secondary)" }}>
-                          {project.description}
-                        </p>
-                      </div>
-                      <span className="mt-1 flex min-h-[44px] min-w-[44px] items-center justify-center transition-transform duration-200"
-                        style={{ color: "var(--color-text-muted)" }} aria-hidden="true">
+                        )}
+                      </span>
+                    </span>
+                    <span className="hidden text-sm md:col-span-5 md:block" style={{ color: "var(--color-text-secondary)" }}>
+                      {project.description}
+                    </span>
+                    <span className="flex items-center justify-end gap-3 md:col-span-2">
+                      <span className="pill !py-1 !text-[11px] capitalize">{project.status}</span>
+                      <span
+                        className="flex h-9 w-9 items-center justify-center rounded-full border transition-colors duration-200 group-hover:border-[var(--color-accent)]"
+                        style={{ borderColor: "var(--color-border)", color: "var(--color-accent)" }}
+                        aria-hidden="true"
+                      >
                         {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                       </span>
-                    </div>
-
-                    <div className="mb-4 flex flex-wrap items-center gap-4">
-                      <span className="font-mono text-[9px] uppercase tracking-wider"
-                        style={{ color: "var(--color-accent)" }}>
-                        {project.type}
-                      </span>
-                      {project.repoType === "private" && (
-                        <span className="flex items-center gap-1 font-mono text-[9px] uppercase tracking-wider"
-                          style={{ color: "var(--color-text-muted)" }}>
-                          <Lock className="h-3 w-3" aria-hidden="true" />
-                          Private
-                        </span>
-                      )}
-                    </div>
-
-                    <span className="flex flex-wrap gap-1.5">
-                      {project.stack.slice(0, 4).map((tech, i) => (
-                        <span key={i} className="rounded px-2 py-1 font-mono text-[9px]"
-                          style={{
-                            border: "1px solid var(--color-border)",
-                            color: "var(--color-text-muted)",
-                          }}>
-                          {tech}
-                        </span>
-                      ))}
-                      {project.stack.length > 4 && (
-                        <span className="rounded px-2 py-1 font-mono text-[9px]"
-                          style={{
-                            border: "1px solid var(--color-border)",
-                            color: "var(--color-text-muted)",
-                          }}>
-                          +{project.stack.length - 4}
-                        </span>
-                      )}
                     </span>
                   </button>
 
                   {isExpanded && (
-                    <div id={`project-details-${index}`} className="animate-fade-in-up border-t px-6 pb-8 md:px-8"
-                      style={{ borderColor: "var(--color-border)" }}>
-                      <div className="pt-6 space-y-6">
-                        <div>
-                          <p className="text-[9px] font-medium tracking-[0.15em] uppercase mb-3"
-                            style={{ color: "var(--color-accent)" }}>
-                            Overview
-                          </p>
-                          <ul className="space-y-2">
-                            {project.details.map((detail, i) => (
-                              <li key={i} className="flex items-start gap-2 text-sm"
-                                style={{ color: "var(--color-text-secondary)" }}>
-                                <span className="mt-2 w-1 h-1 rounded-full flex-shrink-0"
-                                  style={{ backgroundColor: "var(--color-accent)" }} />
-                                {detail}
-                              </li>
-                            ))}
-                          </ul>
+                    <div id={`project-details-${index}`} className="animate-fade-in-up grid gap-6 pb-6 md:grid-cols-12">
+                      <div className="md:col-span-7 md:col-start-6">
+                        <p className="mb-4 text-sm md:hidden" style={{ color: "var(--color-text-secondary)" }}>{project.description}</p>
+                        <ul className="mb-4 space-y-2">
+                          {project.details.map((detail) => (
+                            <li key={detail} className="flex items-start gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
+                              <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+                              {detail}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="mb-4 flex flex-wrap gap-1.5">
+                          {project.stack.map((tech) => (
+                            <span key={tech} className="rounded-full border px-2.5 py-1 font-mono text-[10px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
+                              {tech}
+                            </span>
+                          ))}
                         </div>
-
-                        <div className="flex flex-col gap-3 pt-6 xs:flex-row"
-                          style={{ borderTop: "1px solid var(--color-border)" }}>
-                          {project.repo && (
-                            <a href={project.repo} target="_blank" rel="noopener noreferrer"
-                              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium transition-colors duration-200 min-h-[44px]"
-                              style={{
-                                border: "1px solid var(--color-border)",
-                                color: "var(--color-text-secondary)",
-                              }}>
-                              <Github className="w-4 h-4" />
-                              View Source
-                            </a>
-                          )}
-                          {project.repoType === "private" && (
-                            <div className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium min-h-[44px]"
-                              style={{
-                                border: "1px solid var(--color-border)",
-                                color: "var(--color-text-muted)",
-                              }}>
-                              <Lock className="w-4 h-4" />
-                              Private Repository
-                            </div>
-                          )}
-                        </div>
+                        {project.repo ? (
+                          <a href={project.repo} target="_blank" rel="noopener noreferrer" className="btn-neon btn-neon-ghost">
+                            <Github className="w-4 h-4" />
+                            View Source
+                          </a>
+                        ) : (
+                          <span className="pill">
+                            <Lock className="w-3.5 h-3.5" />
+                            Private repository
+                          </span>
+                        )}
                       </div>
                     </div>
                   )}
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
           </StaggerReveal>
         </div>
 
         {/* GitHub */}
         <StaggerReveal>
-        <div className="mt-16 py-12 px-6 border-y text-center"
-          style={{ borderColor: "var(--color-border)" }}>
-          <p className="field-label mb-4">Open Source / Code</p>
-          <div className="mb-8 grid grid-cols-3 max-w-md mx-auto gap-4">
+        <div className="ink-slab px-6 py-12 text-center sm:px-12">
+          <p className="field-label mb-6">Open source / code</p>
+          <div className="mx-auto mb-8 grid max-w-md grid-cols-3 gap-4">
             {githubStats.map((s) => (
               <div key={s.label}>
-                <p className="text-2xl font-bold" style={{ color: "var(--color-accent)" }}>{s.value}</p>
-                <p className="text-[9px] tracking-wider uppercase mt-1" style={{ color: "var(--color-text-muted)" }}>{s.label}</p>
+                <p className="display-xl text-5xl" style={{ color: "var(--color-accent)" }}>{s.value}</p>
+                <p className="mt-1 text-xs" style={{ color: "var(--color-text-muted)" }}>{s.label}</p>
               </div>
             ))}
           </div>
-          <p className="text-sm leading-relaxed max-w-3xl mx-auto mb-6"
-            style={{ color: "var(--color-text-secondary)" }}>
+          <p className="mx-auto mb-8 max-w-2xl text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
             Great ideas are meant to inspire others, and software improves when knowledge is shared. Whether you are a developer, recruiter, founder, or fellow engineer, feel free to explore the repositories, examine the architecture decisions, suggest improvements, borrow ideas, or collaborate on future innovations.
           </p>
-          <a href="https://github.com/Brian-Kareithi" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-medium transition-colors duration-200 min-h-[44px]"
-            style={{
-              border: "1px solid var(--color-border)",
-              color: "var(--color-text-secondary)",
-            }}>
+          <a href="https://github.com/Brian-Kareithi" target="_blank" rel="noopener noreferrer" className="btn-neon btn-neon-primary">
             <Github className="w-4 h-4" />
             View GitHub
-            <ExternalLink className="w-3 h-3" />
+            <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
         </StaggerReveal>
@@ -318,5 +227,19 @@ export default function ProjectsClient() {
       </div>
       </ScrollReveal>
     </section>
+  );
+}
+
+function SubTitle({ kicker, title }: { kicker: string; title: string }) {
+  return (
+    <div className="mb-8">
+      <p className="field-label mb-2 flex items-center gap-2">
+        <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+        {kicker}
+      </p>
+      <h2 className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
+        {title}
+      </h2>
+    </div>
   );
 }

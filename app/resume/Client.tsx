@@ -55,13 +55,14 @@ export default function ResumeClient() {
           <SectionHeader
             index="09"
             label="Resume"
+            variant="center"
             title={<>One background, <em className="font-serif-accent">tailored</em></>}
             description="The same experience and projects, reordered and re-weighted for the role you're hiring for. Switch the tab, or print this page for a role-specific PDF."
           />
 
-          {/* Role switcher */}
-          <div className="no-print mb-10 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex min-h-[44px] flex-wrap items-center gap-2" role="tablist" aria-label="Resume role">
+          {/* Role switcher: segmented pill */}
+          <div className="no-print mb-4 flex flex-col items-center gap-4">
+            <div className="inline-flex flex-wrap justify-center gap-1 rounded-full border p-1" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }} role="tablist" aria-label="Resume role">
               {resumeRoles.map((r) => {
                 const active = r.id === activeRole;
                 return (
@@ -70,11 +71,11 @@ export default function ResumeClient() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setActiveRole(r.id)}
-                    className="min-h-[44px] rounded-md px-3.5 py-2 text-[11px] font-semibold uppercase tracking-wider transition-colors duration-200"
+                    className="min-h-[44px] rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200"
                     style={
                       active
                         ? { backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }
-                        : { border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }
+                        : { color: "var(--color-text-secondary)" }
                     }
                   >
                     {r.label}
@@ -82,115 +83,118 @@ export default function ResumeClient() {
                 );
               })}
             </div>
-            <button
-              onClick={handlePrint}
-              className="flex min-h-[44px] items-center gap-2 rounded-lg px-4 py-2 text-xs font-medium transition-colors duration-200"
-              style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}
-            >
-              <Printer className="h-3.5 w-3.5" aria-hidden="true" />
-              Print / Save as PDF — {role.label}
+            <button onClick={handlePrint} className="btn-neon btn-neon-ghost">
+              <Printer className="h-4 w-4" aria-hidden="true" />
+              Print / Save as PDF: {role.label}
             </button>
           </div>
-          <p className="no-print mb-8 flex items-start gap-2 text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+          <p className="no-print mx-auto mb-12 flex max-w-xl items-start justify-center gap-2 text-center text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
             <Info className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
             <span>In the print dialog choose “Save as PDF”, A4, margins Default, and tick <strong>Background graphics</strong> for full colour.</span>
           </p>
 
-          {/* Header block */}
-          <div className="mb-8 border p-5 xs:p-6 md:p-8" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-secondary)" }}>
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div>
-                <h2 className="text-xl font-bold xs:text-2xl" style={{ color: "var(--color-text-primary)" }}>
-                  {siteConfig.fullName}
-                </h2>
-                <p className="mt-1 text-sm" style={{ color: "var(--color-accent)" }}>{role.headline}</p>
-              </div>
-              <span className="index-num">{String(roleIndex + 1).padStart(2, "0")} / {String(resumeRoles.length).padStart(2, "0")}</span>
-            </div>
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-              {role.summary}
-            </p>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            {/* Left: contact + skills + education */}
-            <div className="flex flex-col gap-6 lg:col-span-1">
-              <SpecSheet
-                title="Contact"
-                rows={[
-                  { k: "Email", v: siteConfig.email },
-                  { k: "Phone", v: siteConfig.phoneDisplay },
-                  { k: "Location", v: siteConfig.location },
-                  { k: "GitHub", v: "github.com/Brian-Kareithi" },
-                  { k: "LinkedIn", v: "linkedin.com/in/brian-kareithi-04007637b" },
-                ]}
-              />
-
-              <div className="border p-5" style={{ borderColor: "var(--color-border)" }}>
-                <p className="field-label mb-3">Top Skills</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {role.topSkills.map((skill) => (
-                    <span key={skill} className="rounded px-2 py-1 font-mono text-[10px]"
-                      style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}>
-                      {skill}
-                    </span>
-                  ))}
+          {/* The sheet */}
+          <article
+            key={role.id}
+            className="animate-fade-in-up mx-auto overflow-hidden rounded-[1.5rem] border"
+            style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border)", boxShadow: "8px 8px 0 var(--palette-periwinkle)" }}
+          >
+            {/* Letterhead */}
+            <header className="border-b px-6 py-8 sm:px-10" style={{ borderColor: "var(--color-border)" }}>
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <h2 className="display-xl text-4xl sm:text-5xl" style={{ color: "var(--color-text-primary)" }}>
+                    {siteConfig.fullName}
+                  </h2>
+                  <p className="mt-2 font-serif-accent text-xl" style={{ color: "var(--color-accent)" }}>{role.headline}</p>
                 </div>
+                <span className="pill font-mono !text-[11px]">{String(roleIndex + 1).padStart(2, "0")} / {String(resumeRoles.length).padStart(2, "0")}</span>
               </div>
+              <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                {role.summary}
+              </p>
+            </header>
 
-              <div className="border p-5" style={{ borderColor: "var(--color-border)" }}>
-                <p className="field-label mb-3">Education</p>
-                <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>{resumeEducation.degree}</p>
-                <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>{resumeEducation.institution} · {resumeEducation.period}</p>
-                <p className="mt-1 text-xs" style={{ color: "var(--color-text-secondary)" }}>{resumeEducation.note}</p>
-              </div>
+            <div className="grid lg:grid-cols-3">
+              {/* Sidebar */}
+              <aside className="flex flex-col gap-7 px-6 py-8 sm:px-10 lg:col-span-1 lg:px-8" style={{ backgroundColor: "var(--color-highlight)" }}>
+                <SpecSheet
+                  title="Contact"
+                  rows={[
+                    { k: "Email", v: siteConfig.email },
+                    { k: "Phone", v: siteConfig.phoneDisplay },
+                    { k: "Location", v: siteConfig.location },
+                    { k: "GitHub", v: "github.com/Brian-Kareithi" },
+                    { k: "LinkedIn", v: "linkedin.com/in/brian-kareithi-04007637b" },
+                  ]}
+                />
 
-              <div className="border p-5" style={{ borderColor: "var(--color-border)" }}>
-                <p className="field-label mb-3">Certifications</p>
-                <ul className="space-y-1.5">
-                  {resumeCertifications.map((cert) => (
-                    <li key={cert} className="flex items-start gap-2 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                      <CheckCircle className="mt-0.5 h-3 w-3 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
-                      {cert}
-                    </li>
-                  ))}
-                </ul>
+                <div>
+                  <p className="field-label mb-3">Top skills</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {role.topSkills.map((skill) => (
+                      <span key={skill} className="rounded-full px-2.5 py-1 font-mono text-[11px]"
+                        style={{ backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="field-label mb-3">Education</p>
+                  <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>{resumeEducation.degree}</p>
+                  <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>{resumeEducation.institution} · {resumeEducation.period}</p>
+                  <p className="mt-1 text-xs" style={{ color: "var(--color-text-secondary)" }}>{resumeEducation.note}</p>
+                </div>
+
+                <div>
+                  <p className="field-label mb-3">Certifications</p>
+                  <ul className="space-y-1.5">
+                    {resumeCertifications.map((cert) => (
+                      <li key={cert} className="flex items-start gap-2 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                        <CheckCircle className="mt-0.5 h-3 w-3 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
+                        {cert}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </aside>
+
+              {/* Main column */}
+              <div className="flex flex-col gap-10 px-6 py-8 sm:px-10 lg:col-span-2">
+                <section>
+                  <h3 className="display-xl mb-4 text-2xl" style={{ color: "var(--color-text-primary)" }}>Experience</h3>
+                  <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+                    <p className="text-sm font-semibold sm:text-base" style={{ color: "var(--color-text-primary)" }}>
+                      IT Support / Frontend Development, Steadfast Academy
+                    </p>
+                    <span className="pill !py-0.5 !text-[11px]">2025 - Present</span>
+                  </div>
+                  <ul className="space-y-2">
+                    {role.experience.map((line) => (
+                      <li key={line} className="flex items-start gap-2.5 text-sm" style={{ color: "var(--color-text-secondary)" }}>
+                        <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+                        {line}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+
+                <section>
+                  <h3 className="display-xl mb-4 text-2xl" style={{ color: "var(--color-text-primary)" }}>Selected projects</h3>
+                  <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+                    {role.projects.map((p) => (
+                      <div key={p.title} className="rounded-2xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+                        <p className="font-serif-accent text-lg" style={{ color: "var(--color-text-primary)" }}>{p.title}</p>
+                        <p className="mt-1 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{p.note}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
               </div>
             </div>
-
-            {/* Right: experience + projects */}
-            <div className="flex flex-col gap-6 lg:col-span-2">
-              <div className="border p-5 xs:p-6" style={{ borderColor: "var(--color-border)" }}>
-                <p className="field-label mb-4">Experience</p>
-                <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-sm font-bold xs:text-base" style={{ color: "var(--color-text-primary)" }}>
-                    IT Support / Frontend Development, Steadfast Academy
-                  </h3>
-                  <span className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>2025 - Present</span>
-                </div>
-                <ul className="space-y-2">
-                  {role.experience.map((line) => (
-                    <li key={line} className="flex items-start gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
-                      <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-                      {line}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="border p-5 xs:p-6" style={{ borderColor: "var(--color-border)" }}>
-                <p className="field-label mb-4">Selected Projects</p>
-                <div className="flex flex-col gap-4">
-                  {role.projects.map((p, i) => (
-                    <div key={p.title} className={i > 0 ? "border-t pt-4" : ""} style={{ borderColor: "var(--color-border)" }}>
-                      <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>{p.title}</p>
-                      <p className="mt-0.5 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{p.note}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          </article>
 
           <div className="no-print">
             <NextSection

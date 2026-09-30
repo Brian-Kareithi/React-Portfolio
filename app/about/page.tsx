@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import AboutClient from "./Client";
-import { pageMeta } from "@/app/lib/site";
+import { pageMeta, siteConfig } from "@/app/lib/site";
+import { JsonLd } from "@/app/components/JsonLd";
+import { resumeCertifications, resumeEducation } from "@/app/lib/resume-data";
 
 export const metadata: Metadata = pageMeta({
   title: "About",
@@ -9,6 +11,33 @@ export const metadata: Metadata = pageMeta({
   path: "/about",
 });
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  url: `${siteConfig.url}/about`,
+  name: "About Brian Kareithi",
+  mainEntity: {
+    "@type": "Person",
+    "@id": `${siteConfig.url}/#person`,
+    name: siteConfig.name,
+    jobTitle: siteConfig.role,
+    image: siteConfig.ogImage,
+    worksFor: { "@type": "EducationalOrganization", name: "Steadfast Academy" },
+    alumniOf: { "@type": "CollegeOrUniversity", name: resumeEducation.institution },
+    hasCredential: resumeCertifications.map((name) => ({
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "certification",
+      name,
+    })),
+    sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.instagram],
+  },
+};
+
 export default function AboutPage() {
-  return <AboutClient />;
+  return (
+    <>
+      <JsonLd data={jsonLd} />
+      <AboutClient />
+    </>
+  );
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import HomeContent from "./HomeContent";
 import { JsonLd } from "@/app/components/JsonLd";
-import { siteConfig } from "@/app/lib/site";
+import { siteConfig, ogImageFor } from "@/app/lib/site";
 
 const description = siteConfig.description;
 
@@ -16,13 +16,13 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description,
-    images: [{ url: siteConfig.ogImage, width: 800, height: 800, alt: "Portrait of Brian Kareithi, Software Engineer based in Nairobi, Kenya" }],
+    images: [ogImageFor(siteConfig.name, siteConfig.tagline)],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description,
-    images: [siteConfig.ogImage],
+    images: [ogImageFor(siteConfig.name, siteConfig.tagline).url],
   },
 };
 

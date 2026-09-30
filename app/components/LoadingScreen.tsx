@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 type LoadingScreenProps = {
   /** True while the exit fade is playing. */
@@ -19,7 +20,7 @@ export default function LoadingScreen({ isExiting = false }: LoadingScreenProps)
       style={{ backgroundColor: "var(--color-bg-primary)", minHeight: "100dvh" }}
     >
       <div className="flex flex-col items-center">
-        {/* Monogram */}
+        {/* Site icon */}
         <div
           className="loader-card flex h-24 w-24 items-center justify-center rounded-[1.75rem] border sm:h-28 sm:w-28"
           style={{
@@ -28,9 +29,7 @@ export default function LoadingScreen({ isExiting = false }: LoadingScreenProps)
             boxShadow: "6px 6px 0 var(--palette-periwinkle)",
           }}
         >
-          <span className="font-serif-accent text-5xl sm:text-6xl" style={{ color: "var(--palette-true-cobalt)" }}>
-            BK
-          </span>
+          <Image src="/logo.png" alt="" width={80} height={80} priority className="h-16 w-16 object-contain sm:h-20 sm:w-20" />
         </div>
 
         {/* Bouncing dots */}
