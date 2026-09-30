@@ -23,20 +23,17 @@ export default function NextSection({
   links,
 }: NextSectionProps) {
   return (
-    <section
-      className="mt-16 xs:mt-20 sm:mt-24 border-t pt-8 xs:pt-10"
-      style={{ borderColor: "var(--color-border)" }}
-    >
-      <div className="grid gap-6 lg:grid-cols-5">
+    <section className="ink-slab mt-16 xs:mt-20 sm:mt-24 px-6 py-10 xs:px-8 sm:px-12 sm:py-14">
+      <div className="grid gap-8 lg:grid-cols-5">
         <div className="lg:col-span-2">
-          <p className="field-label mb-3 flex items-center gap-2">
-            <span className="h-px w-4" style={{ backgroundColor: "var(--color-accent)" }} />
+          <p className="field-label mb-4 flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
             Continue
           </p>
-          <h2 className="mb-2 text-lg xs:text-xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
+          <h2 className="display-xl mb-3 text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
             {title}
           </h2>
-          <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
             {description}
           </p>
         </div>
@@ -45,25 +42,27 @@ export default function NextSection({
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="group flex items-center gap-4 border-t py-4 transition-colors duration-200"
+                className="group flex items-center gap-4 border-t py-5 transition-colors duration-200"
                 style={{ borderColor: "var(--color-border)", borderBottomWidth: i === links.length - 1 ? 1 : 0 }}
               >
-                <span className="index-num w-6 flex-shrink-0">{indexFor(link.href)}</span>
+                <span className="index-num w-7 flex-shrink-0">{indexFor(link.href)}</span>
                 <span className="min-w-0 flex-1">
                   <span
-                    className="block text-sm font-semibold transition-colors duration-200 group-hover:text-[var(--color-accent)]"
+                    className="block font-serif-accent text-2xl leading-tight transition-colors duration-200 group-hover:text-[var(--color-accent)]"
                     style={{ color: "var(--color-text-primary)" }}
                   >
                     {link.label}
                   </span>
-                  <span className="line-clamp-2 block break-words text-[11px]" style={{ color: "var(--color-text-muted)" }}>
+                  <span className="line-clamp-2 block break-words text-xs" style={{ color: "var(--color-text-muted)" }}>
                     {link.description}
                   </span>
                 </span>
-                <ArrowRight
-                  className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1"
-                  style={{ color: "var(--color-accent)" }}
-                />
+                <span
+                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border transition-all duration-200 group-hover:bg-[var(--color-accent)] group-hover:text-[var(--color-on-accent)]"
+                  style={{ borderColor: "var(--color-border)", color: "var(--color-accent)" }}
+                >
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:-rotate-45" />
+                </span>
               </Link>
             </li>
           ))}

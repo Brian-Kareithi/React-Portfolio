@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import {
   Bug, SearchCheck, ScanLine, Brain,
   ListChecks, IterationCw, Flame, Database, HardDrive, MemoryStick, Network,
@@ -10,7 +11,7 @@ import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 
-const steps = [
+export const steps = [
   {
     title: "Reproduce & Observe",
     icon: <SearchCheck className="w-4 h-4" />,
@@ -38,7 +39,7 @@ const steps = [
   },
 ];
 
-const cases = [
+export const cases = [
   {
     title: "Mystery Disk-Full Server",
     domain: "Linux / Storage",
@@ -113,166 +114,132 @@ const method = [
   { label: "Across the stack", value: "from silicon to SQL" },
 ];
 
+const kit = ["Wireshark", "gdb / LLDB", "Profilers", "Chrome DevTools", "systemd journal", "df / du / iostat", "tcpdump", "Memtest", "Hardware testers", "Multimeter", "Thermal monitoring", "Packet capture"];
+
 export default function TroubleshootingClient() {
+  const [openCase, setOpenCase] = useState(0);
+
   return (
-    <section id="troubleshooting" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3 xs:px-4 relative"
+    <section id="troubleshooting" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-5 sm:px-10 lg:px-16 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
-      <div className="max-w-7xl mx-auto w-full">
+      <div className="max-w-5xl mx-auto w-full">
         <Breadcrumbs />
         <SectionHeader
           index="06"
           label="Diagnostics"
+          variant="split"
           title={<>Troubleshooting <em className="font-serif-accent">method</em></>}
           description="A repeatable, evidence-driven approach to finding root causes across software, hardware, and networks. Data first, verified fixes, documented outcomes."
         />
 
-        {/* Method banner */}
+        {/* Method: rules of thumb as pills */}
         <StaggerReveal staggerDelay={60}>
-        <div className="border mb-12 xs:mb-16 sm:mb-20"
-          style={{ borderColor: "var(--color-border)" }}>
-          <div className="flex items-center gap-2 px-4 py-2.5 border-b"
-            style={{ borderColor: "var(--color-border)" }}>
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--color-border)" }} />
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--color-border)" }} />
-            <p className="font-mono text-[11px] ml-2 truncate" style={{ color: "var(--color-text-muted)" }}>
-              brian@dev:~$ ./isolate.sh --logic
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-            {method.map((m) => (
-              <div key={m.label} className="p-4">
-                <p className="text-[9px] font-semibold tracking-[0.2em] uppercase mb-1"
-                  style={{ color: "var(--color-accent)" }}>
-                  {m.label}
-                </p>
-                <p className="text-[11px] leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-                  {m.value}
-                </p>
-              </div>
-            ))}
-          </div>
+        <div className="mb-20 flex flex-wrap gap-2.5">
+          {method.map((m) => (
+            <span key={m.label} className="pill !px-4 !py-2 !text-sm">
+              <span className="font-semibold" style={{ color: "var(--color-accent)" }}>{m.label}</span>
+              <span style={{ color: "var(--color-text-muted)" }}>· {m.value}</span>
+            </span>
+          ))}
         </div>
         </StaggerReveal>
 
-        {/* The diagnostic process */}
-        <div className="mb-14 xs:mb-16 sm:mb-20">
-          <StaggerReveal>
-          <div className="mb-8 xs:mb-10">
-            <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-1.5 flex items-center gap-2"
-              style={{ color: "var(--color-text-muted)" }}>
-              <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-              The Process
-            </p>
-            <h2 className="text-lg md:text-2xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
-              Five steps to a root cause
-            </h2>
-          </div>
-          </StaggerReveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 xs:gap-4">
+        {/* Process: a connected ladder */}
+        <div className="mb-20">
+          <SubTitle kicker="The process" title="Five steps to a root cause" />
+          <ol className="relative ml-5 border-l-2 pl-8 sm:ml-6 sm:pl-10" style={{ borderColor: "var(--color-accent-secondary)" }}>
             {steps.map((s, i) => (
-              <div key={s.title} className="flat-card p-5 flex flex-col relative">
-                <span className="font-mono text-[10px] mb-3" style={{ color: "var(--color-accent)" }}>
-                  Step {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="w-8 h-8 rounded-lg flex items-center justify-center mb-3"
-                  style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
+              <li key={s.title} className="relative pb-9 last:pb-0">
+                <span
+                  className="absolute -left-[3.05rem] flex h-10 w-10 items-center justify-center rounded-full sm:-left-[3.55rem]"
+                  style={{ backgroundColor: "var(--palette-true-cobalt)", color: "var(--palette-lavender-mist)" }}
+                >
                   {s.icon}
                 </span>
-                <h3 className="text-sm font-semibold mb-2" style={{ color: "var(--color-text-primary)" }}>
+                <p className="font-mono text-xs mb-1" style={{ color: "var(--color-accent)" }}>Step {String(i + 1).padStart(2, "0")}</p>
+                <h3 className="font-serif-accent mb-1.5 text-3xl" style={{ color: "var(--color-text-primary)" }}>
                   {s.title}
                 </h3>
-                <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                <p className="max-w-2xl text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                   {s.desc}
                 </p>
-              </div>
+              </li>
             ))}
+          </ol>
+        </div>
+
+        {/* Case files */}
+        <div className="mb-20">
+          <SubTitle kicker="Field notes" title="Real problems, root causes" />
+          <div className="space-y-3">
+            {cases.map((c, i) => {
+              const open = openCase === i;
+              return (
+                <div key={c.title} className={open ? "plate overflow-hidden" : "flat-card overflow-hidden"}>
+                  <button
+                    onClick={() => setOpenCase(open ? -1 : i)}
+                    aria-expanded={open}
+                    aria-controls={`case-${i}`}
+                    className="flex min-h-[44px] w-full items-center gap-4 px-5 py-4 text-left sm:px-6"
+                  >
+                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}>
+                      {c.icon}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-[11px] font-medium" style={{ color: "var(--color-text-muted)" }}>
+                        Case {String(i + 1).padStart(2, "0")} · {c.domain}
+                      </span>
+                      <span className="block font-serif-accent text-xl sm:text-2xl" style={{ color: "var(--color-text-primary)" }}>
+                        {c.title}
+                      </span>
+                    </span>
+                    <span className="font-mono text-lg" style={{ color: "var(--color-accent)" }} aria-hidden="true">{open ? "−" : "+"}</span>
+                  </button>
+                  {open && (
+                    <div id={`case-${i}`} className="animate-fade-in-up grid gap-5 border-t px-5 pb-6 pt-5 sm:px-6 md:grid-cols-2" style={{ borderColor: "var(--color-border)" }}>
+                      <div className="space-y-4">
+                        <div>
+                          <p className="field-label mb-1.5">The problem</p>
+                          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-primary)" }}>{c.summary}</p>
+                        </div>
+                        <div>
+                          <p className="field-label mb-1.5">Approach</p>
+                          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{c.approach}</p>
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="rounded-2xl p-4" style={{ backgroundColor: "var(--color-highlight)" }}>
+                          <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold" style={{ color: "var(--color-accent)" }}>
+                            <CircleAlert className="w-3.5 h-3.5" /> Root cause
+                          </p>
+                          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-primary)" }}>{c.rootCause}</p>
+                        </div>
+                        <div className="rounded-2xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+                          <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold" style={{ color: "var(--color-success)" }}>
+                            <CheckCircle className="w-3.5 h-3.5" /> Resolution
+                          </p>
+                          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{c.resolution}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Case studies */}
-        <div className="mb-14 xs:mb-16 sm:mb-20">
-          <StaggerReveal>
-          <div className="mb-8 xs:mb-10">
-            <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-1.5 flex items-center gap-2"
-              style={{ color: "var(--color-text-muted)" }}>
-              <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-              Field Notes
-            </p>
-            <h2 className="text-lg md:text-2xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
-              Real problems, root causes
-            </h2>
-          </div>
-          </StaggerReveal>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            {cases.map((c) => (
-              <div key={c.title} className="flat-card p-5 md:p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
-                    {c.icon}
-                  </span>
-                  <div>
-                    <p className="text-[9px] tracking-[0.2em] uppercase" style={{ color: "var(--color-text-muted)" }}>
-                      {c.domain}
-                    </p>
-                    <h3 className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
-                      {c.title}
-                    </h3>
-                  </div>
-                </div>
-                <p className="text-[10px] tracking-wider uppercase mb-2" style={{ color: "var(--color-accent)" }}>
-                  The Problem
-                </p>
-                <p className="text-xs leading-relaxed mb-4" style={{ color: "var(--color-text-secondary)" }}>
-                  {c.summary}
-                </p>
-                <p className="text-[10px] tracking-wider uppercase mb-2" style={{ color: "var(--color-text-muted)" }}>
-                  Approach
-                </p>
-                <p className="text-xs leading-relaxed mb-4" style={{ color: "var(--color-text-muted)" }}>
-                  {c.approach}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t" style={{ borderColor: "var(--color-border)" }}>
-                  <div className="p-3" style={{ backgroundColor: "var(--color-surface)" }}>
-                    <p className="text-[9px] tracking-wider uppercase mb-1 flex items-center gap-1.5"
-                      style={{ color: "var(--color-accent)" }}>
-                      <CircleAlert className="w-3 h-3" /> Root Cause
-                    </p>
-                    <p className="text-[11px] leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                      {c.rootCause}
-                    </p>
-                  </div>
-                  <div className="p-3" style={{ backgroundColor: "var(--color-surface)" }}>
-                    <p className="text-[9px] tracking-wider uppercase mb-1 flex items-center gap-1.5"
-                      style={{ color: "var(--color-accent)" }}>
-                      <CheckCircle className="w-3 h-3" /> Resolution
-                    </p>
-                    <p className="text-[11px] leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                      {c.resolution}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Tools strip */}
+        {/* Diagnostic kit */}
         <StaggerReveal staggerDelay={60}>
-        <div className="border-t pt-8" style={{ borderColor: "var(--color-border)" }}>
-          <p className="text-[9px] tracking-[0.3em] uppercase mb-4 flex items-center gap-2"
-            style={{ color: "var(--color-text-muted)" }}>
-            <Wrench className="w-3.5 h-3.5 flex-shrink-0" />
-            My Diagnostic Kit
+        <div className="ink-slab px-6 py-8 sm:px-10">
+          <p className="field-label mb-4 flex items-center gap-2">
+            <Wrench className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
+            My diagnostic kit
           </p>
           <div className="flex flex-wrap gap-2">
-            {["Wireshark", "gdb / LLDB", "Profilers", "Chrome DevTools", "systemd journal", "df / du / iostat", "tcpdump", "Memtest", "Hardware testers", "Multimeter", "Thermal monitoring", "Packet capture"].map((t) => (
-              <span key={t} className="px-3 py-1.5 text-[11px] font-mono liquid-card"
-                style={{ borderColor: "var(--color-glass-border)" }}>
+            {kit.map((t) => (
+              <span key={t} className="rounded-full border px-3.5 py-1.5 font-mono text-xs" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
                 {t}
               </span>
             ))}
@@ -291,5 +258,19 @@ export default function TroubleshootingClient() {
       </div>
       </ScrollReveal>
     </section>
+  );
+}
+
+function SubTitle({ kicker, title }: { kicker: string; title: string }) {
+  return (
+    <div className="mb-8">
+      <p className="field-label mb-2 flex items-center gap-2">
+        <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+        {kicker}
+      </p>
+      <h2 className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
+        {title}
+      </h2>
+    </div>
   );
 }

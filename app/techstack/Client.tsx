@@ -43,7 +43,7 @@ interface TechCategory {
   items: TechItem[];
 }
 
-const techs: TechCategory[] = [
+export const techs: TechCategory[] = [
   {
     heading: "Languages",
     description: "Programming languages I work with",
@@ -109,12 +109,13 @@ const levelConfig = {
   familiar: { label: "Familiar", dots: 1 },
 };
 
-function LevelDots({ level }: { level: TechItem["level"] }) {
+/** Four-segment proficiency bar. */
+function LevelBar({ level, wide = false }: { level: TechItem["level"]; wide?: boolean }) {
   const filled = levelConfig[level].dots;
   return (
-    <span className="flex items-center gap-[3px] ml-0.5" aria-label={levelConfig[level].label}>
+    <span className={`flex items-center gap-[3px] ${wide ? "w-full" : "w-10"}`} aria-label={levelConfig[level].label}>
       {[0, 1, 2, 3].map((i) => (
-        <span key={i} className="w-1 h-1 rounded-full"
+        <span key={i} className="h-1.5 flex-1 rounded-full"
           style={{ backgroundColor: i < filled ? "var(--color-accent)" : "var(--color-border)" }} />
       ))}
     </span>
@@ -134,10 +135,10 @@ export default function TechStackClient() {
   const sortedLevels = levelOrder.filter((level) => levelCounts[level]);
 
   return (
-    <section id="techstack" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3 xs:px-4 relative"
+    <section id="techstack" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-5 sm:px-10 lg:px-16 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
-      <div className="max-w-6xl mx-auto w-full">
+      <div className="max-w-5xl mx-auto w-full">
         <Breadcrumbs />
         <SectionHeader
           index="02"
@@ -146,70 +147,64 @@ export default function TechStackClient() {
           description="Technologies I work with, categorized by proficiency."
         />
 
-        <div className="border-b" style={{ borderColor: "var(--color-border)" }}>
-          {techs.map((category, catIndex) => (
-            <div key={category.heading}
-              className="grid grid-cols-1 md:grid-cols-12 gap-4 xs:gap-6 py-8 xs:py-10 border-t"
-              style={{ borderColor: "var(--color-border)" }}>
-              <div className="md:col-span-4">
-                <div className="flex items-center gap-3 mb-1.5">
-                  <span className="text-[10px] font-mono font-medium"
-                    style={{ color: "var(--color-accent)" }}>
-                    {String(catIndex + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="text-base xs:text-lg font-bold tracking-tight"
-                    style={{ color: "var(--color-text-primary)" }}>
-                    {category.heading}
-                  </h3>
-                </div>
-                <p className="text-xs xs:text-sm" style={{ color: "var(--color-text-muted)" }}>
-                  {category.description}
-                </p>
-              </div>
-
-              <div className="md:col-span-8">
-                <StaggerReveal staggerDelay={40}>
-                <div className="flex flex-wrap gap-1.5 xs:gap-2">
-                  {category.items.map((item, idx) => (
-                    <div key={idx}
-                      className="flex items-center gap-2 px-3 py-2 text-xs sm:text-sm liquid-card"
-                      style={{
-                        borderColor: "var(--color-glass-border)",
-                      }}>
-                      <span className="text-base" style={{ color: "var(--color-text-secondary)" }} aria-hidden="true">
-                        {item.icon}
-                      </span>
-                      <span className="font-medium" style={{ color: "var(--color-text-primary)" }}>
-                        {item.title}
-                      </span>
-                      <LevelDots level={item.level} />
-                    </div>
-                  ))}
-                </div>
-                </StaggerReveal>
-              </div>
+        {/* Level summary */}
+        <div className="ink-slab mb-16 grid grid-cols-2 gap-6 px-6 py-7 sm:grid-cols-4 sm:px-10">
+          <div className="col-span-2 sm:col-span-1">
+            <span className="display-xl block text-5xl" style={{ color: "var(--color-accent)" }}>{total}</span>
+            <span className="text-xs" style={{ color: "var(--color-text-secondary)" }}>technologies · {techs.length} categories</span>
+          </div>
+          {sortedLevels.map((level) => (
+            <div key={level} className="flex flex-col justify-end">
+              <span className="display-xl text-3xl" style={{ color: "var(--color-text-primary)" }}>{levelCounts[level]}</span>
+              <span className="mt-1.5 flex items-center gap-2 text-xs" style={{ color: "var(--color-text-secondary)" }}>
+                <LevelBar level={level} />
+                {levelConfig[level].label}
+              </span>
             </div>
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-6 xs:py-8">
-          <div className="flex flex-wrap gap-x-6 gap-y-3">
-            {sortedLevels.map((level) => (
-              <div key={level} className="flex items-center gap-2">
-                <LevelDots level={level} />
-                <span className="text-[10px] tracking-[0.15em] uppercase"
-                  style={{ color: "var(--color-text-muted)" }}>
-                  {levelConfig[level].label}
+        {/* Periodic-table style tiles, grouped by category */}
+        <div className="space-y-14">
+          {techs.map((category, catIndex) => (
+            <div key={category.heading}>
+              <div className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <span className="font-serif-accent text-3xl" style={{ color: "var(--color-accent-secondary)" }}>
+                  {String(catIndex + 1).padStart(2, "0")}
                 </span>
-                <span className="text-[10px] font-mono" style={{ color: "var(--color-accent)" }}>
-                  {levelCounts[level]}
-                </span>
+                <h3 className="display-xl text-3xl" style={{ color: "var(--color-text-primary)" }}>
+                  {category.heading}
+                </h3>
+                <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+                  {category.description}
+                </p>
               </div>
-            ))}
-          </div>
-          <span className="text-[10px] xs:text-xs font-mono" style={{ color: "var(--color-text-muted)" }}>
-            {total} technologies across {techs.length} categories
-          </span>
+
+              <StaggerReveal staggerDelay={40}>
+              <div className="grid grid-cols-2 gap-3 xs:grid-cols-3 md:grid-cols-5">
+                {category.items.map((item) => (
+                  <div key={item.title} className="flat-card flex aspect-square flex-col justify-between p-4">
+                    <div className="flex items-start justify-between">
+                      <span className="text-3xl" style={{ color: "var(--color-accent)" }} aria-hidden="true">
+                        {item.icon}
+                      </span>
+                      <span className="font-mono text-[10px] uppercase" style={{ color: "var(--color-text-muted)" }}>
+                        {item.title.slice(0, 2)}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="mb-2 text-sm font-semibold leading-tight" style={{ color: "var(--color-text-primary)" }}>
+                        {item.title}
+                      </p>
+                      <LevelBar level={item.level} wide />
+                      <p className="mt-1 text-[10px]" style={{ color: "var(--color-text-muted)" }}>{levelConfig[item.level].label}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              </StaggerReveal>
+            </div>
+          ))}
         </div>
       <NextSection
           title="Toolbox in action"

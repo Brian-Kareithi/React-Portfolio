@@ -29,7 +29,7 @@ interface SkillDomain {
   tools: string[];
 }
 
-const domains: SkillDomain[] = [
+export const domains: SkillDomain[] = [
   {
     id: "programming",
     label: "Programming",
@@ -208,28 +208,35 @@ export default function ExpertiseClient() {
   const current = domains.find((d) => d.id === activeDomain)!;
 
   return (
-    <section id="expertise" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3 xs:px-4 relative"
+    <section id="expertise" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-5 sm:px-10 lg:px-16 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
-      <div className="max-w-7xl mx-auto w-full">
+      <div className="max-w-5xl mx-auto w-full">
         <Breadcrumbs />
         <SectionHeader
           index="05"
           label="Capabilities"
+          variant="center"
           title={<>What I&rsquo;m <em className="font-serif-accent">good at</em></>}
           description="Six domains, one mindset: deep, hands-on mastery across the entire technology stack, from bare silicon to cloud-native systems."
         />
 
-        {/* Spearhead stats */}
+        {/* Spearhead stats as round badges */}
         <StaggerReveal staggerDelay={60}>
-        <div className="mb-14 grid grid-cols-2 border xs:mb-16 xs:grid-cols-3 sm:mb-20 lg:grid-cols-6"
-          style={{ borderColor: "var(--color-border)", borderBottomWidth: 0 }}>
-          {spearhead.map((s) => (
-            <div key={s.label} className="border-b px-2 py-6 text-center" style={{ borderColor: "var(--color-border)" }}>
-              <span className="block text-2xl font-bold sm:text-3xl" style={{ color: "var(--color-accent)" }}>
+        <div className="mb-16 flex flex-wrap justify-center gap-4 sm:mb-20 sm:gap-6">
+          {spearhead.map((s, i) => (
+            <div
+              key={s.label}
+              className="flex h-28 w-28 flex-col items-center justify-center rounded-full border text-center sm:h-32 sm:w-32"
+              style={{
+                backgroundColor: i % 2 === 0 ? "var(--color-bg-card)" : "var(--color-highlight)",
+                borderColor: "var(--color-border)",
+              }}
+            >
+              <span className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-accent)" }}>
                 {s.value}
               </span>
-              <span className="text-[9px] uppercase tracking-[0.2em]" style={{ color: "var(--color-text-muted)" }}>
+              <span className="mt-1 max-w-[5.5rem] text-[10px] font-medium leading-tight" style={{ color: "var(--color-text-secondary)" }}>
                 {s.label}
               </span>
             </div>
@@ -237,112 +244,96 @@ export default function ExpertiseClient() {
         </div>
         </StaggerReveal>
 
-        {/* Domain selector */}
-        <div className="border" style={{ borderColor: "var(--color-border)" }}>
-          <StaggerReveal staggerDelay={60}>
-          <div className="flex flex-wrap border-b lg:grid lg:grid-cols-6" style={{ borderColor: "var(--color-border)" }} role="tablist" aria-label="Skill domains">
+        {/* Domain menu + detail */}
+        <div className="grid gap-6 lg:grid-cols-12">
+          <div
+            className="flex gap-2 overflow-x-auto pb-2 lg:col-span-4 lg:flex-col lg:overflow-visible lg:pb-0"
+            role="tablist"
+            aria-label="Skill domains"
+          >
             {domains.map((d) => {
               const active = d.id === activeDomain;
               return (
-                <button key={d.id} onClick={() => setActiveDomain(d.id)} role="tab" aria-selected={active}
-                  className="group relative min-h-[44px] min-w-[120px] flex-1 px-3 py-3 text-[10px] font-medium uppercase tracking-wider transition-all duration-300 sm:py-4 sm:text-xs lg:flex-none"
+                <button
+                  key={d.id}
+                  onClick={() => setActiveDomain(d.id)}
+                  role="tab"
+                  aria-selected={active}
+                  className="group flex min-h-[44px] flex-shrink-0 items-center gap-3 rounded-full border px-4 py-2.5 text-left transition-all duration-200 lg:rounded-2xl lg:px-5 lg:py-4"
                   style={{
-                    color: active ? "var(--color-accent)" : "var(--color-text-muted)",
-                  }}>
-                  <span className="mr-1.5 inline-flex align-middle" aria-hidden="true">{d.icon}</span>
-                  {d.label}
-                  <span className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ease-in-out ${active ? "w-full" : "w-0 group-hover:w-full"}`}
-                    style={{ backgroundColor: "var(--color-accent)" }} />
+                    backgroundColor: active ? "var(--color-accent)" : "var(--color-bg-card)",
+                    borderColor: active ? "var(--color-accent)" : "var(--color-border)",
+                    color: active ? "var(--color-on-accent)" : "var(--color-text-secondary)",
+                  }}
+                >
+                  <span className="font-mono text-[11px] opacity-70">{d.index}</span>
+                  <span className="inline-flex" aria-hidden="true">{d.icon}</span>
+                  <span className="whitespace-nowrap text-sm font-medium lg:font-serif-accent lg:text-2xl lg:font-normal">{d.label}</span>
                 </button>
               );
             })}
           </div>
-          </StaggerReveal>
 
-          <div key={current.id} className="animate-fade-in-up p-5 xs:p-6 sm:p-8 md:p-12">
-            <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
-              {/* Left: overview */}
-              <div className="lg:col-span-1">
-                <p className="font-mono text-[10px] xs:text-xs mb-3" style={{ color: "var(--color-accent)" }}>
-                  {current.index} / 06
-                </p>
-                <h3 className="text-xl xs:text-2xl sm:text-3xl font-bold leading-tight mb-3"
-                  style={{ color: "var(--color-text-primary)" }}>
-                  {current.tagline}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                  {current.summary}
-                </p>
+          <div key={current.id} className="ink-slab animate-fade-in-up p-6 xs:p-8 md:p-10 lg:col-span-8">
+            <p className="font-mono text-xs mb-4" style={{ color: "var(--color-accent)" }}>
+              {current.index} / 06 · {current.label}
+            </p>
+            <h3 className="display-xl mb-4 text-3xl sm:text-4xl">
+              {current.tagline}
+            </h3>
+            <p className="mb-6 max-w-2xl text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+              {current.summary}
+            </p>
 
-                <div className="mt-6">
-                  <p className="text-[9px] tracking-[0.2em] uppercase mb-2.5" style={{ color: "var(--color-text-muted)" }}>
-                    Tools &amp; Expertise
+            <div className="mb-8 flex flex-wrap gap-1.5">
+              {current.tools.map((t) => (
+                <span key={t} className="rounded-full border px-3 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <div className="grid gap-3">
+              {current.capabilities.map((cap, i) => (
+                <div key={cap.title} className="flat-card p-5">
+                  <p className="font-serif-accent mb-2 text-3xl leading-none" style={{ color: "var(--color-accent)" }}>
+                    {String(i + 1).padStart(2, "0")}
                   </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {current.tools.map((t) => (
-                      <span key={t} className="px-2.5 py-1 text-[10px] font-mono liquid-card"
-                        style={{ borderColor: "var(--color-glass-border)" }}>
-                        {t}
-                      </span>
+                  <h4 className="mb-1.5 text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
+                    {cap.title}
+                  </h4>
+                  <p className="mb-3 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                    {cap.description}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {cap.points.map((p) => (
+                      <li key={p} className="flex items-start gap-1.5 text-[11px]" style={{ color: "var(--color-text-muted)" }}>
+                        <CheckCircle className="mt-0.5 w-3 h-3 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
+                        {p}
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
-              </div>
-
-              {/* Right: capabilities */}
-              <div className="lg:col-span-2 space-y-4">
-                {current.capabilities.map((cap, i) => (
-                  <div key={cap.title} className="liquid-card p-5 sm:p-6"
-                    style={{ borderColor: "var(--color-glass-border)" }}>
-                    <div className="flex items-start gap-3.5">
-                      <span className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center font-mono text-xs"
-                        style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <div className="flex-1">
-                        <h4 className="font-semibold text-sm sm:text-base mb-1.5"
-                          style={{ color: "var(--color-text-primary)" }}>
-                          {cap.title}
-                        </h4>
-                        <p className="text-xs sm:text-sm leading-relaxed mb-3"
-                          style={{ color: "var(--color-text-secondary)" }}>
-                          {cap.description}
-                        </p>
-                        <div className="flex flex-wrap gap-x-5 gap-y-1.5">
-                          {cap.points.map((p) => (
-                            <span key={p} className="inline-flex items-center gap-1.5 text-[11px]"
-                              style={{ color: "var(--color-text-muted)" }}>
-                              <CheckCircle className="w-3 h-3 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
-                              {p}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
         </div>
 
         {/* CTA links */}
         <StaggerReveal>
-        <div className="pt-10 mt-14 border-t" style={{ borderColor: "var(--color-border)" }}>
-          <div className="flex flex-wrap items-center justify-between gap-6">
-            <p className="text-sm max-w-xl" style={{ color: "var(--color-text-secondary)" }}>
-              This is the &ldquo;what&rdquo;. For the <em className="font-serif-accent">how</em> I think and work, dive into Diagnostics and Engineering.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/troubleshooting" className="btn-neon btn-neon-ghost">
-                Diagnostics
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-              <Link href="/engineering" className="btn-neon btn-neon-primary">
-                Engineering
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-6 rounded-[2rem] px-6 py-6 sm:px-8" style={{ backgroundColor: "var(--color-highlight)" }}>
+          <p className="max-w-xl text-base" style={{ color: "var(--color-text-primary)" }}>
+            This is the &ldquo;what&rdquo;. For the <em className="font-serif-accent" style={{ color: "var(--color-accent)" }}>how</em> I think and work, dive into Diagnostics and Engineering.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/troubleshooting" className="btn-neon btn-neon-ghost">
+              Diagnostics
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link href="/engineering" className="btn-neon btn-neon-primary">
+              Engineering
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
         </StaggerReveal>

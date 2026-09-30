@@ -5,12 +5,11 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
-import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 
-const principles = [
+export const principles = [
   {
     title: "The right tool for the job",
     icon: <Layers className="w-4 h-4" />,
@@ -33,7 +32,7 @@ const principles = [
   },
 ];
 
-const architecture = [
+export const architecture = [
   {
     title: "Frontend",
     icon: <Boxes className="w-4 h-4" />,
@@ -72,7 +71,7 @@ const architecture = [
   },
 ];
 
-const workflow = [
+export const workflow = [
   { step: "01", title: "Understand", desc: "Clarify the goal, constraints, and the real users before writing a line of code." },
   { step: "02", title: "Design", desc: "Map the architecture, data flow, and security boundaries on paper first." },
   { step: "03", title: "Build", desc: "Implement in small, reviewable increments with tests alongside the code." },
@@ -81,7 +80,7 @@ const workflow = [
   { step: "06", title: "Iterate", desc: "Refactor, learn, measure. Software is a living system, never a finished one." },
 ];
 
-const stack = [
+export const stack = [
   { item: "TypeScript", use: "Full-stack & mobile" },
   { item: "React / Next.js", use: "Web & SSR platforms" },
   { item: "React Native / Expo", use: "iOS + Android" },
@@ -98,10 +97,10 @@ const stack = [
 
 export default function EngineeringClient() {
   return (
-    <section id="engineering" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3 xs:px-4 relative"
+    <section id="engineering" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-5 sm:px-10 lg:px-16 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
-      <div className="max-w-7xl mx-auto w-full">
+      <div className="max-w-5xl mx-auto w-full">
         <Breadcrumbs />
         <SectionHeader
           index="07"
@@ -110,135 +109,93 @@ export default function EngineeringClient() {
           description="Beyond listing languages, this is the way I think about software: architecture that holds up, systems that stay secure, and code that remains a joy to maintain."
         />
 
-        {/* Principles */}
-        <div className="mb-14 xs:mb-16 sm:mb-20">
-          <StaggerReveal>
-          <div className="mb-8 xs:mb-10">
-            <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-1.5 flex items-center gap-2"
-              style={{ color: "var(--color-text-muted)" }}>
-              <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-              Engineering Principles
-            </p>
-            <h2 className="text-lg md:text-2xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
-              What I optimize for
-            </h2>
-          </div>
-          </StaggerReveal>
-
-          <div className="grid sm:grid-cols-2 gap-4">
-            {principles.map((p) => (
-              <div key={p.title} className="flat-card p-5 md:p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: "var(--color-surface)", color: "var(--color-accent)" }}>
-                    {p.icon}
-                  </span>
-                  <h3 className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
-                    {p.title}
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                  {p.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Architecture layers */}
-        <div className="mb-14 xs:mb-16 sm:mb-20">
-          <StaggerReveal>
-          <div className="mb-8 xs:mb-10">
-            <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-1.5 flex items-center gap-2"
-              style={{ color: "var(--color-text-muted)" }}>
-              <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-              Full-Stack Architecture
-            </p>
-            <h2 className="text-lg md:text-2xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
-              From the screen to the server
-            </h2>
-          </div>
-          </StaggerReveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {architecture.map((a) => (
-              <div key={a.title} className="liquid-card p-5 md:p-6"
-                style={{ borderColor: "var(--color-glass-border)" }}>
-                <div className="flex items-center gap-2.5 mb-3">
-                  <span className="flex-shrink-0" style={{ color: "var(--color-accent)" }}>
-                    {a.icon}
-                  </span>
-                  <h3 className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
-                    {a.title}
-                  </h3>
-                </div>
-                <p className="font-mono text-[10px] mb-2.5" style={{ color: "var(--color-accent)" }}>
-                  {a.stack}
-                </p>
-                <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                  {a.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Delivery workflow */}
-        <div className="mb-14 xs:mb-16 sm:mb-20">
-          <StaggerReveal>
-          <div className="mb-8 xs:mb-10">
-            <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-1.5 flex items-center gap-2"
-              style={{ color: "var(--color-text-muted)" }}>
-              <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-              Delivery Workflow
-            </p>
-            <h2 className="text-lg md:text-2xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
-              From idea to production
-            </h2>
-          </div>
-          </StaggerReveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4">
-            {workflow.map((w) => (
-              <div key={w.step} className="flat-card p-5 flex gap-4">
-                <span className="font-mono text-lg font-bold" style={{ color: "var(--color-accent)" }}>
-                  {w.step}
+        {/* Principles: editorial numbered list */}
+        <div className="mb-20">
+          <SubTitle kicker="Engineering principles" title="What I optimize for" />
+          <ol className="grid gap-x-12 sm:grid-cols-2">
+            {principles.map((p, i) => (
+              <li key={p.title} className="flex gap-5 border-t py-7" style={{ borderColor: "var(--color-accent-secondary)" }}>
+                <span className="display-xl w-12 flex-shrink-0 text-5xl" style={{ color: "var(--color-accent)" }}>
+                  {i + 1}
                 </span>
                 <div>
-                  <h3 className="text-sm font-semibold mb-1.5" style={{ color: "var(--color-text-primary)" }}>
-                    {w.title}
+                  <h3 className="mb-2 flex items-center gap-2 text-lg font-semibold" style={{ color: "var(--color-text-primary)" }}>
+                    <span style={{ color: "var(--color-accent-secondary)" }}>{p.icon}</span>
+                    {p.title}
                   </h3>
-                  <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                    {w.desc}
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                    {p.desc}
                   </p>
                 </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        {/* Architecture: stacked layers, screen at the top, delivery at the bottom */}
+        <div className="mb-20">
+          <SubTitle kicker="Full-stack architecture" title="From the screen to the server" />
+          <div className="space-y-2">
+            {architecture.map((a, i) => (
+              <div
+                key={a.title}
+                className="grid items-center gap-3 rounded-2xl border px-5 py-5 md:grid-cols-12 md:gap-6 md:px-8"
+                style={{
+                  borderColor: "var(--color-border)",
+                  // Layers deepen from lavender mist to periwinkle as they go down the stack.
+                  backgroundColor: `color-mix(in srgb, var(--palette-periwinkle) ${Math.round((i / (architecture.length - 1)) * 70)}%, var(--palette-lavender-mist))`,
+                  marginLeft: `${i * 0.5}rem`,
+                  marginRight: `${i * 0.5}rem`,
+                }}
+              >
+                <div className="flex items-center gap-3 md:col-span-3">
+                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: "var(--palette-true-cobalt)", color: "var(--palette-lavender-mist)" }}>
+                    {a.icon}
+                  </span>
+                  <h3 className="font-serif-accent text-2xl" style={{ color: "var(--color-text-primary)" }}>{a.title}</h3>
+                </div>
+                <p className="font-mono text-xs md:col-span-4" style={{ color: "var(--color-accent)" }}>{a.stack}</p>
+                <p className="text-sm leading-relaxed md:col-span-5" style={{ color: "var(--color-text-secondary)" }}>{a.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Stack + delivery CTA */}
-        <div className="grid lg:grid-cols-5 gap-6">
+        {/* Delivery workflow: a stepper on an ink slab */}
+        <div className="ink-slab mb-20 px-6 py-10 sm:px-10 sm:py-12">
+          <SubTitle kicker="Delivery workflow" title="From idea to production" />
+          <ol className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-6 lg:gap-4">
+            <span aria-hidden="true" className="absolute left-0 right-0 top-5 hidden h-px lg:block" style={{ backgroundColor: "var(--color-border)" }} />
+            {workflow.map((w) => (
+              <li key={w.step} className="relative">
+                <span
+                  className="relative mb-4 flex h-10 w-10 items-center justify-center rounded-full border-2 font-mono text-xs"
+                  style={{ backgroundColor: "var(--palette-shadow-grey)", borderColor: "var(--color-accent)", color: "var(--color-accent)" }}
+                >
+                  {w.step}
+                </span>
+                <h3 className="font-serif-accent mb-1.5 text-2xl" style={{ color: "var(--color-text-primary)" }}>
+                  {w.title}
+                </h3>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                  {w.desc}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        {/* Stack + result */}
+        <div className="grid gap-6 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <div className="mb-6">
-              <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-1.5 flex items-center gap-2"
-                style={{ color: "var(--color-text-muted)" }}>
-                <span className="w-4 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
-                Where each tool is used
-              </p>
-              <h2 className="text-lg md:text-2xl font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
-                A language for every layer
-              </h2>
-            </div>
-            <div className="border" style={{ borderColor: "var(--color-border)" }}>
-              {stack.map((s, i) => (
-                <div key={s.item}
-                  className={`flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 ${i < stack.length - 1 ? "border-b" : ""}`}
-                  style={{ borderColor: "var(--color-border)" }}>
+            <SubTitle kicker="Where each tool is used" title="A language for every layer" />
+            <div className="grid gap-2 sm:grid-cols-2">
+              {stack.map((s) => (
+                <div key={s.item} className="flex items-center justify-between gap-3 rounded-full border px-4 py-2.5" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
                   <span className="min-w-0 text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
                     {s.item}
                   </span>
-                  <span className="text-right font-mono text-[11px]" style={{ color: "var(--color-text-muted)" }}>
+                  <span className="text-right text-[11px]" style={{ color: "var(--color-text-muted)" }}>
                     {s.use}
                   </span>
                 </div>
@@ -246,15 +203,17 @@ export default function EngineeringClient() {
             </div>
           </div>
 
-          <div className="lg:col-span-2 flex flex-col justify-between gap-6">
-            <div className="flat-card p-6 h-full">
-              <p className="text-[9px] font-medium tracking-[0.3em] uppercase mb-3 flex items-center gap-2"
-                style={{ color: "var(--color-text-muted)" }}>
-                <Terminal className="w-3.5 h-3.5 flex-shrink-0" />
+          <div className="flex flex-col justify-end lg:col-span-2">
+            <div className="plate p-7">
+              <p className="field-label mb-3 flex items-center gap-2">
+                <Terminal className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
                 The result
               </p>
-              <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--color-text-secondary)" }}>
-                This portfolio is itself a product of this process: Next.js, TypeScript, a design system, cloud deployment, and analytics, all built with the same discipline I bring to client work.
+              <p className="font-serif-accent mb-5 text-2xl leading-snug" style={{ color: "var(--color-text-primary)" }}>
+                This portfolio is itself a product of this process.
+              </p>
+              <p className="mb-6 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                Next.js, TypeScript, a design system, cloud deployment, and analytics, all built with the same discipline I bring to client work.
               </p>
               <a href="https://github.com/Brian-Kareithi" target="_blank" rel="noopener noreferrer"
                 className="btn-neon btn-neon-primary w-full justify-center">
@@ -276,5 +235,19 @@ export default function EngineeringClient() {
       </div>
       </ScrollReveal>
     </section>
+  );
+}
+
+function SubTitle({ kicker, title }: { kicker: string; title: string }) {
+  return (
+    <div className="mb-8">
+      <p className="field-label mb-2 flex items-center gap-2">
+        <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+        {kicker}
+      </p>
+      <h2 className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
+        {title}
+      </h2>
+    </div>
   );
 }

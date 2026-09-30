@@ -1,11 +1,11 @@
 "use client";
 
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-
 type LoadingScreenProps = {
   /** True while the exit fade is playing. */
   isExiting?: boolean;
 };
+
+const dots = ["var(--palette-true-cobalt)", "var(--palette-soft-periwinkle)", "var(--palette-periwinkle)"];
 
 export default function LoadingScreen({ isExiting = false }: LoadingScreenProps) {
   return (
@@ -13,78 +13,50 @@ export default function LoadingScreen({ isExiting = false }: LoadingScreenProps)
       role="status"
       aria-label="Loading portfolio"
       aria-live="polite"
-      className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center overflow-hidden overscroll-none px-4 py-8 select-none transition-opacity duration-500 ease-out sm:px-6 ${
+      className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center overflow-hidden overscroll-none px-4 select-none transition-opacity duration-500 ease-out ${
         isExiting ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
-      style={{
-        backgroundColor: "var(--color-bg-primary)",
-        minHeight: "100dvh",
-        paddingTop: "max(2rem, env(safe-area-inset-top))",
-        paddingBottom: "max(2rem, env(safe-area-inset-bottom))",
-      }}
+      style={{ backgroundColor: "var(--color-bg-primary)", minHeight: "100dvh" }}
     >
-      {/* Hairline top rule, matches site chrome */}
-      <div
-        className="absolute inset-x-0 top-0 h-px"
-        style={{ backgroundColor: "var(--color-accent)" }}
-      />
-
-      <div className="flex min-h-0 w-full max-w-sm flex-col items-center">
-        {/* Fluid animation box: scales with both viewport width and height,
-            so it stays compact on small phones and short landscape screens,
-            and caps out on tablets/desktops. */}
+      <div className="flex flex-col items-center">
+        {/* Monogram */}
         <div
-          className="aspect-square w-full shrink-0"
-          style={{ width: "clamp(7rem, min(52vw, 34dvh), 15rem)" }}
-        >
-          <DotLottieReact
-            src="/QcEL6uqLNr.lottie"
-            loop
-            autoplay
-            speed={1}
-            style={{ width: "100%", height: "100%", display: "block" }}
-          />
-        </div>
-
-        <p
-          className="mt-1 text-center font-mono text-[10px] tracking-[0.28em] uppercase sm:mt-2 sm:text-[11px] sm:tracking-[0.3em]"
-          style={{ color: "var(--color-text-muted)" }}
-        >
-          Loading
-        </p>
-        <p
-          className="mt-1 max-w-full overflow-hidden text-center font-mono text-[9px] whitespace-nowrap tabular-nums text-ellipsis sm:text-[10px]"
-          style={{ color: "var(--color-text-muted)", opacity: 0.7 }}
-        >
-          brian@dev:~$ ./boot.sh
-        </p>
-
-        {/* Indeterminate progress hairline */}
-        <div
-          className="loader-progress h-px overflow-hidden"
+          className="loader-card flex h-24 w-24 items-center justify-center rounded-[1.75rem] border sm:h-28 sm:w-28"
           style={{
-            backgroundColor: "var(--color-border)",
-            width: "clamp(8rem, 40vw, 10rem)",
+            backgroundColor: "var(--color-bg-card)",
+            borderColor: "var(--color-border)",
+            boxShadow: "6px 6px 0 var(--palette-periwinkle)",
           }}
         >
-          <div
-            className="loader-bar h-full w-1/3"
-            style={{ backgroundColor: "var(--color-accent)" }}
-          />
+          <span className="font-serif-accent text-5xl sm:text-6xl" style={{ color: "var(--palette-true-cobalt)" }}>
+            BK
+          </span>
+        </div>
+
+        {/* Bouncing dots */}
+        <div className="mt-8 flex items-center gap-2" aria-hidden="true">
+          {dots.map((color, i) => (
+            <span
+              key={color}
+              className="loader-dot h-2.5 w-2.5 rounded-full"
+              style={{ backgroundColor: color, animationDelay: `${i * 0.15}s` }}
+            />
+          ))}
+        </div>
+
+        <p className="mt-4 text-sm" style={{ color: "var(--color-text-muted)" }}>
+          Loading Brian&apos;s portfolio…
+        </p>
+
+        {/* Indeterminate progress pill */}
+        <div
+          className="mt-5 h-1.5 overflow-hidden rounded-full"
+          style={{ backgroundColor: "var(--color-border)", width: "clamp(8rem, 40vw, 11rem)" }}
+          aria-hidden="true"
+        >
+          <div className="loader-bar h-full w-1/3 rounded-full" style={{ background: "var(--gradient-primary)" }} />
         </div>
       </div>
-
-      {/* Hidden on short viewports (landscape phones) to avoid crowding */}
-      <p
-        className="loader-footnote absolute text-center font-mono text-[9px] tracking-[0.2em] uppercase sm:text-[10px]"
-        style={{
-          color: "var(--color-text-muted)",
-          opacity: 0.6,
-          bottom: "max(1rem, env(safe-area-inset-bottom))",
-        }}
-      >
-        Nairobi · EAT
-      </p>
     </div>
   );
 }

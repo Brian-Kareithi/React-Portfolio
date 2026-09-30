@@ -34,10 +34,10 @@ export default function ProjectsClient() {
   const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
-    <section id="projects" className="min-h-screen w-full py-28 md:py-36 px-4 relative"
+    <section id="projects" className="min-h-screen w-full py-28 md:py-36 px-5 sm:px-10 lg:px-16 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
-      <div className="max-w-7xl mx-auto w-full">
+      <div className="max-w-5xl mx-auto w-full">
         <Breadcrumbs />
         <SectionHeader
           index="03"

@@ -114,14 +114,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`dark scroll-smooth ${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="light"){document.documentElement.classList.remove("dark")}else if(t==="dark"){document.documentElement.classList.add("dark")}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches){document.documentElement.classList.remove("dark")}}catch(e){}})();`,
-          }}
-        />
-      </head>
+    <html lang="en" className={`scroll-smooth ${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="relative overflow-x-clip antialiased" suppressHydrationWarning>
         <JsonLd data={organizationJsonLd} />
         <ClientLayout>{children}</ClientLayout>
