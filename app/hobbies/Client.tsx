@@ -220,7 +220,7 @@ export const labStats = [
   { label: "Server Uptime", value: "24/7", note: "Proxmox node, always on", icon: <Activity className="w-3.5 h-3.5" /> },
   { label: "Storage Protected", value: "3TB", note: "RAID-1 mirrored array", icon: <Database className="w-3.5 h-3.5" /> },
   { label: "Data Lost", value: "0 B", note: "since day one", icon: <ShieldCheck className="w-3.5 h-3.5" /> },
-  { label: "Devices Managed", value: "18", note: "every lease assigned by me", icon: <Radio className="w-3.5 h-3.5" /> },
+  { label: "Devices Managed", value: "19", note: "every lease assigned by me", icon: <Radio className="w-3.5 h-3.5" /> },
 ];
 
 export const tinkering = [
@@ -307,7 +307,7 @@ export default function HobbiesClient() {
 
   return (
     <>
-      <header className="fixed left-5 right-5 top-3.5 z-50 mx-auto max-w-5xl overflow-hidden rounded-full glass-nav">
+      <header className="fixed left-3.75 right-3.75 top-3.5 z-50 mx-auto max-w-5xl overflow-hidden rounded-full glass-nav">
         <div className="flex h-14 items-center justify-between pl-2 pr-5">
           <Link
             href="/"
@@ -328,7 +328,7 @@ export default function HobbiesClient() {
         </div>
       </header>
 
-      <section id="hobbies" className="min-h-screen w-full pt-28 md:pt-32 pb-24 md:pb-32 px-5 sm:px-10 lg:px-16 relative overflow-hidden isolate"
+      <section id="hobbies" className="min-h-screen w-full pt-28 md:pt-32 pb-24 md:pb-32 px-3.75 sm:px-7.5 lg:px-12 relative overflow-hidden isolate"
         style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal className="relative z-10">
       <div className="max-w-5xl mx-auto w-full">

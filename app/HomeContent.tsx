@@ -24,7 +24,7 @@ const spec: { k: string; v: string }[] = [
   { k: "Certifications", v: "6 · security, cloud & networking" },
   { k: "Projects", v: "50+ delivered" },
   { k: "Experience", v: "3 years in tech" },
-  { k: "Homelab", v: "18 devices · 24/7 Proxmox" },
+  { k: "Homelab", v: "19 devices · 24/7 Proxmox" },
 ];
 
 const socials = [
@@ -67,7 +67,7 @@ export default function HomeContent() {
   const indexRoutes = routes.filter((r) => r.path !== "/");
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden px-5 sm:px-10 lg:px-16" style={{ backgroundColor: "var(--color-bg-primary)" }}>
+    <section id="home" className="relative min-h-screen overflow-hidden px-3.75 sm:px-7.5 lg:px-12" style={{ backgroundColor: "var(--color-bg-primary)" }}>
       {/* Soft periwinkle glow behind the hero */}
       <div
         aria-hidden="true"

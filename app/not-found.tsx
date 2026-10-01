@@ -18,7 +18,7 @@ const popularLinks = popularPaths
 export default function NotFound() {
   return (
     <section
-      className="bg-field relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-4 py-24 sm:py-32"
+      className="bg-field relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-3 py-24 sm:py-32"
       style={{ backgroundColor: "var(--color-bg-primary)" }}
       aria-labelledby="not-found-title"
     >

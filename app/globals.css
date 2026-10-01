@@ -7,6 +7,8 @@
   --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, Arial, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-serif: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
+  /* Content width: the side gap is 3/4 of what a fixed 64rem cap would leave */
+  --container-5xl: calc(25vw + 768px);
 }
 
 /* ───────────────────────────────────────────────────────────

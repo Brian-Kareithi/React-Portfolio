@@ -92,7 +92,7 @@ export default function AboutClient() {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-full px-5 sm:px-10 lg:px-16 py-24 xs:py-28 sm:py-32 md:py-36"
+      className="relative min-h-screen w-full px-3.75 sm:px-7.5 lg:px-12 py-24 xs:py-28 sm:py-32 md:py-36"
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
       <ScrollReveal>

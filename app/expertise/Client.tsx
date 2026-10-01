@@ -91,7 +91,7 @@ export const domains: SkillDomain[] = [
     icon: <CircuitBoard className="w-4 h-4" />,
     tagline: "Software only works when the silicon underneath behaves.",
     summary:
-      "I build, repair, and diagnose real machines. A 18-node homelab, RAID arrays, laptops stripped to the board, and ESP32 projects all run on hardware I assembled and debugged by hand.",
+      "I build, repair, and diagnose real machines. A 19-node homelab, RAID arrays, laptops stripped to the board, and ESP32 projects all run on hardware I assembled and debugged by hand.",
     capabilities: [
       {
         title: "PC Assembly & Repair",
@@ -197,7 +197,7 @@ export const domains: SkillDomain[] = [
 const spearhead = [
   { value: "50+", label: "Projects Delivered" },
   { value: "6", label: "Certifications" },
-  { value: "18", label: "Devices Managed" },
+  { value: "19", label: "Devices Managed" },
   { value: "9", label: "Languages" },
   { value: "3", label: "Clouds" },
   { value: "3TB", label: "RAID Protected" },
@@ -208,7 +208,7 @@ export default function ExpertiseClient() {
   const current = domains.find((d) => d.id === activeDomain)!;
 
   return (
-    <section id="expertise" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-5 sm:px-10 lg:px-16 relative"
+    <section id="expertise" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3.75 sm:px-7.5 lg:px-12 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">

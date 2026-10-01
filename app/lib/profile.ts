@@ -24,7 +24,7 @@ delivered 50+ projects.
 ## Key facts
 - BSc Information Technology, Umma University (cybersecurity focus)
 - 3 years in tech, 50+ projects delivered
-- 18-device homelab: 24/7 Proxmox, RAID-1, ESP32 automation
+- 19-device homelab: 24/7 Proxmox, RAID-1, ESP32 automation
 - Recent focus: React Native (Expo), Next.js, secure cloud architecture
 
 ## Pages

@@ -14,8 +14,8 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="ink-slab relative z-10 w-full !rounded-none">
-      <div className="mx-auto max-w-5xl px-5 py-8 sm:px-10 lg:px-0">
+    <footer className="ink-slab relative z-10 w-full !rounded-none px-3.75 sm:px-7.5 lg:px-12">
+      <div className="mx-auto max-w-5xl py-8">
         <div className="mb-6 flex flex-col gap-4 border-b pb-6 md:flex-row md:items-center md:justify-between" style={{ borderColor: "var(--color-border)" }}>
           <p className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
             Let&apos;s build something <span className="font-serif-accent" style={{ color: "var(--color-accent)" }}>good.</span>

@@ -153,7 +153,7 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
       {children}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[100] flex items-start justify-center px-4 pt-[12vh] animate-overlay-fade"
+          className="fixed inset-0 z-[100] flex items-start justify-center px-3 pt-[12vh] animate-overlay-fade"
           role="presentation"
           onMouseDown={(e) => {
             if (e.target === e.currentTarget) close();
