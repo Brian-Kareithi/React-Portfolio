@@ -15,8 +15,8 @@ export default function Footer() {
 
   return (
     <footer className="ink-slab relative z-10 w-full !rounded-none px-3.75 sm:px-7.5 lg:px-12">
-      <div className="mx-auto max-w-5xl py-8">
-        <div className="mb-6 flex flex-col gap-4 border-b pb-6 md:flex-row md:items-center md:justify-between" style={{ borderColor: "var(--color-border)" }}>
+      <div className="mx-auto max-w-5xl py-6">
+        <div className="mb-4 flex flex-col gap-3 border-b pb-4 md:flex-row md:items-center md:justify-between" style={{ borderColor: "var(--color-border)" }}>
           <p className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
             Let&apos;s build something <span className="font-serif-accent" style={{ color: "var(--color-accent)" }}>good.</span>
           </p>
@@ -24,15 +24,15 @@ export default function Footer() {
             <Mail className="w-4 h-4" /> Say hello
           </a>
         </div>
-        <div className="grid gap-6 md:grid-cols-12">
+        <div className="grid gap-4 md:grid-cols-12">
           <div className="md:col-span-4">
             <p className="font-serif-accent text-2xl" style={{ color: "var(--color-text-primary)" }}>
               Brian Kareithi
             </p>
-            <p className="mt-3 max-w-[260px] text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+            <p className="mt-2 max-w-[260px] text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
               Software engineer building secure web and mobile products, based in Nairobi, Kenya.
             </p>
-            <div className="mt-3 flex gap-2">
+            <div className="mt-2 flex gap-2">
               {socials.map(({ href, icon: Icon, label }) => (
                 <a
                   key={label}
@@ -95,7 +95,7 @@ export default function Footer() {
         </div>
 
         <div
-          className="mt-6 flex flex-col gap-2 border-t pt-4 sm:flex-row sm:items-center sm:justify-between"
+          className="mt-4 flex flex-col gap-2 border-t pt-3 sm:flex-row sm:items-center sm:justify-between"
           style={{ borderColor: "var(--color-border)" }}
         >
           <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>
