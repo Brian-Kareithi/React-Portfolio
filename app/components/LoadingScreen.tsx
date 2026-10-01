@@ -14,7 +14,7 @@ export default function LoadingScreen({ isExiting = false }: LoadingScreenProps)
       role="status"
       aria-label="Loading portfolio"
       aria-live="polite"
-      className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center overflow-hidden overscroll-none px-4 select-none transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-[10000] flex flex-col items-center justify-center overflow-hidden overscroll-none px-3 select-none transition-opacity duration-500 ease-out ${
         isExiting ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
       style={{ backgroundColor: "var(--color-bg-primary)", minHeight: "100dvh" }}

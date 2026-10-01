@@ -16,7 +16,7 @@ export default function Navbar() {
   const progressRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 36);
+    const onScroll = () => setScrolled(window.scrollY > 0);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -58,16 +58,24 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed left-5 right-5 z-[60] mx-auto max-w-5xl overflow-hidden glass-nav transition-[top,box-shadow] duration-300 ease-out"
+        className={`fixed z-[60] mx-auto overflow-hidden glass-nav transition-[top,left,right,max-width,border-radius] duration-300 ease-out ${
+          scrolled ? "left-0 right-0 max-w-full" : "left-3.75 right-3.75 max-w-5xl"
+        }`}
         style={{
-          top: scrolled ? 8 : 14,
+          top: scrolled ? 0 : 14,
           borderColor: "var(--color-border)",
-          borderRadius: 999,
-          boxShadow: scrolled ? "3px 3px 0 var(--color-highlight)" : "none",
+          borderWidth: scrolled ? "0 0 1px" : undefined,
+          borderRadius: scrolled ? 0 : 999,
+          boxShadow: "none",
         }}
         aria-label="Primary"
       >
-        <div className="flex items-center justify-between gap-4 pl-5 pr-2 sm:pl-6 h-14">
+        {/* Docked: the bar spans the viewport and its row lines up with the page content */}
+        <div
+          className={`flex items-center justify-between gap-4 h-14 ${
+            scrolled ? "mx-auto box-content max-w-5xl px-3.75 sm:px-7.5 lg:px-12" : "pl-5 pr-2 sm:pl-6"
+          }`}
+        >
           <button
             onClick={() => go("/")}
             className="flex items-center gap-3 transition-opacity duration-200 hover:opacity-70"
@@ -144,7 +152,7 @@ export default function Navbar() {
         style={{ backgroundColor: "var(--color-bg-primary)" }}
         aria-hidden={!menuOpen}
       >
-        <div className="flex h-full flex-col overflow-y-auto px-6 pb-8 pt-20">
+        <div className="flex h-full flex-col overflow-y-auto px-4.5 pb-8 pt-20">
           <p className="field-label mb-4">Index</p>
           <ul className="flex-1 space-y-1">
             {routes.map((r, i) => {

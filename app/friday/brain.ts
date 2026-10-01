@@ -305,7 +305,7 @@ const jobs = timeline.filter((t) => t.category === "professional" || t.category 
 const stat = (label: string) => stats.find((s) => s.label === label);
 const years = `${stat("Years in Tech")?.value ?? 3}+`;
 const projectCount = `${stat("Projects")?.value ?? 50}+`;
-const devices = labStats.find((s) => s.label === "Devices Managed")?.value ?? "18";
+const devices = labStats.find((s) => s.label === "Devices Managed")?.value ?? "19";
 
 interface Topic {
   test: RegExp;
@@ -477,7 +477,7 @@ const smallTalk: { test: RegExp; replies: string[] }[] = [
   },
   {
     test: / joke| funny/,
-    replies: ["Brian's homelab has 18 devices and zero data lost. The only thing that's ever crashed in there is his sleep schedule."],
+    replies: ["Brian's homelab has 19 devices and zero data lost. The only thing that's ever crashed in there is his sleep schedule."],
   },
   {
     test: /^ (ok|okay|cool|nice|great|awesome|wow|interesting|got it|alright) $/,

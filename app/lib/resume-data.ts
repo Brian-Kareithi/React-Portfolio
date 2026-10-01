@@ -56,7 +56,7 @@ export const resumeRoles: ResumeRole[] = [
     label: "IT & Infrastructure",
     headline: "IT Support & Infrastructure",
     summary:
-      "I keep systems running and users unblocked: hands-on IT support, school information systems, networking, and a self-managed 18-device homelab running on Proxmox with 24/7 uptime.",
+      "I keep systems running and users unblocked: hands-on IT support, school information systems, networking, and a self-managed 19-device homelab running on Proxmox with 24/7 uptime.",
     topSkills: ["Linux", "Networking", "System Administration", "Docker", "Proxmox", "Technical Support", "CCNA"],
     experience: [
       "Assisted with IT infrastructure and technical support",
@@ -67,7 +67,7 @@ export const resumeRoles: ResumeRole[] = [
       "Built the Parent mobile application using Expo / React Native",
     ],
     projects: [
-      { title: "Homelab", note: "18-device self-hosted Proxmox lab, RAID-1, 24/7 uptime, zero data lost" },
+      { title: "Homelab", note: "19-device self-hosted Proxmox lab, RAID-1, 24/7 uptime, zero data lost" },
       { title: "Steadfast Academy", note: "Day-to-day IT support, troubleshooting and school information systems" },
       { title: "QuickPrint", note: "Ephemeral upload/print infrastructure built for a cyber café workflow" },
     ],

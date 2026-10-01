@@ -97,7 +97,7 @@ export const stack = [
 
 export default function EngineeringClient() {
   return (
-    <section id="engineering" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-5 sm:px-10 lg:px-16 relative"
+    <section id="engineering" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3.75 sm:px-7.5 lg:px-12 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">

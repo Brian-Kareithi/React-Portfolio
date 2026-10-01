@@ -126,7 +126,7 @@ export default function FridayClient() {
   return (
     <section
       id="friday"
-      className="min-h-screen w-full pt-24 md:pt-28 pb-20 md:pb-28 px-5 sm:px-10 lg:px-16"
+      className="min-h-screen w-full pt-24 md:pt-28 pb-20 md:pb-28 px-3.75 sm:px-7.5 lg:px-12"
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
       <ScrollReveal>
