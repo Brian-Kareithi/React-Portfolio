@@ -77,7 +77,7 @@ export default function NotFound() {
               <Compass className="h-4 w-4" aria-hidden="true" />
             </span>
             <p className="min-w-0 flex-1 truncate font-mono text-[11px]" style={{ color: "var(--color-text-secondary)" }}>
-              error: route not found — no matching page
+              error: route not found: no matching page
             </p>
           </div>
         </div>
@@ -129,7 +129,7 @@ export default function NotFound() {
         </nav>
 
         <p className="font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
-          brian@dev:~$ error: route not found — exit 1
+          brian@dev:~$ error: route not found, exit 1
         </p>
       </div>
     </section>

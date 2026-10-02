@@ -153,14 +153,12 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
       {children}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[100] flex items-start justify-center px-3 pt-[12vh] animate-overlay-fade"
+          className="fixed inset-0 z-[100] flex items-start justify-center px-3 pt-[12vh]"
           role="presentation"
-          onMouseDown={(e) => {
-            if (e.target === e.currentTarget) close();
-          }}
         >
           <div
             className="absolute inset-0"
+            onMouseDown={close}
             style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 55%, transparent)", backdropFilter: "blur(4px)" }}
           />
           <div
@@ -168,7 +166,7 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
             aria-modal="true"
             aria-label="Command palette"
             onKeyDown={onKeyDown}
-            className="relative w-full max-w-xl animate-palette-in overflow-hidden rounded-xl"
+            className="relative w-full max-w-xl overflow-hidden rounded-xl"
             style={{
               backgroundColor: "var(--color-bg-secondary)",
               border: "1px solid var(--color-border-hover)",
@@ -192,7 +190,7 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
                 style={{ color: "var(--color-text-primary)" }}
               />
               <kbd
-                className="hidden xs:block font-mono text-[10px] px-1.5 py-0.5 rounded"
+                className="hidden xs:block font-mono text-[11px] px-1.5 py-0.5 rounded"
                 style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}
               >
                 ESC
@@ -213,7 +211,7 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
                     data-idx={i}
                     onMouseMove={() => setActive(i)}
                     onClick={() => runItem(it)}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors duration-150"
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left"
                     style={{ backgroundColor: isActive ? "var(--color-surface)" : "transparent" }}
                   >
                     <span
@@ -246,7 +244,7 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
               style={{ borderColor: "var(--color-border)" }}
             >
               <span className="field-label min-w-0">Brian Kareithi · index</span>
-              <span className="flex items-center gap-2 font-mono text-[10px]" style={{ color: "var(--color-text-muted)" }}>
+              <span className="flex items-center gap-2 font-mono text-[11px]" style={{ color: "var(--color-text-muted)" }}>
                 <span>↑↓ move</span>
                 <span>↵ open</span>
               </span>

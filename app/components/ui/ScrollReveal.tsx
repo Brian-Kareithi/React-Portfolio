@@ -16,8 +16,8 @@ export function ScrollReveal({
   className = "",
   delay = 0,
   direction = "up",
-  duration = 0.8,
-  distance = 32,
+  duration = 0.55,
+  distance = 20,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -42,9 +42,10 @@ export function ScrollReveal({
     Object.assign(el.style, from, { opacity: "0", willChange: "opacity, transform" });
 
     const reveal = () => {
-      el.style.transition = `opacity ${duration}s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform ${duration}s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
+      el.style.transition = `opacity ${duration}s var(--ease-out) ${delay}s, transform ${duration}s var(--ease-out) ${delay}s`;
       el.style.opacity = "1";
       el.style.transform = "none";
+      el.addEventListener("transitionend", () => { el.style.willChange = "auto"; }, { once: true });
       observer.disconnect();
     };
 

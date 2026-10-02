@@ -20,12 +20,11 @@ export const routes: NavRoute[] = [
   { path: "/homelab", label: "Homelab", index: "05", description: "24/7 infrastructure I run" },
   { path: "/troubleshooting", label: "Diagnostics", index: "06", description: "An evidence-driven method" },
   { path: "/resume", label: "Resume", index: "07", description: "Role-tailored CV, three ways" },
-  { path: "/friday", label: "Friday", index: "08", description: "An Iron Man–style AI assistant", tag: "Surprise" },
 ];
 
 /** Tight primary set shown in the desktop bar; the palette covers the rest. */
 export const primaryNav: NavRoute[] = routes.filter((r) =>
-  ["/", "/about", "/how-i-work", "/projects", "/contact", "/friday"].includes(r.path)
+  ["/", "/about", "/how-i-work", "/projects", "/contact"].includes(r.path)
 );
 
 export interface ExternalLink {

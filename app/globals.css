@@ -63,6 +63,7 @@
 
   --color-accent-gradient: linear-gradient(135deg, #14248a 0%, #998fc7 100%);
 
+  --color-live: #22a06b;
   --color-success: #2f6b4f;
   --color-warning: #8a5a14;
   --color-error: #9e2b43;
@@ -79,6 +80,10 @@
 
   --hairline: color-mix(in srgb, var(--color-text-primary) 12%, transparent);
   --hairline-strong: color-mix(in srgb, var(--color-text-primary) 20%, transparent);
+
+  /* Motion: stronger than the built-in easings */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 body {
@@ -87,8 +92,12 @@ body {
   font-family: var(--font-dm-sans), Arial, Helvetica, sans-serif;
   line-height: 1.65;
   font-feature-settings: "ss01", "cv05";
-  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+h1, h2, h3, .display-xl { text-wrap: balance; }
+p { text-wrap: pretty; }
 
 html {
   background-color: var(--color-bg-primary);
@@ -164,38 +173,90 @@ html {
   border-radius: 0.625rem;
 }
 
-/* Cards: soft lavender paper with a hard periwinkle offset shadow that lifts on hover */
+/* Surfaces: hairline glass-paper. Depth is a soft, cool shadow; corner ticks and a
+   pointer-following spotlight appear on interaction (--mx/--my set in ClientLayout). */
+:root {
+  --surface-shadow: 0 1px 0 rgb(255 255 255 / 0.7) inset, 0 14px 30px -20px rgb(20 36 138 / 0.3);
+  --surface-shadow-hover: 0 1px 0 rgb(255 255 255 / 0.8) inset, 0 22px 40px -20px rgb(20 36 138 / 0.42);
+  --spot: rgb(20 36 138 / 0.09);
+}
 .liquid-card,
 .liquid-card-hover,
-.flat-card {
-  background-color: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: 1.25rem;
-  box-shadow: 3px 3px 0 var(--color-highlight);
-  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.liquid-card:hover,
-.liquid-card-hover:hover,
-.flat-card:hover {
-  border-color: var(--color-border-hover);
-  background-color: var(--color-bg-card-hover);
-  box-shadow: 5px 5px 0 var(--color-accent-secondary);
-  transform: translate(-2px, -2px);
-}
-
-/* Plate: the project / feature surface */
+.flat-card,
 .plate {
   position: relative;
+  isolation: isolate;
   background-color: var(--color-bg-card);
   border: 1px solid var(--color-border);
-  border-radius: 1.5rem;
-  box-shadow: 4px 4px 0 var(--color-highlight);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 0.875rem;
+  box-shadow: var(--surface-shadow);
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.24s var(--ease-out), transform 0.24s var(--ease-out);
 }
-.plate:hover {
-  border-color: var(--color-accent);
-  box-shadow: 7px 7px 0 var(--color-accent-secondary);
-  transform: translate(-3px, -3px);
+.plate { border-radius: 1.125rem; }
+
+/* Spotlight */
+.liquid-card::before,
+.liquid-card-hover::before,
+.flat-card::before,
+.plate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 0%), var(--spot), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+/* HUD corner ticks */
+.liquid-card::after,
+.liquid-card-hover::after,
+.flat-card::after,
+.plate::after {
+  --tick: color-mix(in srgb, var(--color-accent) 55%, transparent);
+  content: "";
+  position: absolute;
+  inset: 7px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--tick), var(--tick)) top left / 9px 1px,
+    linear-gradient(var(--tick), var(--tick)) top left / 1px 9px,
+    linear-gradient(var(--tick), var(--tick)) top right / 9px 1px,
+    linear-gradient(var(--tick), var(--tick)) top right / 1px 9px,
+    linear-gradient(var(--tick), var(--tick)) bottom left / 9px 1px,
+    linear-gradient(var(--tick), var(--tick)) bottom left / 1px 9px,
+    linear-gradient(var(--tick), var(--tick)) bottom right / 9px 1px,
+    linear-gradient(var(--tick), var(--tick)) bottom right / 1px 9px;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.015);
+  transition: opacity 0.25s ease, transform 0.3s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .liquid-card:hover,
+  .liquid-card-hover:hover,
+  .flat-card:hover,
+  .plate:hover {
+    border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+    background-color: var(--color-bg-card-hover);
+    box-shadow: var(--surface-shadow-hover);
+    transform: translateY(-2px);
+  }
+  .liquid-card:hover::before,
+  .liquid-card-hover:hover::before,
+  .flat-card:hover::before,
+  .plate:hover::before { opacity: 1; }
+  .liquid-card:hover::after,
+  .liquid-card-hover:hover::after,
+  .flat-card:hover::after,
+  .plate:hover::after { opacity: 1; transform: scale(1); }
+}
+.liquid-card:active,
+.liquid-card-hover:active,
+.flat-card:active,
+.plate:active {
+  transform: translateY(0) scale(0.995);
+  transition-duration: 0.1s;
 }
 
 /* Ink slab: a Shadow Grey section. Tokens flip inside, so any content adapts. */
@@ -219,9 +280,40 @@ html {
   --color-surface-strong: rgba(212, 194, 252, 0.14);
   --hairline: rgba(249, 245, 255, 0.12);
   --hairline-strong: rgba(249, 245, 255, 0.2);
+  --surface-shadow: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 16px 30px -20px rgb(0 0 0 / 0.7);
+  --surface-shadow-hover: 0 1px 0 rgb(255 255 255 / 0.08) inset, 0 22px 40px -20px rgb(0 0 0 / 0.8);
+  --spot: rgb(212 194 252 / 0.1);
+  position: relative;
   background-color: var(--palette-shadow-grey);
+  background-image:
+    radial-gradient(70% 60% at 50% -10%, rgb(153 143 199 / 0.22), transparent 70%);
+  border: 1px solid rgb(212 194 252 / 0.14);
   color: var(--color-text-primary);
-  border-radius: 2rem;
+  border-radius: 1.5rem;
+}
+
+/* ── Hero atmosphere ───────────────────────────────────── */
+.hero-aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 55% at 88% 0%, rgb(212 194 252 / 0.9), transparent 70%),
+    radial-gradient(38% 42% at 6% 8%, rgb(20 36 138 / 0.1), transparent 70%);
+}
+/* One scan pass across the portrait on load */
+@keyframes portrait-scan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+.portrait-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 90%, rgb(212 194 252 / 0.55) 99%, rgb(255 255 255 / 0.8) 100%);
+  opacity: 0;
+  animation: portrait-scan 1.6s var(--ease-in-out) 0.5s 1 both;
 }
 
 /* Architecture diagram (ArchitectureFlow): vertical on phones, horizontal from sm */
@@ -336,20 +428,10 @@ html {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-@keyframes palette-in {
-  from { opacity: 0; transform: translateY(-8px) scale(0.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes overlay-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 
 .skeleton-pulse { animation: skeleton-pulse 1.5s ease-in-out infinite; }
-.animate-fade-in-up { animation: fade-in-up 0.4s ease-out; }
+.animate-fade-in-up { animation: fade-in-up 0.4s var(--ease-out) both; }
 .animate-float { animation: float 3s ease-in-out infinite; }
-.animate-palette-in { animation: palette-in 0.22s cubic-bezier(0.22, 1, 0.36, 1); }
-.animate-overlay-fade { animation: overlay-fade 0.2s ease-out; }
 .loader-dot { animation: loader-dot 0.9s ease-in-out infinite; }
 @keyframes loader-dot {
   0%, 80%, 100% { transform: translateY(0); opacity: 0.55; }
@@ -369,7 +451,7 @@ html {
 
 .stagger-item {
   opacity: 0;
-  animation: stagger-fade-in 0.35s ease-out forwards;
+  animation: stagger-fade-in 0.35s var(--ease-out) forwards;
 }
 .stagger-item:nth-child(1) { animation-delay: 0.04s; }
 .stagger-item:nth-child(2) { animation-delay: 0.08s; }
@@ -397,7 +479,7 @@ html {
 .reveal-mask > span {
   display: inline-block;
   transform: translateY(110%);
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.7s var(--ease-out);
 }
 .reveal-mask.is-in > span {
   transform: translateY(0);
@@ -465,29 +547,43 @@ html {
   justify-content: center;
   gap: 0.5rem;
   min-height: 44px;
-  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.2s var(--ease-out), transform 0.16s var(--ease-out), filter 0.18s ease;
 }
+.btn-neon:active {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
+}
+/* Primary: a lit cobalt lens, top edge catching light */
 .btn-neon-primary {
-  background: var(--color-accent);
-  border: 1px solid var(--color-accent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-accent) 84%, white) 0%, var(--color-accent) 100%);
+  border: 1px solid color-mix(in srgb, var(--color-accent-light) 55%, transparent);
   color: var(--color-on-accent);
-  box-shadow: 3px 3px 0 var(--color-highlight);
-}
-.btn-neon-primary:hover {
-  background: var(--color-accent-dark);
-  border-color: var(--color-accent-dark);
-  box-shadow: 5px 5px 0 var(--color-accent-secondary);
-  transform: translate(-2px, -2px);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.24),
+    0 10px 24px -10px color-mix(in srgb, var(--color-accent) 70%, transparent);
 }
 .btn-neon-ghost {
-  border: 1px solid var(--color-border-hover);
+  border: 1px solid var(--hairline-strong);
   background: transparent;
   color: var(--color-text-secondary);
 }
-.btn-neon-ghost:hover {
-  background: var(--color-surface);
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+@media (hover: hover) and (pointer: fine) {
+  .btn-neon-primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.3),
+      0 16px 32px -10px color-mix(in srgb, var(--color-accent) 80%, transparent);
+  }
+  .btn-neon-primary:active {
+    transform: scale(0.97);
+  }
+  .btn-neon-ghost:hover {
+    background: var(--color-surface);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: 0 8px 22px -12px color-mix(in srgb, var(--color-accent) 55%, transparent);
+  }
 }
 
 /* Underline-grow link */
@@ -496,9 +592,14 @@ html {
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 0% 1px;
-  transition: background-size 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background-size 0.3s var(--ease-out);
 }
-.link-underline:hover {
+@media (hover: hover) and (pointer: fine) {
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+}
+.link-underline:focus-visible {
   background-size: 100% 1px;
 }
 

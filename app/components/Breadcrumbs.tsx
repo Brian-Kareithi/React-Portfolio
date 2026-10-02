@@ -11,7 +11,6 @@ export const breadcrumbMap: Record<string, { label: string; name: string }> = {
   "/homelab": { label: "Homelab", name: "Homelab & Infrastructure" },
   "/how-i-work": { label: "How I Work", name: "How I Work" },
   "/resume": { label: "Resume", name: "Resume" },
-  "/friday": { label: "Friday", name: "Friday" },
 };
 
 export default function Breadcrumbs() {

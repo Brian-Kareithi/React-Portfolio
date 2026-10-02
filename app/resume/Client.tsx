@@ -97,7 +97,7 @@ export default function ResumeClient() {
           <article
             key={role.id}
             className="animate-fade-in-up mx-auto overflow-hidden rounded-[1.5rem] border"
-            style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border)", boxShadow: "8px 8px 0 var(--palette-periwinkle)" }}
+            style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border)", boxShadow: "var(--surface-shadow)" }}
           >
             {/* Letterhead */}
             <header className="border-b px-6 py-8 sm:px-10" style={{ borderColor: "var(--color-border)" }}>
@@ -217,7 +217,7 @@ export default function ResumeClient() {
           {/* Banner */}
           <div className="rp-banner">
             <div className="rp-banner-top">
-              <span className="rp-kicker">Brian Kareithi — Resume · {role.label}</span>
+              <span className="rp-kicker">Brian Kareithi · Resume · {role.label}</span>
               <span className="rp-kicker rp-kicker-right">{today} · {String(roleIndex + 1).padStart(2, "0")} / {String(resumeRoles.length).padStart(2, "0")}</span>
             </div>
             <h1 className="rp-name">{siteConfig.fullName}</h1>
@@ -245,7 +245,7 @@ export default function ResumeClient() {
                   <h2 className="rp-section-title">Experience</h2>
                 </div>
                 <div className="rp-job-head">
-                  <p className="rp-job-title">IT Support / Frontend Development — Steadfast Academy</p>
+                  <p className="rp-job-title">IT Support / Frontend Development, Steadfast Academy</p>
                   <span className="rp-job-period">2025 – Present</span>
                 </div>
                 <ul className="rp-list">
