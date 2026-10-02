@@ -1,24 +1,25 @@
-"use client";
-import { useState } from "react";
 import type { ReactNode } from "react";
 import {
   Code, Wrench, CircuitBoard, ShieldCheck, Network, Container,
-  ArrowRight, CheckCircle,
+  Layers, Boxes, Workflow, GitPullRequest, Braces, Database, Cloud, ServerCog,
 } from "lucide-react";
-import Link from "next/link";
-import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
-import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
-import { SectionHeader } from "@/app/components/ui/SectionHeader";
-import Breadcrumbs from "@/app/components/Breadcrumbs";
-import NextSection from "@/app/components/NextSection";
+import {
+  BiLogoTypescript, BiLogoJava, BiLogoPython, BiLogoJavascript, BiLogoReact,
+  BiLogoNodejs, BiLogoHtml5, BiLogoCss3, BiLogoFlutter, BiLogoVuejs, BiLogoFigma,
+} from "react-icons/bi";
+import { SiKotlin, SiCplusplus, SiDotnet, SiNextdotjs, SiFirebase, SiDocker, SiAmazonwebservices, SiProxmox } from "react-icons/si";
+import { FaApple, FaWindows, FaLinux, FaAndroid } from "react-icons/fa";
+import { DiMongodb } from "react-icons/di";
 
-interface Capability {
+/** Shared by /how-i-work and the FRIDAY assistant. */
+
+export interface Capability {
   title: string;
   description: string;
   points: string[];
 }
 
-interface SkillDomain {
+export interface SkillDomain {
   id: string;
   label: string;
   index: string;
@@ -194,161 +195,158 @@ export const domains: SkillDomain[] = [
   },
 ];
 
-const spearhead = [
-  { value: "50+", label: "Projects Delivered" },
-  { value: "6", label: "Certifications" },
-  { value: "19", label: "Devices Managed" },
-  { value: "9", label: "Languages" },
-  { value: "3", label: "Clouds" },
-  { value: "3TB", label: "RAID Protected" },
+export interface TechItem {
+  title: string;
+  icon: ReactNode;
+}
+
+export interface TechCategory {
+  heading: string;
+  description: string;
+  items: TechItem[];
+}
+
+export const techs: TechCategory[] = [
+  {
+    heading: "Languages",
+    description: "Programming languages I work with",
+    items: [
+      { title: "JavaScript", icon: <BiLogoJavascript /> },
+      { title: "TypeScript", icon: <BiLogoTypescript /> },
+      { title: "Python", icon: <BiLogoPython /> },
+      { title: "Java", icon: <BiLogoJava /> },
+      { title: "C#", icon: <SiDotnet /> },
+      { title: "C++", icon: <SiCplusplus /> },
+      { title: "Kotlin", icon: <SiKotlin /> },
+      { title: "HTML5", icon: <BiLogoHtml5 /> },
+      { title: "CSS3", icon: <BiLogoCss3 /> },
+    ],
+  },
+  {
+    heading: "Frameworks & Libraries",
+    description: "Frontend and backend frameworks",
+    items: [
+      { title: "React", icon: <BiLogoReact /> },
+      { title: "Next.js", icon: <SiNextdotjs /> },
+      { title: "Node.js", icon: <BiLogoNodejs /> },
+      { title: "Flutter", icon: <BiLogoFlutter /> },
+      { title: "Vue.js", icon: <BiLogoVuejs /> },
+    ],
+  },
+  {
+    heading: "Operating Systems",
+    description: "Platforms and OS environments",
+    items: [
+      { title: "Windows 10", icon: <FaWindows /> },
+      { title: "Windows 11", icon: <FaWindows /> },
+      { title: "macOS", icon: <FaApple /> },
+      { title: "iOS", icon: <FaApple /> },
+      { title: "Android", icon: <FaAndroid /> },
+      { title: "Linux", icon: <FaLinux /> },
+    ],
+  },
+  {
+    heading: "Databases & Cloud",
+    description: "Data storage and cloud platforms",
+    items: [
+      { title: "MongoDB", icon: <DiMongodb /> },
+      { title: "Firebase", icon: <SiFirebase /> },
+      { title: "AWS", icon: <SiAmazonwebservices /> },
+    ],
+  },
+  {
+    heading: "DevOps & Tools",
+    description: "Development, deployment, and virtualization tools",
+    items: [
+      { title: "Docker", icon: <SiDocker /> },
+      { title: "Proxmox", icon: <SiProxmox /> },
+      { title: "Figma", icon: <BiLogoFigma /> },
+    ],
+  },
 ];
 
-export default function ExpertiseClient() {
-  const [activeDomain, setActiveDomain] = useState(domains[0].id);
-  const current = domains.find((d) => d.id === activeDomain)!;
+export const principles = [
+  {
+    title: "The right tool for the job",
+    icon: <Layers className="w-4 h-4" />,
+    desc: "I've learned enough languages and frameworks to choose by fit, not habit. Typed TypeScript for web, Kotlin for Android, C/C++ where the silicon matters.",
+  },
+  {
+    title: "Clean layered architecture",
+    icon: <Boxes className="w-4 h-4" />,
+    desc: "Separating data, domain, and presentation keeps systems testable and swappable. A change in one layer should never ripple through everything.",
+  },
+  {
+    title: "Security by default",
+    icon: <Braces className="w-4 h-4" />,
+    desc: "Every layer of the stack is engineered with security in mind: validate input, encrypt transit, enforce least privilege, and assume hostile networks.",
+  },
+  {
+    title: "Optimize the right things",
+    icon: <Workflow className="w-4 h-4" />,
+    desc: "Measure before you tune. I focus on real bottlenecks and measurable wins, not premature micro-optimization.",
+  },
+];
 
-  return (
-    <section id="expertise" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3.75 sm:px-7.5 lg:px-12 relative"
-      style={{ backgroundColor: "var(--color-bg-primary)" }}>
-      <ScrollReveal>
-      <div className="max-w-5xl mx-auto w-full">
-        <Breadcrumbs />
-        <SectionHeader
-          index="05"
-          label="Capabilities"
-          variant="center"
-          title={<>What I&rsquo;m <em className="font-serif-accent">good at</em></>}
-          description="Six domains, one mindset: deep, hands-on mastery across the entire technology stack, from bare silicon to cloud-native systems."
-        />
+export const architecture = [
+  {
+    title: "Frontend",
+    icon: <Boxes className="w-4 h-4" />,
+    stack: "Next.js · React · TypeScript · Tailwind",
+    desc: "Server components, incremental rendering, and design systems. I improve UI performance through architecture, not hacks.",
+  },
+  {
+    title: "Mobile",
+    icon: <Braces className="w-4 h-4" />,
+    stack: "React Native · Expo · Kotlin",
+    desc: "Cross-platform apps that ship to both stores, plus native Kotlin builds for Android with local databases and offline-first design.",
+  },
+  {
+    title: "Backend & APIs",
+    icon: <ServerCog className="w-4 h-4" />,
+    stack: "Node.js · Express · Next.js API",
+    desc: "RESTful and typed APIs with auth, validation, and clean separation. Designed to scale and easy to reason about.",
+  },
+  {
+    title: "Data",
+    icon: <Database className="w-4 h-4" />,
+    stack: "PostgreSQL · MongoDB · SQLite · Firebase",
+    desc: "Schema design, queries, and data modeling that fit the access patterns, not the other way around. Both relational and document stores.",
+  },
+  {
+    title: "Cloud & Infra",
+    icon: <Cloud className="w-4 h-4" />,
+    stack: "AWS · Azure · GCP · Docker · Proxmox",
+    desc: "Multi-cloud architecture with containers, virtualization, and automation. Built to keep infrastructure costs low without losing reliability.",
+  },
+  {
+    title: "Delivery",
+    icon: <GitPullRequest className="w-4 h-4" />,
+    stack: "Git · CI/CD · Automated deploy",
+    desc: "Repeatable pipelines that take a commit to production automatically, with monitoring and backups built in.",
+  },
+];
 
-        {/* Spearhead stats as round badges */}
-        <StaggerReveal staggerDelay={60}>
-        <div className="mb-16 flex flex-wrap justify-center gap-4 sm:mb-20 sm:gap-6">
-          {spearhead.map((s, i) => (
-            <div
-              key={s.label}
-              className="flex h-28 w-28 flex-col items-center justify-center rounded-full border text-center sm:h-32 sm:w-32"
-              style={{
-                backgroundColor: i % 2 === 0 ? "var(--color-bg-card)" : "var(--color-highlight)",
-                borderColor: "var(--color-border)",
-              }}
-            >
-              <span className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-accent)" }}>
-                {s.value}
-              </span>
-              <span className="mt-1 max-w-[5.5rem] text-[10px] font-medium leading-tight" style={{ color: "var(--color-text-secondary)" }}>
-                {s.label}
-              </span>
-            </div>
-          ))}
-        </div>
-        </StaggerReveal>
+export const workflow = [
+  { step: "01", title: "Understand", desc: "Clarify the goal, constraints, and the real users before writing a line of code." },
+  { step: "02", title: "Design", desc: "Map the architecture, data flow, and security boundaries on paper first." },
+  { step: "03", title: "Build", desc: "Implement in small, reviewable increments with tests alongside the code." },
+  { step: "04", title: "Verify", desc: "Test, lint, and profile. Prove it works and is fast under realistic load." },
+  { step: "05", title: "Ship", desc: "Deploy through automation, then monitor for regressions and harden." },
+  { step: "06", title: "Iterate", desc: "Refactor, learn, measure. Software is a living system, never a finished one." },
+];
 
-        {/* Domain menu + detail */}
-        <div className="grid gap-6 lg:grid-cols-12">
-          <div
-            className="flex gap-2 overflow-x-auto pb-2 lg:col-span-4 lg:flex-col lg:overflow-visible lg:pb-0"
-            role="tablist"
-            aria-label="Skill domains"
-          >
-            {domains.map((d) => {
-              const active = d.id === activeDomain;
-              return (
-                <button
-                  key={d.id}
-                  onClick={() => setActiveDomain(d.id)}
-                  role="tab"
-                  aria-selected={active}
-                  className="group flex min-h-[44px] flex-shrink-0 items-center gap-3 rounded-full border px-4 py-2.5 text-left transition-all duration-200 lg:rounded-2xl lg:px-5 lg:py-4"
-                  style={{
-                    backgroundColor: active ? "var(--color-accent)" : "var(--color-bg-card)",
-                    borderColor: active ? "var(--color-accent)" : "var(--color-border)",
-                    color: active ? "var(--color-on-accent)" : "var(--color-text-secondary)",
-                  }}
-                >
-                  <span className="font-mono text-[11px] opacity-70">{d.index}</span>
-                  <span className="inline-flex" aria-hidden="true">{d.icon}</span>
-                  <span className="whitespace-nowrap text-sm font-medium lg:font-serif-accent lg:text-2xl lg:font-normal">{d.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div key={current.id} className="ink-slab animate-fade-in-up p-6 xs:p-8 md:p-10 lg:col-span-8">
-            <p className="font-mono text-xs mb-4" style={{ color: "var(--color-accent)" }}>
-              {current.index} / 06 · {current.label}
-            </p>
-            <h3 className="display-xl mb-4 text-3xl sm:text-4xl">
-              {current.tagline}
-            </h3>
-            <p className="mb-6 max-w-2xl text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-              {current.summary}
-            </p>
-
-            <div className="mb-8 flex flex-wrap gap-1.5">
-              {current.tools.map((t) => (
-                <span key={t} className="rounded-full border px-3 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
-                  {t}
-                </span>
-              ))}
-            </div>
-
-            <div className="grid gap-3">
-              {current.capabilities.map((cap, i) => (
-                <div key={cap.title} className="flat-card p-5">
-                  <p className="font-serif-accent mb-2 text-3xl leading-none" style={{ color: "var(--color-accent)" }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <h4 className="mb-1.5 text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
-                    {cap.title}
-                  </h4>
-                  <p className="mb-3 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                    {cap.description}
-                  </p>
-                  <ul className="space-y-1.5">
-                    {cap.points.map((p) => (
-                      <li key={p} className="flex items-start gap-1.5 text-[11px]" style={{ color: "var(--color-text-muted)" }}>
-                        <CheckCircle className="mt-0.5 w-3 h-3 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* CTA links */}
-        <StaggerReveal>
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-6 rounded-[2rem] px-6 py-6 sm:px-8" style={{ backgroundColor: "var(--color-highlight)" }}>
-          <p className="max-w-xl text-base" style={{ color: "var(--color-text-primary)" }}>
-            This is the &ldquo;what&rdquo;. For the <em className="font-serif-accent" style={{ color: "var(--color-accent)" }}>how</em> I think and work, dive into Diagnostics and Engineering.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/troubleshooting" className="btn-neon btn-neon-ghost">
-              Diagnostics
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-            <Link href="/engineering" className="btn-neon btn-neon-primary">
-              Engineering
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-        </StaggerReveal>
-
-        <NextSection
-          title="See the how and the work"
-          description="Capabilities are the what. Dig into the methodology and the results."
-          links={[
-            { href: "/troubleshooting", label: "Diagnostics", description: "A repeatable, evidence-driven method for root causes." },
-            { href: "/engineering", label: "Engineering", description: "Architecture principles and delivery workflow." },
-            { href: "/projects", label: "Selected Work", description: "Products, apps and experiments built with these skills." },
-          ]}
-        />
-      </div>
-      </ScrollReveal>
-    </section>
-  );
-}
+export const stack = [
+  { item: "TypeScript", use: "Full-stack & mobile" },
+  { item: "React / Next.js", use: "Web & SSR platforms" },
+  { item: "React Native / Expo", use: "iOS + Android" },
+  { item: "Node.js", use: "Backend & APIs" },
+  { item: "Kotlin", use: "Native Android" },
+  { item: "C / C++", use: "Embedded firmware" },
+  { item: "Python", use: "Security tooling & scripting" },
+  { item: "Docker", use: "Containers everywhere" },
+  { item: "Proxmox", use: "VM & lab virtualization" },
+  { item: "AWS / Azure / GCP", use: "Cloud platforms" },
+  { item: "PostgreSQL / MongoDB", use: "Data storage" },
+  { item: "C#", use: "Backend services" },
+];

@@ -14,20 +14,18 @@ export interface NavRoute {
 export const routes: NavRoute[] = [
   { path: "/", label: "Home", index: "00", description: "Identity & index" },
   { path: "/about", label: "About", index: "01", description: "Journey, education & certifications" },
-  { path: "/techstack", label: "Tech Stack", index: "02", description: "Languages, frameworks & platforms" },
-  { path: "/projects", label: "Selected Work", index: "03", description: "Delivered products & experiments" },
+  { path: "/how-i-work", label: "How I Work", index: "02", description: "Principles, stack & capabilities" },
+  { path: "/projects", label: "Selected Work", index: "03", description: "Case studies with live demos" },
   { path: "/contact", label: "Contact", index: "04", description: "Start a conversation" },
-  { path: "/expertise", label: "Expertise", index: "05", description: "Six hands-on skill domains" },
+  { path: "/homelab", label: "Homelab", index: "05", description: "24/7 infrastructure I run" },
   { path: "/troubleshooting", label: "Diagnostics", index: "06", description: "An evidence-driven method" },
-  { path: "/engineering", label: "Engineering", index: "07", description: "How the software gets built" },
-  { path: "/hobbies", label: "Homelab", index: "08", description: "Servers, sensors & firmware" },
-  { path: "/resume", label: "Resume", index: "09", description: "Role-tailored CV, three ways" },
-  { path: "/friday", label: "Friday", index: "10", description: "An Iron Man–style AI assistant", tag: "Surprise" },
+  { path: "/resume", label: "Resume", index: "07", description: "Role-tailored CV, three ways" },
+  { path: "/friday", label: "Friday", index: "08", description: "An Iron Man–style AI assistant", tag: "Surprise" },
 ];
 
 /** Tight primary set shown in the desktop bar; the palette covers the rest. */
 export const primaryNav: NavRoute[] = routes.filter((r) =>
-  ["/", "/about", "/techstack", "/projects", "/contact", "/friday"].includes(r.path)
+  ["/", "/about", "/how-i-work", "/projects", "/contact", "/friday"].includes(r.path)
 );
 
 export interface ExternalLink {
@@ -39,7 +37,6 @@ export interface ExternalLink {
 export const externalLinks: ExternalLink[] = [
   { label: "GitHub", href: siteConfig.github, hint: "Brian-Kareithi" },
   { label: "LinkedIn", href: siteConfig.linkedin, hint: "brian-kareithi" },
-  { label: "Instagram", href: siteConfig.instagram, hint: "kareithiv" },
   { label: "Email", href: `mailto:${siteConfig.email}`, hint: siteConfig.email },
   { label: "llms.txt", href: "/llms.txt", hint: "Machine-readable profile" },
 ];

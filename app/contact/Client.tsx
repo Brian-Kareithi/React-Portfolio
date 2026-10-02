@@ -6,7 +6,7 @@ import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
-import { Github, Linkedin, Instagram, Mail, Phone, MapPin, User, Send, CheckCircle2, TriangleAlert } from "lucide-react";
+import { Github, Instagram, Linkedin, Mail, Phone, MapPin, User, Send, CheckCircle2, TriangleAlert } from "lucide-react";
 
 export default function ContactClient() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -81,7 +81,7 @@ export default function ContactClient() {
   const socials = [
     { icon: Github, href: "https://github.com/Brian-Kareithi", label: "GitHub" },
     { icon: Linkedin, href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
-    { icon: Instagram, href: "https://www.instagram.com/kareithiv", label: "Instagram" },
+    { icon: Instagram, href: "https://www.instagram.com/kareithi._/", label: "Instagram" },
   ];
 
   const fields: { name: keyof typeof formData; label: string; type: string; placeholder: string; autoComplete: string; icon: typeof User; half?: boolean }[] = [
@@ -91,7 +91,7 @@ export default function ContactClient() {
   ];
 
   return (
-    <section id="contact" className="relative w-full px-3.75 sm:px-7.5 lg:px-12 pb-20 pt-24 md:pb-24 md:pt-32"
+    <section id="contact" className="relative w-full px-2.5 sm:px-5 lg:px-8.5 pb-20 pt-24 md:pb-24 md:pt-32"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
         <div className="max-w-5xl mx-auto w-full">
@@ -258,7 +258,7 @@ export default function ContactClient() {
             links={[
               { href: "/about", label: "About", description: "The journey behind the developer." },
               { href: "/projects", label: "Selected Work", description: "Delivered products and experiments." },
-              { href: "/hobbies", label: "Homelab", description: "What I build when the workday ends." },
+              { href: "/homelab", label: "Homelab", description: "The 24/7 infrastructure I build and run." },
             ]}
           />
         </div>

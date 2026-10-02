@@ -52,7 +52,7 @@ const jsonLd = {
         longitude: 36.8219,
       },
       areaServed: { "@type": "Place", name: "Global (Remote)" },
-      sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.instagram],
+      sameAs: [siteConfig.github, siteConfig.linkedin],
     },
     {
       "@type": "Person",
@@ -69,7 +69,7 @@ const jsonLd = {
         { "@type": "EducationalOrganization", name: "Umma University" },
         { "@type": "EducationalOrganization", name: "Thika High School" },
       ],
-      sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.instagram],
+      sameAs: [siteConfig.github, siteConfig.linkedin],
       knowsAbout: [
         "Next.js",
         "React",

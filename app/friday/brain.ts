@@ -2,10 +2,8 @@ import { siteConfig } from "@/app/lib/site";
 import { caseStudies, otherProjects } from "@/app/lib/projects-data";
 import { resumeRoles, resumeEducation } from "@/app/lib/resume-data";
 import { experience, timeline, stats } from "@/app/about/Client";
-import { domains } from "@/app/expertise/Client";
-import { techs } from "@/app/techstack/Client";
-import { gearCategories, builds, labStats, tinkering } from "@/app/hobbies/Client";
-import { principles, architecture, workflow, stack } from "@/app/engineering/Client";
+import { domains, techs, principles, architecture, workflow, stack } from "@/app/lib/skills-data";
+import { gearCategories, builds, labStats, tinkering } from "@/app/homelab/Client";
 import { steps, cases } from "@/app/troubleshooting/Client";
 
 /**
@@ -135,7 +133,7 @@ const certAliases: Record<string, string[]> = {
   "IBM Cybersecurity Analyst": ["ibm", "cybersecurity analyst"],
 };
 
-const techLevels = techs.flatMap((c) => c.items.map((i) => ({ name: i.title, level: i.level, group: c.heading })));
+const techNames = techs.flatMap((c) => c.items.map((i) => i.title));
 const gearAliases: Record<string, string[]> = {
   "Glorious Model O": ["model o", "glorious"],
   "AULA S2027": ["aula"],
@@ -170,7 +168,7 @@ function gearAnswer(q: string) {
   if (!items.length) return undefined;
   const [first, ...rest] = items;
   const others = rest.length ? ` He also has the ${list(rest.map((g) => g.name))}.` : "";
-  return `For ${kind.label}, his main one is the ${first.name}. ${thirdPerson(first.outcome)}${others} I've got the full specs on /hobbies.`;
+  return `For ${kind.label}, his main one is the ${first.name}. ${thirdPerson(first.outcome)}${others} I've got the full specs on /homelab.`;
 }
 
 const techAliases: Record<string, string[]> = {
@@ -228,17 +226,17 @@ const entities: Entity[] = [
       more: `What it covers for him in practice: ${list((t.metrics ?? []).map(lower))}.`,
       answer: () => `Yes, Brian holds the ${t.title} from ${t.institution}, earned in ${t.period}. ${t.description}`,
     })),
-  ...[...techLevels.map((t) => t.name), ...extraTech].map<Entity>((name) => ({
+  ...[...techNames, ...extraTech].map<Entity>((name) => ({
     kind: "tech",
     name,
     aliases: [name.toLowerCase(), ...(techAliases[name] ?? [])],
-    page: "/techstack",
+    page: "/how-i-work",
     answer: () => {
-      const known = techLevels.find((t) => t.name === name);
+      const known = techNames.includes(name);
       const projects = usedIn(name);
       const use = stackUse(name);
       const parts = [
-        known ? `${name} is on his stack at ${/^[aeiou]/.test(known.level) ? "an" : "a"} ${known.level} level` : `${name} is part of his toolkit`,
+        known ? `${name} is on his stack` : `${name} is part of his toolkit`,
         use ? `he mainly uses it for ${lower(use)}` : "",
       ].filter(Boolean);
       const where = projects.length ? ` You can see it in ${list(projects.slice(0, 3))}.` : "";
@@ -250,7 +248,7 @@ const entities: Entity[] = [
       kind: "gear",
       name: g.name,
       aliases: [g.name.toLowerCase().replace(/"/g, ""), ...(gearAliases[g.name] ?? [])],
-      page: "/hobbies",
+      page: "/homelab",
       more: `Specs: ${list(g.specs)}.`,
       answer: () => `The ${g.name} is part of his ${c.title.toLowerCase()} gear. ${thirdPerson(g.outcome)}`,
     })),
@@ -259,7 +257,7 @@ const entities: Entity[] = [
     kind: "build",
     name: b.title,
     aliases: [b.title.toLowerCase(), ...buildAliases[i]],
-    page: "/hobbies",
+    page: "/homelab",
     more: `Under the hood: ${b.stack}.`,
     answer: () => `${b.title} is one of his homelab builds (${b.status.toLowerCase()}). ${thirdPerson(b.outcome)}`,
   })),
@@ -275,7 +273,7 @@ const entities: Entity[] = [
     kind: "domain",
     name: d.label,
     aliases: [d.label.toLowerCase(), d.id, ...(d.id === "security" ? ["cybersecurity", "cyber security"] : d.id === "cloudops" ? ["devops", "cloud"] : d.id === "networking" ? ["network", "networks"] : [])],
-    page: "/expertise",
+    page: "/how-i-work",
     stack: d.tools,
     more: thirdPerson(d.capabilities.map((c) => `${c.title}: ${lower(stripDot(c.description))}.`).join(" ")),
     answer: () => `${d.label} is one of his core areas. ${thirdPerson(d.summary)} Tools he leans on: ${list(d.tools)}.`,
@@ -325,8 +323,8 @@ const topics: Topic[] = [
       `You can email Brian at ${siteConfig.email} or call ${siteConfig.phoneDisplay}. There's also a contact form on /contact, and he usually responds within 24 hours.`,
   },
   {
-    test: / linkedin| github| socials?| instagram| twitter/,
-    answer: () => `Here you go: GitHub ${siteConfig.github}, LinkedIn ${siteConfig.linkedin}, and Instagram ${siteConfig.instagram}.`,
+    test: / linkedin| github| socials?| twitter/,
+    answer: () => `Here you go: GitHub ${siteConfig.github} and LinkedIn ${siteConfig.linkedin}.`,
   },
   {
     test: / where .*(live|based|from)| location| located| based in| country| city| nairobi| kenya/,
@@ -360,7 +358,7 @@ const topics: Topic[] = [
       `His homelab is a proper little data centre: ${devices} devices, a Proxmox node running 24/7, 3TB of RAID-1 storage and zero data lost since day one. The fun builds are ${list(builds.map((b) => b.title.toLowerCase()))}.`,
     subject: {
       name: "the homelab",
-      page: "/hobbies",
+      page: "/homelab",
       more: `Lately he's been tinkering with ${list(tinkering.map((t) => `${t.title} (${lower(stripDot(t.desc))})`))}.`,
     },
   },
@@ -382,17 +380,17 @@ const topics: Topic[] = [
   {
     test: / process| workflow| approach| how does he (work|build)| methodology/,
     answer: () => `His workflow has six steps: ${workflow.map((w) => w.title.toLowerCase()).join(" → ")}. ${thirdPerson(workflow[0].desc)}`,
-    subject: { name: "his workflow", page: "/engineering", more: thirdPerson(workflow.map((w) => `${w.title}: ${w.desc}`).join(" ")) },
+    subject: { name: "his workflow", page: "/how-i-work", more: thirdPerson(workflow.map((w) => `${w.title}: ${w.desc}`).join(" ")) },
   },
   {
     test: / principle| philosoph| values| believe/,
     answer: () => `A few principles he builds by: ${list(principles.map((p) => lower(p.title)))}. ${thirdPerson(principles[2].desc)}`,
-    subject: { name: "his principles", page: "/engineering", more: thirdPerson(principles.map((p) => p.desc).join(" ")) },
+    subject: { name: "his principles", page: "/how-i-work", more: thirdPerson(principles.map((p) => p.desc).join(" ")) },
   },
   {
     test: / architect| system design| backend| frontend| full.?stack/,
     answer: () => `Across the stack: ${architecture.map((a) => `${a.title.toLowerCase()} with ${a.stack}`).join("; ")}.`,
-    subject: { name: "architecture", page: "/engineering" },
+    subject: { name: "architecture", page: "/how-i-work" },
   },
   {
     test: / troubleshoot| debug| diagnos| fix(es|ing)? (things|problems|issues)| problem.?solv/,
@@ -417,8 +415,8 @@ const topics: Topic[] = [
   {
     test: / skills?| tech stack| stack| tools| technolog| good at| strengths?| expertise| speciali/,
     answer: () =>
-      `Brian works across three areas: software engineering (React, Next.js, TypeScript, Node.js), mobile (React Native, Expo) and IT & infrastructure (Linux, networking, system administration). He goes deeper on ${list(domains.map((d) => d.label.toLowerCase()))} on /expertise.`,
-    subject: { name: "his skills", page: "/techstack", more: techs.map((c) => `${c.heading}: ${c.items.map((i) => i.title).join(", ")}.`).join(" ") },
+      `Brian works across three areas: software engineering (React, Next.js, TypeScript, Node.js), mobile (React Native, Expo) and IT & infrastructure (Linux, networking, system administration). He goes deeper on ${list(domains.map((d) => d.label.toLowerCase()))} on /how-i-work.`,
+    subject: { name: "his skills", page: "/how-i-work", more: techs.map((c) => `${c.heading}: ${c.items.map((i) => i.title).join(", ")}.`).join(" ") },
   },
   {
     test: / how (many|long)| years| stats| numbers/,

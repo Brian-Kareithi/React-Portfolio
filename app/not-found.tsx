@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const popularPaths = ["/", "/about", "/projects", "/techstack", "/contact"];
+const popularPaths = ["/", "/about", "/projects", "/how-i-work", "/contact"];
 const popularLinks = popularPaths
   .map((path) => routes.find((r) => r.path === path))
   .filter((r): r is NonNullable<typeof r> => Boolean(r));

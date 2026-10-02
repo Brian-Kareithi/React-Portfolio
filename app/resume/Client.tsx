@@ -44,7 +44,7 @@ export default function ResumeClient() {
   };
 
   return (
-    <section id="resume" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3.75 sm:px-7.5 lg:px-12 relative"
+    <section id="resume" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-2.5 sm:px-5 lg:px-8.5 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
@@ -53,7 +53,7 @@ export default function ResumeClient() {
         {/* ── Screen version ─────────────────────────────────── */}
         <div className="resume-screen">
           <SectionHeader
-            index="09"
+            index="07"
             label="Resume"
             variant="center"
             title={<>One background, <em className="font-serif-accent">tailored</em></>}

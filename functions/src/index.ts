@@ -20,7 +20,7 @@ Profile:
 - 3 years in tech and 50+ projects delivered.
 - Skills include React, Next.js, TypeScript, Node.js, React Native, Expo, Linux, networking, and system administration.
 - Homelab: 18 devices, Proxmox running 24/7, RAID-1 storage, and ESP32 automation.
-- Portfolio pages: https://kareithi.vercel.app/about, /expertise, /projects, /techstack, /hobbies, /resume, and /contact.`;
+- Portfolio pages: https://kareithi.vercel.app/about, /how-i-work, /projects, /homelab, /troubleshooting, /resume, and /contact.`;
 
 type Turn = { role: "user" | "assistant"; content: string };
 

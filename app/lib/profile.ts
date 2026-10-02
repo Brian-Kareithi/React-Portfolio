@@ -30,12 +30,10 @@ delivered 50+ projects.
 ## Pages
 - [Home](${siteConfig.url}/): Overview, roles and quick links
 - [About](${siteConfig.url}/about): Journey, education, certifications, experience
-- [Expertise](${siteConfig.url}/expertise): Six skill domains with capabilities
-- [Engineering](${siteConfig.url}/engineering): Principles, architecture, workflow
+- [How I Work](${siteConfig.url}/how-i-work): Principles, stack by layer, workflow and capabilities
 - [Diagnostics](${siteConfig.url}/troubleshooting): Troubleshooting method and case studies
-- [Tech Stack](${siteConfig.url}/techstack): Languages, frameworks, tools by proficiency
 - [Selected Work](${siteConfig.url}/projects): Case studies: problem, solution, architecture
-- [Homelab](${siteConfig.url}/hobbies): Gear, builds and lab experiments
+- [Homelab](${siteConfig.url}/homelab): 24/7 infrastructure: Proxmox, RAID-1, managed network, ESP32 automation
 - [Resume](${siteConfig.url}/resume): Role-tailored resume: software, mobile, or IT
 - [Contact](${siteConfig.url}/contact): Email and contact form
 - [Friday](${siteConfig.url}/friday): FRIDAY, an AI assistant that answers questions about Brian

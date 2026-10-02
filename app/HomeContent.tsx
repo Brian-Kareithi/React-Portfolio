@@ -1,43 +1,37 @@
 "use client";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Linkedin, Instagram, Mail, ArrowRight, Command } from "lucide-react";
-import Magnetic from "@/app/components/ui/Magnetic";
+import { Github, Linkedin, Mail, ArrowRight, ArrowUpRight, Command, FileDown } from "lucide-react";
 import useLocalTime from "@/app/components/ui/useLocalTime";
 import { useCommandPalette } from "@/app/components/CommandPalette";
+import Testimonials from "@/app/components/Testimonials";
 import { routes } from "@/app/lib/nav";
 import { focusAreas, alsoExploring } from "@/app/lib/focus";
+import { caseStudies } from "@/app/lib/projects-data";
 import { siteConfig } from "@/app/lib/site";
 
-const roles = [
-  "Software Engineer",
-  "React Native Developer",
-  "IT & Infrastructure Support",
-  "Cloud & DevOps Enthusiast",
-];
-
 const spec: { k: string; v: string }[] = [
-  { k: "Role", v: siteConfig.role },
-  { k: "Based in", v: "Nairobi, Kenya" },
-  { k: "Focus", v: "Secure, scalable software · mobile to cloud-native" },
-  { k: "Certifications", v: "6 · security, cloud & networking" },
-  { k: "Projects", v: "50+ delivered" },
+  { k: "Currently", v: "Frontend development & IT support, Steadfast Academy" },
+  { k: "Based in", v: "Nairobi, Kenya · open to remote" },
+  { k: "Certifications", v: "6 · Security+, CCNA, AWS, Azure & more" },
+  { k: "Education", v: "BSc Information Technology, Umma University" },
   { k: "Experience", v: "3 years in tech" },
   { k: "Homelab", v: "19 devices · 24/7 Proxmox" },
 ];
 
 const socials = [
-  { href: "https://github.com/Brian-Kareithi", icon: Github, label: "GitHub" },
-  { href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", icon: Linkedin, label: "LinkedIn" },
-  { href: "https://www.instagram.com/kareithiv", icon: Instagram, label: "Instagram" },
-  { href: "mailto:kareithibrian2@gmail.com", icon: Mail, label: "Email" },
+  { href: siteConfig.github, icon: Github, label: "GitHub" },
+  { href: siteConfig.linkedin, icon: Linkedin, label: "LinkedIn" },
+  { href: `mailto:${siteConfig.email}`, icon: Mail, label: "Email" },
 ];
 
+/** The two strongest shipped builds, shown with real captures. */
+const featured = ["sapio-homes", "roadsafe360"]
+  .map((id) => caseStudies.find((c) => c.id === id))
+  .filter((c): c is (typeof caseStudies)[number] => Boolean(c?.screenshot));
+
 export default function HomeContent() {
-  const [currentRole, setCurrentRole] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
   const time = useLocalTime("Africa/Nairobi");
   const { open: openPalette } = useCommandPalette();
   const mounted = useSyncExternalStore(
@@ -46,28 +40,10 @@ export default function HomeContent() {
     () => false
   );
 
-  useEffect(() => {
-    const fullText = roles[currentRole % roles.length];
-    const handleTyping = () => {
-      setDisplayText((prev) => {
-        if (isDeleting) return prev.substring(0, prev.length - 1);
-        return fullText.substring(0, prev.length + 1);
-      });
-      if (!isDeleting && displayText === fullText) {
-        setTimeout(() => setIsDeleting(true), 1400);
-      } else if (isDeleting && displayText === "") {
-        setIsDeleting(false);
-        setCurrentRole((prev) => (prev + 1) % roles.length);
-      }
-    };
-    const timer = setTimeout(handleTyping, isDeleting ? 70 : 140);
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, currentRole]);
-
   const indexRoutes = routes.filter((r) => r.path !== "/");
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden px-3.75 sm:px-7.5 lg:px-12" style={{ backgroundColor: "var(--color-bg-primary)" }}>
+    <section id="home" className="relative min-h-screen overflow-hidden px-2.5 sm:px-5 lg:px-8.5" style={{ backgroundColor: "var(--color-bg-primary)" }}>
       {/* Soft periwinkle glow behind the hero */}
       <div
         aria-hidden="true"
@@ -75,11 +51,19 @@ export default function HomeContent() {
         style={{ background: "radial-gradient(circle, var(--palette-periwinkle), transparent 65%)" }}
       />
 
-      <div className="relative mx-auto max-w-5xl pt-32 pb-20 sm:pt-36">
+      <div className="relative mx-auto max-w-5xl pt-28 pb-20 sm:pt-36">
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
           {/* Identity */}
-          <div className="lg:col-span-7">
-            <h1 className="display-xl mb-6 text-[3.4rem] leading-[0.95] xs:text-7xl sm:text-8xl lg:text-[7.5rem]" style={{ color: "var(--color-text-primary)" }}>
+          <div className="min-w-0 lg:col-span-7">
+            <p className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium sm:text-[13px]" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-primary)" }}>
+              <span className="relative flex h-2 w-2 flex-shrink-0">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ backgroundColor: "#22a06b" }} />
+                <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: "#22a06b" }} />
+              </span>
+              <span>Open to full-time &amp; contract roles · Remote or Nairobi</span>
+            </p>
+
+            <h1 className="display-xl mb-6 text-[3.1rem] leading-[0.95] xs:text-7xl sm:text-8xl lg:text-[7.5rem]" style={{ color: "var(--color-text-primary)" }}>
               Brian
               <br />
               <span className={`reveal-mask ${mounted ? "is-in" : ""}`}>
@@ -87,34 +71,25 @@ export default function HomeContent() {
               </span>
             </h1>
 
-            <div className="mb-6 min-h-10">
-              <p aria-live="polite" className="inline-flex items-center rounded-full px-4 py-2 font-mono text-sm sm:text-base" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-primary)" }}>
-                <span>{displayText}</span>
-                <span className="type-caret" aria-hidden="true" />
-              </p>
-            </div>
-
+            <p className="mb-3 max-w-xl text-xl font-medium leading-snug sm:text-2xl" style={{ color: "var(--color-text-primary)" }}>
+              Software engineer shipping <span className="mark">Next.js</span> and <span className="mark">React Native</span> apps.
+            </p>
             <p className="mb-9 max-w-lg text-base leading-relaxed sm:text-lg" style={{ color: "var(--color-text-secondary)" }}>
-              I build <span className="mark">secure</span>, cloud-native products, from React Native apps to hardened infrastructure.
+              Currently building the parent platform at Steadfast Academy, on the web and on Android and iOS, backed by hands-on infrastructure and security experience.
             </p>
 
-            <div className="mb-9 flex flex-wrap gap-3">
-              <Magnetic>
-                <Link href="/projects" className="btn-neon btn-neon-primary" data-cursor="grow">
-                  View Systems Built
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Magnetic>
-              <Magnetic>
-                <Link href="/contact" className="btn-neon btn-neon-ghost" data-cursor="grow">
-                  Get in Touch
-                </Link>
-              </Magnetic>
-              <Magnetic>
-                <Link href="/resume" className="btn-neon btn-neon-ghost" data-cursor="grow">
-                  View Resume
-                </Link>
-              </Magnetic>
+            <div className="mb-9 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
+              <Link href="/projects" className="btn-neon btn-neon-primary justify-center">
+                View Selected Work
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a href={siteConfig.resumePdf} download className="btn-neon btn-neon-ghost justify-center">
+                <FileDown className="w-4 h-4" />
+                Download Resume
+              </a>
+              <Link href="/contact" className="btn-neon btn-neon-ghost justify-center">
+                Get in Touch
+              </Link>
             </div>
 
             <div className="flex items-center gap-2.5">
@@ -122,8 +97,8 @@ export default function HomeContent() {
                 <a
                   key={label}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
                   className="icon-chip flex h-11 w-11 items-center justify-center rounded-full"
                   style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)", backgroundColor: "var(--color-bg-card)" }}
@@ -136,16 +111,16 @@ export default function HomeContent() {
 
           {/* Portrait in an arch, with stickers */}
           <div className="lg:col-span-5">
-            <div className="relative mx-auto max-w-[21rem] lg:mr-0">
+            <div className="relative mx-auto max-w-[17rem] xs:max-w-[21rem] lg:mr-0">
               <div
                 className="group relative aspect-[4/5] overflow-hidden rounded-t-full rounded-b-[2rem] border"
                 style={{ borderColor: "var(--color-border)", boxShadow: "10px 10px 0 var(--palette-periwinkle)" }}
               >
                 <Image
                   src="https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg"
-                  alt="Portrait of Brian Kareithi, full-stack developer and cybersecurity specialist based in Nairobi, Kenya"
+                  alt="Portrait of Brian Kareithi, software engineer based in Nairobi, Kenya"
                   fill
-                  sizes="(max-width: 1024px) 336px, 336px"
+                  sizes="(max-width: 375px) 272px, 336px"
                   priority
                   className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
@@ -162,16 +137,63 @@ export default function HomeContent() {
                 className="absolute -bottom-5 -right-2 rotate-3 rounded-2xl px-4 py-3 sm:-right-8"
                 style={{ backgroundColor: "var(--palette-true-cobalt)", color: "var(--palette-lavender-mist)" }}
               >
-                <p className="font-serif-accent text-3xl leading-none">50+</p>
-                <p className="text-[11px] opacity-80">projects delivered</p>
+                <p className="font-serif-accent text-3xl leading-none">6</p>
+                <p className="text-[11px] opacity-80">industry certifications</p>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Featured work: real captures of shipped products */}
+        {featured.length > 0 && (
+          <div className="mt-24">
+            <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+              <h2 className="display-xl text-4xl sm:text-5xl" style={{ color: "var(--color-text-primary)" }}>
+                Featured <span className="font-serif-accent">work</span>
+              </h2>
+              <Link href="/projects" className="link-underline text-sm font-medium" style={{ color: "var(--color-accent)" }}>
+                All case studies →
+              </Link>
+            </div>
+            <div className="grid gap-4 lg:grid-cols-5">
+              {featured.map((study, i) => (
+                <article key={study.id} className={`flat-card flex flex-col overflow-hidden ${i === 0 ? "lg:col-span-3" : "lg:col-span-2"}`}>
+                  <Link href={`/projects#${study.id}`} className="group block overflow-hidden border-b" style={{ borderColor: "var(--color-border)" }}>
+                    <Image
+                      src={study.screenshot!.src}
+                      alt={study.screenshot!.alt}
+                      width={1440}
+                      height={900}
+                      sizes="(max-width: 1024px) 100vw, 640px"
+                      className="aspect-[16/10] h-auto w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                    />
+                  </Link>
+                  <div className="flex flex-1 flex-col p-5 sm:p-6">
+                    <p className="field-label mb-2">{study.status} · {study.stack.slice(0, 3).join(" · ")}</p>
+                    <h3 className="font-serif-accent mb-2 text-3xl leading-tight" style={{ color: "var(--color-text-primary)" }}>{study.title}</h3>
+                    <p className="mb-5 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{study.tagline}. {study.contribution}</p>
+                    <div className="mt-auto flex flex-wrap gap-2">
+                      {study.access.demo && (
+                        <a href={study.access.demo} target="_blank" rel="noopener noreferrer" className="btn-neon btn-neon-primary">
+                          Live demo <ArrowUpRight className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                      <Link href={`/projects#${study.id}`} className="btn-neon btn-neon-ghost">
+                        Case study
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <Testimonials />
+
         {/* At a glance */}
-        <dl className="mt-20 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {spec.filter((row) => row.k !== "Role").map((row) => (
+        <dl className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {spec.map((row) => (
             <div key={row.k} className="flat-card px-5 py-4">
               <dt className="field-label mb-1.5">{row.k}</dt>
               <dd className="text-sm leading-snug" style={{ color: "var(--color-text-primary)" }}>{row.v}</dd>
@@ -179,18 +201,21 @@ export default function HomeContent() {
           ))}
         </dl>
 
-        {/* Focus areas */}
-        <div className="ink-slab mt-16 px-6 py-10 sm:px-10 sm:py-12">
+        {/* Focus areas: web & mobile lead, infrastructure backs them */}
+        <div className="ink-slab mt-16 px-5 py-10 xs:px-6 sm:px-10 sm:py-12">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <h2 className="display-xl text-4xl sm:text-5xl">
-              What I <span className="font-serif-accent">focus</span> on
+              What I <span className="font-serif-accent">build</span>
             </h2>
-            <p className="field-label">Three areas, one stack</p>
+            <p className="field-label">Web &amp; mobile first, backed by infrastructure</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
             {focusAreas.map((area) => (
               <div key={area.id} className="flat-card p-6">
-                <p className="font-serif-accent mb-3 text-4xl" style={{ color: "var(--color-accent)" }}>{area.index}</p>
+                <div className="mb-3 flex items-baseline justify-between gap-3">
+                  <p className="font-serif-accent text-4xl" style={{ color: "var(--color-accent)" }}>{area.index}</p>
+                  <p className="field-label">{area.id === "it" ? "Backbone" : "Core"}</p>
+                </div>
                 <h3 className="mb-4 text-lg font-semibold" style={{ color: "var(--color-text-primary)" }}>
                   {area.label}
                 </h3>
@@ -231,7 +256,7 @@ export default function HomeContent() {
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {indexRoutes.map((r) => (
               <li key={r.path}>
-                <Link href={r.path} data-cursor="grow" className="flat-card group flex h-full flex-col justify-between gap-8 p-5">
+                <Link href={r.path} className="flat-card group flex h-full flex-col justify-between gap-8 p-5">
                   <div className="flex items-center justify-between">
                     <span className="index-num">{r.index}</span>
                     <span

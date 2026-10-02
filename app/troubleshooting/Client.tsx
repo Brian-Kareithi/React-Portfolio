@@ -120,7 +120,7 @@ export default function TroubleshootingClient() {
   const [openCase, setOpenCase] = useState(0);
 
   return (
-    <section id="troubleshooting" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-3.75 sm:px-7.5 lg:px-12 relative"
+    <section id="troubleshooting" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-2.5 sm:px-5 lg:px-8.5 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
@@ -250,9 +250,9 @@ export default function TroubleshootingClient() {
           title="Put the method to work"
           description="The same discipline shows up across engineering and the homelab."
           links={[
-            { href: "/engineering", label: "Engineering", description: "How I design, build and ship production software." },
-            { href: "/expertise", label: "Expertise", description: "Programming, security, networking and cloud capabilities." },
-            { href: "/hobbies", label: "Homelab", description: "A live lab where the method is validated under real-world conditions." },
+            { href: "/how-i-work", label: "How I Work", description: "How I design, build and ship production software." },
+            { href: "/homelab", label: "Homelab", description: "A live lab where the method is validated under real-world conditions." },
+            { href: "/projects", label: "Selected Work", description: "Shipped systems where the method was put to work." },
           ]}
         />
       </div>
