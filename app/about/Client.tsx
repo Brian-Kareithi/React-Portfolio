@@ -92,7 +92,7 @@ export default function AboutClient() {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-full px-3.75 sm:px-7.5 lg:px-12 py-24 xs:py-28 sm:py-32 md:py-36"
+      className="relative min-h-screen w-full px-2.5 sm:px-5 lg:px-8.5 py-24 xs:py-28 sm:py-32 md:py-36"
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
       <ScrollReveal>
@@ -266,7 +266,7 @@ export default function AboutClient() {
             description="The capabilities behind the journey, and the work it produces."
             links={[
               { href: "/resume", label: "Resume", description: "The same background, tailored to the role you're hiring for." },
-              { href: "/expertise", label: "Expertise", description: "Six hands-on domains, from silicon to cloud-native." },
+              { href: "/how-i-work", label: "How I Work", description: "Principles, the stack at each layer, and hands-on capabilities." },
               { href: "/projects", label: "Selected Work", description: "Delivered products, apps and experiments I'm proud of." },
             ]}
           />

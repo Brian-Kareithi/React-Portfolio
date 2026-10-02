@@ -9,6 +9,10 @@ export interface CaseStudy {
   architecture: { stages: string[]; branch?: { under: number; label: string } };
   stack: string[];
   contribution: string;
+  /** One measurable result. Leave unset until there is a real number to quote. */
+  outcome?: string;
+  /** A real capture of the product, stored in /public/projects. */
+  screenshot?: { src: string; alt: string };
   access: {
     kind: "public" | "client" | "internal";
     repo?: string;
@@ -53,6 +57,7 @@ export const caseStudies: CaseStudy[] = [
       demo: "https://roadsafe-opal.vercel.app/auth",
       note: "Public repository",
     },
+    screenshot: { src: "/projects/roadsafe360.png", alt: "RoadSafe360 sign-in screen with quick-login roles for admin, police, driver and authority" },
     exhibit: {
       label: "Project Deck",
       fileUrl: "/roadsafe360-pbl-road-safety-system.pptx",
@@ -86,6 +91,7 @@ export const caseStudies: CaseStudy[] = [
       demo: "https://sapio-homes.vercel.app",
       note: "Client project: source is proprietary",
     },
+    screenshot: { src: "/projects/sapio-homes.png", alt: "Sapio Homes landing page with property search by type, budget and floor area" },
   },
   {
     id: "steadfast-parent",
@@ -189,6 +195,7 @@ export const caseStudies: CaseStudy[] = [
       demo: "https://flip-book-portfolio-omega.vercel.app/",
       note: "Private repository",
     },
+    screenshot: { src: "/projects/flip-book.png", alt: "Flip-Book Portfolio cover: a leather-bound book titled Brian Kareithi on a wooden desk" },
   },
   {
     id: "portfolio-v2-3d",

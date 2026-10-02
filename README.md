@@ -6,14 +6,12 @@ Built with an **Editorial Cobalt** design language: flat surfaces, hairline bord
 
 ## Pages
 
-- **`/`** — Compact landing page with typewriter roles, portrait, and quick links
+- **`/`** — Landing page: positioning, availability, featured project, and quick links
 - **`/about`** — Professional journey, education, certifications & experience timeline
-- **`/techstack`** — Technologies categorized by proficiency
-- **`/expertise`** — Six hands-on skill domains with capabilities
-- **`/engineering`** — Engineering principles, architecture & delivery workflow
+- **`/how-i-work`** — Principles, stack by layer, delivery workflow, capabilities & toolbox
 - **`/troubleshooting`** — Diagnostic method with real field case studies
 - **`/projects`** — Work & experiments with expandable case details
-- **`/hobbies`** — Homelab showcase (servers, sensors, self-hosted gear)
+- **`/homelab`** — 24/7 homelab as infrastructure proof (servers, network, automation)
 - **`/contact`** — Contact form + direct channels
 - **`/llms.txt`** — Machine-readable profile for LLM/AI tools
 
@@ -40,7 +38,7 @@ Each page is a real route with its own active navigation state (true multi-page 
 - **Styling:** Tailwind CSS v4
 - **Animations:** IntersectionObserver + CSS transitions
 - **Email:** EmailJS (`@emailjs/browser`)
-- **Icons:** Lucide (brand glyphs on /techstack via React Icons)
+- **Icons:** Lucide (brand glyphs on /how-i-work via React Icons)
 - **Analytics:** Vercel Analytics
 
 ## Getting Started

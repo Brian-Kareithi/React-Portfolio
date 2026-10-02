@@ -5,13 +5,11 @@ import { siteConfig } from "@/app/lib/site";
 
 export const breadcrumbMap: Record<string, { label: string; name: string }> = {
   "/about": { label: "About", name: "About Brian Kareithi" },
-  "/expertise": { label: "Expertise", name: "Expertise & Capabilities" },
-  "/engineering": { label: "Engineering", name: "Engineering Approach" },
   "/troubleshooting": { label: "Diagnostics", name: "Troubleshooting Method" },
-  "/techstack": { label: "Tech Stack", name: "Technical Stack" },
   "/projects": { label: "Selected Work", name: "Projects & Experiments" },
   "/contact": { label: "Contact", name: "Contact Brian Kareithi" },
-  "/hobbies": { label: "Homelab", name: "Homelab & Gear" },
+  "/homelab": { label: "Homelab", name: "Homelab & Infrastructure" },
+  "/how-i-work": { label: "How I Work", name: "How I Work" },
   "/resume": { label: "Resume", name: "Resume" },
   "/friday": { label: "Friday", name: "Friday" },
 };

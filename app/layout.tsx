@@ -42,7 +42,7 @@ const organizationJsonLd = {
     email: siteConfig.email,
     availableLanguage: ["English", "Swahili"],
   },
-  sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.instagram],
+  sameAs: [siteConfig.github, siteConfig.linkedin],
 };
 
 export const viewport: Viewport = {

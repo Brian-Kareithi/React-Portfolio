@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Brian Kareithi",
   fullName: "Brian Kareithi",
   role: "Software Engineer, Web, Mobile & Cloud-Native Systems",
-  tagline: "I build secure, cloud-native products, from React Native apps to hardened infrastructure.",
+  tagline: "Software engineer shipping Next.js and React Native apps, backed by hands-on infrastructure and security experience.",
   url: "https://kareithi.vercel.app",
   title: "Brian Kareithi | Software Engineer, Web, Mobile & Cloud-Native Systems",
   description:
@@ -11,9 +11,10 @@ export const siteConfig = {
   phone: "+254119343294",
   phoneDisplay: "+254 119 343 294",
   location: "Nairobi, Kenya",
+  resumePdf: "/Brian-Kareithi-Resume.pdf",
   github: "https://github.com/Brian-Kareithi",
   linkedin: "https://www.linkedin.com/in/brian-kareithi-04007637b/",
-  instagram: "https://www.instagram.com/kareithiv",
+  instagram: "https://www.instagram.com/kareithi._/",
   ogImage:
     "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg",
 } as const;

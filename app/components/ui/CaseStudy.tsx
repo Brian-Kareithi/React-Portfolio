@@ -1,4 +1,5 @@
-import { ExternalLink, Github, Lock, FileDown } from "lucide-react";
+import Image from "next/image";
+import { ExternalLink, Github, Lock, FileDown, TrendingUp } from "lucide-react";
 import { ArchitectureFlow } from "@/app/components/ui/ArchitectureFlow";
 import { caseStudies, type CaseStudy as CaseStudyType } from "@/app/lib/projects-data";
 import { siteConfig } from "@/app/lib/site";
@@ -6,20 +7,20 @@ import { siteConfig } from "@/app/lib/site";
 /** One case study told as a magazine spread. `ink` renders it on a dark slab for rhythm. */
 export function CaseStudy({ study, ink = false }: { study: CaseStudyType; ink?: boolean }) {
   return (
-    <article className={ink ? "ink-slab p-6 xs:p-8 md:p-12" : "plate p-6 xs:p-8 md:p-12"}>
+    <article id={study.id} className={`scroll-mt-24 ${ink ? "ink-slab p-5 xs:p-8 md:p-12" : "plate p-5 xs:p-8 md:p-12"}`}>
       <header className="mb-8 grid gap-4 md:grid-cols-12 md:items-end">
-        <span className="display-xl text-7xl md:col-span-2 md:text-8xl" style={{ color: "var(--color-accent-secondary)" }}>
+        <span className="display-xl text-6xl xs:text-7xl md:col-span-2 md:text-8xl" style={{ color: "var(--color-accent-secondary)" }}>
           {study.index}
         </span>
         <div className="md:col-span-7">
-          <h3 className="display-xl text-4xl sm:text-5xl" style={{ color: "var(--color-text-primary)" }}>
+          <h3 className="display-xl text-3xl xs:text-4xl sm:text-5xl" style={{ color: "var(--color-text-primary)" }}>
             {study.title}
           </h3>
           <p className="mt-2 font-serif-accent text-xl" style={{ color: "var(--color-accent)" }}>
             {study.tagline}
           </p>
         </div>
-        <div className="flex gap-2 md:col-span-3 md:justify-end">
+        <div className="flex flex-wrap gap-2 md:col-span-3 md:justify-end">
           <span className="pill !text-[11px]">
             <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
             {study.status}
@@ -29,6 +30,32 @@ export function CaseStudy({ study, ink = false }: { study: CaseStudyType; ink?: 
           </span>
         </div>
       </header>
+
+      {study.screenshot && (
+        <a
+          href={study.access.demo ?? study.screenshot.src}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group mb-8 block overflow-hidden rounded-2xl border"
+          style={{ borderColor: "var(--color-border-hover)" }}
+        >
+          <Image
+            src={study.screenshot.src}
+            alt={study.screenshot.alt}
+            width={1440}
+            height={900}
+            sizes="(max-width: 1100px) 100vw, 1100px"
+            className="h-auto w-full transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+          />
+        </a>
+      )}
+
+      {study.outcome && (
+        <p className="mb-8 flex items-start gap-2.5 rounded-2xl border px-4 py-3 text-sm font-medium" style={{ borderColor: "var(--color-accent)", color: "var(--color-text-primary)" }}>
+          <TrendingUp className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
+          {study.outcome}
+        </p>
+      )}
 
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
         <div>

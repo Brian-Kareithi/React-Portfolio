@@ -34,7 +34,7 @@ export default function ProjectsClient() {
   const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
-    <section id="projects" className="min-h-screen w-full py-28 md:py-36 px-3.75 sm:px-7.5 lg:px-12 relative"
+    <section id="projects" className="min-h-screen w-full py-28 md:py-36 px-2.5 sm:px-5 lg:px-8.5 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
@@ -220,7 +220,7 @@ export default function ProjectsClient() {
           description="From the portfolio to the process that produced it."
           links={[
             { href: "/contact", label: "Contact", description: "Have a build in mind? Start a conversation." },
-            { href: "/engineering", label: "Engineering", description: "The architecture and delivery process behind each build." },
+            { href: "/how-i-work", label: "How I Work", description: "The architecture and delivery process behind each build." },
             { href: "/resume", label: "Resume", description: "The same work, tailored to the role you're hiring for." },
           ]}
         />

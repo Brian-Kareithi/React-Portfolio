@@ -2,10 +2,11 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import { Command } from "lucide-react";
+import { Command, FileDown } from "lucide-react";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
 import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
+import { siteConfig } from "@/app/lib/site";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -24,7 +25,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth >= 768 && menuOpen) setMenuOpen(false);
+      if (window.innerWidth >= 1024 && menuOpen) setMenuOpen(false);
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -73,7 +74,7 @@ export default function Navbar() {
         {/* Docked: the bar spans the viewport and its row lines up with the page content */}
         <div
           className={`flex items-center justify-between gap-4 h-14 ${
-            scrolled ? "mx-auto box-content max-w-5xl px-3.75 sm:px-7.5 lg:px-12" : "pl-5 pr-2 sm:pl-6"
+            scrolled ? "mx-auto box-content max-w-5xl px-2.5 sm:px-5 lg:px-8.5" : "pl-5 pr-2 sm:pl-6"
           }`}
         >
           <button
@@ -84,7 +85,7 @@ export default function Navbar() {
             <Image src="/logo.png" alt="" width={112} height={34} className="h-8 w-auto" priority />
           </button>
 
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1">
             {primaryNav.map((r) => {
               const active = r.path === pathname;
               return (
@@ -118,8 +119,18 @@ export default function Navbar() {
               </span>
             </button>
 
+            <a
+              href={siteConfig.resumePdf}
+              download
+              className="btn-neon btn-neon-primary !min-h-0 !px-3.5 !py-2 !text-[12px]"
+              aria-label="Download resume (PDF)"
+            >
+              <FileDown className="w-3.5 h-3.5" />
+              <span>Resume</span>
+            </a>
+
             <button
-              className="relative flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden"
+              className="relative flex h-11 w-11 flex-col items-center justify-center gap-[5px] lg:hidden"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
@@ -146,7 +157,7 @@ export default function Navbar() {
 
       {/* Mobile editorial overlay */}
       <div
-        className={`fixed inset-0 z-[55] md:hidden transition-[opacity,visibility] duration-300 ${
+        className={`fixed inset-0 z-[55] lg:hidden transition-[opacity,visibility] duration-300 ${
           menuOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
         style={{ backgroundColor: "var(--color-bg-primary)" }}

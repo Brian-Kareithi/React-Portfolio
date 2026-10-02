@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Pages merged or renamed; keep old links and search results working.
+  async redirects() {
+    return [
+      { source: "/expertise", destination: "/how-i-work", permanent: true },
+      { source: "/techstack", destination: "/how-i-work", permanent: true },
+      { source: "/engineering", destination: "/how-i-work", permanent: true },
+      { source: "/hobbies", destination: "/homelab", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

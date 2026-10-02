@@ -29,7 +29,7 @@ const jsonLd = {
       credentialCategory: "certification",
       name,
     })),
-    sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.instagram],
+    sameAs: [siteConfig.github, siteConfig.linkedin],
   },
 };
 

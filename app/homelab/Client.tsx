@@ -2,7 +2,7 @@
 import { useState, ReactNode } from "react";
 import {
   Server, Cpu, Monitor, Smartphone, Headphones, Watch, Keyboard, HardDrive,
-  Camera, Wifi, ChevronDown, ArrowLeft, Activity, Database, ShieldCheck, Radio,
+  Camera, Wifi, ChevronDown, Activity, Database, ShieldCheck, Radio,
 } from "lucide-react";
 import Link from "next/link";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
@@ -289,7 +289,7 @@ const Wire = ({ dashed = false }: { dashed?: boolean }) => (
   <span aria-hidden="true" className="h-8 w-0" style={{ borderLeft: `2px ${dashed ? "dashed" : "solid"} var(--color-accent-secondary)` }} />
 );
 
-export default function HobbiesClient() {
+export default function HomelabClient() {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const [activeCat, setActiveCat] = useState<string>("All");
 
@@ -306,39 +306,17 @@ export default function HobbiesClient() {
     .flatMap((c) => c.items.map((item, idx) => ({ ...item, key: `${c.title}-${idx}`, category: c.title })));
 
   return (
-    <>
-      <header className="fixed left-3.75 right-3.75 top-3.5 z-50 mx-auto max-w-5xl overflow-hidden rounded-full glass-nav">
-        <div className="flex h-14 items-center justify-between pl-2 pr-5">
-          <Link
-            href="/"
-            className="group inline-flex min-h-[44px] items-center gap-2.5 rounded-full pr-4 text-sm font-medium transition-colors duration-200 hover:text-[var(--color-accent)]"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            <span
-              className="flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-300 group-hover:-translate-x-0.5"
-              style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}
-            >
-              <ArrowLeft className="w-4 h-4" />
-            </span>
-            Back to Portfolio
-          </Link>
-          <span className="hidden font-serif-accent text-lg sm:block" style={{ color: "var(--color-text-primary)" }}>
-            Homelab
-          </span>
-        </div>
-      </header>
-
-      <section id="hobbies" className="min-h-screen w-full pt-28 md:pt-32 pb-24 md:pb-32 px-3.75 sm:px-7.5 lg:px-12 relative overflow-hidden isolate"
+      <section id="homelab" className="min-h-screen w-full pt-28 md:pt-32 pb-24 md:pb-32 px-2.5 sm:px-5 lg:px-8.5 relative overflow-hidden isolate"
         style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal className="relative z-10">
       <div className="max-w-5xl mx-auto w-full">
 
         <Breadcrumbs />
         <SectionHeader
-          index="08"
-          label="Homelab"
-          title={<>Life outside the <em className="font-serif-accent">terminal</em></>}
-          description="Servers, sensors and solder-side experiments: a homelab running 24/7, where professional skills are validated under real-world conditions."
+          index="05"
+          label="Infrastructure proof"
+          title={<>Infrastructure I <em className="font-serif-accent">run</em></>}
+          description="A 19-device lab running 24/7 on Proxmox, with RAID-1 storage, nightly backups, a managed network and ESP32 automation. It is where I practise the infrastructure, networking and security work I do professionally."
         />
 
         {/* Lab status */}
@@ -534,8 +512,8 @@ export default function HobbiesClient() {
 
         <StaggerReveal>
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <Link href="/" className="btn-neon btn-neon-ghost">
-            Back to Portfolio
+          <Link href="/resume" className="btn-neon btn-neon-ghost">
+            View Resume
           </Link>
           <Link href="/contact" className="btn-neon btn-neon-primary">
             Get in Touch
@@ -547,7 +525,7 @@ export default function HobbiesClient() {
           title="Beyond the lab"
           description="The professional side of the skills this lab sharpens."
           links={[
-            { href: "/engineering", label: "Engineering", description: "The discipline that keeps the lab running." },
+            { href: "/how-i-work", label: "How I Work", description: "The principles and stack behind the lab and the products." },
             { href: "/troubleshooting", label: "Diagnostics", description: "Root-cause work inspired by real failures." },
             { href: "/contact", label: "Contact", description: "Got a similar build in mind? Let's talk." },
           ]}
@@ -555,6 +533,5 @@ export default function HobbiesClient() {
       </div>
       </ScrollReveal>
       </section>
-    </>
   );
 }
