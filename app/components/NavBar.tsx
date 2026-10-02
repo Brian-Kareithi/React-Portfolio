@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import { Command, FileDown } from "lucide-react";
+import { Command, FileDown, Search } from "lucide-react";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
 import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
@@ -109,6 +109,15 @@ export default function Navbar() {
           <div className="flex items-center gap-1.5">
             <button
               onClick={openPalette}
+              className="flex h-9 w-9 items-center justify-center rounded-full transition-colors duration-200 hover:text-[var(--color-accent)]"
+              style={{ color: "var(--color-text-muted)" }}
+              aria-label="Search"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={openPalette}
               className="hidden sm:flex items-center gap-1.5 rounded-full px-3 py-2 text-[11px] font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
               style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}
               aria-label="Open command palette (Ctrl+K)"
@@ -119,15 +128,17 @@ export default function Navbar() {
               </span>
             </button>
 
-            <a
-              href={siteConfig.resumePdf}
-              download
-              className="btn-neon btn-neon-primary !min-h-0 !px-3.5 !py-2 !text-[12px]"
-              aria-label="Download resume (PDF)"
-            >
-              <FileDown className="w-3.5 h-3.5" />
-              <span>Resume</span>
-            </a>
+            <span className="hidden sm:block">
+              <a
+                  href={siteConfig.resumePdf}
+                  download
+                  className="btn-neon btn-neon-primary !min-h-0 !px-3.5 !py-2 !text-[12px]"
+                  aria-label="Download resume (PDF)"
+                >
+                  <FileDown className="w-3.5 h-3.5" />
+                  <span>Resume</span>
+              </a>
+            </span>
 
             <button
               className="relative flex h-11 w-11 flex-col items-center justify-center gap-[5px] lg:hidden"
@@ -206,7 +217,7 @@ export default function Navbar() {
             })}
           </ul>
           <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2">
-            {externalLinks.map((l) => (
+            {externalLinks.filter((l) => l.href !== "/llms.txt").map((l) => (
               <a
                 key={l.label}
                 href={l.href}

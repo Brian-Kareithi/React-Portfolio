@@ -44,21 +44,17 @@ export default function HomeContent() {
 
   return (
     <section id="home" className="relative min-h-screen overflow-hidden px-2.5 sm:px-5 lg:px-8.5" style={{ backgroundColor: "var(--color-bg-primary)" }}>
-      {/* Soft periwinkle glow behind the hero */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-40 -top-40 h-[36rem] w-[36rem] rounded-full opacity-60 blur-3xl"
-        style={{ background: "radial-gradient(circle, var(--palette-periwinkle), transparent 65%)" }}
-      />
+      {/* Hero atmosphere: aurora wash */}
+      <div aria-hidden="true" className="hero-aurora" />
 
       <div className="relative mx-auto max-w-5xl pt-28 pb-20 sm:pt-36">
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
           {/* Identity */}
           <div className="min-w-0 lg:col-span-7">
-            <p className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium sm:text-[13px]" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-primary)" }}>
+            <p className="stagger-item mb-6 inline-flex max-w-full items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium sm:text-[13px]" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-primary)" }}>
               <span className="relative flex h-2 w-2 flex-shrink-0">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ backgroundColor: "#22a06b" }} />
-                <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: "#22a06b" }} />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ backgroundColor: "var(--color-live)" }} />
+                <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: "var(--color-live)" }} />
               </span>
               <span>Open to full-time &amp; contract roles · Remote or Nairobi</span>
             </p>
@@ -71,14 +67,14 @@ export default function HomeContent() {
               </span>
             </h1>
 
-            <p className="mb-3 max-w-xl text-xl font-medium leading-snug sm:text-2xl" style={{ color: "var(--color-text-primary)" }}>
+            <p className="stagger-item mb-3 max-w-xl text-xl font-medium leading-snug sm:text-2xl" style={{ color: "var(--color-text-primary)" }}>
               Software engineer shipping <span className="mark">Next.js</span> and <span className="mark">React Native</span> apps.
             </p>
-            <p className="mb-9 max-w-lg text-base leading-relaxed sm:text-lg" style={{ color: "var(--color-text-secondary)" }}>
+            <p className="stagger-item mb-9 max-w-lg text-base leading-relaxed sm:text-lg" style={{ color: "var(--color-text-secondary)" }}>
               Currently building the parent platform at Steadfast Academy, on the web and on Android and iOS, backed by hands-on infrastructure and security experience.
             </p>
 
-            <div className="mb-9 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
+            <div className="stagger-item mb-9 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
               <Link href="/projects" className="btn-neon btn-neon-primary justify-center">
                 View Selected Work
                 <ArrowRight className="w-4 h-4" />
@@ -92,7 +88,7 @@ export default function HomeContent() {
               </Link>
             </div>
 
-            <div className="flex items-center gap-2.5">
+            <div className="stagger-item flex items-center gap-2.5">
               {socials.map(({ href, icon: Icon, label }) => (
                 <a
                   key={label}
@@ -114,7 +110,7 @@ export default function HomeContent() {
             <div className="relative mx-auto max-w-[17rem] xs:max-w-[21rem] lg:mr-0">
               <div
                 className="group relative aspect-[4/5] overflow-hidden rounded-t-full rounded-b-[2rem] border"
-                style={{ borderColor: "var(--color-border)", boxShadow: "10px 10px 0 var(--palette-periwinkle)" }}
+                style={{ borderColor: "var(--color-border-hover)", boxShadow: "0 0 0 6px rgb(212 194 252 / 0.35), 0 30px 60px -24px rgb(20 36 138 / 0.45)" }}
               >
                 <Image
                   src="https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg"
@@ -122,20 +118,21 @@ export default function HomeContent() {
                   fill
                   sizes="(max-width: 375px) 272px, 336px"
                   priority
-                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  className="object-cover object-center transition-transform duration-[400ms] ease-[var(--ease-out)] group-hover:scale-[1.03]"
                 />
+                <div aria-hidden="true" className="portrait-scan" />
               </div>
 
               <div
-                className="absolute -left-3 top-10 -rotate-6 rounded-2xl border px-4 py-2.5 sm:-left-10"
-                style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border)", boxShadow: "3px 3px 0 var(--color-accent-secondary)" }}
+                className="absolute -left-3 top-10 rounded-xl border px-4 py-2.5 backdrop-blur-md sm:-left-10"
+                style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-card) 78%, transparent)", borderColor: "var(--color-border-hover)", boxShadow: "0 14px 28px -16px rgb(20 36 138 / 0.4)" }}
               >
                 <p className="field-label">Nairobi</p>
                 <p className="font-mono text-sm tabular-nums" style={{ color: "var(--color-text-primary)" }}>{time ?? "--:--"} EAT</p>
               </div>
               <div
-                className="absolute -bottom-5 -right-2 rotate-3 rounded-2xl px-4 py-3 sm:-right-8"
-                style={{ backgroundColor: "var(--palette-true-cobalt)", color: "var(--palette-lavender-mist)" }}
+                className="absolute -bottom-5 -right-2 rounded-xl px-4 py-3 sm:-right-8"
+                style={{ background: "linear-gradient(180deg, #2a3cb0, var(--palette-true-cobalt))", color: "var(--palette-lavender-mist)", boxShadow: "inset 0 1px 0 rgb(255 255 255 / 0.22), 0 16px 30px -14px rgb(20 36 138 / 0.7)" }}
               >
                 <p className="font-serif-accent text-3xl leading-none">6</p>
                 <p className="text-[11px] opacity-80">industry certifications</p>
@@ -165,7 +162,7 @@ export default function HomeContent() {
                       width={1440}
                       height={900}
                       sizes="(max-width: 1024px) 100vw, 640px"
-                      className="aspect-[16/10] h-auto w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                      className="aspect-[16/10] h-auto w-full object-cover object-top transition-transform duration-[350ms] ease-[var(--ease-out)] group-hover:scale-[1.02]"
                     />
                   </Link>
                   <div className="flex flex-1 flex-col p-5 sm:p-6">
@@ -221,7 +218,7 @@ export default function HomeContent() {
                 </h3>
                 <div className="flex flex-wrap gap-1.5">
                   {area.tools.map((tool) => (
-                    <span key={tool} className="rounded-full border px-2.5 py-1 font-mono text-[10px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
+                    <span key={tool} className="rounded-full border px-2.5 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
                       {tool}
                     </span>
                   ))}
@@ -232,7 +229,7 @@ export default function HomeContent() {
           <div className="mt-6 flex flex-wrap items-center gap-2">
             <span className="field-label mr-1">Also exploring</span>
             {alsoExploring.map((tag) => (
-              <span key={tag} className="rounded-full border border-dashed px-2.5 py-1 font-mono text-[10px]" style={{ borderColor: "var(--color-border-hover)", color: "var(--color-text-muted)" }}>
+              <span key={tag} className="rounded-full border border-dashed px-2.5 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border-hover)", color: "var(--color-text-muted)" }}>
                 {tag}
               </span>
             ))}

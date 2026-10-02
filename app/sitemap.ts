@@ -14,6 +14,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/contact`, lastModified, changeFrequency: "yearly", priority: 0.6 },
     { url: `${base}/homelab`, lastModified, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/resume`, lastModified, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${base}/friday`, lastModified, changeFrequency: "weekly", priority: 0.3 },
   ];
 }

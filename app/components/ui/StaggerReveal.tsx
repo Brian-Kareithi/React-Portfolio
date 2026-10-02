@@ -29,16 +29,17 @@ export function StaggerReveal({ children, className = "", staggerDelay = 70, thr
 
     targets.forEach((t) => {
       t.style.opacity = "0";
-      t.style.transform = "translateY(24px)";
+      t.style.transform = "translateY(16px)";
       t.style.willChange = "opacity, transform";
     });
 
     const reveal = () => {
       targets.forEach((t, index) => {
         const delay = (index * staggerDelay) / 1000;
-        t.style.transition = `opacity 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
+        t.style.transition = `opacity 0.55s var(--ease-out) ${delay}s, transform 0.55s var(--ease-out) ${delay}s`;
         t.style.opacity = "1";
         t.style.transform = "none";
+        t.addEventListener("transitionend", () => { t.style.willChange = "auto"; }, { once: true });
       });
       observer.disconnect();
     };

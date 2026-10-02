@@ -1,6 +1,6 @@
 import { siteConfig } from "@/app/lib/site";
 
-/** Plain-text profile shared by /llms.txt and the FRIDAY assistant. */
+/** Plain-text profile shared by /llms.txt. */
 export const profileText = `# Brian Kareithi: llms.txt
 > Software Engineer, Web, Mobile & Cloud-Native Systems (Nairobi, Kenya)
 
@@ -36,5 +36,4 @@ delivered 50+ projects.
 - [Homelab](${siteConfig.url}/homelab): 24/7 infrastructure: Proxmox, RAID-1, managed network, ESP32 automation
 - [Resume](${siteConfig.url}/resume): Role-tailored resume: software, mobile, or IT
 - [Contact](${siteConfig.url}/contact): Email and contact form
-- [Friday](${siteConfig.url}/friday): FRIDAY, an AI assistant that answers questions about Brian
 `;
