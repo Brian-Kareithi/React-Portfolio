@@ -264,7 +264,7 @@ const services = [
 function TopologyNode({ icon, title, note, strong = false }: { icon: ReactNode; title: string; note: string; strong?: boolean }) {
   return (
     <div
-      className="flex items-center gap-3 rounded-full border px-4 py-2.5"
+      className="flex items-center gap-3 rounded-lg border px-4 py-2.5"
       style={{
         backgroundColor: strong ? "var(--color-accent)" : "var(--color-bg-card)",
         borderColor: strong ? "var(--color-accent)" : "var(--color-border)",
@@ -306,7 +306,7 @@ export default function HomelabClient() {
     .flatMap((c) => c.items.map((item, idx) => ({ ...item, key: `${c.title}-${idx}`, category: c.title })));
 
   return (
-      <section id="homelab" className="min-h-screen w-full pt-28 md:pt-32 pb-24 md:pb-32 px-2.5 sm:px-5 lg:px-8.5 relative overflow-hidden isolate"
+      <section id="homelab" className="min-h-screen w-full pt-28 md:pt-32 pb-24 md:pb-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden isolate"
         style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal className="relative z-10">
       <div className="max-w-5xl mx-auto w-full">
@@ -347,7 +347,7 @@ export default function HomelabClient() {
         {/* Network topology */}
         <div className="mb-20">
           <SubHead label="Topology" title="How it's wired together" />
-          <div className="flex flex-col items-center rounded-[2rem] px-5 py-10 sm:px-10" style={{ backgroundColor: "var(--color-highlight)" }}>
+          <div className="flex flex-col items-center rounded-2xl px-5 py-10 sm:px-10" style={{ backgroundColor: "var(--color-highlight)" }}>
             <span className="pill font-mono !text-[11px]"><Wifi className="w-3.5 h-3.5" /> Internet</span>
             <Wire dashed />
             <TopologyNode icon={<Wifi className="w-4 h-4" />} title="Router" note="Safaricom 4G LTE" />
@@ -378,7 +378,7 @@ export default function HomelabClient() {
               const active = activeCat === t.title;
               return (
                 <button key={t.title} onClick={() => setActiveCat(t.title)} aria-pressed={active}
-                  className="min-h-[44px] whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
+                  className="min-h-[44px] whitespace-nowrap rounded-lg border px-4 py-2 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
                   style={active
                     ? { backgroundColor: "var(--color-accent)", borderColor: "var(--color-accent)", color: "var(--color-on-accent)" }
                     : { borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }}>
@@ -421,7 +421,7 @@ export default function HomelabClient() {
                   {open && (
                     <div className="animate-fade-in-up flex flex-wrap gap-1.5 border-t pt-3" style={{ borderColor: "var(--color-border)" }}>
                       {item.specs.map((spec) => (
-                        <span key={spec} className="rounded-full px-2.5 py-1 font-mono text-[10px]"
+                        <span key={spec} className="rounded-md px-2.5 py-1 font-mono text-[10px]"
                           style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-secondary)" }}>
                           {spec}
                         </span>
@@ -473,7 +473,7 @@ export default function HomelabClient() {
             <SubHead label="On the bench" title="Currently tinkering" />
             <ul className="space-y-3">
               {tinkering.map((t) => (
-                <li key={t.title} className="flex items-start gap-4 rounded-2xl border p-4" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
+                <li key={t.title} className="flex items-start gap-4 rounded-xl border p-4" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
                   <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full"
                     style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}>
                     {t.icon}

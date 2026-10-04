@@ -12,7 +12,7 @@ interface SpecSheetProps {
 /** Field-manual dt/dd block: a labelled row of monospace data, reused across pages. */
 export function SpecSheet({ title, rows, className = "" }: SpecSheetProps) {
   return (
-    <dl className={`overflow-hidden rounded-2xl border ${className}`} style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-secondary)" }}>
+    <dl className={`overflow-hidden rounded-xl border ${className}`} style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-secondary)" }}>
       {title && (
         <div className="flex items-center gap-2 border-b px-3.5 py-2.5" style={{ borderColor: "var(--color-border)" }}>
           <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />

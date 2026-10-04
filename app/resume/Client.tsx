@@ -44,7 +44,7 @@ export default function ResumeClient() {
   };
 
   return (
-    <section id="resume" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-2.5 sm:px-5 lg:px-8.5 relative"
+    <section id="resume" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-4 sm:px-6 lg:px-8 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
@@ -62,7 +62,7 @@ export default function ResumeClient() {
 
           {/* Role switcher: segmented pill */}
           <div className="no-print mb-4 flex flex-col items-center gap-4">
-            <div className="inline-flex flex-wrap justify-center gap-1 rounded-full border p-1" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }} role="tablist" aria-label="Resume role">
+            <div className="inline-flex flex-wrap justify-center gap-1 rounded-xl border p-1" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }} role="tablist" aria-label="Resume role">
               {resumeRoles.map((r) => {
                 const active = r.id === activeRole;
                 return (
@@ -71,7 +71,7 @@ export default function ResumeClient() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setActiveRole(r.id)}
-                    className="min-h-[44px] rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200"
+                    className="min-h-[44px] rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200"
                     style={
                       active
                         ? { backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }
@@ -96,7 +96,7 @@ export default function ResumeClient() {
           {/* The sheet */}
           <article
             key={role.id}
-            className="animate-fade-in-up mx-auto overflow-hidden rounded-[1.5rem] border"
+            className="animate-fade-in-up mx-auto overflow-hidden rounded-2xl border"
             style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border)", boxShadow: "var(--surface-shadow)" }}
           >
             {/* Letterhead */}
@@ -133,7 +133,7 @@ export default function ResumeClient() {
                   <p className="field-label mb-3">Top skills</p>
                   <div className="flex flex-wrap gap-1.5">
                     {role.topSkills.map((skill) => (
-                      <span key={skill} className="rounded-full px-2.5 py-1 font-mono text-[11px]"
+                      <span key={skill} className="rounded-md px-2.5 py-1 font-mono text-[11px]"
                         style={{ backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }}>
                         {skill}
                       </span>
@@ -185,7 +185,7 @@ export default function ResumeClient() {
                   <h3 className="display-xl mb-4 text-2xl" style={{ color: "var(--color-text-primary)" }}>Selected projects</h3>
                   <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
                     {role.projects.map((p) => (
-                      <div key={p.title} className="rounded-2xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+                      <div key={p.title} className="rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
                         <p className="font-serif-accent text-lg" style={{ color: "var(--color-text-primary)" }}>{p.title}</p>
                         <p className="mt-1 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{p.note}</p>
                       </div>

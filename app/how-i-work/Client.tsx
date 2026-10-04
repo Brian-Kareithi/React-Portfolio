@@ -13,7 +13,7 @@ export default function HowIWorkClient() {
   const current = domains.find((d) => d.id === activeDomain)!;
 
   return (
-    <section id="how-i-work" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-2.5 sm:px-5 lg:px-8.5 relative"
+    <section id="how-i-work" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-4 sm:px-6 lg:px-8 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
@@ -55,7 +55,7 @@ export default function HowIWorkClient() {
             {architecture.map((a, i) => (
               <div
                 key={a.title}
-                className="grid items-center gap-3 rounded-2xl border px-5 py-5 md:grid-cols-12 md:gap-6 md:px-8"
+                className="grid items-center gap-3 rounded-xl border px-5 py-5 md:grid-cols-12 md:gap-6 md:px-8"
                 style={{
                   borderColor: "var(--color-border)",
                   // Layers deepen from lavender mist to periwinkle as they go down the stack.
@@ -118,7 +118,7 @@ export default function HowIWorkClient() {
                     onClick={() => setActiveDomain(d.id)}
                     role="tab"
                     aria-selected={active}
-                    className="group flex min-h-[44px] flex-shrink-0 items-center gap-3 rounded-full border px-4 py-2.5 text-left transition-all duration-200 lg:rounded-2xl lg:px-5 lg:py-4"
+                    className="group flex min-h-[44px] flex-shrink-0 items-center gap-3 rounded-lg border px-4 py-2.5 text-left transition-all duration-200 lg:rounded-xl lg:px-5 lg:py-4"
                     style={{
                       backgroundColor: active ? "var(--color-accent)" : "var(--color-bg-card)",
                       borderColor: active ? "var(--color-accent)" : "var(--color-border)",
@@ -146,7 +146,7 @@ export default function HowIWorkClient() {
 
               <div className="mb-8 flex flex-wrap gap-1.5">
                 {current.tools.map((t) => (
-                  <span key={t} className="rounded-full border px-3 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
+                  <span key={t} className="rounded-md border px-3 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
                     {t}
                   </span>
                 ))}
@@ -188,7 +188,7 @@ export default function HowIWorkClient() {
                 <StaggerReveal staggerDelay={30}>
                 <ul className="flex flex-wrap gap-2">
                   {category.items.map((item) => (
-                    <li key={item.title} className="flex items-center gap-2 rounded-full border px-3.5 py-2 text-xs" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }}>
+                    <li key={item.title} className="flex items-center gap-2 rounded-lg border px-3.5 py-2 text-xs" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }}>
                       <span className="text-base" style={{ color: "var(--color-accent)" }} aria-hidden="true">{item.icon}</span>
                       {item.title}
                     </li>

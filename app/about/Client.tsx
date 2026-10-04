@@ -92,7 +92,7 @@ export default function AboutClient() {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-full px-2.5 sm:px-5 lg:px-8.5 py-24 xs:py-28 sm:py-32 md:py-36"
+      className="relative min-h-screen w-full px-4 sm:px-6 lg:px-8 py-24 xs:py-28 sm:py-32 md:py-36"
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
       <ScrollReveal>
@@ -108,7 +108,7 @@ export default function AboutClient() {
 
           {/* Stats band */}
           <div
-            className="mb-14 grid grid-cols-2 gap-y-8 rounded-[2rem] px-6 py-8 md:grid-cols-4 md:px-10"
+            className="mb-14 grid grid-cols-2 gap-y-8 rounded-2xl px-6 py-8 md:grid-cols-4 md:px-10"
             style={{ backgroundColor: "var(--color-highlight)" }}
           >
             {stats.map((s, i) => (
@@ -135,7 +135,7 @@ export default function AboutClient() {
             </div>
             <ul className="grid content-start gap-2.5 sm:grid-cols-2 md:col-span-3">
               {experience.duties.map((duty) => (
-                <li key={duty} className="flex items-start gap-2.5 rounded-2xl border px-4 py-3 text-sm" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
+                <li key={duty} className="flex items-start gap-2.5 rounded-xl border px-4 py-3 text-sm" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
                   <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
                   {duty}
                 </li>
@@ -156,7 +156,7 @@ export default function AboutClient() {
                     setFilter(f);
                     setOpenId(null);
                   }}
-                  className="min-h-[44px] rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
+                  className="min-h-[44px] rounded-lg border px-4 py-2 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
                   style={
                     active
                       ? { backgroundColor: "var(--color-accent)", borderColor: "var(--color-accent)", color: "var(--color-on-accent)" }
@@ -221,7 +221,7 @@ export default function AboutClient() {
                       {(item.significance || item.metrics) && (
                         <div id={`timeline-details-${id}`} className={open ? "animate-fade-in-up mt-4 space-y-3" : "hidden"}>
                           {item.significance && (
-                            <p className="rounded-2xl px-4 py-3 text-sm font-medium" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-primary)" }}>
+                            <p className="rounded-xl px-4 py-3 text-sm font-medium" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-primary)" }}>
                               {item.significance}
                             </p>
                           )}
