@@ -77,7 +77,7 @@ export function ArchitectureFlow({ stages, branch }: ArchitectureFlowProps) {
 function Node({ icon: Icon, step, label, branch = false }: { icon: LucideIcon; step: string; label: string; branch?: boolean }) {
   return (
     <div
-      className={`flex items-center gap-3 rounded-2xl border px-3.5 py-3 sm:flex-col sm:gap-2 sm:px-3 sm:py-4 sm:text-center ${branch ? "border-dashed" : ""}`}
+      className={`flex items-center gap-3 rounded-xl border px-3.5 py-3 sm:flex-col sm:gap-2 sm:px-3 sm:py-4 sm:text-center ${branch ? "border-dashed" : ""}`}
       style={{
         backgroundColor: branch ? "var(--color-highlight)" : "var(--color-bg-card)",
         borderColor: branch ? "var(--color-accent-secondary)" : "var(--color-border)",

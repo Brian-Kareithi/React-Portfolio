@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import { Command, FileDown, Search } from "lucide-react";
+import { FileDown, Search } from "lucide-react";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
 import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
@@ -60,13 +60,13 @@ export default function Navbar() {
     <>
       <nav
         className={`fixed z-[60] mx-auto overflow-hidden glass-nav transition-[top,left,right,max-width,border-radius] duration-300 ease-out ${
-          scrolled ? "left-0 right-0 max-w-full" : "left-3.75 right-3.75 max-w-5xl"
+          scrolled ? "left-0 right-0 max-w-full" : "left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 max-w-5xl"
         }`}
         style={{
           top: scrolled ? 0 : 14,
           borderColor: "var(--color-border)",
           borderWidth: scrolled ? "0 0 1px" : undefined,
-          borderRadius: scrolled ? 0 : 999,
+          borderRadius: scrolled ? 0 : 12,
           boxShadow: "none",
         }}
         aria-label="Primary"
@@ -74,7 +74,7 @@ export default function Navbar() {
         {/* Docked: the bar spans the viewport and its row lines up with the page content */}
         <div
           className={`flex items-center justify-between gap-4 h-14 ${
-            scrolled ? "mx-auto box-content max-w-5xl px-2.5 sm:px-5 lg:px-8.5" : "pl-5 pr-2 sm:pl-6"
+            scrolled ? "mx-auto box-content max-w-5xl px-4 sm:px-6 lg:px-8" : "pl-5 pr-2 sm:pl-6"
           }`}
         >
           <button
@@ -92,7 +92,7 @@ export default function Navbar() {
                 <button
                   key={r.path}
                   onClick={() => go(r.path)}
-                  className="rounded-full px-3.5 py-2 text-[13px] font-medium transition-colors duration-200 hover:text-[var(--color-accent)]"
+                  className="rounded-lg px-3.5 py-2 text-[13px] font-medium transition-colors duration-200 hover:text-[var(--color-accent)]"
                   style={{
                     color: active ? "var(--color-text-primary)" : "var(--color-text-muted)",
                     backgroundColor: active ? "var(--color-highlight)" : "transparent",
@@ -107,32 +107,32 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-1.5">
+            {/* One search entry point per breakpoint: icon on phones, labelled field from sm up */}
             <button
               onClick={openPalette}
-              className="flex h-9 w-9 items-center justify-center rounded-full transition-colors duration-200 hover:text-[var(--color-accent)]"
+              className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200 hover:text-[var(--color-accent)] sm:hidden"
               style={{ color: "var(--color-text-muted)" }}
               aria-label="Search"
             >
-              <Search className="w-4 h-4" />
+              <Search className="h-4 w-4" />
             </button>
 
             <button
               onClick={openPalette}
-              className="hidden sm:flex items-center gap-1.5 rounded-full px-3 py-2 text-[11px] font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
-              style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}
-              aria-label="Open command palette (Ctrl+K)"
+              className="hidden h-9 items-center gap-2 rounded-lg border px-3 text-xs font-medium transition-colors duration-200 hover:border-[var(--color-accent)] sm:flex"
+              style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}
+              aria-label="Search the site (Ctrl+K)"
             >
-              <Command className="w-3 h-3" />
-              <span className="font-mono">
-                Ctrl <span className="ml-px rounded-sm px-1 py-px text-[10px]" style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)" }}>K</span>
-              </span>
+              <Search className="h-3.5 w-3.5" aria-hidden="true" />
+              <span>Search</span>
+              <kbd className="ml-2 rounded border px-1.5 py-px font-mono text-[10px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>Ctrl K</kbd>
             </button>
 
             <span className="hidden sm:block">
               <a
                   href={siteConfig.resumePdf}
                   download
-                  className="btn-neon btn-neon-primary !min-h-0 !px-3.5 !py-2 !text-[12px]"
+                  className="btn-neon btn-neon-primary !min-h-0 !px-3 !py-2 !text-[12px]"
                   aria-label="Download resume (PDF)"
                 >
                   <FileDown className="w-3.5 h-3.5" />
@@ -174,7 +174,7 @@ export default function Navbar() {
         style={{ backgroundColor: "var(--color-bg-primary)" }}
         aria-hidden={!menuOpen}
       >
-        <div className="flex h-full flex-col overflow-y-auto px-4.5 pb-8 pt-20">
+        <div className="flex h-full flex-col overflow-y-auto px-4 pb-8 pt-20">
           <p className="field-label mb-4">Index</p>
           <ul className="flex-1 space-y-1">
             {routes.map((r, i) => {
@@ -238,7 +238,7 @@ export default function Navbar() {
 function NavTag({ label }: { label: string }) {
   return (
     <span
-      className="ml-1.5 inline-block rounded-full px-1.5 py-px align-middle text-[9px] font-semibold uppercase tracking-wider"
+      className="ml-1.5 inline-block rounded-lg px-1.5 py-px align-middle text-[9px] font-semibold uppercase tracking-wider"
       style={{ backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }}
     >
       {label}

@@ -34,7 +34,7 @@ export default function ProjectsClient() {
   const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
-    <section id="projects" className="min-h-screen w-full py-28 md:py-36 px-2.5 sm:px-5 lg:px-8.5 relative"
+    <section id="projects" className="min-h-screen w-full py-28 md:py-36 px-4 sm:px-6 lg:px-8 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
@@ -43,24 +43,24 @@ export default function ProjectsClient() {
           index="03"
           label="Systems I've Built"
           title={<>Not websites. <em className="font-serif-accent">Systems</em>.</>}
-          description="Seven case studies, told as problem, solution, architecture and contribution, plus a lighter-weight archive of smaller builds and experiments below."
+          description="Seven case studies. Each opens to its audience, scope, architecture and data model (ERD), with a lighter archive of smaller builds below."
         />
 
         {/* Case studies as alternating spreads */}
-        <div className="mb-20 flex flex-col gap-8">
-          {caseStudies.map((study, i) => (
-            <CaseStudy key={study.id} study={study} ink={i % 2 === 1} />
+        <div className="mb-16 flex flex-col gap-6">
+          {caseStudies.map((study) => (
+            <CaseStudy key={study.id} study={study} />
           ))}
         </div>
 
         {/* Now building */}
-        <div className="mb-20">
+        <div className="mb-16">
           <SubTitle kicker="Now building" title="What's currently in progress" />
           <div className="grid gap-4 sm:grid-cols-2">
             {nowBuilding.map((n) => (
-              <div key={n.title} className="rounded-[1.5rem] border-2 border-dashed p-6" style={{ borderColor: "var(--color-accent-secondary)" }}>
+              <div key={n.title} className="rounded-xl border p-5 sm:p-6" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
                 <div className="mb-3 flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}>
                     {n.icon}
                   </span>
                   <h3 className="font-serif-accent text-xl" style={{ color: "var(--color-text-primary)" }}>{n.title}</h3>
@@ -77,7 +77,7 @@ export default function ProjectsClient() {
 
         {/* This portfolio */}
         <StaggerReveal>
-        <div className="mb-20 grid gap-6 rounded-[2rem] p-7 sm:p-10 md:grid-cols-5" style={{ backgroundColor: "var(--color-highlight)" }}>
+        <div className="mb-16 grid gap-6 rounded-2xl p-6 sm:p-8 md:grid-cols-5" style={{ backgroundColor: "var(--color-highlight)" }}>
           <div className="md:col-span-3">
             <p className="field-label mb-3">This portfolio</p>
             <h3 className="display-xl mb-4 text-4xl" style={{ color: "var(--color-text-primary)" }}>
@@ -110,7 +110,7 @@ export default function ProjectsClient() {
         </StaggerReveal>
 
         {/* Archive as a compact expandable list */}
-        <div className="mb-20">
+        <div className="mb-16">
           <SubTitle kicker="Archive" title="Smaller builds & experiments" />
           <StaggerReveal staggerDelay={80}>
           <ul className="border-b" style={{ borderColor: "var(--color-border)" }}>
@@ -125,7 +125,7 @@ export default function ProjectsClient() {
                     aria-controls={`project-details-${index}`}
                   >
                     <span className="min-w-0 md:col-span-5">
-                      <span className="block font-serif-accent text-2xl transition-colors duration-200 group-hover:text-[var(--color-accent)]" style={{ color: "var(--color-text-primary)" }}>
+                      <span className="block text-lg font-semibold transition-colors duration-200 group-hover:text-[var(--color-accent)]" style={{ color: "var(--color-text-primary)" }}>
                         {project.title}
                       </span>
                       <span className="block text-xs" style={{ color: "var(--color-text-muted)" }}>
@@ -143,7 +143,7 @@ export default function ProjectsClient() {
                     <span className="flex items-center justify-end gap-3 md:col-span-2">
                       <span className="pill !py-1 !text-[11px] capitalize">{project.status}</span>
                       <span
-                        className="flex h-9 w-9 items-center justify-center rounded-full border transition-colors duration-200 group-hover:border-[var(--color-accent)]"
+                        className="flex h-9 w-9 items-center justify-center rounded-lg border transition-colors duration-200 group-hover:border-[var(--color-accent)]"
                         style={{ borderColor: "var(--color-border)", color: "var(--color-accent)" }}
                         aria-hidden="true"
                       >
@@ -166,7 +166,7 @@ export default function ProjectsClient() {
                         </ul>
                         <div className="mb-4 flex flex-wrap gap-1.5">
                           {project.stack.map((tech) => (
-                            <span key={tech} className="rounded-full border px-2.5 py-1 font-mono text-[10px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
+                            <span key={tech} className="rounded-md border px-2.5 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
                               {tech}
                             </span>
                           ))}
@@ -194,7 +194,7 @@ export default function ProjectsClient() {
 
         {/* GitHub */}
         <StaggerReveal>
-        <div className="ink-slab px-6 py-12 text-center sm:px-12">
+        <div className="ink-slab px-5 py-10 text-center sm:px-10">
           <p className="field-label mb-6">Open source / code</p>
           <div className="mx-auto mb-8 grid max-w-md grid-cols-3 gap-4">
             {githubStats.map((s) => (

@@ -107,7 +107,7 @@ export default function FridaySurprise() {
           {!weekend && (
             <div className="mt-5 grid grid-cols-4 gap-2">
               {parts.map((p) => (
-                <div key={p.label} className="rounded-2xl border px-2 py-3 text-center" style={{ borderColor: "var(--color-border)" }}>
+                <div key={p.label} className="rounded-xl border px-2 py-3 text-center" style={{ borderColor: "var(--color-border)" }}>
                   <p className="font-mono text-xl font-bold" style={{ color: "var(--color-accent)" }}>
                     {now ? String(p.value).padStart(2, "0") : "--"}
                   </p>

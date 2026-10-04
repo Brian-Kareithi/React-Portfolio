@@ -43,7 +43,7 @@ export default function HomeContent() {
   const indexRoutes = routes.filter((r) => r.path !== "/");
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden px-2.5 sm:px-5 lg:px-8.5" style={{ backgroundColor: "var(--color-bg-primary)" }}>
+    <section id="home" className="relative min-h-screen overflow-hidden px-4 sm:px-6 lg:px-8" style={{ backgroundColor: "var(--color-bg-primary)" }}>
       {/* Hero atmosphere: aurora wash */}
       <div aria-hidden="true" className="hero-aurora" />
 
@@ -51,7 +51,7 @@ export default function HomeContent() {
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
           {/* Identity */}
           <div className="min-w-0 lg:col-span-7">
-            <p className="stagger-item mb-6 inline-flex max-w-full items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium sm:text-[13px]" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-primary)" }}>
+            <p className="stagger-item mb-6 inline-flex max-w-full items-center gap-2 rounded-lg border px-3.5 py-1.5 text-xs font-medium sm:text-[13px]" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-primary)" }}>
               <span className="relative flex h-2 w-2 flex-shrink-0">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ backgroundColor: "var(--color-live)" }} />
                 <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: "var(--color-live)" }} />
@@ -68,7 +68,7 @@ export default function HomeContent() {
             </h1>
 
             <p className="stagger-item mb-3 max-w-xl text-xl font-medium leading-snug sm:text-2xl" style={{ color: "var(--color-text-primary)" }}>
-              Software engineer shipping <span className="mark">Next.js</span> and <span className="mark">React Native</span> apps.
+              Software engineer shipping <strong className="font-semibold" style={{ color: "var(--color-accent)" }}>Next.js</strong> and <strong className="font-semibold" style={{ color: "var(--color-accent)" }}>React Native</strong> apps.
             </p>
             <p className="stagger-item mb-9 max-w-lg text-base leading-relaxed sm:text-lg" style={{ color: "var(--color-text-secondary)" }}>
               Currently building the parent platform at Steadfast Academy, on the web and on Android and iOS, backed by hands-on infrastructure and security experience.
@@ -109,7 +109,7 @@ export default function HomeContent() {
           <div className="lg:col-span-5">
             <div className="relative mx-auto max-w-[17rem] xs:max-w-[21rem] lg:mr-0">
               <div
-                className="group relative aspect-[4/5] overflow-hidden rounded-t-full rounded-b-[2rem] border"
+                className="group relative aspect-[4/5] overflow-hidden rounded-2xl border"
                 style={{ borderColor: "var(--color-border-hover)", boxShadow: "0 0 0 6px rgb(212 194 252 / 0.35), 0 30px 60px -24px rgb(20 36 138 / 0.45)" }}
               >
                 <Image
@@ -120,7 +120,6 @@ export default function HomeContent() {
                   priority
                   className="object-cover object-center transition-transform duration-[400ms] ease-[var(--ease-out)] group-hover:scale-[1.03]"
                 />
-                <div aria-hidden="true" className="portrait-scan" />
               </div>
 
               <div
@@ -132,7 +131,7 @@ export default function HomeContent() {
               </div>
               <div
                 className="absolute -bottom-5 -right-2 rounded-xl px-4 py-3 sm:-right-8"
-                style={{ background: "linear-gradient(180deg, #2a3cb0, var(--palette-true-cobalt))", color: "var(--palette-lavender-mist)", boxShadow: "inset 0 1px 0 rgb(255 255 255 / 0.22), 0 16px 30px -14px rgb(20 36 138 / 0.7)" }}
+                style={{ backgroundColor: "var(--palette-true-cobalt)", color: "var(--palette-lavender-mist)" }}
               >
                 <p className="font-serif-accent text-3xl leading-none">6</p>
                 <p className="text-[11px] opacity-80">industry certifications</p>
@@ -218,7 +217,7 @@ export default function HomeContent() {
                 </h3>
                 <div className="flex flex-wrap gap-1.5">
                   {area.tools.map((tool) => (
-                    <span key={tool} className="rounded-full border px-2.5 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
+                    <span key={tool} className="rounded-md border px-2.5 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
                       {tool}
                     </span>
                   ))}
@@ -229,7 +228,7 @@ export default function HomeContent() {
           <div className="mt-6 flex flex-wrap items-center gap-2">
             <span className="field-label mr-1">Also exploring</span>
             {alsoExploring.map((tag) => (
-              <span key={tag} className="rounded-full border border-dashed px-2.5 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border-hover)", color: "var(--color-text-muted)" }}>
+              <span key={tag} className="rounded-md border border-dashed px-2.5 py-1 font-mono text-[11px]" style={{ borderColor: "var(--color-border-hover)", color: "var(--color-text-muted)" }}>
                 {tag}
               </span>
             ))}

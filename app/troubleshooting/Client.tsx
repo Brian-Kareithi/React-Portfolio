@@ -120,7 +120,7 @@ export default function TroubleshootingClient() {
   const [openCase, setOpenCase] = useState(0);
 
   return (
-    <section id="troubleshooting" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-2.5 sm:px-5 lg:px-8.5 relative"
+    <section id="troubleshooting" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-4 sm:px-6 lg:px-8 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
@@ -209,13 +209,13 @@ export default function TroubleshootingClient() {
                         </div>
                       </div>
                       <div className="space-y-3">
-                        <div className="rounded-2xl p-4" style={{ backgroundColor: "var(--color-highlight)" }}>
+                        <div className="rounded-xl p-4" style={{ backgroundColor: "var(--color-highlight)" }}>
                           <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold" style={{ color: "var(--color-accent)" }}>
                             <CircleAlert className="w-3.5 h-3.5" /> Root cause
                           </p>
                           <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-primary)" }}>{c.rootCause}</p>
                         </div>
-                        <div className="rounded-2xl border p-4" style={{ borderColor: "var(--color-border)" }}>
+                        <div className="rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
                           <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold" style={{ color: "var(--color-success)" }}>
                             <CheckCircle className="w-3.5 h-3.5" /> Resolution
                           </p>
@@ -239,7 +239,7 @@ export default function TroubleshootingClient() {
           </p>
           <div className="flex flex-wrap gap-2">
             {kit.map((t) => (
-              <span key={t} className="rounded-full border px-3.5 py-1.5 font-mono text-xs" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
+              <span key={t} className="rounded-md border px-3.5 py-1.5 font-mono text-xs" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
                 {t}
               </span>
             ))}
