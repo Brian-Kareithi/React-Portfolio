@@ -1,46 +1,42 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Printer, CheckCircle, Info } from "lucide-react";
+import { useState } from "react";
+import { Download, Loader2, CheckCircle } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { SpecSheet } from "@/app/components/ui/SpecSheet";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
-import { resumeRoles, resumeCertifications, resumeEducation } from "@/app/lib/resume-data";
+import { resumeRoles, resumeCertifications, resumeEducation, resumeHistory, type ResumeRoleId } from "@/app/lib/resume-data";
 import { siteConfig } from "@/app/lib/site";
 
 export default function ResumeClient() {
-  const [activeRole, setActiveRole] = useState(resumeRoles[0].id);
+  const [activeRole, setActiveRole] = useState<ResumeRoleId>(resumeRoles[0].id);
+  const [status, setStatus] = useState<"idle" | "building" | "error">("idle");
   const role = resumeRoles.find((r) => r.id === activeRole)!;
   const roleIndex = resumeRoles.findIndex((r) => r.id === activeRole);
-  const today = new Date().toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
 
-  // Give the saved PDF a meaningful filename, e.g. Brian-Kareithi-Resume-Software-Engineering.pdf
-  useEffect(() => {
-    const original = document.title;
-    const fileTitle = `Brian-Kareithi-Resume-${role.label.replace(/\s+/g, "-")}`;
-    const apply = () => {
-      document.title = fileTitle;
-    };
-    const restore = () => {
-      document.title = original;
-    };
-    window.addEventListener("beforeprint", apply);
-    window.addEventListener("afterprint", restore);
-    return () => {
-      window.removeEventListener("beforeprint", apply);
-      window.removeEventListener("afterprint", restore);
-      document.title = original;
-    };
-  }, [role.label]);
-
-  const handlePrint = () => {
-    document.title = `Brian-Kareithi-Resume-${role.label.replace(/\s+/g, "-")}`;
-    window.print();
+  // The PDF engine is large, so it is only loaded when someone actually downloads.
+  const handleDownload = async () => {
+    setStatus("building");
+    try {
+      const [{ pdf }, { ResumePdf }] = await Promise.all([
+        import("@react-pdf/renderer"),
+        import("./ResumePdf"),
+      ]);
+      const date = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+      const blob = await pdf(<ResumePdf role={role} date={date} />).toBlob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `Brian-Kareithi-Resume-${role.fileLabel}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      setStatus("idle");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -48,21 +44,20 @@ export default function ResumeClient() {
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
-        <div className="no-print"><Breadcrumbs /></div>
+        <Breadcrumbs />
 
-        {/* ── Screen version ─────────────────────────────────── */}
         <div className="resume-screen">
           <SectionHeader
             index="07"
             label="Resume"
             variant="center"
-            title={<>One background, <em className="font-serif-accent">tailored</em></>}
-            description="The same experience and projects, reordered and re-weighted for the role you're hiring for. Switch the tab, or print this page for a role-specific PDF."
+            title={<>One background, <em className="font-serif-accent">told</em> your way</>}
+            description="I am a full-stack developer first. The other roles come with the territory, so choose the one that fits your opening, preview it and download it as a PDF."
           />
 
           {/* Role switcher: segmented pill */}
-          <div className="no-print mb-4 flex flex-col items-center gap-4">
-            <div className="inline-flex flex-wrap justify-center gap-1 rounded-xl border p-1" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }} role="tablist" aria-label="Resume role">
+          <div className="mb-12 flex flex-col items-center gap-4">
+            <div className="inline-flex max-w-full flex-wrap justify-center gap-1 rounded-xl border p-1" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }} role="tablist" aria-label="Resume role">
               {resumeRoles.map((r) => {
                 const active = r.id === activeRole;
                 return (
@@ -70,7 +65,7 @@ export default function ResumeClient() {
                     key={r.id}
                     role="tab"
                     aria-selected={active}
-                    onClick={() => setActiveRole(r.id)}
+                    onClick={() => { setActiveRole(r.id); setStatus("idle"); }}
                     className="min-h-[44px] rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200"
                     style={
                       active
@@ -79,19 +74,29 @@ export default function ResumeClient() {
                     }
                   >
                     {r.label}
+                    {r.primary && (
+                      <span className="ml-2 rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide" style={{ backgroundColor: active ? "rgb(255 255 255 / 0.2)" : "var(--color-highlight)" }}>
+                        Primary
+                      </span>
+                    )}
                   </button>
                 );
               })}
             </div>
-            <button onClick={handlePrint} className="btn-neon btn-neon-ghost">
-              <Printer className="h-4 w-4" aria-hidden="true" />
-              Print / Save as PDF: {role.label}
+            <p className="max-w-xl text-center text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
+              Full-Stack Developer is the role I am looking for. The others come with the territory, so pick whichever matches your opening and I will lead with it.
+            </p>
+            <button onClick={handleDownload} disabled={status === "building"} className="btn-neon btn-neon-primary w-full justify-center !px-8 !py-4 !text-base shadow-lg disabled:cursor-wait disabled:opacity-70 sm:w-auto" aria-live="polite">
+              {status === "building" ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Download className="h-4 w-4" aria-hidden="true" />}
+              {status === "building" ? "Building PDF…" : `Download PDF: ${role.label}`}
             </button>
+            {status === "error" && (
+              <p role="alert" className="text-xs" style={{ color: "var(--color-text-muted)" }}>
+                Couldn’t build the PDF. Try again, or use the{" "}
+                <a href={siteConfig.resumePdf} download className="underline">general resume</a>.
+              </p>
+            )}
           </div>
-          <p className="no-print mx-auto mb-12 flex max-w-xl items-start justify-center gap-2 text-center text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-            <Info className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
-            <span>In the print dialog choose “Save as PDF”, A4, margins Default, and tick <strong>Background graphics</strong> for full colour.</span>
-          </p>
 
           {/* The sheet */}
           <article
@@ -113,6 +118,14 @@ export default function ResumeClient() {
               <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                 {role.summary}
               </p>
+              <dl className="mt-6 grid grid-cols-3 gap-3 border-t pt-5" style={{ borderColor: "var(--color-border)" }}>
+                {role.highlights.map((h) => (
+                  <div key={h.label}>
+                    <dt className="display-xl text-2xl sm:text-3xl" style={{ color: "var(--color-accent)" }}>{h.value}</dt>
+                    <dd className="field-label mt-1">{h.label}</dd>
+                  </div>
+                ))}
+              </dl>
             </header>
 
             <div className="grid lg:grid-cols-3">
@@ -130,13 +143,20 @@ export default function ResumeClient() {
                 />
 
                 <div>
-                  <p className="field-label mb-3">Top skills</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {role.topSkills.map((skill) => (
-                      <span key={skill} className="rounded-md px-2.5 py-1 font-mono text-[11px]"
-                        style={{ backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }}>
-                        {skill}
-                      </span>
+                  <p className="field-label mb-3">Skills</p>
+                  <div className="flex flex-col gap-4">
+                    {role.skillGroups.map((g) => (
+                      <div key={g.group}>
+                        <p className="mb-1.5 text-[11px] font-medium" style={{ color: "var(--color-text-muted)" }}>{g.group}</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {g.items.map((skill) => (
+                            <span key={skill} className="rounded-md px-2.5 py-1 font-mono text-[11px]"
+                              style={{ backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }}>
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -182,12 +202,28 @@ export default function ResumeClient() {
                 </section>
 
                 <section>
+                  <h3 className="display-xl mb-4 text-2xl" style={{ color: "var(--color-text-primary)" }}>Earlier experience</h3>
+                  <ul className="space-y-4">
+                    {resumeHistory.map((j) => (
+                      <li key={j.role}>
+                        <div className="flex flex-wrap items-baseline justify-between gap-2">
+                          <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>{j.role}, {j.org}</p>
+                          <span className="pill !py-0.5 !text-[11px]">{j.period}</span>
+                        </div>
+                        <p className="mt-1 text-sm" style={{ color: "var(--color-text-secondary)" }}>{j.line}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+
+                <section>
                   <h3 className="display-xl mb-4 text-2xl" style={{ color: "var(--color-text-primary)" }}>Selected projects</h3>
                   <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
                     {role.projects.map((p) => (
                       <div key={p.title} className="rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
                         <p className="font-serif-accent text-lg" style={{ color: "var(--color-text-primary)" }}>{p.title}</p>
                         <p className="mt-1 text-xs leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{p.note}</p>
+                        <p className="mt-2 font-mono text-[10px]" style={{ color: "var(--color-accent)" }}>{p.stack}</p>
                       </div>
                     ))}
                   </div>
@@ -196,7 +232,7 @@ export default function ResumeClient() {
             </div>
           </article>
 
-          <div className="no-print">
+          <div>
             <NextSection
               title="See the full picture"
               description="This is the condensed version. The full case studies and journey are one click away."
@@ -209,121 +245,6 @@ export default function ResumeClient() {
           </div>
         </div>
 
-        {/* ── Print-only PDF document ──────────────────────────
-            Hidden on screen, shown only in @media print.
-            Uses fixed light-theme hex values so dark mode never
-            bleeds into the PDF. */}
-        <div className="resume-print" aria-hidden="true">
-          {/* Banner */}
-          <div className="rp-banner">
-            <div className="rp-banner-top">
-              <span className="rp-kicker">Brian Kareithi · Resume · {role.label}</span>
-              <span className="rp-kicker rp-kicker-right">{today} · {String(roleIndex + 1).padStart(2, "0")} / {String(resumeRoles.length).padStart(2, "0")}</span>
-            </div>
-            <h1 className="rp-name">{siteConfig.fullName}</h1>
-            <p className="rp-headline">{role.headline}</p>
-            <p className="rp-contact">
-              {siteConfig.email} &nbsp;•&nbsp; {siteConfig.phoneDisplay} &nbsp;•&nbsp; {siteConfig.location}
-              <br />
-              github.com/Brian-Kareithi &nbsp;•&nbsp; linkedin.com/in/brian-kareithi-04007637b &nbsp;•&nbsp; kareithi.vercel.app
-            </p>
-          </div>
-
-          {/* Summary strip */}
-          <div className="rp-summary">
-            <p className="rp-section-label">Profile</p>
-            <p className="rp-summary-text">{role.summary}</p>
-          </div>
-
-          {/* Body grid */}
-          <div className="rp-grid">
-            {/* Main column */}
-            <div className="rp-main">
-              <div className="rp-block">
-                <div className="rp-section-head">
-                  <span className="rp-dot" />
-                  <h2 className="rp-section-title">Experience</h2>
-                </div>
-                <div className="rp-job-head">
-                  <p className="rp-job-title">IT Support / Frontend Development, Steadfast Academy</p>
-                  <span className="rp-job-period">2025 – Present</span>
-                </div>
-                <ul className="rp-list">
-                  {role.experience.map((line) => (
-                    <li key={line} className="rp-list-item">
-                      <span className="rp-bullet" />
-                      <span>{line}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="rp-block">
-                <div className="rp-section-head">
-                  <span className="rp-dot" />
-                  <h2 className="rp-section-title">Selected Projects</h2>
-                </div>
-                <div className="rp-projects">
-                  {role.projects.map((p) => (
-                    <div key={p.title} className="rp-project">
-                      <p className="rp-project-title">{p.title}</p>
-                      <p className="rp-project-note">{p.note}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Sidebar */}
-            <div className="rp-side">
-              <div className="rp-block rp-side-block">
-                <h2 className="rp-section-title rp-section-title-sm">Top Skills</h2>
-                <div className="rp-skills">
-                  {role.topSkills.map((skill) => (
-                    <span key={skill} className="rp-skill">{skill}</span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rp-block rp-side-block">
-                <h2 className="rp-section-title rp-section-title-sm">Education</h2>
-                <p className="rp-edu-degree">{resumeEducation.degree}</p>
-                <p className="rp-edu-meta">{resumeEducation.institution} · {resumeEducation.period}</p>
-                <p className="rp-edu-note">{resumeEducation.note}</p>
-              </div>
-
-              <div className="rp-block rp-side-block">
-                <h2 className="rp-section-title rp-section-title-sm">Certifications</h2>
-                <ul className="rp-certs">
-                  {resumeCertifications.map((cert) => (
-                    <li key={cert} className="rp-cert">
-                      <span className="rp-check">✓</span>
-                      <span>{cert}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="rp-block rp-side-block">
-                <h2 className="rp-section-title rp-section-title-sm">Contact</h2>
-                <dl className="rp-contact-list">
-                  <div className="rp-contact-row"><dt>Email</dt><dd>{siteConfig.email}</dd></div>
-                  <div className="rp-contact-row"><dt>Phone</dt><dd>{siteConfig.phoneDisplay}</dd></div>
-                  <div className="rp-contact-row"><dt>Location</dt><dd>{siteConfig.location}</dd></div>
-                  <div className="rp-contact-row"><dt>GitHub</dt><dd>github.com/Brian-Kareithi</dd></div>
-                  <div className="rp-contact-row"><dt>LinkedIn</dt><dd>linkedin.com/in/brian-kareithi-04007637b</dd></div>
-                  <div className="rp-contact-row"><dt>Portfolio</dt><dd>kareithi.vercel.app</dd></div>
-                </dl>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="rp-footer">
-            <span>Tailored for: {role.label} · Generated {today} from kareithi.vercel.app/resume</span>
-            <span className="rp-footer-accent">■ ■ ■</span>
-          </div>
-        </div>
       </div>
       </ScrollReveal>
     </section>

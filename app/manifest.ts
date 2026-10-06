@@ -3,7 +3,7 @@ import { siteConfig } from "@/app/lib/site";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${siteConfig.name} | Software Engineer`,
+    name: `${siteConfig.name} | Full-Stack Developer`,
     short_name: siteConfig.name,
     description: siteConfig.description,
     start_url: "/",

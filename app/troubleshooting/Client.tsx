@@ -130,7 +130,7 @@ export default function TroubleshootingClient() {
           label="Diagnostics"
           variant="split"
           title={<>Troubleshooting <em className="font-serif-accent">method</em></>}
-          description="A repeatable, evidence-driven approach to finding root causes across software, hardware, and networks. Data first, verified fixes, documented outcomes."
+          description="When something breaks I would rather fix it once and properly. I follow the evidence to the root cause across software, hardware and networks, which is how I have cut internet downtime, then I write down what I learned."
         />
 
         {/* Method: rules of thumb as pills */}
@@ -247,8 +247,8 @@ export default function TroubleshootingClient() {
         </div>
         </StaggerReveal>
       <NextSection
-          title="Put the method to work"
-          description="The same discipline shows up across engineering and the homelab."
+          title="The method in use"
+          description="The same discipline applies to the software I build and the infrastructure I run."
           links={[
             { href: "/how-i-work", label: "How I Work", description: "How I design, build and ship production software." },
             { href: "/homelab", label: "Homelab", description: "A live lab where the method is validated under real-world conditions." },

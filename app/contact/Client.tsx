@@ -14,6 +14,25 @@ type Errors = Partial<Record<FieldName, string>>;
 const MESSAGE_MIN = 20;
 const MESSAGE_MAX = 2000;
 const topics = ["Hiring / job opportunity", "Project or freelance work", "Collaboration", "Something else"];
+/** Placeholders follow the selected topic so each prompt asks for what a good first message needs. */
+const topicPrompts: Record<string, { subject: string; message: string }> = {
+  "Hiring / job opportunity": {
+    subject: "Senior Frontend Engineer, Nairobi or remote",
+    message: "Role and team, the main problems you need solved in the first 90 days, the stack, and your interview timeline.",
+  },
+  "Project or freelance work": {
+    subject: "Booking platform for a property developer, MVP in 8 weeks",
+    message: "What you want to build, who will use it, your timeline and budget range, and any existing systems or designs.",
+  },
+  Collaboration: {
+    subject: "Partnership on an open-source road-safety tool",
+    message: "What you are working on, what you would like me to contribute, and how you imagine we would work together.",
+  },
+  "Something else": {
+    subject: "Question about your work or availability",
+    message: "Tell me what you need and any context that would help me give you a useful reply.",
+  },
+};
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function validate(values: Record<FieldName, string>): Errors {
@@ -120,8 +139,8 @@ export default function ContactClient() {
             index="04"
             label="Connect"
             variant="split"
-            title={<>Get in <em className="font-serif-accent">touch</em></>}
-            description="Hiring, a project, or a collaboration: tell me what you have in mind and I will reply with next steps."
+            title={<>Say <em className="font-serif-accent">hello</em></>}
+            description="Hiring, planning a project or just curious? Tell me what you have in mind and I will reply personally, usually within 24 hours."
           />
 
           <StaggerReveal staggerDelay={100}>
@@ -180,10 +199,10 @@ export default function ContactClient() {
               <form onSubmit={handleSubmit} noValidate className="space-y-5">
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   <Field label="Your name" name="name" hint="So I know who to address." error={showError("name")}>
-                    <input {...fieldProps("name")} type="text" autoComplete="name" placeholder="Jane Doe" className={inputClass} />
+                    <input {...fieldProps("name")} type="text" autoComplete="name" placeholder="Full name, e.g. Marvin Waigera" className={inputClass} />
                   </Field>
                   <Field label="Email address" name="email" hint="Where I should reply." error={showError("email")}>
-                    <input {...fieldProps("email")} type="email" autoComplete="email" inputMode="email" placeholder="you@company.com" className={inputClass} />
+                    <input {...fieldProps("email")} type="email" autoComplete="email" inputMode="email" placeholder="name@company.com" className={inputClass} />
                   </Field>
                 </div>
 
@@ -205,7 +224,7 @@ export default function ContactClient() {
                 </div>
 
                 <Field label="Subject" name="subject" hint="A one-line summary." error={showError("subject")}>
-                  <input {...fieldProps("subject")} type="text" autoComplete="off" placeholder="Frontend role at Acme, or quote for a booking site" className={inputClass} />
+                  <input {...fieldProps("subject")} type="text" autoComplete="off" placeholder={topicPrompts[topic]?.subject} className={inputClass} />
                 </Field>
 
                 <Field
@@ -215,7 +234,7 @@ export default function ContactClient() {
                   error={showError("message")}
                   counter={`${values.message.length} / ${MESSAGE_MAX}`}
                 >
-                  <textarea {...fieldProps("message")} rows={6} maxLength={MESSAGE_MAX} placeholder="Tell me about the role or project…" className={`${inputClass} resize-y`} />
+                  <textarea {...fieldProps("message")} rows={6} maxLength={MESSAGE_MAX} placeholder={topicPrompts[topic]?.message} className={`${inputClass} resize-y`} />
                 </Field>
 
                 <button type="submit" disabled={isSubmitting}
@@ -255,12 +274,12 @@ export default function ContactClient() {
           </StaggerReveal>
 
           <NextSection
-            title="Before you reach out"
-            description="Explore the journey, the work, and what happens outside client projects."
+            title="Not ready to write yet?"
+            description="Read my story, look at what I have built, or see the lab I run at home."
             links={[
-              { href: "/about", label: "About", description: "The journey behind the developer." },
-              { href: "/projects", label: "Selected Work", description: "Delivered products and experiments." },
-              { href: "/homelab", label: "Homelab", description: "The 24/7 infrastructure I build and run." },
+              { href: "/about", label: "About", description: "My story and track record." },
+              { href: "/projects", label: "Selected Work", description: "Products delivered, with live demos." },
+              { href: "/homelab", label: "Homelab", description: "The infrastructure I run at home, 24/7." },
             ]}
           />
         </div>

@@ -10,6 +10,7 @@ import { routes } from "@/app/lib/nav";
 import { focusAreas, alsoExploring } from "@/app/lib/focus";
 import { caseStudies } from "@/app/lib/projects-data";
 import { siteConfig } from "@/app/lib/site";
+import { valuePoints } from "@/app/lib/value";
 
 const spec: { k: string; v: string }[] = [
   { k: "Currently", v: "Frontend development & IT support, Steadfast Academy" },
@@ -56,7 +57,7 @@ export default function HomeContent() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ backgroundColor: "var(--color-live)" }} />
                 <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: "var(--color-live)" }} />
               </span>
-              <span>Open to full-time &amp; contract roles · Remote or Nairobi</span>
+              <span>Open to full-time, contract and freelance work · Remote or Nairobi</span>
             </p>
 
             <h1 className="display-xl mb-6 text-[3.1rem] leading-[0.95] xs:text-7xl sm:text-8xl lg:text-[7.5rem]" style={{ color: "var(--color-text-primary)" }}>
@@ -68,23 +69,23 @@ export default function HomeContent() {
             </h1>
 
             <p className="stagger-item mb-3 max-w-xl text-xl font-medium leading-snug sm:text-2xl" style={{ color: "var(--color-text-primary)" }}>
-              Software engineer shipping <strong className="font-semibold" style={{ color: "var(--color-accent)" }}>Next.js</strong> and <strong className="font-semibold" style={{ color: "var(--color-accent)" }}>React Native</strong> apps.
+              I&apos;m a <strong className="font-semibold" style={{ color: "var(--color-accent)" }}>full-stack developer</strong> who started in <strong className="font-semibold" style={{ color: "var(--color-accent)" }}>IT and security</strong>.
             </p>
             <p className="stagger-item mb-9 max-w-lg text-base leading-relaxed sm:text-lg" style={{ color: "var(--color-text-secondary)" }}>
-              Currently building the parent platform at Steadfast Academy, on the web and on Android and iOS, backed by hands-on infrastructure and security experience.
+              I got here through IT support, security work and a lot of late nights in my homelab. That is why I build software with the network, the servers and the people using it in mind. Today I build web and mobile platforms for teachers and families at Steadfast Academy.
             </p>
 
             <div className="stagger-item mb-9 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
               <Link href="/projects" className="btn-neon btn-neon-primary justify-center">
-                View Selected Work
+                See what I&apos;ve built
                 <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href={siteConfig.resumePdf} download className="btn-neon btn-neon-ghost justify-center">
+              <Link href="/resume" className="btn-neon btn-neon-ghost justify-center">
                 <FileDown className="w-4 h-4" />
-                Download Resume
-              </a>
+                Get my resume
+              </Link>
               <Link href="/contact" className="btn-neon btn-neon-ghost justify-center">
-                Get in Touch
+                Let&apos;s talk
               </Link>
             </div>
 
@@ -114,7 +115,7 @@ export default function HomeContent() {
               >
                 <Image
                   src="https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg"
-                  alt="Portrait of Brian Kareithi, software engineer based in Nairobi, Kenya"
+                  alt="Portrait of Brian Kareithi, full-stack developer based in Nairobi, Kenya"
                   fill
                   sizes="(max-width: 375px) 272px, 336px"
                   priority
@@ -140,15 +141,47 @@ export default function HomeContent() {
           </div>
         </div>
 
+        {/* Why hire: differentiators, each with its benefit and evidence */}
+        <div className="mt-24">
+          <div className="mb-8 max-w-2xl">
+            <p className="field-label mb-3">My story</p>
+            <h2 className="display-xl text-4xl sm:text-5xl" style={{ color: "var(--color-text-primary)" }}>
+              How I got <span className="font-serif-accent">here</span>
+            </h2>
+            <p className="mt-4 text-base leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+              Writing code is the part everyone expects. This is the rest of the story: where I come from, what shaped how I work, and the evidence behind each part.
+            </p>
+          </div>
+          <ol className="grid gap-4 md:grid-cols-2">
+            {valuePoints.map((v, i) => (
+              <li key={v.id} className={i === 0 ? "md:col-span-2" : ""}>
+                <Link href={v.href} className="flat-card group flex h-full flex-col gap-3 p-6 sm:p-7">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <span className="font-serif-accent text-4xl leading-none" style={{ color: "var(--color-accent)" }}>0{i + 1}</span>
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" style={{ color: "var(--color-accent)" }} />
+                  </div>
+                  <h3 className="text-lg font-semibold leading-snug sm:text-xl" style={{ color: "var(--color-text-primary)" }}>{v.edge}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                    {v.benefit}
+                  </p>
+                  <p className="mt-auto border-t pt-3 text-xs leading-relaxed" style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
+                    <span className="field-label mr-2">Evidence</span>{v.proof}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </div>
+
         {/* Featured work: real captures of shipped products */}
         {featured.length > 0 && (
           <div className="mt-24">
             <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
               <h2 className="display-xl text-4xl sm:text-5xl" style={{ color: "var(--color-text-primary)" }}>
-                Featured <span className="font-serif-accent">work</span>
+                Things I&apos;ve <span className="font-serif-accent">built</span>
               </h2>
               <Link href="/projects" className="link-underline text-sm font-medium" style={{ color: "var(--color-accent)" }}>
-                All case studies →
+                All projects →
               </Link>
             </div>
             <div className="grid gap-4 lg:grid-cols-5">
@@ -201,9 +234,9 @@ export default function HomeContent() {
         <div className="ink-slab mt-16 px-5 py-10 xs:px-6 sm:px-10 sm:py-12">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <h2 className="display-xl text-4xl sm:text-5xl">
-              What I <span className="font-serif-accent">build</span>
+              What I <span className="font-serif-accent">work with</span>
             </h2>
-            <p className="field-label">Web &amp; mobile first, backed by infrastructure</p>
+            <p className="field-label">Build it, run it, secure it</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
             {focusAreas.map((area) => (
@@ -239,7 +272,7 @@ export default function HomeContent() {
         <div className="mt-16">
           <div className="mb-6 flex items-end justify-between gap-4">
             <h2 className="display-xl text-4xl sm:text-5xl" style={{ color: "var(--color-text-primary)" }}>
-              Take a <span className="font-serif-accent">look around</span>
+              Keep <span className="font-serif-accent">exploring</span>
             </h2>
             <button
               onClick={openPalette}

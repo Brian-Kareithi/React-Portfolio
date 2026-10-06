@@ -2,10 +2,10 @@ import { siteConfig } from "@/app/lib/site";
 
 /** Plain-text profile shared by /llms.txt. */
 export const profileText = `# Brian Kareithi: llms.txt
-> Software Engineer, Web, Mobile & Cloud-Native Systems (Nairobi, Kenya)
+> Full-Stack Developer who started in IT and security (Nairobi, Kenya)
 
 ## About
-Brian Kareithi builds secure, cloud-native products across three areas:
+Brian is a full-stack developer who started in IT support and security, which is why he builds software with the network, servers and users in mind. His main work is full-stack web and mobile development; IT and security come with the territory. He builds secure, cloud-native products across three areas:
 software engineering (React, Next.js, TypeScript, Node.js), mobile
 development (React Native, Expo), and IT & infrastructure (Linux,
 networking, system administration). He works in IT support and frontend
@@ -34,6 +34,6 @@ delivered 50+ projects.
 - [Diagnostics](${siteConfig.url}/troubleshooting): Troubleshooting method and case studies
 - [Selected Work](${siteConfig.url}/projects): Case studies: problem, solution, architecture
 - [Homelab](${siteConfig.url}/homelab): 24/7 infrastructure: Proxmox, RAID-1, managed network, ESP32 automation
-- [Resume](${siteConfig.url}/resume): Role-tailored resume: software, mobile, or IT
+- [Resume](${siteConfig.url}/resume): Role-tailored resume with PDF download: frontend, full-stack, mobile, IT support, or infrastructure
 - [Contact](${siteConfig.url}/contact): Email and contact form
 `;

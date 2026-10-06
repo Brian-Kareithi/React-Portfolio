@@ -3,7 +3,7 @@ import HowIWorkClient from "./Client";
 import { pageMeta } from "@/app/lib/site";
 
 const description =
-  "How Brian Kareithi builds software: engineering principles, the stack at each layer from frontend to cloud, a delivery workflow from idea to production, and hands-on capabilities across programming, security, networking and infrastructure.";
+  "What to expect when Brian Kareithi joins your team: engineering principles, ownership of every layer from frontend to cloud, and a delivery workflow from idea to production across programming, security, networking and infrastructure.";
 
 export const metadata: Metadata = pageMeta({
   title: "How I Work",
