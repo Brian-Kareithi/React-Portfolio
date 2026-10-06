@@ -3,7 +3,7 @@ import ResumeClient from "./Client";
 import { pageMeta } from "@/app/lib/site";
 
 const description =
-  "Brian Kareithi's resume, tailored to the role: Software Engineering, Mobile Development, or IT & Infrastructure. Real experience, projects and certifications, reordered by what matters for each role.";
+  "Brian Kareithi's resume, a full-stack developer first, with versions leading on Frontend, Mobile, IT Support or Infrastructure & Security strengths. Download the PDF that fits your opening.";
 
 export const metadata: Metadata = pageMeta({
   title: "Resume",

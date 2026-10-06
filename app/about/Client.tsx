@@ -12,7 +12,7 @@ export const experience = {
   role: "IT Support / Frontend Development",
   company: "Steadfast Academy",
   period: "2025 - Present",
-  summary: "Building and supporting digital systems used within an education environment.",
+  summary: "Building and supporting the digital systems a school depends on every day. Real users, real deadlines, no room for downtime.",
   duties: [
     "Developed responsive Teacher and Parent portals",
     "Integrated frontend applications with backend APIs",
@@ -69,9 +69,9 @@ export const stats = [
 ];
 
 const closing = [
-  { title: "Progressive Development", desc: "Each phase builds upon previous knowledge, demonstrating cumulative growth" },
-  { title: "Diverse Experience", desc: "Exposure across public sector, private enterprise, and entrepreneurial ventures" },
-  { title: "Strategic Focus", desc: "Current emphasis on scalable solutions and professional mentorship" },
+  { title: "I adapt quickly", desc: "Government, freelance clients, a school and a startup have each asked for something different. I learned to settle in fast." },
+  { title: "Development, support, networking and security", desc: "I never saw these as separate careers. They are one picture, and knowing all of it makes me better at each part." },
+  { title: "Still learning", desc: "Six certifications since 2022 and a lab I maintain by hand. I keep learning before anyone asks me to." },
 ];
 
 export default function AboutClient() {
@@ -102,8 +102,8 @@ export default function AboutClient() {
             index="01"
             label="Journey"
             variant="split"
-            title={<>Professional <em className="font-serif-accent">journey</em></>}
-            description="Academic foundation, technical certifications, and professional experience demonstrating deliberate growth and specialization."
+            title={<>My <em className="font-serif-accent">story</em>, so far</>}
+            description="From a science and technology classroom to public-sector security work, 50+ client projects, a startup I co-founded and live systems at a school. Each step taught me something I still use."
           />
 
           {/* Stats band */}
@@ -262,12 +262,12 @@ export default function AboutClient() {
           </StaggerReveal>
 
           <NextSection
-            title="Explore the toolbox"
-            description="The capabilities behind the journey, and the work it produces."
+            title="Where to go next"
+            description="See how I work, what I have built, or read my resume."
             links={[
-              { href: "/resume", label: "Resume", description: "The same background, tailored to the role you're hiring for." },
-              { href: "/how-i-work", label: "How I Work", description: "Principles, the stack at each layer, and hands-on capabilities." },
-              { href: "/projects", label: "Selected Work", description: "Delivered products, apps and experiments I'm proud of." },
+              { href: "/resume", label: "Resume", description: "A PDF tailored to the exact role you're hiring for." },
+              { href: "/how-i-work", label: "How I Work", description: "How I deliver reliably, from idea to production." },
+              { href: "/projects", label: "Selected Work", description: "What I shipped, and what it did for the people using it." },
             ]}
           />
         </div>

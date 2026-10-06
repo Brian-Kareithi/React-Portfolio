@@ -72,7 +72,7 @@ export async function GET(request: Request) {
           </div>
 
           <div style={{ display: "flex", gap: 12 }}>
-            {["Software Engineer", "Nairobi, Kenya"].map((tag) => (
+            {["Full-Stack Developer", "Nairobi, Kenya"].map((tag) => (
               <span
                 key={tag}
                 style={{
@@ -80,8 +80,8 @@ export async function GET(request: Request) {
                   fontSize: 22,
                   padding: "10px 22px",
                   borderRadius: 9999,
-                  backgroundColor: tag === "Software Engineer" ? "#14248a" : "#f9f5ff",
-                  color: tag === "Software Engineer" ? "#f9f5ff" : "#28262c",
+                  backgroundColor: tag === "Full-Stack Developer" ? "#14248a" : "#f9f5ff",
+                  color: tag === "Full-Stack Developer" ? "#f9f5ff" : "#28262c",
                   border: "2px solid #14248a",
                 }}
               >

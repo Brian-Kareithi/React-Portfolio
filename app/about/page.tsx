@@ -7,7 +7,7 @@ import { resumeCertifications, resumeEducation } from "@/app/lib/resume-data";
 export const metadata: Metadata = pageMeta({
   title: "About",
   description:
-    "The professional journey of Brian Kareithi: BSc Information Technology, six security and cloud certifications, public-sector security work, freelance full-stack development, and a startup co-founded in Nairobi, Kenya.",
+    "Why hire Brian Kareithi: a BSc in Information Technology, six security and cloud certifications, public-sector security work for the ICT Authority of Kenya, 50+ freelance projects and a startup co-founded in Nairobi.",
   path: "/about",
 });
 

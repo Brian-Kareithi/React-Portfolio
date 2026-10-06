@@ -314,9 +314,9 @@ export default function HomelabClient() {
         <Breadcrumbs />
         <SectionHeader
           index="05"
-          label="Infrastructure proof"
+          label="My lab"
           title={<>Infrastructure I <em className="font-serif-accent">run</em></>}
-          description="A 19-device lab running 24/7 on Proxmox, with RAID-1 storage, nightly backups, a managed network and ESP32 automation. It is where I practise the infrastructure, networking and security work I do professionally."
+          description="This is where it all started, and where I still learn. 19 devices running 24/7 on Proxmox, RAID-1 storage, nightly backups, a managed network and zero data lost. I broke plenty before it stayed up, and that is how I learned to keep internet and services running."
         />
 
         {/* Lab status */}
@@ -522,12 +522,12 @@ export default function HomelabClient() {
         </StaggerReveal>
 
         <NextSection
-          title="Beyond the lab"
-          description="The professional side of the skills this lab sharpens."
+          title="From the lab to my work"
+          description="The same habits, applied to the systems I build and support."
           links={[
             { href: "/how-i-work", label: "How I Work", description: "The principles and stack behind the lab and the products." },
             { href: "/troubleshooting", label: "Diagnostics", description: "Root-cause work inspired by real failures." },
-            { href: "/contact", label: "Contact", description: "Got a similar build in mind? Let's talk." },
+            { href: "/contact", label: "Contact", description: "Building something similar? Let's talk." },
           ]}
         />
       </div>

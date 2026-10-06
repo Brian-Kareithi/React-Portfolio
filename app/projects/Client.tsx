@@ -34,7 +34,7 @@ export default function ProjectsClient() {
   const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
-    <section id="projects" className="min-h-screen w-full py-28 md:py-36 px-4 sm:px-6 lg:px-8 relative"
+    <section id="projects" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-4 sm:px-6 lg:px-8 relative"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
       <div className="max-w-5xl mx-auto w-full">
@@ -43,7 +43,7 @@ export default function ProjectsClient() {
           index="03"
           label="Systems I've Built"
           title={<>Not websites. <em className="font-serif-accent">Systems</em>.</>}
-          description="Seven case studies. Each opens to its audience, scope, architecture and data model (ERD), with a lighter archive of smaller builds below."
+          description="Seven projects, told honestly: the problem, what I built, what part was mine, and how it was designed. Smaller builds are in the archive below."
         />
 
         {/* Case studies as alternating spreads */}
@@ -216,12 +216,12 @@ export default function ProjectsClient() {
         </StaggerReveal>
 
         <NextSection
-          title="Start a project or dig deeper"
-          description="From the portfolio to the process that produced it."
+          title="Have something in mind?"
+          description="Tell me about your project or your team, or read how I work first."
           links={[
-            { href: "/contact", label: "Contact", description: "Have a build in mind? Start a conversation." },
-            { href: "/how-i-work", label: "How I Work", description: "The architecture and delivery process behind each build." },
-            { href: "/resume", label: "Resume", description: "The same work, tailored to the role you're hiring for." },
+            { href: "/contact", label: "Contact", description: "Hiring or have a build in mind? Let's talk." },
+            { href: "/how-i-work", label: "How I Work", description: "The delivery process behind every one of these builds." },
+            { href: "/resume", label: "Resume", description: "This work, tailored to the role you're hiring for." },
           ]}
         />
       </div>

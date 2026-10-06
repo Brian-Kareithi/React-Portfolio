@@ -5,8 +5,8 @@ import Image from "next/image";
 import { FileDown, Search } from "lucide-react";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
+import Link from "next/link";
 import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
-import { siteConfig } from "@/app/lib/site";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -129,15 +129,14 @@ export default function Navbar() {
             </button>
 
             <span className="hidden sm:block">
-              <a
-                  href={siteConfig.resumePdf}
-                  download
+              <Link
+                  href="/resume"
                   className="btn-neon btn-neon-primary !min-h-0 !px-3 !py-2 !text-[12px]"
-                  aria-label="Download resume (PDF)"
+                  aria-label="Download resume (PDF), choose a role"
                 >
                   <FileDown className="w-3.5 h-3.5" />
                   <span>Resume</span>
-              </a>
+              </Link>
             </span>
 
             <button

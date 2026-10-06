@@ -5,7 +5,7 @@ import { JsonLd } from "@/app/components/JsonLd";
 import { caseStudies } from "@/app/lib/projects-data";
 
 const description =
-  "A selection of Brian Kareithi's delivered work: education platforms, mobile apps, self-hosted media clients, cybersecurity tooling, and two interactive portfolios (a page-flipping flip-book and a 3D experience). Open-source repositories are available on GitHub.";
+  "Results Brian Kareithi has delivered: a road-safety platform, a client real-estate site, school portals and a mobile app used by real families, plus cybersecurity tooling. Each case study shows the problem, his contribution and a live demo.";
 
 export const metadata: Metadata = pageMeta({
   title: "Selected Work",
