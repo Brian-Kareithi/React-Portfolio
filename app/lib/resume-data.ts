@@ -86,6 +86,6 @@ export const resumeCertifications = [
 export const resumeEducation = {
   degree: "BSc Information Technology",
   institution: "Umma University",
-  period: "2021 - Present",
-  note: "Cybersecurity focus",
+  period: "Graduated",
+  note: "Cybersecurity focus · degree completed",
 };
