@@ -15,7 +15,7 @@ const spec: { k: string; v: string }[] = [
   { k: "Currently", v: "Frontend development & IT support, Steadfast Academy" },
   { k: "Based in", v: "Nairobi, Kenya · open to remote" },
   { k: "Certifications", v: "6 · Security+, CCNA, AWS, Azure & more" },
-  { k: "Education", v: "BSc Information Technology, Umma University" },
+  { k: "Education", v: "BSc Information Technology, Umma University · Graduated" },
   { k: "Experience", v: "3 years in tech" },
   { k: "Homelab", v: "19 devices · 24/7 Proxmox" },
 ];
