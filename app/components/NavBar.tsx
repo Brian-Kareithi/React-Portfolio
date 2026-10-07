@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { FileDown, Search } from "lucide-react";
 import { useCommandPalette } from "@/app/components/CommandPalette";
@@ -10,14 +10,13 @@ import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const router = useRouter();
   const { open: openPalette } = useCommandPalette();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const progressRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 0);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -29,6 +28,15 @@ export default function Navbar() {
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
   useEffect(() => {
@@ -47,13 +55,12 @@ export default function Navbar() {
     },
   });
 
-  const go = (path: string) => {
+  // Real links keep middle-click, prefetch and crawlability; only a click on the current page is intercepted.
+  const onNavClick = (e: MouseEvent<HTMLAnchorElement>, path: string) => {
     setMenuOpen(false);
-    if (path === pathname) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-    router.push(path);
+    if (path !== pathname || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -77,31 +84,30 @@ export default function Navbar() {
             scrolled ? "mx-auto box-content max-w-5xl px-4 sm:px-6 lg:px-8" : "pl-5 pr-2 sm:pl-6"
           }`}
         >
-          <button
-            onClick={() => go("/")}
-            className="flex items-center gap-3 transition-opacity duration-200 hover:opacity-70"
+          <Link
+            href="/"
+            onClick={(e) => onNavClick(e, "/")}
+            className="nav-focus flex items-center gap-3 rounded-lg transition-opacity duration-200 hover:opacity-70"
             aria-label="Brian Kareithi, home"
           >
             <Image src="/logo.png" alt="" width={112} height={34} className="h-8 w-auto" priority />
-          </button>
+          </Link>
 
           <div className="hidden lg:flex items-center gap-1">
             {primaryNav.map((r) => {
               const active = r.path === pathname;
               return (
-                <button
+                <Link
                   key={r.path}
-                  onClick={() => go(r.path)}
-                  className="rounded-lg px-3.5 py-2 text-[13px] font-medium transition-colors duration-200 hover:text-[var(--color-accent)]"
-                  style={{
-                    color: active ? "var(--color-text-primary)" : "var(--color-text-muted)",
-                    backgroundColor: active ? "var(--color-highlight)" : "transparent",
-                  }}
+                  href={r.path}
+                  onClick={(e) => onNavClick(e, r.path)}
+                  className="nav-focus nav-link rounded-lg px-3.5 py-2 text-[13px] font-medium"
+                  data-active={active}
                   aria-current={active ? "page" : undefined}
                 >
                   {r.label}
                   {r.tag && <NavTag label={r.tag} />}
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -110,7 +116,7 @@ export default function Navbar() {
             {/* One search entry point per breakpoint: icon on phones, labelled field from sm up */}
             <button
               onClick={openPalette}
-              className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200 hover:text-[var(--color-accent)] sm:hidden"
+              className="nav-focus flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200 hover:text-[var(--color-accent)] sm:hidden"
               style={{ color: "var(--color-text-muted)" }}
               aria-label="Search"
             >
@@ -119,7 +125,7 @@ export default function Navbar() {
 
             <button
               onClick={openPalette}
-              className="hidden h-9 items-center gap-2 rounded-lg border px-3 text-xs font-medium transition-colors duration-200 hover:border-[var(--color-accent)] sm:flex"
+              className="nav-focus hidden h-9 items-center gap-2 rounded-lg border px-3 text-xs font-medium transition-colors duration-200 hover:border-[var(--color-accent)] sm:flex"
               style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}
               aria-label="Search the site (Ctrl+K)"
             >
@@ -140,7 +146,7 @@ export default function Navbar() {
             </span>
 
             <button
-              className="relative flex h-11 w-11 flex-col items-center justify-center gap-[5px] lg:hidden"
+              className="nav-focus relative flex h-11 w-11 flex-col items-center justify-center gap-[5px] lg:hidden"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
@@ -172,6 +178,7 @@ export default function Navbar() {
         }`}
         style={{ backgroundColor: "var(--color-bg-primary)" }}
         aria-hidden={!menuOpen}
+        inert={!menuOpen}
       >
         <div className="flex h-full flex-col overflow-y-auto px-4 pb-8 pt-20">
           <p className="field-label mb-4">Index</p>
@@ -190,9 +197,11 @@ export default function Navbar() {
                     transitionDuration: "0.4s, 0.4s",
                   }}
                 >
-                  <button
-                    onClick={() => go(r.path)}
-                    className="group flex min-h-[44px] w-full items-baseline gap-4 border-b py-3 text-left"
+                  <Link
+                    href={r.path}
+                    onClick={(e) => onNavClick(e, r.path)}
+                    aria-current={active ? "page" : undefined}
+                    className="nav-focus group flex min-h-[44px] w-full items-baseline gap-4 border-b py-3 text-left"
                     style={{ borderColor: "var(--color-border)" }}
                   >
                     <span className="index-num" style={{ color: active ? "var(--color-accent)" : "var(--color-text-muted)" }}>
@@ -210,7 +219,7 @@ export default function Navbar() {
                         {r.description}
                       </span>
                     </span>
-                  </button>
+                  </Link>
                 </li>
               );
             })}

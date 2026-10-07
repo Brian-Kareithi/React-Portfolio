@@ -12,14 +12,14 @@ export interface NavRoute {
 
 /** Every internal route, in reading order. */
 export const routes: NavRoute[] = [
-  { path: "/", label: "Home", index: "00", description: "Who I am, at a glance" },
-  { path: "/about", label: "About", index: "01", description: "My story, experience & certifications" },
-  { path: "/how-i-work", label: "How I Work", index: "02", description: "The way I build, end to end" },
-  { path: "/projects", label: "Selected Work", index: "03", description: "Things I've built, with live demos" },
-  { path: "/contact", label: "Contact", index: "04", description: "Say hello or start a project" },
-  { path: "/homelab", label: "Homelab", index: "05", description: "The lab I run at home, 24/7" },
-  { path: "/troubleshooting", label: "Diagnostics", index: "06", description: "How I find and fix root causes" },
-  { path: "/resume", label: "Resume", index: "07", description: "Full-stack first, tailored per role" },
+  { path: "/", label: "Home", index: "00", description: "The short version" },
+  { path: "/about", label: "About", index: "01", description: "My path into this work" },
+  { path: "/how-i-work", label: "How I Work", index: "02", description: "Idea to production" },
+  { path: "/projects", label: "Selected Work", index: "03", description: "Live products and case studies" },
+  { path: "/contact", label: "Contact", index: "04", description: "Hire me or say hello" },
+  { path: "/homelab", label: "Homelab", index: "05", description: "The lab that never sleeps" },
+  { path: "/troubleshooting", label: "Diagnostics", index: "06", description: "How I find the real fault" },
+  { path: "/resume", label: "Resume", index: "07", description: "Tailored PDF by role" },
 ];
 
 /** Tight primary set shown in the desktop bar; the palette covers the rest. */

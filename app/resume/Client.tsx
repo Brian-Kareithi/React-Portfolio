@@ -51,8 +51,8 @@ export default function ResumeClient() {
             index="07"
             label="Resume"
             variant="center"
-            title={<>One background, <em className="font-serif-accent">told</em> your way</>}
-            description="I am a full-stack developer first. The other roles come with the territory, so choose the one that fits your opening, preview it and download it as a PDF."
+            title={<>One background, <em className="font-serif-accent">told</em> for your role</>}
+            description="Full-stack first. Pick the role that fits your opening, preview it, download the PDF."
           />
 
           {/* Role switcher: segmented pill */}
@@ -235,11 +235,11 @@ export default function ResumeClient() {
           <div>
             <NextSection
               title="See the full picture"
-              description="This is the condensed version. The full case studies and journey are one click away."
+              description="This is the short version."
               links={[
-                { href: "/projects", label: "Systems I've Built", description: "Full case studies, not just a list of tech." },
-                { href: "/about", label: "About", description: "The full journey, education and certifications." },
-                { href: "/contact", label: "Contact", description: "Hiring for one of these roles? Start a conversation." },
+                { href: "/projects", label: "Selected Work", description: "Full case studies." },
+                { href: "/about", label: "About", description: "Journey, education and certifications." },
+                { href: "/contact", label: "Contact", description: "Hiring for one of these roles?" },
               ]}
             />
           </div>

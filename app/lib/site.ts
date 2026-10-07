@@ -2,11 +2,11 @@ export const siteConfig = {
   name: "Brian Kareithi",
   fullName: "Brian Kareithi",
   role: "Full-Stack Developer, Web, Mobile & Cloud-Native Systems",
-  tagline: "Full-stack developer who started in IT and security, so I build software with the network, the servers and the people using it in mind.",
+  tagline: "Full-stack developer trained in IT and security. I build web and mobile products that hold up in the real world, and I am good at what I do.",
   url: "https://kareithi.vercel.app",
   title: "Brian Kareithi | Full-Stack Developer, Web, Mobile & Cloud-Native Systems",
   description:
-    "Brian Kareithi is a Full-Stack Developer in Nairobi, Kenya who builds secure web and mobile products with Next.js, React Native and TypeScript. He started in IT and security, which shapes how he builds. 6 certifications, public-sector security experience, 50+ projects delivered.",
+    "Brian Kareithi is a full-stack developer in Nairobi, Kenya, building secure web and mobile products with Next.js, React Native and TypeScript. Trained in IT and security, so the whole system gets considered: screen, server, network and user. 6 certifications, public-sector security experience and 50+ projects delivered.",
   email: "kareithibrian2@gmail.com",
   phone: "+254119343294",
   phoneDisplay: "+254 119 343 294",
@@ -16,7 +16,7 @@ export const siteConfig = {
   linkedin: "https://www.linkedin.com/in/brian-kareithi-04007637b/",
   instagram: "https://www.instagram.com/kareithi._/",
   ogImage:
-    "https://ppkfgsakvcijmmhjwbcz.supabase.co/storage/v1/object/public/Photos/kareithi.jpg",
+    "https://kareithi.vercel.app/kareithi.jpg",
 } as const;
 
 export type PageMeta = {

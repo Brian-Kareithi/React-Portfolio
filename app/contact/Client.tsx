@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import emailjs from "@emailjs/browser";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
@@ -18,19 +19,19 @@ const topics = ["Hiring / job opportunity", "Project or freelance work", "Collab
 const topicPrompts: Record<string, { subject: string; message: string }> = {
   "Hiring / job opportunity": {
     subject: "Senior Frontend Engineer, Nairobi or remote",
-    message: "Role and team, the main problems you need solved in the first 90 days, the stack, and your interview timeline.",
+    message: "Role, team, stack and timeline.",
   },
   "Project or freelance work": {
     subject: "Booking platform for a property developer, MVP in 8 weeks",
-    message: "What you want to build, who will use it, your timeline and budget range, and any existing systems or designs.",
+    message: "What you want built, who uses it, timeline and budget.",
   },
   Collaboration: {
     subject: "Partnership on an open-source road-safety tool",
-    message: "What you are working on, what you would like me to contribute, and how you imagine we would work together.",
+    message: "What you are working on and how I can help.",
   },
   "Something else": {
     subject: "Question about your work or availability",
-    message: "Tell me what you need and any context that would help me give you a useful reply.",
+    message: "What you need, and any helpful context.",
   },
 };
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -46,7 +47,7 @@ function validate(values: Record<FieldName, string>): Errors {
 }
 
 const inputClass =
-  "w-full rounded-lg border bg-transparent px-3.5 py-3 text-[15px] outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:shadow-[0_0_0_3px_var(--color-accent-glow)]";
+  "w-full rounded-lg border bg-transparent px-3.5 py-2.5 text-sm outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:shadow-[0_0_0_3px_var(--color-accent-glow)]";
 
 export default function ContactClient() {
   const [values, setValues] = useState<Record<FieldName, string>>({ name: "", email: "", subject: "", message: "" });
@@ -54,6 +55,16 @@ export default function ContactClient() {
   const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [toastOpen, setToastOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    if (!toastOpen) return;
+    const t = window.setTimeout(() => setToastOpen(false), 5000);
+    return () => window.clearTimeout(t);
+  }, [toastOpen]);
 
   useEffect(() => {
     emailjs.init("Qpn7vRC-rFaXswyIE");
@@ -95,6 +106,7 @@ export default function ContactClient() {
         "Qpn7vRC-rFaXswyIE"
       );
       setSubmitStatus("success");
+      setToastOpen(true);
       setValues({ name: "", email: "", subject: "", message: "" });
       setTouched({});
     } catch (error) {
@@ -124,13 +136,13 @@ export default function ContactClient() {
     onChange: handleChange,
     onBlur: () => setTouched((t) => ({ ...t, [f]: true })),
     "aria-invalid": showError(f) ? true : undefined,
-    "aria-describedby": showError(f) ? `contact-${f}-error` : `contact-${f}-hint`,
+    "aria-describedby": showError(f) ? `contact-${f}-error` : f === "message" ? "contact-message-hint" : undefined,
     required: true,
     style: { color: "var(--color-text-primary)", borderColor: showError(f) ? "var(--color-error)" : "var(--color-border-hover)" },
   });
 
   return (
-    <section id="contact" className="relative w-full px-4 sm:px-6 lg:px-8 pb-20 pt-24 md:pb-24 md:pt-32"
+    <section id="contact" className="relative w-full px-4 sm:px-6 lg:px-8 pb-12 pt-24 md:pb-14 md:pt-28"
       style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <ScrollReveal>
         <div className="max-w-5xl mx-auto w-full">
@@ -139,20 +151,19 @@ export default function ContactClient() {
             index="04"
             label="Connect"
             variant="split"
-            title={<>Say <em className="font-serif-accent">hello</em></>}
-            description="Hiring, planning a project or just curious? Tell me what you have in mind and I will reply personally, usually within 24 hours."
+            compact
+            title={<>Let&apos;s build something <em className="font-serif-accent">good</em></>}
+            description="Hiring or planning a project? I reply personally, usually within 24 hours."
           />
 
           <StaggerReveal staggerDelay={100}>
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
 
             {/* Direct lines */}
-            <div className="ink-slab flex flex-col justify-between gap-8 p-6 sm:p-8 lg:col-span-2">
+            <div className="ink-slab flex flex-col justify-between gap-6 p-5 sm:p-6 lg:col-span-2">
               <div>
-                <h2 className="display-xl mb-6 text-4xl sm:text-5xl">
-                  Let&apos;s <span className="font-serif-accent">talk</span>.
-                </h2>
-                <ul className="space-y-5">
+                <p className="field-label mb-5">Direct</p>
+                <ul className="space-y-4">
                   {direct.map((item) => (
                     <li key={item.label} className="flex items-start gap-3">
                       <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg" style={{ backgroundColor: "var(--color-surface-strong)", color: "var(--color-accent)" }}>
@@ -174,10 +185,6 @@ export default function ContactClient() {
               </div>
 
               <div>
-                <div className="mb-6 border-t pt-6" style={{ borderColor: "var(--color-border)" }}>
-                  <p className="display-xl text-4xl" style={{ color: "var(--color-accent)" }}>24h</p>
-                  <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>Typical response time on working days</p>
-                </div>
                 <div className="flex gap-2">
                   {socials.map((item) => (
                     <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
@@ -192,22 +199,26 @@ export default function ContactClient() {
             </div>
 
             {/* Form */}
-            <div className="plate p-6 sm:p-8 lg:col-span-3">
-              <h2 className="mb-1 text-xl font-semibold" style={{ color: "var(--color-text-primary)" }}>Send a message</h2>
-              <p className="mb-6 text-sm" style={{ color: "var(--color-text-muted)" }}>All fields are required.</p>
+            <div className="plate p-5 sm:p-6 lg:col-span-3">
+              <div className="mb-4 flex items-baseline justify-between gap-3">
+                <h2 className="text-lg font-semibold" style={{ color: "var(--color-text-primary)" }}>Send a message</h2>
+                <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>All fields required</p>
+              </div>
 
-              <form onSubmit={handleSubmit} noValidate className="space-y-5">
+              <form onSubmit={handleSubmit} noValidate className="space-y-3">
+                <fieldset disabled={isSubmitting} className="m-0 min-w-0 space-y-3 border-0 p-0">
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                  <Field label="Your name" name="name" hint="So I know who to address." error={showError("name")}>
-                    <input {...fieldProps("name")} type="text" autoComplete="name" placeholder="Full name, e.g. Marvin Waigera" className={inputClass} />
+                  <Field label="Your name" name="name" error={showError("name")}>
+                    <input {...fieldProps("name")} type="text" autoComplete="name" placeholder="Full name" className={inputClass} />
                   </Field>
-                  <Field label="Email address" name="email" hint="Where I should reply." error={showError("email")}>
+                  <Field label="Email address" name="email" error={showError("email")}>
                     <input {...fieldProps("email")} type="email" autoComplete="email" inputMode="email" placeholder="name@company.com" className={inputClass} />
                   </Field>
                 </div>
 
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="contact-topic" className="mb-1.5 block text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+                  <label htmlFor="contact-topic" className="mb-1 block text-xs font-medium" style={{ color: "var(--color-text-primary)" }}>
                     What is this about?
                   </label>
                   <select
@@ -223,26 +234,27 @@ export default function ContactClient() {
                   </select>
                 </div>
 
-                <Field label="Subject" name="subject" hint="A one-line summary." error={showError("subject")}>
+                <Field label="Subject" name="subject" error={showError("subject")}>
                   <input {...fieldProps("subject")} type="text" autoComplete="off" placeholder={topicPrompts[topic]?.subject} className={inputClass} />
                 </Field>
+                </div>
 
                 <Field
                   label="Message"
                   name="message"
-                  hint={`Include goals, timeline and any links. At least ${MESSAGE_MIN} characters.`}
+                  hint={`Goals, timeline, links. Min ${MESSAGE_MIN} characters.`}
                   error={showError("message")}
                   counter={`${values.message.length} / ${MESSAGE_MAX}`}
                 >
-                  <textarea {...fieldProps("message")} rows={6} maxLength={MESSAGE_MAX} placeholder={topicPrompts[topic]?.message} className={`${inputClass} resize-y`} />
+                  <textarea {...fieldProps("message")} rows={3} maxLength={MESSAGE_MAX} placeholder={topicPrompts[topic]?.message} className={`${inputClass} resize-y`} />
                 </Field>
 
-                <button type="submit" disabled={isSubmitting}
-                  className="btn-neon btn-neon-primary w-full justify-center disabled:opacity-60">
+                <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}
+                  className="btn-neon btn-neon-primary send-btn w-full justify-center" data-sending={isSubmitting}>
                   {isSubmitting ? (
                     <>
-                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden="true" />
-                      Sending…
+                      <Send className="send-plane h-4 w-4" aria-hidden="true" />
+                      <span>Sending... relax, I&apos;m still sending</span>
                     </>
                   ) : (
                     <>
@@ -251,20 +263,14 @@ export default function ContactClient() {
                     </>
                   )}
                 </button>
+                </fieldset>
 
                 <div role="status" aria-live="polite">
-                  {submitStatus === "success" && (
-                    <div className="animate-fade-in-up flex items-start gap-2.5 rounded-lg p-3 text-sm"
-                      style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-primary)" }}>
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ color: "var(--color-success)" }} aria-hidden="true" />
-                      Message sent. I usually reply within 24 hours.
-                    </div>
-                  )}
                   {submitStatus === "error" && (
                     <div className="animate-fade-in-up flex items-start gap-2.5 rounded-lg border p-3 text-sm"
                       style={{ borderColor: "var(--color-error)", color: "var(--color-error)" }}>
                       <TriangleAlert className="mt-0.5 h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                      Your message was not sent. Please try again, or email me directly at kareithibrian2@gmail.com.
+                      Message not sent. Please try again or email me directly.
                     </div>
                   )}
                 </div>
@@ -273,13 +279,39 @@ export default function ContactClient() {
           </div>
           </StaggerReveal>
 
+          {mounted &&
+            createPortal(
+              <div
+                role="status"
+                aria-live="polite"
+                className="toast-pop fixed right-4 top-20 z-[90] flex max-w-[calc(100vw-2rem)] items-center gap-3 rounded-xl px-4 py-3 shadow-lg sm:right-6"
+                data-open={toastOpen}
+                style={{ backgroundColor: "var(--palette-true-cobalt)", color: "var(--palette-lavender-mist)" }}
+              >
+                {toastOpen && (
+                  <>
+                    <CheckCircle2 className="h-5 w-5 flex-shrink-0" aria-hidden="true" style={{ color: "var(--palette-periwinkle)" }} />
+                    <span className="text-sm font-medium">Message sent successfully</span>
+                    <button
+                      onClick={() => setToastOpen(false)}
+                      aria-label="Dismiss"
+                      className="ml-1 flex h-6 w-6 items-center justify-center rounded-full text-lg leading-none opacity-70 transition-opacity hover:opacity-100"
+                    >
+                      &times;
+                    </button>
+                  </>
+                )}
+              </div>,
+              document.body,
+            )}
+
           <NextSection
             title="Not ready to write yet?"
-            description="Read my story, look at what I have built, or see the lab I run at home."
+            description="Read my story or see my work first."
             links={[
               { href: "/about", label: "About", description: "My story and track record." },
-              { href: "/projects", label: "Selected Work", description: "Products delivered, with live demos." },
-              { href: "/homelab", label: "Homelab", description: "The infrastructure I run at home, 24/7." },
+              { href: "/projects", label: "Selected Work", description: "Live products and demos." },
+              { href: "/homelab", label: "Homelab", description: "The lab I run at home." },
             ]}
           />
         </div>
@@ -288,14 +320,15 @@ export default function ContactClient() {
   );
 }
 
-function Field({ label, name, hint, error, counter, children }: { label: string; name: string; hint: string; error?: string; counter?: string; children: React.ReactNode }) {
+function Field({ label, name, hint, error, counter, children }: { label: string; name: string; hint?: string; error?: string; counter?: string; children: React.ReactNode }) {
   return (
     <div>
-      <label htmlFor={`contact-${name}`} className="mb-1.5 block text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+      <label htmlFor={`contact-${name}`} className="mb-1 block text-xs font-medium" style={{ color: "var(--color-text-primary)" }}>
         {label}
       </label>
       {children}
-      <div className="mt-1.5 flex items-start justify-between gap-3 text-xs">
+      {(error || hint || counter) && (
+      <div className="mt-1 flex items-start justify-between gap-3 text-xs">
         {error ? (
           <p id={`contact-${name}-error`} className="flex items-start gap-1.5" style={{ color: "var(--color-error)" }}>
             <TriangleAlert className="mt-px h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
@@ -306,6 +339,7 @@ function Field({ label, name, hint, error, counter, children }: { label: string;
         )}
         {counter && <span className="flex-shrink-0 font-mono tabular-nums" style={{ color: "var(--color-text-muted)" }}>{counter}</span>}
       </div>
+      )}
     </div>
   );
 }

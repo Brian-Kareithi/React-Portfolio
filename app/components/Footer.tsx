@@ -30,7 +30,7 @@ export default function Footer() {
               Brian Kareithi
             </p>
             <p className="mt-2 max-w-[260px] text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-              Software engineer building secure web and mobile products, based in Nairobi, Kenya.
+              Full-stack developer in Nairobi, Kenya.
             </p>
             <div className="mt-2 flex gap-2">
               {socials.map(({ href, icon: Icon, label }) => (
