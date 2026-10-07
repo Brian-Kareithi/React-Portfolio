@@ -1386,3 +1386,27 @@ html {
   .send-btn[data-sending="true"]::after, .send-plane { animation: none; }
   .toast-pop { transition: opacity 0.2s; transform: none; }
 }
+
+/* Resume role buttons: bordered, lifted on hover, filled when selected. */
+.role-btn {
+  background-color: var(--color-bg-card);
+  border-color: var(--color-border-hover);
+  color: var(--color-text-primary);
+  box-shadow: 0 2px 0 var(--color-border-hover);
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+.role-btn-dot { border-color: var(--color-border-hover); }
+.role-btn:hover { border-color: var(--color-accent); transform: translateY(-2px); box-shadow: 0 4px 0 var(--color-accent); }
+.role-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--color-accent); }
+.role-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.role-btn[data-active="true"] {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: 0 2px 0 var(--color-accent-dark);
+}
+.role-btn[data-active="true"] .role-btn-dot { border-color: var(--color-on-accent); background-color: var(--color-on-accent); color: var(--color-accent); }
+@media (prefers-reduced-motion: reduce) {
+  .role-btn, .role-btn:hover, .role-btn:active { transition: none; transform: none; }
+}

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Download, Loader2, CheckCircle } from "lucide-react";
+import { Download, Loader2, CheckCircle, Check } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { SpecSheet } from "@/app/components/ui/SpecSheet";
@@ -55,37 +55,36 @@ export default function ResumeClient() {
             description="Full-stack first. Pick the role that fits your opening, preview it, download the PDF."
           />
 
-          {/* Role switcher: segmented pill */}
-          <div className="mb-12 flex flex-col items-center gap-4">
-            <div className="inline-flex max-w-full flex-wrap justify-center gap-1 rounded-xl border p-1" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }} role="tablist" aria-label="Resume role">
-              {resumeRoles.map((r) => {
-                const active = r.id === activeRole;
-                return (
-                  <button
-                    key={r.id}
-                    role="tab"
-                    aria-selected={active}
-                    onClick={() => { setActiveRole(r.id); setStatus("idle"); }}
-                    className="min-h-[44px] rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200"
-                    style={
-                      active
-                        ? { backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }
-                        : { color: "var(--color-text-secondary)" }
-                    }
-                  >
-                    {r.label}
-                    {r.primary && (
-                      <span className="ml-2 rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide" style={{ backgroundColor: active ? "rgb(255 255 255 / 0.2)" : "var(--color-highlight)" }}>
-                        Primary
+          {/* Role switcher: one clearly pressable button per role */}
+          <div className="mb-12 flex flex-col items-center gap-5">
+            <div className="w-full text-center">
+              <p className="field-label mb-3">Choose a role</p>
+              <div className="flex flex-wrap justify-center gap-2.5" role="tablist" aria-label="Resume role">
+                {resumeRoles.map((r) => {
+                  const active = r.id === activeRole;
+                  return (
+                    <button
+                      key={r.id}
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => { setActiveRole(r.id); setStatus("idle"); }}
+                      className="role-btn inline-flex min-h-[48px] items-center gap-2 rounded-xl border-2 px-4 py-2.5 text-sm font-semibold"
+                      data-active={active}
+                    >
+                      <span className="role-btn-dot flex h-4 w-4 items-center justify-center rounded-full border-2" aria-hidden="true">
+                        {active && <Check className="h-2.5 w-2.5" strokeWidth={4} />}
                       </span>
-                    )}
-                  </button>
-                );
-              })}
+                      {r.label}
+                      {r.primary && (
+                        <span className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide" style={{ backgroundColor: active ? "rgb(255 255 255 / 0.2)" : "var(--color-highlight)" }}>
+                          Primary
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <p className="max-w-xl text-center text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-              Full-Stack Developer is the role I am looking for. The others come with the territory, so pick whichever matches your opening and I will lead with it.
-            </p>
             <button onClick={handleDownload} disabled={status === "building"} className="btn-neon btn-neon-primary w-full justify-center !px-8 !py-4 !text-base shadow-lg disabled:cursor-wait disabled:opacity-70 sm:w-auto" aria-live="polite">
               {status === "building" ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Download className="h-4 w-4" aria-hidden="true" />}
               {status === "building" ? "Building PDF…" : `Download PDF: ${role.label}`}
