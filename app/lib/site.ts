@@ -4,14 +4,16 @@ export const siteConfig = {
   role: "Full-Stack Developer, Web, Mobile & Cloud-Native Systems",
   tagline: "Full-stack developer trained in IT and security. I build web and mobile products that hold up in the real world, and I am good at what I do.",
   url: "https://kareithi.vercel.app",
-  title: "Brian Kareithi | Full-Stack Developer, Web, Mobile & Cloud-Native Systems",
+  title: "Brian Kareithi | Full-Stack Developer in Nairobi, Kenya",
   description:
-    "Brian Kareithi is a full-stack developer in Nairobi, Kenya, building secure web and mobile products with Next.js, React Native and TypeScript. Trained in IT and security, so the whole system gets considered: screen, server, network and user. 6 certifications, public-sector security experience and 50+ projects delivered.",
+    "Full-stack developer in Nairobi, Kenya. I build secure web and mobile products with Next.js, React Native and TypeScript. Trained in IT and security.",
   email: "kareithibrian2@gmail.com",
   phone: "+254119343294",
   phoneDisplay: "+254 119 343 294",
   location: "Nairobi, Kenya",
   resumePdf: "/Brian-Kareithi-Resume.pdf",
+  /** Drives sitemap lastModified. Bump it when page content changes. */
+  lastUpdated: "2026-10-07",
   github: "https://github.com/Brian-Kareithi",
   linkedin: "https://www.linkedin.com/in/brian-kareithi-04007637b/",
   instagram: "https://www.instagram.com/kareithi._/",
@@ -20,7 +22,11 @@ export const siteConfig = {
 } as const;
 
 export type PageMeta = {
+  /** The search-result title. Keep it under about 44 characters, the site name is appended. */
   title: string;
+  /** Short label drawn on the social preview image. Defaults to title. */
+  heading?: string;
+  /** Aim for 120 to 155 characters so search results do not truncate it. */
   description: string;
   path: string;
 };
@@ -35,9 +41,9 @@ export function ogImageFor(title: string, subtitle: string) {
   };
 }
 
-export function pageMeta({ title, description, path }: PageMeta) {
+export function pageMeta({ title, heading, description, path }: PageMeta) {
   const url = `${siteConfig.url}${path}`;
-  const image = ogImageFor(title, description.length > 120 ? `${description.slice(0, 117).trimEnd()}…` : description);
+  const image = ogImageFor(heading ?? title, description.length > 120 ? `${description.slice(0, 117).trimEnd()}…` : description);
   return {
     title,
     description,

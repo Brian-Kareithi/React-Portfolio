@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import portrait from "@/public/kareithi.jpg";
-import { Github, Linkedin, Mail, ArrowRight, ArrowUpRight, Command, FileDown } from "lucide-react";
+import { Github, Gamepad2, Linkedin, Mail, ArrowRight, ArrowUpRight, Command, FileDown } from "lucide-react";
 import useLocalTime from "@/app/components/ui/useLocalTime";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import Testimonials from "@/app/components/Testimonials";
@@ -33,27 +33,6 @@ const featured = ["sapio-homes", "roadsafe360"]
   .map((id) => caseStudies.find((c) => c.id === id))
   .filter((c): c is (typeof caseStudies)[number] => Boolean(c?.screenshot));
 
-/** Where each letter of the name starts: [x px, y px, rotation deg]. */
-const LETTER_START: [number, number, number][] = [
-  [-90, -60, -30], [70, -80, 24], [-50, 90, -20], [100, 50, 28], [-120, 20, -26], [60, 100, 18], [-80, -90, 32], [110, -40, -22],
-];
-
-function Letters({ text, offset = 0 }: { text: string; offset?: number }) {
-  return (
-    <>
-      {text.split("").map((ch, i) => {
-        const [x, y, r] = LETTER_START[(i + offset) % LETTER_START.length];
-        const style = { "--i": i + offset, "--lx": `${x}px`, "--ly": `${y}px`, "--lr": `${r}deg` } as CSSProperties;
-        return (
-          <span key={i} aria-hidden="true" className="hero-letter" style={style}>
-            {ch}
-          </span>
-        );
-      })}
-    </>
-  );
-}
-
 export default function HomeContent() {
   const time = useLocalTime("Africa/Nairobi");
   const { open: openPalette } = useCommandPalette();
@@ -76,12 +55,10 @@ export default function HomeContent() {
               <span>Available for work · Remote or Nairobi</span>
             </p>
 
-            <h1 aria-label="Brian Kareithi" className="display-xl mb-6 text-[3.75rem] leading-[0.92] xs:text-7xl sm:text-8xl lg:text-[8rem]" style={{ color: "var(--color-text-primary)" }}>
-              <Letters text="Brian" />
+            <h1 className="display-xl mb-6 text-[3.75rem] leading-[0.92] xs:text-7xl sm:text-8xl lg:text-[8rem]" style={{ color: "var(--color-text-primary)" }}>
+              <span className="hero-letter" style={{ "--i": 0 } as CSSProperties}>Brian</span>
               <br />
-              <span className="font-serif-accent" style={{ color: "var(--color-accent)" }}>
-                <Letters text="Kareithi" offset={5} />
-              </span>
+              <span className="font-serif-accent hero-letter" style={{ "--i": 4, color: "var(--color-accent)" } as CSSProperties}>Kareithi</span>
             </h1>
 
             <p className="stagger-item mb-3 max-w-xl text-xl font-medium leading-snug sm:text-2xl" style={{ color: "var(--color-text-primary)" }}>
@@ -119,6 +96,15 @@ export default function HomeContent() {
                   <Icon className="w-4 h-4" />
                 </a>
               ))}
+              <Link
+                href="/games"
+                aria-label="Minigames: play a mini capture the flag"
+                title="Minigames"
+                className="icon-chip flex h-11 w-11 items-center justify-center rounded-full"
+                style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)", backgroundColor: "var(--color-bg-card)" }}
+              >
+                <Gamepad2 className="w-4 h-4" />
+              </Link>
             </div>
           </div>
 

@@ -1267,7 +1267,7 @@ html {
   .thesis-progress { display: none; }
 }
 
-/* "Keep exploring" rows: staggered reveal on entry, cobalt fill sweeps in on hover. */
+/* "Keep exploring" rows: staggered reveal on entry, accent fill sweeps in on hover. */
 .next-row {
   position: relative;
   overflow: hidden;
@@ -1289,13 +1289,25 @@ html {
 .next-row-link { position: relative; padding-inline: 0.25rem; transition: padding 0.4s var(--ease-out), color 0.3s; }
 .next-row-title, .next-row-desc, .next-row-num { transition: color 0.3s var(--ease-out); }
 .next-row-arrow { transition: transform 0.4s var(--ease-out), background-color 0.3s, color 0.3s, border-color 0.3s; }
-@media (hover: hover) and (pointer: fine) {
-  .next-row:hover::before { transform: scaleX(1); }
-  .next-row:hover .next-row-link { padding-inline: 1rem; }
-  .next-row:hover .next-row-title,
-  .next-row:hover .next-row-num { color: var(--color-on-accent) !important; }
-  .next-row:hover .next-row-desc { color: var(--palette-periwinkle) !important; }
-  .next-row:hover .next-row-arrow { transform: translateX(4px); background: var(--palette-periwinkle); border-color: var(--palette-periwinkle); color: var(--color-accent) !important; }
+/*
+ * Hover and keyboard focus share one state. NextSection lives inside .ink-slab, where the tokens
+ * flip: --color-accent is periwinkle and --color-on-accent is shadow grey. Everything here uses
+ * those tokens, so text always sits on the opposite tone of the fill:
+ *   title / number     shadow grey on periwinkle          9.2:1
+ *   description        shadow grey (85%) on periwinkle    about 6:1
+ *   arrow button       periwinkle icon on shadow grey     9.2:1
+ */
+.next-row-link:focus-visible { outline: none; }
+.next-row:is(:hover, :has(.next-row-link:focus-visible))::before { transform: scaleX(1); }
+.next-row:is(:hover, :has(.next-row-link:focus-visible)) .next-row-link { padding-inline: 1rem; border-color: transparent !important; }
+.next-row:is(:hover, :has(.next-row-link:focus-visible)) .next-row-title,
+.next-row:is(:hover, :has(.next-row-link:focus-visible)) .next-row-num { color: var(--color-on-accent) !important; }
+.next-row:is(:hover, :has(.next-row-link:focus-visible)) .next-row-desc { color: color-mix(in srgb, var(--color-on-accent) 85%, var(--color-accent)) !important; }
+.next-row:is(:hover, :has(.next-row-link:focus-visible)) .next-row-arrow {
+  transform: translateX(4px);
+  background-color: var(--color-on-accent);
+  border-color: var(--color-on-accent) !important;
+  color: var(--color-accent) !important;
 }
 @media (prefers-reduced-motion: reduce) {
   .next-row { opacity: 1; transform: none; transition: none; }
@@ -1410,3 +1422,8 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .role-btn, .role-btn:hover, .role-btn:active { transition: none; transform: none; }
 }
+
+/* CTF terminal: block caret where supported, and selection that stays readable on the dark body. */
+.ctf-input { caret-shape: block; }
+.ctf-term ::selection { background: var(--palette-periwinkle); color: #1d1b21; }
+.ctf-term { font-variant-ligatures: none; }

@@ -20,6 +20,7 @@ export const routes: NavRoute[] = [
   { path: "/homelab", label: "Homelab", index: "05", description: "The lab that never sleeps" },
   { path: "/troubleshooting", label: "Diagnostics", index: "06", description: "How I find the real fault" },
   { path: "/resume", label: "Resume", index: "07", description: "Tailored PDF by role" },
+  { path: "/games", label: "Minigames", index: "08", description: "Capture the flag, and more" },
 ];
 
 /** Tight primary set shown in the desktop bar; the palette covers the rest. */

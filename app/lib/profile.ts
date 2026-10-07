@@ -35,5 +35,6 @@ delivered 50+ projects.
 - [Selected Work](${siteConfig.url}/projects): Case studies: problem, solution, architecture
 - [Homelab](${siteConfig.url}/homelab): 24/7 infrastructure: Proxmox, RAID-1, managed network, ESP32 automation
 - [Resume](${siteConfig.url}/resume): Role-tailored resume with PDF download: frontend, full-stack, mobile, IT support, or infrastructure
+- [Minigames](${siteConfig.url}/games): Small browser games, starting with a sandboxed capture the flag
 - [Contact](${siteConfig.url}/contact): Email and contact form
 `;

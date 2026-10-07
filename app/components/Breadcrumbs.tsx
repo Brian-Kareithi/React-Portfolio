@@ -11,9 +11,10 @@ export const breadcrumbMap: Record<string, { label: string; name: string }> = {
   "/homelab": { label: "Homelab", name: "Homelab & Infrastructure" },
   "/how-i-work": { label: "How I Work", name: "How I Work" },
   "/resume": { label: "Resume", name: "Resume" },
+  "/games": { label: "Minigames", name: "Minigames" },
 };
 
-export default function Breadcrumbs() {
+export default function Breadcrumbs({ compact = false }: { compact?: boolean }) {
   const pathname = usePathname();
   const entry = breadcrumbMap[pathname];
   if (!entry) return null;
@@ -40,7 +41,7 @@ export default function Breadcrumbs() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-      <nav aria-label="Breadcrumb" className="mb-10">
+      <nav aria-label="Breadcrumb" className={compact ? "mb-4" : "mb-10"}>
         <ol className="flex flex-wrap items-center gap-2 font-mono text-[10px] xs:text-[11px]">
           {items.map((item, index) => (
             <li key={item.path} className="flex items-center gap-2">

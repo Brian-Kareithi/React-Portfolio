@@ -38,18 +38,12 @@ const jsonLd = {
       slogan: siteConfig.role,
       email: siteConfig.email,
       telephone: siteConfig.phone,
-      priceRange: "$$",
       image: siteConfig.ogImage,
       founder: { "@id": `${siteConfig.url}/#person` },
       address: {
         "@type": "PostalAddress",
         addressLocality: "Nairobi",
         addressCountry: "KE",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: -1.2921,
-        longitude: 36.8219,
       },
       areaServed: { "@type": "Place", name: "Global (Remote)" },
       sameAs: [siteConfig.github, siteConfig.linkedin],
@@ -69,7 +63,7 @@ const jsonLd = {
         { "@type": "EducationalOrganization", name: "Umma University" },
         { "@type": "EducationalOrganization", name: "Thika High School" },
       ],
-      sameAs: [siteConfig.github, siteConfig.linkedin],
+      sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.instagram],
       knowsAbout: [
         "Next.js",
         "React",
