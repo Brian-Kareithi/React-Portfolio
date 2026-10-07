@@ -412,15 +412,10 @@ html {
 
 /* ── Scrollbars / selection / focus ────────────────────── */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-border) transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-border);
-  border-radius: 3px;
-}
+*::-webkit-scrollbar { display: none; }
 ::selection {
   background-color: var(--color-accent);
   color: var(--color-on-accent);
