@@ -5,9 +5,9 @@ import { JsonLd } from "@/app/components/JsonLd";
 import { resumeCertifications, resumeEducation } from "@/app/lib/resume-data";
 
 export const metadata: Metadata = pageMeta({
-  title: "About",
-  description:
-    "Why hire Brian Kareithi: a BSc in Information Technology, six security and cloud certifications, public-sector security work for the ICT Authority of Kenya, 50+ freelance projects and a startup co-founded in Nairobi.",
+  title: "About Brian: Full-Stack Developer in Kenya",
+  heading: "About",
+  description: "BSc in IT, six security and cloud certifications, public-sector security work, 50+ freelance projects and a startup co-founded in Nairobi.",
   path: "/about",
 });
 

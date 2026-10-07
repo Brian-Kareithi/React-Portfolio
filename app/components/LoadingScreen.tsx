@@ -48,7 +48,7 @@ export default function LoadingScreen() {
       role="status"
       aria-live="polite"
       aria-label="Loading"
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6"
+      className="loading-screen fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6"
       style={{
         background: "var(--color-bg-primary)",
         opacity: phase === "fade" ? 0 : 1,

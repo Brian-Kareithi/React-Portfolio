@@ -4,10 +4,11 @@ import { pageMeta, siteConfig } from "@/app/lib/site";
 import { JsonLd } from "@/app/components/JsonLd";
 
 const description =
-  "Hire Brian Kareithi or start a project: full-stack development, React Native apps and security-minded engineering. Based in Nairobi, Kenya, working with teams worldwide. Typically replies within 24 hours.";
+  "Hire Brian Kareithi for a full-time role, contract or freelance project. Send a message and he usually replies within 24 hours.";
 
 export const metadata: Metadata = pageMeta({
-  title: "Contact",
+  title: "Hire a Full-Stack Developer in Nairobi",
+  heading: "Contact",
   description,
   path: "/contact",
 });

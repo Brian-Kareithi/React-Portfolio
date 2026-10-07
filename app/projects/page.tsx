@@ -5,10 +5,11 @@ import { JsonLd } from "@/app/components/JsonLd";
 import { caseStudies } from "@/app/lib/projects-data";
 
 const description =
-  "Results Brian Kareithi has delivered: a road-safety platform, a client real-estate site, school portals and a mobile app used by real families, plus cybersecurity tooling. Each case study shows the problem, his contribution and a live demo.";
+  "Seven shipped projects, from road-safety and real-estate platforms to a school portal, with the problem, architecture and live demos.";
 
 export const metadata: Metadata = pageMeta({
-  title: "Selected Work",
+  title: "Selected Work: Web and Mobile Projects",
+  heading: "Selected Work",
   description,
   path: "/projects",
 });
