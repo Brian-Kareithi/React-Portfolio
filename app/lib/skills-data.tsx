@@ -38,21 +38,21 @@ export const domains: SkillDomain[] = [
     icon: <Code className="w-4 h-4" />,
     tagline: "Engineered software, not just written code.",
     summary:
-      "Nine languages and counting. From typed full-stack TypeScript to embedded C/C++, I think in terms of architecture, testability, and long-term maintainability, not just syntax.",
+      "From typed full-stack TypeScript to embedded C/C++, I design for architecture, testability and long-term maintenance.",
     capabilities: [
       {
         title: "Full-Stack Engineering",
-        description: "End-to-end ownership from database schema to pixel-perfect UI, with clean layering between data, domain, and presentation.",
+        description: "Database schema to polished UI, with clean layers between data, domain and presentation.",
         points: ["Client + server + API design", "State management & data flow", "Error handling & edge cases"],
       },
       {
         title: "Systems & Embedded Programming",
-        description: "Low-level C/C++ firmware for microcontrollers, written from scratch with tight resource budgets and hard real-time constraints.",
+        description: "C/C++ firmware for microcontrollers, written from scratch under tight resource limits.",
         points: ["ESP32/embedded firmware", "Memory & resource management", "Low-level I/O & protocols"],
       },
       {
         title: "Clean, Maintainable Code",
-        description: "Code written for the next engineer to read. Strong typing, clear naming, and tests that document intent.",
+        description: "Code the next engineer can read: strong typing, clear names, tests that explain intent.",
         points: ["TypeScript strict typing", "SOLID principles", "Testable architecture"],
       },
     ],
@@ -65,21 +65,21 @@ export const domains: SkillDomain[] = [
     icon: <Wrench className="w-4 h-4" />,
     tagline: "Root-cause diagnostics, not restarts.",
     summary:
-      "A systematic, evidence-driven diagnostic method. I isolate variables, reproduce failures, and trace root causes down to the exact line of code, packet, or hardware component.",
+      "I isolate variables, reproduce failures and trace root causes down to the exact line, packet or component.",
     capabilities: [
       {
         title: "Diagnostic Methodology",
-        description: "A repeatable process: reproduce, isolate, hypothesize, test, and verify. Evidence-driven fixes, verified under real conditions.",
+        description: "Reproduce, isolate, hypothesize, test, verify. Fixes backed by evidence.",
         points: ["Root-cause analysis, not symptom-patching", "Binary search through problem space", "Log-driven evidence gathering"],
       },
       {
         title: "Debugging & Profiling",
-        description: "From stack traces to memory leaks, I use the right tool for the signal: debuggers, profilers, and metrics.",
+        description: "Debuggers, profilers and metrics, matched to the signal.",
         points: ["Runtime debugging & breakpoints", "Performance & memory profiling", "Network traffic analysis"],
       },
       {
         title: "System & Network Forensics",
-        description: "When something fails silently, I trace it through logs, OS events, and packet captures to reconstruct what happened.",
+        description: "When something fails silently, I rebuild what happened from logs, OS events and packet captures.",
         points: ["Event & syslog analysis", "Packet capture & inspection", "Hardware fault isolation"],
       },
     ],
@@ -92,21 +92,21 @@ export const domains: SkillDomain[] = [
     icon: <CircuitBoard className="w-4 h-4" />,
     tagline: "Software only works when the silicon underneath behaves.",
     summary:
-      "I build, repair, and diagnose real machines. A 19-node homelab, RAID arrays, laptops stripped to the board, and ESP32 projects all run on hardware I assembled and debugged by hand.",
+      "I build, repair and diagnose real machines, from servers and RAID arrays to laptops and ESP32 boards.",
     capabilities: [
       {
         title: "PC Assembly & Repair",
-        description: "Full machine builds, component replacement, thermal management, and fault diagnosis down to the individual part.",
+        description: "Builds, part swaps, thermals and fault diagnosis down to the component.",
         points: ["Motherboard & PSU diagnostics", "RAM / storage failure isolation", "Thermal & power integrity"],
       },
       {
         title: "Network & Server Hardware",
-        description: "Dedicated server builds with ECC memory, RAID arrays, and 24/7 uptime, maintained and monitored hands-on.",
+        description: "Dedicated servers with ECC memory and RAID, kept up 24/7.",
         points: ["RAID configuration & verify", "Server virtualization hosts", "Cable & interconnect management"],
       },
       {
         title: "Embedded & Electronics",
-        description: "Microcontroller circuits, sensors, and custom firmware. I wire the board, write the code, and tune it on the bench.",
+        description: "I wire the board, write the firmware and tune it on the bench.",
         points: ["ESP32 / MCU circuit design", "Sensor interfacing (I2C/SPI/UART)", "Bench debugging & measurement"],
       },
     ],
@@ -119,21 +119,21 @@ export const domains: SkillDomain[] = [
     icon: <ShieldCheck className="w-4 h-4" />,
     tagline: "Security is a property of the whole system, not a feature.",
     summary:
-      "Six certifications across security, cloud and networking, plus hands-on security support work. I protect infrastructure at every layer, from network hardening to secure application design and mobile threat defense.",
+      "I protect infrastructure at every layer, from network hardening to secure application design.",
     capabilities: [
       {
         title: "Network & Infrastructure Hardening",
-        description: "Locking down systems and networks against attack, with defense-in-depth and least-privilege as defaults.",
+        description: "Defense-in-depth and least privilege by default.",
         points: ["Firewall & access control", "Vulnerability assessment", "Harden OS & services"],
       },
       {
         title: "Application & Mobile Security",
-        description: "Building security into software from the start, with special focus on mobile devices on hostile public networks.",
+        description: "Security built in from the start, with a focus on mobile on hostile public networks.",
         points: ["Secure coding practices", "Mobile threat defense", "Encryption & TLS everywhere"],
       },
       {
         title: "Security Operations",
-        description: "Monitoring, detection, and response. I think like an attacker to defend like an engineer.",
+        description: "Monitoring, detection and response. I think like an attacker to defend like an engineer.",
         points: ["Threat detection & SIEM", "Incident response", "Security frameworks & audit"],
       },
     ],
@@ -146,21 +146,21 @@ export const domains: SkillDomain[] = [
     icon: <Network className="w-4 h-4" />,
     tagline: "Every app is only as good as the network that carries it.",
     summary:
-      "CCNA-trained network engineering. I design, configure, and troubleshoot network infrastructure, and run a fully-managed lab network where every device lease is assigned by me.",
+      "I design, configure and troubleshoot networks, and run a fully managed lab network.",
     capabilities: [
       {
         title: "Network Design & Architecture",
-        description: "Planning resilient, segmented networks with sensible addressing and security boundaries.",
+        description: "Resilient, segmented networks with clear security boundaries.",
         points: ["Subnetting & VLAN design", "Routing & switching", "Network segmentation"],
       },
       {
         title: "Configuration & Administration",
-        description: "Hands-on configuration of routers, switches, wireless, and firewall appliances.",
+        description: "Routers, switches, wireless and firewalls, configured by hand.",
         points: ["Router & switch config", "Static routes & DHCP", "Firewall & NAT rules"],
       },
       {
         title: "Performance & Fault Diagnosis",
-        description: "Tracing latency, drops, and connectivity failures through the full path.",
+        description: "Latency, drops and failures traced along the full path.",
         points: ["Packet-level analysis", "Latency & throughput testing", "Connectivity troubleshooting"],
       },
     ],
@@ -173,21 +173,21 @@ export const domains: SkillDomain[] = [
     icon: <Container className="w-4 h-4" />,
     tagline: "From dev machine to production, automated and reproducible.",
     summary:
-      "Certified across AWS, Azure, and Google Cloud with hands-on containerization and server virtualization. I build deployment pipelines that are fast, repeatable, and predictable.",
+      "Containers, virtualization and deployment pipelines that are fast, repeatable and predictable.",
     capabilities: [
       {
         title: "Cloud Platforms & Services",
-        description: "Multi-cloud fluency across the big three, from foundational services to cost-optimized architecture.",
+        description: "AWS, Azure and Google Cloud, from core services to cost-aware architecture.",
         points: ["AWS / Azure / GCP services", "Serverless & containers", "Cost-conscious architecture"],
       },
       {
         title: "Containers & Virtualization",
-        description: "Docker everywhere, and a Proxmox cluster for bare-metal-to-VM virtualization at home and at work.",
+        description: "Docker, plus Proxmox for virtualization.",
         points: ["Docker & Compose", "Proxmox VE virtualization", "Image & registry management"],
       },
       {
         title: "CI/CD & Infrastructure as Code",
-        description: "Deployments that run themselves: pipelines, automation, and infrastructure defined in code.",
+        description: "Pipelines, automation and infrastructure defined in code.",
         points: ["Automated build & deploy", "Repeatable deployments", "Backups & monitoring (24/7)"],
       },
     ],
@@ -269,22 +269,22 @@ export const principles = [
   {
     title: "The right tool for the job",
     icon: <Layers className="w-4 h-4" />,
-    desc: "I've learned enough languages and frameworks to choose by fit, not habit. Typed TypeScript for web, Kotlin for Android, C/C++ where the silicon matters.",
+    desc: "I choose by fit, not habit: TypeScript for web, Kotlin for Android, C/C++ where the silicon matters.",
   },
   {
     title: "Clean layered architecture",
     icon: <Boxes className="w-4 h-4" />,
-    desc: "Separating data, domain, and presentation keeps systems testable and swappable. A change in one layer should never ripple through everything.",
+    desc: "Separate data, domain and presentation, so a change in one layer never ripples through the rest.",
   },
   {
     title: "Security by default",
     icon: <Braces className="w-4 h-4" />,
-    desc: "Every layer of the stack is engineered with security in mind: validate input, encrypt transit, enforce least privilege, and assume hostile networks.",
+    desc: "Validate input, encrypt in transit, enforce least privilege, assume hostile networks.",
   },
   {
     title: "Optimize the right things",
     icon: <Workflow className="w-4 h-4" />,
-    desc: "Measure before you tune. I focus on real bottlenecks and measurable wins, not premature micro-optimization.",
+    desc: "Measure first. Fix real bottlenecks, not imagined ones.",
   },
 ];
 
@@ -293,47 +293,47 @@ export const architecture = [
     title: "Frontend",
     icon: <Boxes className="w-4 h-4" />,
     stack: "Next.js · React · TypeScript · Tailwind",
-    desc: "Server components, incremental rendering, and design systems. I improve UI performance through architecture, not hacks.",
+    desc: "Server components, incremental rendering and design systems.",
   },
   {
     title: "Mobile",
     icon: <Braces className="w-4 h-4" />,
     stack: "React Native · Expo · Kotlin",
-    desc: "Cross-platform apps that ship to both stores, plus native Kotlin builds for Android with local databases and offline-first design.",
+    desc: "Cross-platform apps for both stores, plus native Kotlin with offline-first design.",
   },
   {
     title: "Backend & APIs",
     icon: <ServerCog className="w-4 h-4" />,
     stack: "Node.js · Express · Next.js API",
-    desc: "RESTful and typed APIs with auth, validation, and clean separation. Designed to scale and easy to reason about.",
+    desc: "Typed REST APIs with auth, validation and clean separation.",
   },
   {
     title: "Data",
     icon: <Database className="w-4 h-4" />,
     stack: "PostgreSQL · MongoDB · SQLite · Firebase",
-    desc: "Schema design, queries, and data modeling that fit the access patterns, not the other way around. Both relational and document stores.",
+    desc: "Schemas and queries shaped around access patterns, relational or document.",
   },
   {
     title: "Cloud & Infra",
     icon: <Cloud className="w-4 h-4" />,
     stack: "AWS · Azure · GCP · Docker · Proxmox",
-    desc: "Multi-cloud architecture with containers, virtualization, and automation. Built to keep infrastructure costs low without losing reliability.",
+    desc: "Containers, virtualization and automation that keep costs low and reliability high.",
   },
   {
     title: "Delivery",
     icon: <GitPullRequest className="w-4 h-4" />,
     stack: "Git · CI/CD · Automated deploy",
-    desc: "Repeatable pipelines that take a commit to production automatically, with monitoring and backups built in.",
+    desc: "Pipelines from commit to production, with monitoring and backups built in.",
   },
 ];
 
 export const workflow = [
-  { step: "01", title: "Understand", desc: "Clarify the goal, constraints, and the real users before writing a line of code." },
-  { step: "02", title: "Design", desc: "Map the architecture, data flow, and security boundaries on paper first." },
-  { step: "03", title: "Build", desc: "Implement in small, reviewable increments with tests alongside the code." },
-  { step: "04", title: "Verify", desc: "Test, lint, and profile. Prove it works and is fast under realistic load." },
-  { step: "05", title: "Ship", desc: "Deploy through automation, then monitor for regressions and harden." },
-  { step: "06", title: "Iterate", desc: "Refactor, learn, measure. Software is a living system, never a finished one." },
+  { step: "01", title: "Understand", desc: "Pin down the goal, constraints and real users first." },
+  { step: "02", title: "Design", desc: "Map architecture, data flow and security boundaries." },
+  { step: "03", title: "Build", desc: "Small, reviewable steps, with tests." },
+  { step: "04", title: "Verify", desc: "Test, lint and profile under realistic load." },
+  { step: "05", title: "Ship", desc: "Deploy through automation, then monitor and harden." },
+  { step: "06", title: "Iterate", desc: "Refactor, measure, repeat." },
 ];
 
 export const stack = [

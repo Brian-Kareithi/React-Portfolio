@@ -15,27 +15,27 @@ export const steps = [
   {
     title: "Reproduce & Observe",
     icon: <SearchCheck className="w-4 h-4" />,
-    desc: "Never fix what you can't reproduce. Capture the exact failure state, logs, and conditions so every hypothesis has a baseline to test against.",
+    desc: "Never fix what you can't reproduce. Capture the failure state, logs and conditions as a baseline.",
   },
   {
     title: "Isolate Variables",
     icon: <ScanLine className="w-4 h-4" />,
-    desc: "Change one thing at a time. Binary-search the problem space to shrink it from 'the whole system is broken' to 'this exact component is at fault'.",
+    desc: "Change one thing at a time. Narrow a broken system down to one component.",
   },
   {
     title: "Form a Hypothesis",
     icon: <Brain className="w-4 h-4" />,
-    desc: "Root causes, not symptoms. I keep asking why until there is no deeper answer, and frame each theory as a testable prediction.",
+    desc: "Keep asking why until there is no deeper answer. Frame each theory as a testable prediction.",
   },
   {
     title: "Test & Validate",
     icon: <IterationCw className="w-4 h-4" />,
-    desc: "Prove the theory with evidence, not assumption, then confirm the fix holds under the original failing conditions and beyond.",
+    desc: "Prove the theory with evidence, then confirm the fix holds under the original failing conditions.",
   },
   {
     title: "Verify & Harden",
     icon: <ListChecks className="w-4 h-4" />,
-    desc: "The fix is only done when it survives. I verify under load, document what happened, and harden the system so it doesn't recur.",
+    desc: "A fix is done when it survives. Verify under load, document it, and harden so it doesn't recur.",
   },
 ];
 
@@ -44,74 +44,65 @@ export const cases = [
     title: "Mystery Disk-Full Server",
     domain: "Linux / Storage",
     icon: <Database className="w-4 h-4" />,
-    summary: "A server kept filling its disk overnight with no obvious culprit.",
-    approach: "Checked df first, then traced the largest directories with du. Because the growth only happened overnight, I watched writes with inotify and reviewed the cron schedule to catch the writer.",
-    rootCause: "A misconfigured log-rotation job never rotated one log, so it grew without limit each night.",
-    resolution: "Fixed the rotation config, added a disk-usage alert, and confirmed two weeks of stable capacity.",
+    summary: "A server filled its disk overnight with no obvious cause.",
+    approach: "Traced the largest directories with du, then watched writes with inotify and reviewed the cron schedule.",
+    rootCause: "One log was never rotated and grew without limit.",
+    resolution: "Fixed the rotation, added a disk alert, confirmed two stable weeks.",
   },
   {
     title: "Dropped Wi-Fi, Working Router",
     domain: "Networking",
     icon: <Network className="w-4 h-4" />,
-    summary: "Intermittent drops on one device while everything else stayed connected.",
-    approach: "Isolated the physical layer first, then checked channels, power output, and the specific adapter's driver and power management.",
-    rootCause: "The laptop's Wi-Fi power-save mode was dropping the link during idle windows.",
-    resolution: "Disabled power-saving on the adapter, and the connection has stayed stable since.",
+    summary: "One device kept dropping while everything else stayed connected.",
+    approach: "Ruled out the physical layer, then checked channels, power and the adapter's driver settings.",
+    rootCause: "Wi-Fi power-save was dropping the link when idle.",
+    resolution: "Disabled power-save. Stable since.",
   },
   {
     title: "Silent Reboot Loop",
     domain: "Hardware",
     icon: <MemoryStick className="w-4 h-4" />,
-    summary: "A PC rebooted itself a few minutes after starting, with no error on screen.",
-    approach: "Swapped components one at a time, tested the PSU, then ran a memory test once the machine had warmed up.",
-    rootCause: "A failing RAM stick with marginal errors that only surfaced after warm-up.",
-    resolution: "Identified the faulty module, replaced it, and re-ran the full memory test to confirm.",
+    summary: "A PC rebooted minutes after starting, with no error.",
+    approach: "Swapped parts one at a time, tested the PSU, then ran a memory test once warm.",
+    rootCause: "A failing RAM stick that only erred once warm.",
+    resolution: "Replaced the module and re-ran the full memory test.",
   },
   {
     title: "Blue Screens on a Failing SSD",
     domain: "Hardware / Storage",
     icon: <HardDrive className="w-4 h-4" />,
-    summary: "A PC kept crashing with blue screens at random, with nothing in the software changing between crashes.",
-    approach: "Read the stop codes and crash dumps first, then ruled out RAM and drivers. The evidence kept pointing at storage, so I checked the drive's SMART health data and error logs.",
-    rootCause: "The SSD was failing and returning read errors, which the operating system surfaced as blue screens.",
-    resolution: "Secured the data, replaced the SSD, restored the system, and confirmed stability under sustained load.",
+    summary: "Random blue screens, with no software changes between crashes.",
+    approach: "Read the stop codes and dumps, ruled out RAM and drivers, then checked the drive's SMART data.",
+    rootCause: "The SSD was failing and returning read errors.",
+    resolution: "Saved the data, replaced the SSD and confirmed stability under load.",
   },
   {
     title: "Thermal Throttle Slump",
     domain: "Hardware",
     icon: <Flame className="w-4 h-4" />,
-    summary: "A build degraded to a crawl under load despite adequate specs.",
-    approach: "Monitored core temps and clock speeds in real time, then inspected mounting and airflow.",
-    rootCause: "Dried-out thermal paste and a clogged cooler causing aggressive throttling.",
-    resolution: "Re-applied paste, cleaned the cooler, and restored full sustained performance.",
+    summary: "A build crawled under load despite good specs.",
+    approach: "Watched temps and clock speeds live, then inspected mounting and airflow.",
+    rootCause: "Dried thermal paste and a clogged cooler.",
+    resolution: "New paste and a clean cooler restored full performance.",
   },
   {
     title: "Application Crash, No Stack Trace",
     domain: "Software",
     icon: <Bug className="w-4 h-4" />,
-    summary: "A release crashed intermittently in production with an empty-looking trace.",
-    approach: "Added instrumented builds and verbose logging, then reproduced the crash on a staging copy with identical inputs.",
-    rootCause: "A race condition between two async writes to shared state.",
-    resolution: "Serialized the writes, added a regression test, and shipped a clean fix.",
+    summary: "A release crashed intermittently with an empty trace.",
+    approach: "Added instrumented builds and logging, then reproduced it on staging.",
+    rootCause: "A race between two async writes to shared state.",
+    resolution: "Serialized the writes and added a regression test.",
   },
   {
     title: "Encrypted Traffic Riddle",
     domain: "Security / Network",
     icon: <CircleAlert className="w-4 h-4" />,
-    summary: "A trusted app kept flagging data corruption across the wire.",
-    approach: "Captured the session, decrypted it with the endpoint's session keys, and compared the payload at both ends of the path.",
-    rootCause: "A middlebox performing transparent TLS inspection was altering payloads in transit.",
-    resolution: "Routed traffic around the middlebox, verified integrity end-to-end, and tightened the TLS config.",
+    summary: "A trusted app kept flagging corrupted data.",
+    approach: "Captured the session, decrypted it and compared the payload at both ends.",
+    rootCause: "A middlebox doing TLS inspection was altering payloads.",
+    resolution: "Routed around it, verified integrity and tightened TLS.",
   },
-];
-
-const method = [
-  { label: "Evidence-first", value: "no guesswork, only data" },
-  { label: "One variable at a time", value: "clean, testable changes" },
-  { label: "Break it down", value: "binary search the stack" },
-  { label: "Verify the fix", value: "survive the original failure" },
-  { label: "Document & harden", value: "never let it recur" },
-  { label: "Across the stack", value: "from silicon to SQL" },
 ];
 
 const kit = ["Wireshark", "gdb / LLDB", "Profilers", "Chrome DevTools", "systemd journal", "df / du / iostat", "tcpdump", "Memtest", "Hardware testers", "Multimeter", "Thermal monitoring", "Packet capture"];
@@ -129,21 +120,9 @@ export default function TroubleshootingClient() {
           index="06"
           label="Diagnostics"
           variant="split"
-          title={<>Troubleshooting <em className="font-serif-accent">method</em></>}
-          description="When something breaks I would rather fix it once and properly. I follow the evidence to the root cause across software, hardware and networks, which is how I have cut internet downtime, then I write down what I learned."
+          title={<>Finding the <em className="font-serif-accent">real fault</em></>}
+          description="I follow the evidence to the root cause across software, hardware and networks, then write it down so it stays fixed."
         />
-
-        {/* Method: rules of thumb as pills */}
-        <StaggerReveal staggerDelay={60}>
-        <div className="mb-20 flex flex-wrap gap-2.5">
-          {method.map((m) => (
-            <span key={m.label} className="pill !px-4 !py-2 !text-sm">
-              <span className="font-semibold" style={{ color: "var(--color-accent)" }}>{m.label}</span>
-              <span style={{ color: "var(--color-text-muted)" }}>· {m.value}</span>
-            </span>
-          ))}
-        </div>
-        </StaggerReveal>
 
         {/* Process: a connected ladder */}
         <div className="mb-20">
@@ -171,7 +150,7 @@ export default function TroubleshootingClient() {
 
         {/* Case files */}
         <div className="mb-20">
-          <SubTitle kicker="Field notes" title="Real problems, root causes" />
+          <SubTitle kicker="Field notes" title="Real problems, real causes" />
           <div className="space-y-3">
             {cases.map((c, i) => {
               const open = openCase === i;
@@ -248,11 +227,11 @@ export default function TroubleshootingClient() {
         </StaggerReveal>
       <NextSection
           title="The method in use"
-          description="The same discipline applies to the software I build and the infrastructure I run."
+          description="The same discipline, applied to what I build and run."
           links={[
-            { href: "/how-i-work", label: "How I Work", description: "How I design, build and ship production software." },
-            { href: "/homelab", label: "Homelab", description: "A live lab where the method is validated under real-world conditions." },
-            { href: "/projects", label: "Selected Work", description: "Shipped systems where the method was put to work." },
+            { href: "/how-i-work", label: "How I Work", description: "How I build and ship." },
+            { href: "/homelab", label: "Homelab", description: "A live lab where the method is tested." },
+            { href: "/projects", label: "Selected Work", description: "Shipped systems, method applied." },
           ]}
         />
       </div>

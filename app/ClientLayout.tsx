@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import Navbar from "@/app/components/NavBar";
 import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
+import CursorRing from "@/app/components/CursorRing";
+import LoadingScreen from "@/app/components/LoadingScreen";
 import { CommandPaletteProvider } from "@/app/components/CommandPalette";
 
 const SPOT_TARGETS = ".flat-card, .plate, .liquid-card, .liquid-card-hover";
@@ -29,6 +31,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <ScrollBar />
         <main className="relative flex-1">{children}</main>
         <Footer />
+        <CursorRing />
+        <LoadingScreen />
       </div>
     </CommandPaletteProvider>
   );

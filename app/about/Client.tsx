@@ -4,7 +4,6 @@ import { CheckCircle, GraduationCap, BadgeCheck, Briefcase, Rocket } from "lucid
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
-import { CountUp } from "@/app/components/ui/CountUp";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 
@@ -12,15 +11,14 @@ export const experience = {
   role: "IT Support / Frontend Development",
   company: "Steadfast Academy",
   period: "2025 - Present",
-  summary: "Building and supporting the digital systems a school depends on every day. Real users, real deadlines, no room for downtime.",
+  summary: "I build and support the systems a school runs on every day. Real users, real deadlines, no room for downtime.",
   duties: [
-    "Developed responsive Teacher and Parent portals",
-    "Integrated frontend applications with backend APIs",
-    "Worked with Next.js and React",
-    "Built the Parent mobile application using Expo / React Native",
-    "Supported users and troubleshooting",
-    "Worked with school information systems",
-    "Assisted with IT infrastructure and technical support",
+    "Teacher and Parent portals (Next.js, React)",
+    "Parent mobile app (Expo / React Native)",
+    "Frontend integration with backend APIs",
+    "School information systems",
+    "User support and troubleshooting",
+    "IT infrastructure support",
   ],
 };
 
@@ -36,20 +34,20 @@ interface TimelineItem {
 }
 
 export const timeline: TimelineItem[] = [
-  { title: "KCPE Certificate", institution: "Lily Academy", period: "2013 - 2016", year: 2013, category: "education", description: "Primary education completion with distinction in mathematics and sciences.", significance: "Foundation for analytical thinking", metrics: ["Distinction in STEM subjects", "Early exposure to technology"] },
-  { title: "KCSE - Science & Technology", institution: "Thika High School", period: "2017 - 2020", year: 2017, category: "education", description: "Secondary education with focus on sciences and technology.", significance: "Technical foundation development", metrics: ["STEM specialization", "Science competitions participation"] },
-  { title: "BSc Information Technology", institution: "Umma University", period: "Graduated", year: 2021, category: "education", description: "Completed undergraduate degree in Information Technology with cybersecurity focus.", significance: "Formal academic foundation in IT", metrics: ["Cybersecurity Club Leadership", "AI/ML research focus"] },
-  { title: "Microsoft Azure Fundamentals", institution: "Microsoft", period: "2022", year: 2022, category: "certification", description: "Foundational cloud services certification validating understanding of cloud concepts and Azure services.", significance: "Entry into cloud computing", metrics: ["Cloud concepts mastery", "Azure service fundamentals"] },
-  { title: "CompTIA Security+", institution: "CompTIA", period: "2022", year: 2022, category: "certification", description: "Industry-recognized certification validating baseline cybersecurity skills.", significance: "Cybersecurity foundation", metrics: ["Security principles application", "Risk management fundamentals"] },
-  { title: "AWS Cloud Practitioner", institution: "Amazon Web Services", period: "2023", year: 2023, category: "certification", description: "Cloud services certification demonstrating AWS cloud concepts.", significance: "Multi-cloud expertise", metrics: ["AWS architecture understanding", "Cost optimization strategies"] },
-  { title: "Google Cybersecurity Professional", institution: "Google", period: "2023", year: 2023, category: "certification", description: "Comprehensive cybersecurity certification covering threat detection and security operations.", significance: "Enterprise security methodology", metrics: ["SIEM strategy development", "Incident response automation"] },
-  { title: "CCNA", institution: "Cisco", period: "2023", year: 2023, category: "certification", description: "Networking certification validating skills in network fundamentals and security.", significance: "Network infrastructure expertise", metrics: ["Enterprise network design", "Network security implementation"] },
-  { title: "IBM Cybersecurity Analyst", institution: "IBM", period: "2024", year: 2024, category: "certification", description: "Advanced certification in threat intelligence and enterprise security management.", significance: "Enterprise security operations", metrics: ["Threat intelligence mastery", "SOC procedure implementation"] },
-  { title: "Information Security Specialist", institution: "ICT Authority of Kenya", period: "2022 - 2024", year: 2022, category: "professional", description: "Supported security operations for internal government digital systems.", significance: "Public sector security exposure", metrics: ["Security hardening for internal systems", "Incident monitoring and response support", "Vulnerability assessment and remediation"] },
-  { title: "Freelance Full-Stack Developer", institution: "Fiverr & Upwork", period: "2022 - 2024", year: 2022, category: "professional", description: "Delivered web applications for a range of freelance clients.", significance: "Client-driven development", metrics: ["50+ small to mid-sized projects", "Consistently positive client feedback", "Full-stack work across varied stacks"] },
-  { title: "IT Support / Frontend Development", institution: "Steadfast Academy", period: "2025 - Present", year: 2025, category: "professional", description: "Building and supporting digital systems used within an education environment: Teacher and Parent portals, a companion mobile app, and day-to-day IT support.", significance: "Real users, real systems, real deployment", metrics: ["Teacher & Parent portals (Next.js, React)", "Parent mobile app (Expo / React Native)", "School information systems & IT support"] },
-  { title: "Co-Founder & Backend Developer", institution: "Thee Entity Limited", period: "2025 - Present", year: 2025, category: "entrepreneurial", description: "Co-founded a small technology studio, designing cloud-native solutions.", significance: "Entrepreneurial venture", metrics: ["Designed the platform's cloud-native architecture", "Built an automated deployment pipeline", "Managing infrastructure on a lean budget"] },
-  { title: "Cybersecurity Leadership", institution: "Future Focus", period: "2026 & Beyond", year: 2026, category: "professional", description: "Aspire to lead enterprise security initiatives and mentor emerging professionals.", significance: "Strategic career progression", metrics: ["Enterprise security leadership", "Open-source contribution", "Professional mentorship"] },
+  { title: "KCPE Certificate", institution: "Lily Academy", period: "2013 - 2016", year: 2013, category: "education", description: "Primary school, with distinction in maths and sciences.", metrics: ["Distinction in STEM subjects"] },
+  { title: "KCSE, Science & Technology", institution: "Thika High School", period: "2017 - 2020", year: 2017, category: "education", description: "Secondary school with a science and technology focus.", metrics: ["STEM specialization", "Science competitions"] },
+  { title: "BSc Information Technology", institution: "Umma University", period: "Graduated", year: 2021, category: "education", description: "Degree in IT with a cybersecurity focus.", metrics: ["Cybersecurity Club leadership", "AI/ML research focus"] },
+  { title: "Microsoft Azure Fundamentals", institution: "Microsoft", period: "2022", year: 2022, category: "certification", description: "Cloud concepts and core Azure services." },
+  { title: "CompTIA Security+", institution: "CompTIA", period: "2022", year: 2022, category: "certification", description: "Baseline cybersecurity skills and risk management." },
+  { title: "AWS Cloud Practitioner", institution: "Amazon Web Services", period: "2023", year: 2023, category: "certification", description: "AWS cloud concepts, architecture and cost." },
+  { title: "Google Cybersecurity Professional", institution: "Google", period: "2023", year: 2023, category: "certification", description: "Threat detection and security operations." },
+  { title: "CCNA", institution: "Cisco", period: "2023", year: 2023, category: "certification", description: "Network fundamentals and network security." },
+  { title: "IBM Cybersecurity Analyst", institution: "IBM", period: "2024", year: 2024, category: "certification", description: "Threat intelligence and enterprise security management." },
+  { title: "Information Security Specialist", institution: "ICT Authority of Kenya", period: "2022 - 2024", year: 2022, category: "professional", description: "Security operations for internal government systems.", metrics: ["Security hardening", "Incident monitoring and response", "Vulnerability assessment and fixes"] },
+  { title: "Freelance Full-Stack Developer", institution: "Fiverr & Upwork", period: "2022 - 2024", year: 2022, category: "professional", description: "Web applications for freelance clients.", metrics: ["50+ small to mid-sized projects", "Consistently positive client feedback"] },
+  { title: "IT Support / Frontend Development", institution: "Steadfast Academy", period: "2025 - Present", year: 2025, category: "professional", description: "Teacher and Parent portals, a mobile app and day-to-day IT support.", metrics: ["Teacher & Parent portals (Next.js, React)", "Parent mobile app (Expo / React Native)", "School information systems"] },
+  { title: "Co-Founder & Backend Developer", institution: "Thee Entity Limited", period: "2025 - Present", year: 2025, category: "entrepreneurial", description: "Co-founded a small tech studio building cloud-native products.", metrics: ["Cloud-native architecture", "Automated deployment pipeline", "Infrastructure on a lean budget"] },
+  { title: "Cybersecurity Leadership", institution: "Future Focus", period: "2026 & Beyond", year: 2026, category: "professional", description: "Next: lead security initiatives and mentor newcomers.", metrics: ["Enterprise security leadership", "Open-source contribution", "Mentorship"] },
 ];
 
 const categoryConfig = {
@@ -61,17 +59,10 @@ const categoryConfig = {
 
 const filters = ["all", ...Object.keys(categoryConfig)] as const;
 
-export const stats = [
-  { value: 3, suffix: "+", label: "Years in Tech" },
-  { value: 6, suffix: "", label: "Certifications" },
-  { value: 3, suffix: "", label: "Sectors" },
-  { value: 50, suffix: "+", label: "Projects" },
-];
-
 const closing = [
-  { title: "I adapt quickly", desc: "Government, freelance clients, a school and a startup have each asked for something different. I learned to settle in fast." },
-  { title: "Development, support, networking and security", desc: "I never saw these as separate careers. They are one picture, and knowing all of it makes me better at each part." },
-  { title: "Still learning", desc: "Six certifications since 2022 and a lab I maintain by hand. I keep learning before anyone asks me to." },
+  { title: "I adapt fast", desc: "Government, freelance clients, a school and a startup. Each asked for something different." },
+  { title: "One picture", desc: "Development, support, networking and security are one skill set, and each makes me better at the others." },
+  { title: "Still learning", desc: "Six certifications since 2022 and a lab I maintain by hand." },
 ];
 
 export default function AboutClient() {
@@ -102,24 +93,9 @@ export default function AboutClient() {
             index="01"
             label="Journey"
             variant="split"
-            title={<>My <em className="font-serif-accent">story</em>, so far</>}
-            description="From a science and technology classroom to public-sector security work, 50+ client projects, a startup I co-founded and live systems at a school. Each step taught me something I still use."
+            title={<>How I got <em className="font-serif-accent">good</em> at this</>}
+            description="From a science classroom to government security, 50+ client projects, a startup and live systems at a school."
           />
-
-          {/* Stats band */}
-          <div
-            className="mb-14 grid grid-cols-2 gap-y-8 rounded-2xl px-6 py-8 md:grid-cols-4 md:px-10"
-            style={{ backgroundColor: "var(--color-highlight)" }}
-          >
-            {stats.map((s, i) => (
-              <div key={s.label} className={`text-center md:text-left ${i > 0 ? "md:border-l md:pl-8" : ""}`} style={{ borderColor: "var(--color-accent-secondary)" }}>
-                <span className="display-xl block text-5xl xs:text-6xl" style={{ color: "var(--color-accent)" }}>
-                  <CountUp value={s.value} suffix={s.suffix} />
-                </span>
-                <span className="mt-1 block text-xs font-medium" style={{ color: "var(--color-text-secondary)" }}>{s.label}</span>
-              </div>
-            ))}
-          </div>
 
           {/* Now */}
           <div className="ink-slab mb-16 grid gap-8 p-7 xs:p-8 md:grid-cols-5 md:p-12">
@@ -211,9 +187,9 @@ export default function AboutClient() {
                         <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                           {item.description}
                         </p>
-                        {(item.significance || item.metrics) && (
+                        {item.metrics && (
                           <span className="mt-3 inline-block text-xs font-medium" style={{ color: "var(--color-accent)" }}>
-                            {open ? "Show less" : "Show highlights"}
+                            {open ? "Less" : "Highlights"}
                           </span>
                         )}
                       </button>
@@ -262,12 +238,12 @@ export default function AboutClient() {
           </StaggerReveal>
 
           <NextSection
-            title="Where to go next"
-            description="See how I work, what I have built, or read my resume."
+            title="Where to next"
+            description="How I work, what I built, my resume."
             links={[
-              { href: "/resume", label: "Resume", description: "A PDF tailored to the exact role you're hiring for." },
-              { href: "/how-i-work", label: "How I Work", description: "How I deliver reliably, from idea to production." },
-              { href: "/projects", label: "Selected Work", description: "What I shipped, and what it did for the people using it." },
+              { href: "/resume", label: "Resume", description: "A PDF tailored to the role you are hiring for." },
+              { href: "/how-i-work", label: "How I Work", description: "How I take an idea to production." },
+              { href: "/projects", label: "Selected Work", description: "What I shipped and who uses it." },
             ]}
           />
         </div>

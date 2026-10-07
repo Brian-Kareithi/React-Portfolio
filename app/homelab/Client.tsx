@@ -4,7 +4,6 @@ import {
   Server, Cpu, Monitor, Smartphone, Headphones, Watch, Keyboard, HardDrive,
   Camera, Wifi, ChevronDown, Activity, Database, ShieldCheck, Radio,
 } from "lucide-react";
-import Link from "next/link";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
@@ -33,28 +32,28 @@ export const gearCategories: GearCategory[] = [
     items: [
       {
         name: "HP 745 G7",
-        outcome: "My daily driver, every build, container, and prototype starts here. VMs, Docker stacks and dev servers run side-by-side without flinching.",
+        outcome: "Daily driver. Every build starts here, with VMs, Docker and dev servers side by side.",
         skill: "Dev Environment",
         icon: <Cpu className="w-3.5 h-3.5" />,
         specs: ["AMD Ryzen 5 PRO 3500U", "16GB DDR4 RAM", "512GB NVMe SSD", "14\" FHD Display", "Radeon Vega 8 Graphics"],
       },
       {
         name: "HP 820 G3",
-        outcome: "Dedicated test bench, disposable VMs and network experiments run here so nothing risky ever touches the main machine.",
+        outcome: "Test bench. Risky experiments run here, never on the main machine.",
         skill: "Lab & Testing",
         icon: <Cpu className="w-3.5 h-3.5" />,
         specs: ["Intel Core i5-6200U", "12GB DDR4 RAM", "256GB SATA SSD", "12.5\" FHD Display"],
       },
       {
         name: "HP Tower Server",
-        outcome: "Self-hosted Proxmox node that virtualises the whole lab: media server, backups and dev services running 24/7 with RAID-1 resilience.",
+        outcome: "The Proxmox node that runs the lab: media, backups and dev services.",
         skill: "Server Administration",
         icon: <Server className="w-3.5 h-3.5" />,
         specs: ["Intel Xeon / Core i5", "16GB ECC DDR4 RAM", "3TB HDD Storage", "RAID 1 Config", "Proxmox VE", "24/7 Self-Hosted"],
       },
       {
         name: "HP Tower (Kali Linux)",
-        outcome: "A second HP tower running Kali Linux, dedicated purely to penetration testing and security practice.",
+        outcome: "Kali Linux, dedicated to penetration testing practice.",
         skill: "Penetration Testing",
         icon: <ShieldCheck className="w-3.5 h-3.5" />,
         specs: ["HP Tower", "Kali Linux", "Dedicated to penetration testing"],
@@ -67,21 +66,21 @@ export const gearCategories: GearCategory[] = [
     items: [
       {
         name: "ThinkVision 24\"",
-        outcome: "Primary canvas, with code, dashboards and camera feeds watched live while the lab runs.",
+        outcome: "Main screen for code and dashboards.",
         skill: "Monitoring",
         icon: <Monitor className="w-3.5 h-3.5" />,
         specs: ["24\" Full HD (1920x1080)", "IPS Panel", "VGA + DVI + DP Inputs", "Tilt-Adjustable Stand"],
       },
       {
         name: "Lenovo Monitor",
-        outcome: "Second screen keeps logs, metrics and automation dashboards visible without breaking focus.",
+        outcome: "Second screen for logs and metrics.",
         skill: "Ops Visibility",
         icon: <Monitor className="w-3.5 h-3.5" />,
         specs: ["22-24\" Lenovo Branded", "Full HD Resolution", "VGA + HDMI Inputs", "Workspace Multiplier"],
       },
       {
         name: "18\" Portable Monitor",
-        outcome: "Field display, plug in anywhere to inspect a server, debug hardware or demo a build on the go.",
+        outcome: "Portable display for servers, hardware and demos.",
         skill: "On-the-Go",
         icon: <Monitor className="w-3.5 h-3.5" />,
         specs: ["18\" IPS Portable Display", "USB-C Powered", "1080p Resolution", "Plug-and-Play w/ Laptop"],
@@ -94,35 +93,21 @@ export const gearCategories: GearCategory[] = [
     items: [
       {
         name: "AULA S2027",
-        outcome: "New daily typing board, RGB-lit and responsive, built for long coding marathons and late-night terminal sessions.",
+        outcome: "Daily keyboard for long coding sessions.",
         skill: "Gaming & Typing",
         icon: <Keyboard className="w-3.5 h-3.5" />,
         specs: ["AULA S2027 Gaming Keyboard", "Full RGB Backlight", "Mechanical Feel Keys", "Anti-Ghosting", "USB Wired Connection"],
       },
       {
-        name: "Newmen Keyboard",
-        outcome: "Types the thousands of lines that run this lab, with custom keybinds mapped for my most-used commands.",
-        skill: "Daily Driver",
-        icon: <Keyboard className="w-3.5 h-3.5" />,
-        specs: ["Newmen Mechanical Feel", "Full Keyboard Layout", "LED Backlit Keys", "USB Wired Connection", "Spill-Resistant Design"],
-      },
-      {
         name: "Glorious Model O",
-        outcome: "Current main mouse, 68g of featherweight precision for fast cursor work, long coding sessions and competitive play.",
+        outcome: "Main mouse. Light and precise.",
         skill: "Daily Driver",
         icon: <Cpu className="w-3.5 h-3.5" />,
         specs: ["68g Ultra-Lightweight", "Glorious 16K Optical Sensor", "Up to 12,000 DPI", "Honeycomb Shell Design", "RGB Lighting", "PTFE Mouse Feet"],
       },
       {
-        name: "Newmen Mouse",
-        outcome: "Workhorse pointer for long coding sessions and rapid-fire terminal work.",
-        skill: "Daily Driver",
-        icon: <Cpu className="w-3.5 h-3.5" />,
-        specs: ["Newmen Optical Sensor", "1600 DPI Default", "3-Button + Scroll", "Ergonomic Design", "USB Wired"],
-      },
-      {
         name: "Safaricom Router",
-        outcome: "Lab backbone, every device on this network is managed by me: static leases, port forwarding and uptime monitoring.",
+        outcome: "Lab backbone. Static leases, port forwarding and uptime monitoring, all managed by me.",
         skill: "Networking",
         icon: <Wifi className="w-3.5 h-3.5" />,
         specs: ["Safaricom 4G LTE Router", "Dual-Band WiFi", "Up to 150Mbps", "Ethernet LAN Ports", "Carrier-Provided"],
@@ -135,28 +120,28 @@ export const gearCategories: GearCategory[] = [
     items: [
       {
         name: "Galaxy A05s",
-        outcome: "Remote control for the lab, SSH sessions, automation triggers and live camera feeds from anywhere.",
+        outcome: "Remote control for the lab: SSH, automation and camera feeds.",
         skill: "Remote Ops",
         icon: <Smartphone className="w-3.5 h-3.5" />,
         specs: ["Samsung Galaxy A05s", "Snapdragon 680", "6.7\" PLS LCD 90Hz", "4GB RAM / 64GB Storage", "50MP Triple Camera", "5000mAh Battery"],
       },
       {
         name: "F+ Kaduda",
-        outcome: "No-frills backup line for calls and texts while the smartphone is doing lab duty.",
+        outcome: "Backup line for calls and texts.",
         skill: "Reliability",
         icon: <Smartphone className="w-3.5 h-3.5" />,
         specs: ["F+ Kaduda Feature Phone", "Basic Call & Text", "Dual SIM", "Long Battery Life"],
       },
       {
         name: "ORAiMO SpaceBuds Neo Plus",
-        outcome: "Hands-free calls and focus audio for deep work and long lab sessions.",
+        outcome: "Calls and focus audio.",
         skill: "Audio",
         icon: <Headphones className="w-3.5 h-3.5" />,
         specs: ["ORAiMO SpaceBuds Neo Plus", "True Wireless Stereo", "Bluetooth 5.3", "Touch Controls", "IPX5 Water Resistant", "~24h Battery (Case)"],
       },
       {
         name: "ORAiMO SmartWatch 5N",
-        outcome: "Health and notification hub, alerts hit the wrist so nothing is missed mid-debug.",
+        outcome: "Alerts on the wrist mid-debug.",
         skill: "Notifications",
         icon: <Watch className="w-3.5 h-3.5" />,
         specs: ["ORAiMO SmartWatch 5N", "1.3\" AMOLED Display", "Heart Rate & SpO2 Monitor", "Step & Sleep Tracking", "Bluetooth Call Sync", "7-Day Battery Life"],
@@ -169,21 +154,21 @@ export const gearCategories: GearCategory[] = [
     items: [
       {
         name: "3TB HDDs & SSDs",
-        outcome: "RAID-1 storage for backups and archives, with redundancy configured, tested and verified.",
+        outcome: "Spare drives for backups and experiments.",
         skill: "Storage",
         icon: <HardDrive className="w-3.5 h-3.5" />,
         specs: ["Mixed 2.5\" & 3.5\" Drives", "SSD + HDD Combo", "Used for Backups & Experiments"],
       },
       {
         name: "Digital Camera",
-        outcome: "Reference shots for documentation, builds and project write-ups.",
+        outcome: "Reference shots for documentation.",
         skill: "Documentation",
         icon: <Camera className="w-3.5 h-3.5" />,
         specs: ["Compact Digital Camera", "Optical Zoom Lens", "SD Card Storage", "Great for Reference Shots"],
       },
       {
         name: "ESP32 Dev Kit",
-        outcome: "The heart of my IoT work, sensor networks, home automation endpoints and robot brains, all running custom firmware I wrote.",
+        outcome: "The core of my IoT work, running firmware I wrote.",
         skill: "Embedded / IoT",
         icon: <Cpu className="w-3.5 h-3.5" />,
         specs: ["ESP32-WROOM-32 Module", "Dual-Core Xtensa LX6", "WiFi + BLE 4.2", "GPIO / I2C / SPI / UART", "Full Dev Board w/ USB", "Used in Robotics & Automation"],
@@ -195,21 +180,14 @@ export const gearCategories: GearCategory[] = [
 export const builds = [
   {
     title: "Home Automation",
-    outcome: "The lab lights, locks and devices run on my own automation: phone presence detection switches rooms automatically, RGB scenes coordinate across multiple rooms, and voice commands control it all.",
+    outcome: "Lights, locks and devices on my own automation. Phone presence switches rooms, and voice commands run the rest.",
     stack: "ESP32 endpoints · custom firmware · presence sniffing · REST hooks",
     status: "Live 24/7",
     icon: <Wifi className="w-3.5 h-3.5" />,
   },
   {
-    title: "Media & Backup Server",
-    outcome: "An always-on server streaming 4K to every screen in the lab while automated nightly backups protect 3TB of RAID-1 storage, with no data lost since day one.",
-    stack: "Proxmox VE · RAID 1 · cron automation · self-hosted services",
-    status: "Live 24/7",
-    icon: <Server className="w-3.5 h-3.5" />,
-  },
-  {
     title: "Robotics & Embedded",
-    outcome: "Line-following robots, drone prototypes and ESP32 automation systems, with firmware written from scratch, PID control and sensor fusion tuned by hand on the bench.",
+    outcome: "Line-following robots, drone prototypes and ESP32 systems, with PID control tuned by hand on the bench.",
     stack: "ESP32-WROOM · C/C++ firmware · sensors · bench debugging",
     status: "Built & Tested",
     icon: <Cpu className="w-3.5 h-3.5" />,
@@ -221,24 +199,6 @@ export const labStats = [
   { label: "Storage Protected", value: "3TB", note: "RAID-1 mirrored array", icon: <Database className="w-3.5 h-3.5" /> },
   { label: "Data Lost", value: "0 B", note: "since day one", icon: <ShieldCheck className="w-3.5 h-3.5" /> },
   { label: "Devices Managed", value: "19", note: "every lease assigned by me", icon: <Radio className="w-3.5 h-3.5" /> },
-];
-
-export const tinkering = [
-  {
-    title: "ESP32 Sensor Mesh",
-    desc: "Room-presence detection nodes feeding the automation engine over WiFi.",
-    icon: <Radio className="w-3.5 h-3.5" />,
-  },
-  {
-    title: "Proxmox Experiments",
-    desc: "Cluster and failover drills on spare hardware, snapshots before every risky move.",
-    icon: <Server className="w-3.5 h-3.5" />,
-  },
-  {
-    title: "Custom Firmware",
-    desc: "Hand-rolled C/C++ for every endpoint in the lab, no stock sketches allowed.",
-    icon: <Cpu className="w-3.5 h-3.5" />,
-  },
 ];
 
 function SubHead({ label, title }: { label: string; title: string }) {
@@ -315,8 +275,8 @@ export default function HomelabClient() {
         <SectionHeader
           index="05"
           label="My lab"
-          title={<>Infrastructure I <em className="font-serif-accent">run</em></>}
-          description="This is where it all started, and where I still learn. 19 devices running 24/7 on Proxmox, RAID-1 storage, nightly backups, a managed network and zero data lost. I broke plenty before it stayed up, and that is how I learned to keep internet and services running."
+          title={<>The lab that <em className="font-serif-accent">never sleeps</em></>}
+          description="Where I started and where I still learn. I broke plenty before it stayed up, and that is how I learned to keep services running."
         />
 
         {/* Lab status */}
@@ -437,7 +397,7 @@ export default function HomelabClient() {
 
         {/* Builds */}
         <div className="mb-20">
-          <SubHead label="What I build" title="Weekend deployments" />
+          <SubHead label="What I build" title="What I build here" />
           <StaggerReveal staggerDelay={80}>
           <div className="grid gap-5 md:grid-cols-3">
             {builds.map((p) => (
@@ -467,42 +427,13 @@ export default function HomelabClient() {
           </StaggerReveal>
         </div>
 
-        {/* Tinkering + quote */}
-        <div className="mb-20 grid gap-10 lg:grid-cols-5">
-          <div className="lg:col-span-3">
-            <SubHead label="On the bench" title="Currently tinkering" />
-            <ul className="space-y-3">
-              {tinkering.map((t) => (
-                <li key={t.title} className="flex items-start gap-4 rounded-xl border p-4" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full"
-                    style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}>
-                    {t.icon}
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
-                      {t.title}
-                    </p>
-                    <p className="mt-0.5 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                      {t.desc}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex items-center lg:col-span-2">
-            <blockquote>
-              <span className="font-serif-accent block text-7xl leading-none" style={{ color: "var(--color-accent-secondary)" }} aria-hidden="true">&ldquo;</span>
-              <p className="display-xl -mt-4 text-2xl leading-snug sm:text-3xl" style={{ color: "var(--color-text-primary)" }}>
-                Every device in this lab serves real life: monitored, backed up, and refined until it is reliable.
-              </p>
-              <footer className="mt-4 font-mono text-xs" style={{ color: "var(--color-text-muted)" }}>
-                brian@homelab
-              </footer>
-            </blockquote>
-          </div>
-        </div>
+        {/* Closing line */}
+        <blockquote className="mb-20 max-w-3xl">
+          <span className="font-serif-accent block text-7xl leading-none" style={{ color: "var(--color-accent-secondary)" }} aria-hidden="true">&ldquo;</span>
+          <p className="display-xl -mt-4 text-2xl leading-snug sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
+            Every device here serves real life: monitored, backed up and refined until it is reliable.
+          </p>
+        </blockquote>
 
         {/* End-of-week surprise */}
         <div className="mb-20">
@@ -510,24 +441,13 @@ export default function HomelabClient() {
           <FridaySurprise />
         </div>
 
-        <StaggerReveal>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <Link href="/resume" className="btn-neon btn-neon-ghost">
-            View Resume
-          </Link>
-          <Link href="/contact" className="btn-neon btn-neon-primary">
-            Get in Touch
-          </Link>
-        </div>
-        </StaggerReveal>
-
         <NextSection
           title="From the lab to my work"
-          description="The same habits, applied to the systems I build and support."
+          description="The same habits, applied to real systems."
           links={[
-            { href: "/how-i-work", label: "How I Work", description: "The principles and stack behind the lab and the products." },
-            { href: "/troubleshooting", label: "Diagnostics", description: "Root-cause work inspired by real failures." },
-            { href: "/contact", label: "Contact", description: "Building something similar? Let's talk." },
+            { href: "/how-i-work", label: "How I Work", description: "The principles behind the lab and the products." },
+            { href: "/troubleshooting", label: "Diagnostics", description: "Root-cause work from real failures." },
+            { href: "/contact", label: "Contact", description: "Building something similar?" },
           ]}
         />
       </div>

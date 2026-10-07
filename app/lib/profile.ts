@@ -2,7 +2,7 @@ import { siteConfig } from "@/app/lib/site";
 
 /** Plain-text profile shared by /llms.txt. */
 export const profileText = `# Brian Kareithi: llms.txt
-> Full-Stack Developer who started in IT and security (Nairobi, Kenya)
+> Full-stack developer trained in IT and security (Nairobi, Kenya)
 
 ## About
 Brian is a full-stack developer who started in IT support and security, which is why he builds software with the network, servers and users in mind. His main work is full-stack web and mobile development; IT and security come with the territory. He builds secure, cloud-native products across three areas:

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ExternalLink, Github, ChevronDown, ChevronUp, Lock, Smartphone, Server } from "lucide-react";
+import { ExternalLink, Github, ChevronDown, ChevronUp, Lock } from "lucide-react";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
@@ -8,21 +8,7 @@ import { CaseStudy } from "@/app/components/ui/CaseStudy";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 import { caseStudies, otherProjects } from "@/app/lib/projects-data";
-
-const nowBuilding = [
-  {
-    title: "Mobile Applications",
-    icon: <Smartphone className="w-3.5 h-3.5" />,
-    stack: "React Native · Expo",
-    desc: "Continuing to build and ship cross-platform apps, from the Steadfast Parent app to personal tools like the Fitness Tracker.",
-  },
-  {
-    title: "Homelab & Self-Hosted Infrastructure",
-    icon: <Server className="w-3.5 h-3.5" />,
-    stack: "Proxmox · Docker · Automation",
-    desc: "The lab is never finished: new services, automation and failover drills run continuously in the background.",
-  },
-];
+import { Assemble } from "@/app/components/ui/Assemble";
 
 const githubStats = [
   { value: "28", label: "Public Repositories" },
@@ -41,38 +27,18 @@ export default function ProjectsClient() {
         <Breadcrumbs />
         <SectionHeader
           index="03"
-          label="Systems I've Built"
+          label="Selected work"
           title={<>Not websites. <em className="font-serif-accent">Systems</em>.</>}
-          description="Seven projects, told honestly: the problem, what I built, what part was mine, and how it was designed. Smaller builds are in the archive below."
+          description="Seven projects: the problem, what I built, my part, and the design. Smaller builds are in the archive."
         />
 
         {/* Case studies as alternating spreads */}
         <div className="mb-16 flex flex-col gap-6">
-          {caseStudies.map((study) => (
-            <CaseStudy key={study.id} study={study} />
+          {caseStudies.map((study, i) => (
+            <Assemble key={study.id} from={i % 2 ? "right" : "left"}>
+              <CaseStudy study={study} />
+            </Assemble>
           ))}
-        </div>
-
-        {/* Now building */}
-        <div className="mb-16">
-          <SubTitle kicker="Now building" title="What's currently in progress" />
-          <div className="grid gap-4 sm:grid-cols-2">
-            {nowBuilding.map((n) => (
-              <div key={n.title} className="rounded-xl border p-5 sm:p-6" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}>
-                    {n.icon}
-                  </span>
-                  <h3 className="font-serif-accent text-xl" style={{ color: "var(--color-text-primary)" }}>{n.title}</h3>
-                </div>
-                <p className="mb-4 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{n.desc}</p>
-                <span className="pill font-mono !text-[11px]">
-                  <span className="loader-dot h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-                  {n.stack}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* This portfolio */}
@@ -84,9 +50,7 @@ export default function ProjectsClient() {
               You&apos;re <span className="font-serif-accent">looking at it</span>
             </h3>
             <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-              Built on Next.js 16 with TypeScript and Tailwind CSS v4. Server-rendered pages with per-route
-              metadata, schema.org structured data, breadcrumbs, and code-split bundles sized by performance
-              budget, the same discipline I apply to client work.
+              Next.js 16, TypeScript and Tailwind CSS v4, with per-route metadata and structured data.
             </p>
           </div>
           <div className="flex flex-col justify-end gap-4 md:col-span-2">
@@ -111,7 +75,7 @@ export default function ProjectsClient() {
 
         {/* Archive as a compact expandable list */}
         <div className="mb-16">
-          <SubTitle kicker="Archive" title="Smaller builds & experiments" />
+          <SubTitle kicker="Archive" title="Smaller builds" />
           <StaggerReveal staggerDelay={80}>
           <ul className="border-b" style={{ borderColor: "var(--color-border)" }}>
             {otherProjects.map((project, index) => {
@@ -195,7 +159,7 @@ export default function ProjectsClient() {
         {/* GitHub */}
         <StaggerReveal>
         <div className="ink-slab px-5 py-10 text-center sm:px-10">
-          <p className="field-label mb-6">Open source / code</p>
+          <p className="field-label mb-6">Code</p>
           <div className="mx-auto mb-8 grid max-w-md grid-cols-3 gap-4">
             {githubStats.map((s) => (
               <div key={s.label}>
@@ -205,7 +169,7 @@ export default function ProjectsClient() {
             ))}
           </div>
           <p className="mx-auto mb-8 max-w-2xl text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-            Great ideas are meant to inspire others, and software improves when knowledge is shared. Whether you are a developer, recruiter, founder, or fellow engineer, feel free to explore the repositories, examine the architecture decisions, suggest improvements, borrow ideas, or collaborate on future innovations.
+            Browse the code, question the decisions, borrow what is useful.
           </p>
           <a href="https://github.com/Brian-Kareithi" target="_blank" rel="noopener noreferrer" className="btn-neon btn-neon-primary">
             <Github className="w-4 h-4" />
@@ -217,11 +181,11 @@ export default function ProjectsClient() {
 
         <NextSection
           title="Have something in mind?"
-          description="Tell me about your project or your team, or read how I work first."
+          description="Tell me about it, or see how I work first."
           links={[
-            { href: "/contact", label: "Contact", description: "Hiring or have a build in mind? Let's talk." },
-            { href: "/how-i-work", label: "How I Work", description: "The delivery process behind every one of these builds." },
-            { href: "/resume", label: "Resume", description: "This work, tailored to the role you're hiring for." },
+            { href: "/contact", label: "Contact", description: "Hiring or have a build in mind?" },
+            { href: "/how-i-work", label: "How I Work", description: "The process behind these builds." },
+            { href: "/resume", label: "Resume", description: "This work, tailored to your role." },
           ]}
         />
       </div>

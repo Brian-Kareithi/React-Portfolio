@@ -1133,3 +1133,256 @@ html {
 .max-w-5xl {
   max-width: calc(30vw + 790px);
 }
+
+/* Cursor ring: trails the native pointer; the inner span is what scales so the
+   outer element can keep following with a transform. */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cursor-ring[data-visible="true"] { opacity: 1; }
+.cursor-ring span {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 9999px;
+  border: 2px solid var(--color-accent);
+  background-color: transparent;
+  transition: transform 0.22s var(--ease-out), background-color 0.22s ease, opacity 0.2s ease;
+}
+.cursor-ring[data-state="link"] span {
+  transform: scale(1.45);
+  background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+.cursor-ring[data-state="text"] span { opacity: 0; }
+.cursor-ring[data-pressed="true"] span { transform: scale(0.75); }
+
+
+/* ── Scroll assembly ───────────────────────────────────────
+   Pieces start scattered and converge as --p (set by Assemble) goes 0 to 1.
+   --p defaults to 1, so without JS or with reduced motion the page is already assembled. */
+.assemble {
+  --p: 1;
+  opacity: calc(0.15 + 0.85 * var(--p));
+  transform: translate3d(0, calc((1 - var(--p)) * 16px), 0);
+  will-change: transform, opacity;
+}
+
+/* Hero name: letters fly in from different directions and settle. */
+@keyframes letter-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.hero-letter {
+  display: inline-block;
+  animation: letter-in 0.5s var(--ease-out) both;
+  animation-delay: calc(var(--i) * 25ms + 60ms);
+}
+
+
+/* Thesis scene: --t (0 to 1) is the scroll progress through the tall section. */
+.thesis {
+  --t: 0;
+  position: relative;
+  height: 340vh;
+  margin-top: 6rem;
+}
+.thesis-stick {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0 1rem;
+  text-align: center;
+  overflow: hidden;
+}
+.thesis-kicker { opacity: calc(var(--t) * 12); }
+.thesis-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 0.28em;
+  max-width: 16ch;
+  font-size: clamp(3rem, 11vw, 8rem);
+  line-height: 0.98;
+  color: var(--color-text-primary);
+}
+.thesis-word,
+.thesis-chip {
+  --w: clamp(0, calc((var(--t) - var(--s)) / var(--l)), 1);
+  --e: calc(var(--w) * var(--w) * (3 - 2 * var(--w)));
+  opacity: var(--e);
+  transform: translate3d(calc((1 - var(--e)) * var(--ax)), calc((1 - var(--e)) * var(--ay)), 0) rotate(calc((1 - var(--e)) * var(--ar)));
+  will-change: transform, opacity;
+}
+.thesis-word { display: inline-block; }
+.thesis-good { color: var(--color-accent); }
+.thesis-sub {
+  max-width: 28rem;
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  opacity: clamp(0, calc((var(--t) - 0.38) * 10), 1);
+}
+.thesis-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  max-width: 44rem;
+}
+.thesis-chip {
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--color-border-hover);
+  border-radius: 9999px;
+  background-color: var(--color-bg-card);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  box-shadow: var(--surface-shadow);
+}
+.thesis-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: calc(var(--t) * 100%);
+  background-color: var(--color-accent);
+  opacity: 0.6;
+}
+@media (prefers-reduced-motion: reduce) {
+  .thesis { --t: 1; height: auto; }
+  .thesis-stick { position: static; height: auto; padding: 5rem 1rem; }
+  .thesis-progress { display: none; }
+}
+
+/* "Keep exploring" rows: staggered reveal on entry, cobalt fill sweeps in on hover. */
+.next-row {
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.next-list[data-in="true"] .next-row { opacity: 1; transform: none; }
+.next-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-out);
+}
+.next-row-link { position: relative; padding-inline: 0.25rem; transition: padding 0.4s var(--ease-out), color 0.3s; }
+.next-row-title, .next-row-desc, .next-row-num { transition: color 0.3s var(--ease-out); }
+.next-row-arrow { transition: transform 0.4s var(--ease-out), background-color 0.3s, color 0.3s, border-color 0.3s; }
+@media (hover: hover) and (pointer: fine) {
+  .next-row:hover::before { transform: scaleX(1); }
+  .next-row:hover .next-row-link { padding-inline: 1rem; }
+  .next-row:hover .next-row-title,
+  .next-row:hover .next-row-num { color: var(--color-on-accent) !important; }
+  .next-row:hover .next-row-desc { color: var(--palette-periwinkle) !important; }
+  .next-row:hover .next-row-arrow { transform: translateX(4px); background: var(--palette-periwinkle); border-color: var(--palette-periwinkle); color: var(--color-accent) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .next-row { opacity: 1; transform: none; transition: none; }
+  .next-row::before, .next-row-link, .next-row-arrow { transition: none; }
+}
+
+/* Hero: layered portrait frame. */
+.hero-frame { isolation: isolate; }
+.hero-frame::before,
+.hero-frame::after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  border-radius: 1rem;
+  pointer-events: none;
+}
+.hero-frame::before {
+  inset: 0;
+  transform: translate(14px, 14px);
+  background: var(--palette-true-cobalt);
+}
+.hero-frame::after {
+  inset: 0;
+  transform: translate(-10px, -10px);
+  border: 1px solid var(--color-border-hover);
+}
+.hero-stats > div + div { border-left: 1px solid var(--hairline-strong); }
+@media (max-width: 639px) {
+  .hero-stats > div:nth-child(3) { border-left: 0; }
+  .hero-stats > div:nth-child(n+3) { border-top: 1px solid var(--hairline-strong); }
+}
+
+/* Navbar: keyboard focus ring, and link states (active pill, hover tint). */
+.nav-focus:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.nav-link {
+  color: var(--color-text-muted);
+  transition: color 0.2s var(--ease-out), background-color 0.2s var(--ease-out);
+}
+.nav-link:hover { color: var(--color-accent); background-color: var(--color-surface); }
+.nav-link[data-active="true"] {
+  color: var(--color-text-primary);
+  background-color: var(--color-highlight);
+}
+
+/* Editorial rows (home "why" list): quiet tint on hover. */
+.edit-row { transition: background-color 0.25s var(--ease-out), padding 0.3s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .edit-row:hover { background-color: var(--color-surface); padding-inline: 1rem; }
+}
+
+/* Contact: sending state and success toast. */
+.send-btn[data-sending="true"] {
+  position: relative;
+  overflow: hidden;
+  cursor: progress;
+}
+.send-btn[data-sending="true"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 35%;
+  background: rgb(249 245 255 / 0.18);
+  transform: translateX(-100%) skewX(-20deg);
+  animation: send-sweep 1.2s ease-in-out infinite;
+}
+.send-plane { animation: send-fly 1.2s ease-in-out infinite; }
+@keyframes send-sweep { to { transform: translateX(400%) skewX(-20deg); } }
+@keyframes send-fly {
+  0% { transform: translate(-3px, 3px); opacity: 0.6; }
+  50% { transform: translate(3px, -3px); opacity: 1; }
+  100% { transform: translate(-3px, 3px); opacity: 0.6; }
+}
+.toast-pop {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+.toast-pop[data-open="true"] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .send-btn[data-sending="true"]::after, .send-plane { animation: none; }
+  .toast-pop { transition: opacity 0.2s; transform: none; }
+}

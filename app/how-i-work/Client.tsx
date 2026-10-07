@@ -22,7 +22,7 @@ export default function HowIWorkClient() {
           index="02"
           label="How I work"
           title={<>How I <em className="font-serif-accent">deliver</em></>}
-          description="The principles I keep coming back to, the tools I reach for at each layer, and how I take an idea from sketch to production."
+          description="My principles, my stack by layer, and the path from idea to production."
         />
 
         {/* Principles: editorial numbered list */}
@@ -202,11 +202,11 @@ export default function HowIWorkClient() {
 
         <NextSection
           title="See it in practice"
-          description="The method and the stack, applied to real systems with real users."
+          description="The method, applied to real systems."
           links={[
-            { href: "/projects", label: "Selected Work", description: "Case studies with architecture, contribution and live demos." },
-            { href: "/troubleshooting", label: "Diagnostics", description: "A repeatable, evidence-driven method for root causes." },
-            { href: "/homelab", label: "Homelab", description: "The infrastructure I run 24/7, built and maintained by hand." },
+            { href: "/projects", label: "Selected Work", description: "Case studies and live demos." },
+            { href: "/troubleshooting", label: "Diagnostics", description: "How I find root causes." },
+            { href: "/homelab", label: "Homelab", description: "The infrastructure I run 24/7." },
           ]}
         />
       </div>

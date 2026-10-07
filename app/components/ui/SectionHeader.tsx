@@ -14,9 +14,11 @@ interface SectionHeaderProps {
    * - "center": centred, for short standalone pages
    */
   variant?: "stack" | "split" | "center";
+  /** Shorter title and tighter spacing, for pages that should fit on one screen. */
+  compact?: boolean;
 }
 
-export function SectionHeader({ index, label, title, description, variant = "stack" }: SectionHeaderProps) {
+export function SectionHeader({ index, label, title, description, variant = "stack", compact = false }: SectionHeaderProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -71,7 +73,7 @@ export function SectionHeader({ index, label, title, description, variant = "sta
   }, []);
 
   const labelRow = (
-    <div className={`flex items-center gap-3 mb-5 xs:mb-6 ${variant === "center" ? "justify-center" : ""}`}>
+    <div className={`flex items-center gap-3 ${compact ? "mb-3" : "mb-5 xs:mb-6"} ${variant === "center" ? "justify-center" : ""}`}>
       <span data-fade className="pill font-mono !text-[11px]">
         <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
         <span className="index-num">{index}</span>
@@ -88,7 +90,7 @@ export function SectionHeader({ index, label, title, description, variant = "sta
   const heading = (
     <h1
       data-fade
-      className="display-xl text-[2.6rem] xs:text-5xl sm:text-6xl md:text-7xl mb-5"
+      className={`display-xl ${compact ? "text-4xl sm:text-5xl mb-3" : "text-[2.6rem] xs:text-5xl sm:text-6xl md:text-7xl mb-5"}`}
       style={{ color: "var(--color-text-primary)" }}
     >
       {title}
@@ -107,13 +109,13 @@ export function SectionHeader({ index, label, title, description, variant = "sta
 
   if (variant === "split") {
     return (
-      <div ref={rootRef} className="mb-14 xs:mb-16 sm:mb-20 grid gap-6 md:grid-cols-12 md:items-end">
+      <div ref={rootRef} className={`${compact ? "mb-6 sm:mb-8 gap-3" : "mb-14 xs:mb-16 sm:mb-20 gap-6"} grid md:grid-cols-12 md:items-end`}>
         <div className="md:col-span-7">
           {labelRow}
           {heading}
         </div>
         {body && (
-          <div className="md:col-span-5 md:border-l md:pl-8 md:pb-6" style={{ borderColor: "var(--color-accent-secondary)" }}>
+          <div className={`md:col-span-5 md:border-l md:pl-8 ${compact ? "md:pb-2" : "md:pb-6"}`} style={{ borderColor: "var(--color-accent-secondary)" }}>
             {body}
           </div>
         )}
