@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import portrait from "@/public/kareithi.jpg";
+import cartoon from "@/public/Kareithi Cartoon.png";
 import { Github, Gamepad2, Linkedin, Mail, ArrowRight, ArrowUpRight, Command, FileDown } from "lucide-react";
 import useLocalTime from "@/app/components/ui/useLocalTime";
 import { useCommandPalette } from "@/app/components/CommandPalette";
@@ -125,7 +126,15 @@ export default function HomeContent() {
                   fill
                   sizes="(max-width: 375px) 272px, 336px"
                   priority
-                  className="object-cover object-center transition-transform duration-[400ms] ease-[var(--ease-out)] group-hover:scale-[1.03]"
+                  className="object-cover object-center transition-[transform,opacity] duration-[400ms] ease-[var(--ease-out)] group-hover:scale-[1.06] group-hover:opacity-0"
+                />
+                <Image
+                  src={cartoon}
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes="(max-width: 375px) 272px, 336px"
+                  className="object-cover object-center opacity-0 scale-90 -rotate-3 transition-[transform,opacity] duration-[400ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-0 motion-reduce:transition-none"
                 />
                 </div>
               </div>
