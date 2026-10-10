@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import emailjs from "@emailjs/browser";
+import Lottie from "lottie-react";
+import sittingPerson from "@/app/lib/sitting-person.json";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
@@ -52,6 +54,10 @@ const inputClass =
 export default function ContactClient() {
   const [values, setValues] = useState<Record<FieldName, string>>({ name: "", email: "", subject: "", message: "" });
   const [topic, setTopic] = useState(topics[0]);
+  const [reduceMotion, setReduceMotion] = useState(false);
+  useEffect(() => {
+    setReduceMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
   const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
@@ -160,7 +166,11 @@ export default function ContactClient() {
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
 
             {/* Direct lines */}
-            <div className="ink-slab flex flex-col justify-between gap-6 p-5 sm:p-6 lg:col-span-2">
+            <div className="ink-slab relative flex flex-col justify-between gap-6 p-5 sm:p-6 lg:col-span-2">
+              {/* Sits on the top edge of the slab, outside it, so it keeps the light-page colours */}
+              <div className="pointer-events-none absolute -top-[44px] left-8 h-[70px] w-[52px]" aria-hidden="true">
+                <Lottie animationData={sittingPerson} loop={!reduceMotion} autoplay={!reduceMotion} rendererSettings={{ preserveAspectRatio: "xMidYMax meet" }} />
+              </div>
               <div>
                 <p className="field-label mb-5">Direct</p>
                 <ul className="space-y-4">
@@ -286,11 +296,11 @@ export default function ContactClient() {
                 aria-live="polite"
                 className="toast-pop fixed right-4 top-20 z-[90] flex max-w-[calc(100vw-2rem)] items-center gap-3 rounded-xl px-4 py-3 shadow-lg sm:right-6"
                 data-open={toastOpen}
-                style={{ backgroundColor: "var(--palette-true-cobalt)", color: "var(--palette-lavender-mist)" }}
+                style={{ backgroundColor: "var(--palette-ink)", color: "var(--palette-cream)" }}
               >
                 {toastOpen && (
                   <>
-                    <CheckCircle2 className="h-5 w-5 flex-shrink-0" aria-hidden="true" style={{ color: "var(--palette-periwinkle)" }} />
+                    <CheckCircle2 className="h-5 w-5 flex-shrink-0" aria-hidden="true" style={{ color: "var(--palette-sand)" }} />
                     <span className="text-sm font-medium">Message sent successfully</span>
                     <button
                       onClick={() => setToastOpen(false)}
