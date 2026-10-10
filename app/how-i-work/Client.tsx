@@ -59,13 +59,13 @@ export default function HowIWorkClient() {
                 style={{
                   borderColor: "var(--color-border)",
                   // Layers deepen from lavender mist to periwinkle as they go down the stack.
-                  backgroundColor: `color-mix(in srgb, var(--palette-periwinkle) ${Math.round((i / (architecture.length - 1)) * 70)}%, var(--palette-lavender-mist))`,
+                  backgroundColor: `color-mix(in srgb, var(--palette-sand) ${Math.round((i / (architecture.length - 1)) * 70)}%, var(--palette-cream))`,
                   marginLeft: `${i * 0.5}rem`,
                   marginRight: `${i * 0.5}rem`,
                 }}
               >
                 <div className="flex items-center gap-3 md:col-span-3">
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: "var(--palette-true-cobalt)", color: "var(--palette-lavender-mist)" }}>
+                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: "var(--palette-ink)", color: "var(--palette-cream)" }}>
                     {a.icon}
                   </span>
                   <h3 className="font-serif-accent text-2xl" style={{ color: "var(--color-text-primary)" }}>{a.title}</h3>
@@ -86,7 +86,7 @@ export default function HowIWorkClient() {
               <li key={w.step} className="relative">
                 <span
                   className="relative mb-4 flex h-10 w-10 items-center justify-center rounded-full border-2 font-mono text-xs"
-                  style={{ backgroundColor: "var(--palette-shadow-grey)", borderColor: "var(--color-accent)", color: "var(--color-accent)" }}
+                  style={{ backgroundColor: "var(--palette-espresso)", borderColor: "var(--color-accent)", color: "var(--color-accent)" }}
                 >
                   {w.step}
                 </span>

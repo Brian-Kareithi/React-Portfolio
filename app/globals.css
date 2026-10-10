@@ -25,44 +25,44 @@
 :root {
   color-scheme: light;
 
-  --palette-shadow-grey: #28262c;
-  --palette-soft-periwinkle: #998fc7;
-  --palette-periwinkle: #d4c2fc;
-  --palette-lavender-mist: #f9f5ff;
-  --palette-true-cobalt: #14248a;
+  --palette-espresso: #28262c;
+  --palette-taupe: #998fc7;
+  --palette-sand: #d4c2fc;
+  --palette-cream: #f9f5ff;
+  --palette-ink: #14248a;
 
-  --color-accent: var(--palette-true-cobalt);
+  --color-accent: var(--palette-ink);
   --color-accent-light: #2a3cb0; /* derived */
   --color-accent-dark: #0e1a66; /* derived */
   --color-accent-glow: rgba(20, 36, 138, 0.12);
-  --color-accent-secondary: var(--palette-soft-periwinkle);
-  --color-highlight: var(--palette-periwinkle);
+  --color-accent-secondary: var(--palette-taupe);
+  --color-highlight: var(--palette-sand);
 
   --color-bg-primary: #ece7f6; /* derived: muted lavender */
-  --color-bg-secondary: var(--palette-lavender-mist);
+  --color-bg-secondary: var(--palette-cream);
   --color-bg-tertiary: #e2dcf0; /* derived */
-  --color-bg-card: var(--palette-lavender-mist);
+  --color-bg-card: var(--palette-cream);
   --color-bg-card-hover: #f3eefc; /* derived */
-  --color-bg-ink: var(--palette-shadow-grey);
+  --color-bg-ink: var(--palette-espresso);
 
-  --color-text-primary: var(--palette-shadow-grey);
+  --color-text-primary: var(--palette-espresso);
   --color-text-secondary: #4a4752; /* derived */
   --color-text-muted: #625e6c; /* derived */
-  --color-text-light: var(--palette-lavender-mist);
-  --color-on-accent: var(--palette-lavender-mist);
+  --color-text-light: var(--palette-cream);
+  --color-on-accent: var(--palette-cream);
 
   --color-border: #d6cfe6; /* derived */
-  --color-border-hover: var(--palette-soft-periwinkle);
+  --color-border-hover: var(--palette-taupe);
 
   --color-glass-bg: rgba(249, 245, 255, 0.92);
   --color-glass-nav-bg: rgba(236, 231, 246, 0.88);
-  --color-glass-nav-done: var(--palette-true-cobalt);
+  --color-glass-nav-done: var(--palette-ink);
   --color-glass-border: #d6cfe6;
   --color-glass-border-strong: #c7bedc;
   --color-glass-shadow: 0 12px 36px rgba(40, 38, 44, 0.08);
   --color-glass-input-bg: transparent;
   --color-glass-icon-bg: #e6dcfd; /* derived: light periwinkle */
-  --color-glass-item-bg: var(--palette-lavender-mist);
+  --color-glass-item-bg: var(--palette-cream);
 
   --color-surface: rgba(20, 36, 138, 0.06);
   --color-surface-strong: rgba(20, 36, 138, 0.11);
@@ -71,7 +71,7 @@
   --color-success: #2f6b4f;
   --color-warning: #8a5a14;
   --color-error: #9e2b43;
-  --color-info: var(--palette-true-cobalt);
+  --color-info: var(--palette-ink);
 
   --shadow-sm: 0 1px 2px rgba(40, 38, 44, 0.04), 0 4px 14px rgba(40, 38, 44, 0.035);
   --shadow-md: 0 8px 24px rgba(40, 38, 44, 0.08);
@@ -212,17 +212,17 @@ html {
   --color-bg-card-hover: #3b3843;
   --color-bg-secondary: #33303a;
   --color-bg-tertiary: #3b3843;
-  --color-text-primary: var(--palette-lavender-mist);
+  --color-text-primary: var(--palette-cream);
   --color-text-secondary: #d9d2ea;
   --color-text-muted: #aea6c4;
-  --color-accent: var(--palette-periwinkle);
+  --color-accent: var(--palette-sand);
   --color-accent-light: #e4d8fd;
   --color-accent-dark: #bca8f6;
-  --color-accent-secondary: var(--palette-soft-periwinkle);
-  --color-on-accent: var(--palette-shadow-grey);
+  --color-accent-secondary: var(--palette-taupe);
+  --color-on-accent: var(--palette-espresso);
   --color-highlight: #4a4458;
   --color-border: #48434f;
-  --color-border-hover: var(--palette-soft-periwinkle);
+  --color-border-hover: var(--palette-taupe);
   --color-surface: rgba(212, 194, 252, 0.08);
   --color-surface-strong: rgba(212, 194, 252, 0.14);
   --hairline: rgba(249, 245, 255, 0.12);
@@ -231,7 +231,7 @@ html {
   --surface-shadow-hover: 0 1px 0 rgb(255 255 255 / 0.08) inset, 0 22px 40px -20px rgb(0 0 0 / 0.8);
   --spot: rgb(212 194 252 / 0.1);
   position: relative;
-  background-color: var(--palette-shadow-grey);
+  background-color: var(--palette-espresso);
   border: 1px solid rgb(212 194 252 / 0.14);
   color: var(--color-text-primary);
   border-radius: 1rem;
@@ -1322,7 +1322,7 @@ html {
 .hero-frame::before {
   inset: 0;
   transform: translate(14px, 14px);
-  background: var(--palette-true-cobalt);
+  background: var(--palette-ink);
 }
 .hero-frame::after {
   inset: 0;
@@ -1420,5 +1420,5 @@ html {
 
 /* CTF terminal: block caret where supported, and selection that stays readable on the dark body. */
 .ctf-input { caret-shape: block; }
-.ctf-term ::selection { background: var(--palette-periwinkle); color: #1d1b21; }
+.ctf-term ::selection { background: var(--palette-sand); color: #1d1b21; }
 .ctf-term { font-variant-ligatures: none; }
