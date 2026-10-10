@@ -87,7 +87,8 @@
 }
 
 body {
-  background-color: var(--color-bg-primary);
+  /* html carries the page colour; a transparent body lets the fixed fluid background sit between them. */
+  background-color: transparent;
   color: var(--color-text-primary);
   font-family: var(--font-dm-sans), Arial, Helvetica, sans-serif;
   line-height: 1.65;
@@ -163,8 +164,49 @@ html {
   box-shadow: var(--color-glass-shadow);
 }
 
+/* Liquid glass nav: a frosted lens that refracts what scrolls behind it. Strong blur and
+   saturation, a bright rim, a faint cool underside, and a diagonal specular sheen. */
 .glass-nav {
-  background-color: var(--color-glass-nav-bg);
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0.2) 55%, rgb(212 194 252 / 0.3));
+  border: 1px solid rgb(255 255 255 / 0.7);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    inset 0 -1px 0 rgb(20 36 138 / 0.1),
+    0 18px 36px -16px rgb(20 36 138 / 0.4);
+}
+.glass-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 18%, rgb(255 255 255 / 0.55) 30%, transparent 42%);
+  opacity: 0.55;
+}
+
+/* Liquid glass panel: the nav material on a larger surface (command palette). The sheen sits
+   behind the content (z-index -1 inside an isolated stacking context), so text stays crisp. */
+.glass-panel {
+  isolation: isolate;
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.62), rgb(255 255 255 / 0.3) 55%, rgb(212 194 252 / 0.4));
+  border: 1px solid rgb(255 255 255 / 0.7);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    inset 0 -1px 0 rgb(20 36 138 / 0.1),
+    0 30px 60px -20px rgb(20 36 138 / 0.45);
+}
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(105deg, transparent 14%, rgb(255 255 255 / 0.5) 26%, transparent 38%),
+    radial-gradient(60% 70% at 100% 0%, rgb(109 79 224 / 0.22), transparent 70%);
 }
 
 .liquid-glass {
@@ -186,7 +228,10 @@ html {
 .plate {
   position: relative;
   isolation: isolate;
-  background-color: var(--color-bg-card);
+  /* Liquid glass: the card colour at partial opacity over a blurred, saturated backdrop. */
+  background-color: color-mix(in srgb, var(--color-bg-card) 58%, transparent);
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
   box-shadow: var(--surface-shadow);
@@ -201,7 +246,7 @@ html {
   .flat-card:hover,
   .plate:hover {
     border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
-    background-color: var(--color-bg-card-hover);
+    background-color: color-mix(in srgb, var(--color-bg-card-hover) 70%, transparent);
     box-shadow: var(--surface-shadow-hover);
   }
 }
@@ -231,11 +276,35 @@ html {
   --surface-shadow-hover: 0 1px 0 rgb(255 255 255 / 0.08) inset, 0 22px 40px -20px rgb(0 0 0 / 0.8);
   --spot: rgb(212 194 252 / 0.1);
   position: relative;
-  background-color: var(--palette-espresso);
-  border: 1px solid rgb(212 194 252 / 0.14);
+  background-color: color-mix(in srgb, var(--palette-espresso) 84%, transparent);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgb(212 194 252 / 0.2);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 24px 40px -24px rgb(20 36 138 / 0.5);
   color: var(--color-text-primary);
   border-radius: 1rem;
 }
+
+/* Page sections let the fixed fluid background show through instead of painting their own. */
+main section[id] { background-color: transparent !important; }
+
+/* Anchored to the top of the page, not the viewport, so the glow scrolls away with the hero. */
+.fluid-bg { position: absolute; top: 0; left: 0; right: 0; height: 130vh; z-index: -10; overflow: hidden; pointer-events: none; }
+.fluid-blob {
+  position: absolute;
+  border-radius: 62% 38% 55% 45% / 48% 58% 42% 52%;
+  filter: blur(60px);
+  opacity: 0.29;
+  animation: fluid-drift 26s ease-in-out infinite alternate;
+}
+.fluid-blob-a { width: 46vw; height: 52vh; top: -14vh; right: -10vw; background: linear-gradient(145deg, #2a3cb0, #6d4fe0 60%, #b9a2ff); }
+.fluid-blob-b { width: 38vw; height: 46vh; top: 38vh; left: -14vw; background: linear-gradient(200deg, #4a5ce8, #8b6cf0 55%, #d4c2fc); animation-duration: 32s; animation-direction: alternate-reverse; }
+.fluid-blob-c { width: 34vw; height: 40vh; bottom: -14vh; right: 8vw; background: linear-gradient(160deg, #6d4fe0, #9a86f5 60%, #d4c2fc); opacity: 0.24; animation-duration: 38s; }
+@keyframes fluid-drift {
+  from { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  to { transform: translate3d(-5vw, 6vh, 0) rotate(16deg) scale(1.1); }
+}
+@media (prefers-reduced-motion: reduce) { .fluid-blob { animation: none; } }
 
 /* Hero atmosphere: faint periwinkle wash behind the portrait */
 .hero-aurora {
@@ -243,9 +312,10 @@ html {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(55% 55% at 88% 0%, rgb(212 194 252 / 0.9), transparent 70%),
-    radial-gradient(38% 42% at 6% 8%, rgb(20 36 138 / 0.1), transparent 70%);
+    radial-gradient(55% 55% at 88% 0%, rgb(212 194 252 / 0.63), transparent 70%),
+    radial-gradient(38% 42% at 6% 8%, rgb(20 36 138 / 0.07), transparent 70%);
 }
+
 
 /* Architecture diagram (ArchitectureFlow): vertical on phones, horizontal from sm */
 @media (min-width: 640px) {
@@ -1341,13 +1411,15 @@ html {
   outline-offset: 2px;
 }
 .nav-link {
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   transition: color 0.2s var(--ease-out), background-color 0.2s var(--ease-out);
 }
-.nav-link:hover { color: var(--color-accent); background-color: var(--color-surface); }
+.nav-link:hover { color: var(--color-accent); background-color: rgb(255 255 255 / 0.35); }
+/* The selected tab is a small lens of its own: brighter glass with its own rim light. */
 .nav-link[data-active="true"] {
-  color: var(--color-text-primary);
-  background-color: var(--color-highlight);
+  color: var(--palette-ink);
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.4));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.95), 0 4px 12px -6px rgb(20 36 138 / 0.45);
 }
 
 /* Editorial rows (home "why" list): quiet tint on hover. */
@@ -1446,4 +1518,14 @@ html {
 @keyframes mascot-float { 0%, 100% { transform: translateY(0); opacity: 0.7; } 50% { transform: translateY(-4px); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   .mascot-face, .mascot-badge, .mascot-img { animation: none !important; transition: none; }
+}
+
+/* Mobile menu sheet: the whole screen as one pane of glass, with its own violet haze so the
+   blur has colour to work with even on a flat page. */
+.menu-sheet {
+  background-image:
+    radial-gradient(60% 40% at 92% 0%, rgb(109 79 224 / 0.35), transparent 70%),
+    radial-gradient(55% 40% at 0% 75%, rgb(74 92 232 / 0.25), transparent 70%);
+  backdrop-filter: blur(26px) saturate(180%);
+  -webkit-backdrop-filter: blur(26px) saturate(180%);
 }

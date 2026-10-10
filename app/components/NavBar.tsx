@@ -2,11 +2,20 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { FileDown, Search } from "lucide-react";
+import { FileDown, FolderKanban, House, Mail, Search, User, Workflow, type LucideIcon } from "lucide-react";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
 import Link from "next/link";
 import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
+
+/** Icon above each label in the desktop pill, as in the liquid-glass tab bar it is modelled on. */
+const NAV_ICONS: Record<string, LucideIcon> = {
+  "/": House,
+  "/about": User,
+  "/how-i-work": Workflow,
+  "/projects": FolderKanban,
+  "/contact": Mail,
+};
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -66,23 +75,13 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed z-[60] mx-auto overflow-hidden glass-nav transition-[top,left,right,max-width,border-radius] duration-300 ease-out ${
-          scrolled ? "left-0 right-0 max-w-full" : "left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 max-w-5xl"
-        }`}
-        style={{
-          top: scrolled ? 0 : 14,
-          borderColor: "var(--color-border)",
-          borderWidth: scrolled ? "0 0 1px" : undefined,
-          borderRadius: scrolled ? 0 : 12,
-          boxShadow: "none",
-        }}
+        className="fixed left-4 right-4 z-[60] mx-auto max-w-6xl overflow-hidden glass-nav transition-[top] duration-300 ease-out sm:left-6 sm:right-6 lg:left-8 lg:right-8"
+        style={{ top: scrolled ? 10 : 14, borderRadius: 9999 }}
         aria-label="Primary"
       >
         {/* Docked: the bar spans the viewport and its row lines up with the page content */}
         <div
-          className={`flex items-center justify-between gap-4 h-14 ${
-            scrolled ? "mx-auto box-content max-w-5xl px-4 sm:px-6 lg:px-8" : "pl-5 pr-2 sm:pl-6"
-          }`}
+          className="relative flex h-14 items-center justify-between gap-4 pl-5 pr-3 sm:pl-6 sm:pr-3.5 lg:h-[62px]"
         >
           <Link
             href="/"
@@ -96,17 +95,21 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-1">
             {primaryNav.map((r) => {
               const active = r.path === pathname;
+              const Icon = NAV_ICONS[r.path];
               return (
                 <Link
                   key={r.path}
                   href={r.path}
                   onClick={(e) => onNavClick(e, r.path)}
-                  className="nav-focus nav-link rounded-lg px-3.5 py-2 text-[13px] font-medium"
+                  className="nav-focus nav-link flex flex-col items-center gap-0.5 rounded-full px-4 py-1.5 text-[11px] font-medium"
                   data-active={active}
                   aria-current={active ? "page" : undefined}
                 >
-                  {r.label}
-                  {r.tag && <NavTag label={r.tag} />}
+                  {Icon && <Icon className="h-[18px] w-[18px]" aria-hidden="true" />}
+                  <span className="flex items-center">
+                    {r.label}
+                    {r.tag && <NavTag label={r.tag} />}
+                  </span>
                 </Link>
               );
             })}
@@ -125,7 +128,7 @@ export default function Navbar() {
 
             <button
               onClick={openPalette}
-              className="nav-focus hidden h-9 items-center gap-2 rounded-lg border px-3 text-xs font-medium transition-colors duration-200 hover:border-[var(--color-accent)] sm:flex"
+              className="nav-focus hidden h-9 items-center gap-2 rounded-full border px-3.5 text-xs font-medium transition-colors duration-200 hover:border-[var(--color-accent)] sm:flex"
               style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}
               aria-label="Search the site (Ctrl+K)"
             >
@@ -137,7 +140,7 @@ export default function Navbar() {
             <span className="hidden sm:block">
               <Link
                   href="/resume"
-                  className="btn-neon btn-neon-primary !min-h-0 !px-3 !py-2 !text-[12px]"
+                  className="btn-neon btn-neon-primary !min-h-0 !rounded-full !px-4 !py-2 !text-[12px]"
                   aria-label="Download resume (PDF), choose a role"
                 >
                   <FileDown className="w-3.5 h-3.5" />
@@ -173,10 +176,10 @@ export default function Navbar() {
 
       {/* Mobile editorial overlay */}
       <div
-        className={`fixed inset-0 z-[55] lg:hidden transition-[opacity,visibility] duration-300 ${
+        className={`menu-sheet fixed inset-0 z-[55] lg:hidden transition-[opacity,visibility] duration-300 ${
           menuOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
-        style={{ backgroundColor: "var(--color-bg-primary)" }}
+        style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 95%, transparent)", backdropFilter: "blur(26px) saturate(170%)", WebkitBackdropFilter: "blur(26px) saturate(170%)" }}
         aria-hidden={!menuOpen}
         inert={!menuOpen}
       >
