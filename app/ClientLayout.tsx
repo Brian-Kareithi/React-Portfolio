@@ -5,6 +5,7 @@ import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
 import CursorRing from "@/app/components/CursorRing";
 import LoadingScreen from "@/app/components/LoadingScreen";
+import FluidBackground from "@/app/components/FluidBackground";
 import PerchedPerson from "@/app/components/PerchedPerson";
 import { CommandPaletteProvider } from "@/app/components/CommandPalette";
 
@@ -37,6 +38,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   return (
     <CommandPaletteProvider>
       <div className="flex min-h-screen flex-col overflow-x-clip">
+        <FluidBackground />
         <Navbar />
         <ScrollBar />
         <main className="relative flex-1">{children}</main>

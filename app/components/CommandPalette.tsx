@@ -159,18 +159,15 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
           <div
             className="absolute inset-0"
             onMouseDown={close}
-            style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 55%, transparent)", backdropFilter: "blur(4px)" }}
+            style={{ backgroundColor: "color-mix(in srgb, var(--palette-ink) 14%, transparent)", backdropFilter: "blur(8px) saturate(140%)" }}
           />
           <div
             role="dialog"
             aria-modal="true"
             aria-label="Command palette"
             onKeyDown={onKeyDown}
-            className="relative w-full max-w-xl overflow-hidden rounded-xl"
-            style={{
-              backgroundColor: "var(--color-bg-secondary)",
-              border: "1px solid var(--color-border-hover)",
-            }}
+            className="glass-panel relative w-full max-w-xl overflow-hidden rounded-3xl"
+            style={{ background: "color-mix(in srgb, var(--palette-cream) 94%, transparent)", backdropFilter: "blur(24px) saturate(170%)", WebkitBackdropFilter: "blur(24px) saturate(170%)" }}
           >
             <div
               className="flex items-center gap-3 px-4 py-3.5 border-b"
