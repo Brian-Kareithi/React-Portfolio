@@ -10,6 +10,8 @@ import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
+import DebugIt from "@/app/components/DebugIt";
+import { MascotNote } from "@/app/components/Mascot";
 
 export const steps = [
   {
@@ -124,6 +126,10 @@ export default function TroubleshootingClient() {
           description="I follow the evidence to the root cause across software, hardware and networks, then write it down so it stays fixed."
         />
 
+        <MascotNote className="mb-12">
+          Skip to &ldquo;Debug it yourself&rdquo; if you would rather make the calls than read about them.
+        </MascotNote>
+
         {/* Process: a connected ladder */}
         <div className="mb-20">
           <SubTitle kicker="The process" title="Five steps to a root cause" />
@@ -207,6 +213,12 @@ export default function TroubleshootingClient() {
               );
             })}
           </div>
+        </div>
+
+        {/* Interactive case: the reader makes the calls */}
+        <div className="mb-20">
+          <SubTitle kicker="Your turn" title="Debug it yourself" />
+          <DebugIt />
         </div>
 
         {/* Diagnostic kit */}

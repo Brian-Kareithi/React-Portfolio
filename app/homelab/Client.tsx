@@ -10,6 +10,7 @@ import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 import FridaySurprise from "./FridaySurprise";
+import { MascotNote } from "@/app/components/Mascot";
 
 interface GearItem {
   name: string;
@@ -278,6 +279,10 @@ export default function HomelabClient() {
           title={<>The lab that <em className="font-serif-accent">never sleeps</em></>}
           description="Where I started and where I still learn. I broke plenty before it stayed up, and that is how I learned to keep services running."
         />
+
+        <MascotNote className="mb-10">
+          That is the lab. It runs around the clock, and it is where I break things on purpose so I do not break them at work.
+        </MascotNote>
 
         {/* Lab status */}
         <StaggerReveal staggerDelay={80}>

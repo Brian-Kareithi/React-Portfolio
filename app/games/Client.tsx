@@ -3,6 +3,7 @@ import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 import CtfGame from "./CtfGame";
+import { MascotNote } from "@/app/components/Mascot";
 
 export default function GamesClient() {
   return (
@@ -24,6 +25,10 @@ export default function GamesClient() {
           </div>
 
           <CtfGame />
+
+          <MascotNote className="mt-8" mood="wave">
+            Psst. There is one more flag, and it is not on this page. If you like trails, the browser console is where it starts.
+          </MascotNote>
 
           <NextSection
             title="Liked that?"
