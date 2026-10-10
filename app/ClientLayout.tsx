@@ -5,6 +5,7 @@ import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
 import CursorRing from "@/app/components/CursorRing";
 import LoadingScreen from "@/app/components/LoadingScreen";
+import PerchedPerson from "@/app/components/PerchedPerson";
 import { CommandPaletteProvider } from "@/app/components/CommandPalette";
 
 const SPOT_TARGETS = ".flat-card, .plate, .liquid-card, .liquid-card-hover";
@@ -24,6 +25,15 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     return () => document.removeEventListener("pointermove", onMove);
   }, []);
 
+  // The first clue of the hidden flag. Console only, so it costs nothing for anyone who never opens it.
+  useEffect(() => {
+    console.log(
+      "%cHey, you opened the console.%c There is a flag hidden on this site. The trail is short: crawlers are told where not to go. Start at /robots.txt",
+      "font: 600 14px monospace; color: #14248a",
+      "font: 12px monospace",
+    );
+  }, []);
+
   return (
     <CommandPaletteProvider>
       <div className="flex min-h-screen flex-col overflow-x-clip">
@@ -32,6 +42,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <main className="relative flex-1">{children}</main>
         <Footer />
         <CursorRing />
+        <PerchedPerson />
         <LoadingScreen />
       </div>
     </CommandPaletteProvider>

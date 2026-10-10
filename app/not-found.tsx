@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Compass } from "lucide-react";
 import { routes } from "@/app/lib/nav";
+import { Mascot } from "@/app/components/Mascot";
 
 export const metadata: Metadata = {
   title: "Page not found",
@@ -25,6 +26,7 @@ export default function NotFound() {
       <div className="absolute inset-x-0 top-0 h-px" style={{ backgroundColor: "var(--color-accent)" }} />
       <div className="relative z-10 flex w-full max-w-2xl flex-col items-center gap-8 text-center">
         <div className="flex w-full flex-col items-center">
+          <Mascot mood="lost" size={64} className="mb-5" />
           <p className="field-label mb-4 flex items-center gap-3">
             <span className="index-num">404</span>
             <span className="h-px w-8" style={{ backgroundColor: "var(--color-accent)" }} />

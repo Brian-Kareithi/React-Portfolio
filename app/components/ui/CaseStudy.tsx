@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronDown, ExternalLink, Github, Lock, FileDown, TrendingUp, Check, Minus } from "lucide-react";
+import { ChevronDown, ExternalLink, Github, Lock, FileDown, Loader2, TrendingUp, Check, Minus } from "lucide-react";
 import { ArchitectureFlow } from "@/app/components/ui/ArchitectureFlow";
 import { ErdDiagram } from "@/app/components/ui/ErdDiagram";
 import { caseStudies, type CaseStudy as CaseStudyType } from "@/app/lib/projects-data";
@@ -11,8 +11,35 @@ import { siteConfig } from "@/app/lib/site";
 /** One case study: a scannable summary that expands into scope, audience, architecture and data model. */
 export function CaseStudy({ study }: { study: CaseStudyType }) {
   const [open, setOpen] = useState(false);
+  const [building, setBuilding] = useState(false);
   const doc = projectDocs[study.id];
   const panelId = `${study.id}-details`;
+
+  // The PDF engine is large, so it is only loaded when someone actually downloads.
+  const downloadPdf = async () => {
+    if (building) return;
+    setBuilding(true);
+    try {
+      const [{ pdf }, { CaseStudyPdf }] = await Promise.all([
+        import("@react-pdf/renderer"),
+        import("@/app/projects/CaseStudyPdf"),
+      ]);
+      const blob = await pdf(<CaseStudyPdf study={study} doc={doc} />).toBlob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${study.title.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "")}-case-study.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch {
+      // Silently ignore; the expandable write-up above is always available.
+    } finally {
+      setBuilding(false);
+    }
+  };
+
 
   return (
     <article id={study.id} className="plate scroll-mt-24 p-5 sm:p-8 lg:p-10">
@@ -104,6 +131,16 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
         >
           {open ? "Hide details" : "View scope, architecture & data model"}
           <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          onClick={downloadPdf}
+          disabled={building}
+          aria-busy={building}
+          className="btn-neon btn-neon-ghost disabled:cursor-wait disabled:opacity-70"
+        >
+          {building ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <FileDown className="h-4 w-4" aria-hidden="true" />}
+          {building ? "Building PDF…" : "Case study PDF"}
         </button>
         {study.access.demo && (
           <a href={study.access.demo} target="_blank" rel="noopener noreferrer" className="btn-neon btn-neon-primary">

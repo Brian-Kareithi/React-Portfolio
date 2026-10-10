@@ -8,6 +8,7 @@ import { Github, Gamepad2, Linkedin, Mail, ArrowRight, ArrowUpRight, Command, Fi
 import useLocalTime from "@/app/components/ui/useLocalTime";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import Testimonials from "@/app/components/Testimonials";
+import RecruiterBrief from "@/app/components/RecruiterBrief";
 import { Assemble } from "@/app/components/ui/Assemble";
 import { CountUp } from "@/app/components/ui/CountUp";
 import { routes } from "@/app/lib/nav";
@@ -160,6 +161,8 @@ export default function HomeContent() {
             </div>
           ))}
         </dl>
+
+        <RecruiterBrief />
 
         {/* Featured work: real captures of shipped products */}
         {featured.length > 0 && (

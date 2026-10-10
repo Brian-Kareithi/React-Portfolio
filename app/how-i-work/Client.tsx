@@ -6,6 +6,8 @@ import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
+import { MascotNote } from "@/app/components/Mascot";
+import BuiltToStandard from "@/app/components/BuiltToStandard";
 import { principles, architecture, workflow, domains, techs } from "@/app/lib/skills-data";
 
 export default function HowIWorkClient() {
@@ -24,6 +26,10 @@ export default function HowIWorkClient() {
           title={<>How I <em className="font-serif-accent">deliver</em></>}
           description="My principles, my stack by layer, and the path from idea to production."
         />
+
+        <MascotNote className="mb-12">
+          Short version: I care more about a system that stays up than one that looks clever.
+        </MascotNote>
 
         {/* Principles: editorial numbered list */}
         <div className="mb-20">
@@ -100,6 +106,8 @@ export default function HowIWorkClient() {
             ))}
           </ol>
         </div>
+
+        <BuiltToStandard />
 
         {/* Capabilities: domain menu + detail */}
         <div className="mb-20">

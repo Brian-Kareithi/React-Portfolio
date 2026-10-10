@@ -48,7 +48,7 @@ export default function LoadingScreen() {
       role="status"
       aria-live="polite"
       aria-label="Loading"
-      className="loading-screen fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6"
+      className="loading-screen fixed inset-0 z-[100] flex flex-col items-center justify-center"
       style={{
         background: "var(--color-bg-primary)",
         opacity: phase === "fade" ? 0 : 1,
@@ -58,14 +58,6 @@ export default function LoadingScreen() {
     >
       <div className="w-56 sm:w-64" aria-hidden="true">
         <Lottie animationData={animationData} loop={!reduce} autoplay={!reduce} rendererSettings={{ preserveAspectRatio: "xMidYMid meet" }} />
-      </div>
-      <div className="flex flex-col items-center gap-1.5 text-center">
-        <span
-          className="text-3xl leading-none"
-          style={{ fontFamily: "var(--font-serif)", color: "var(--color-text-primary)" }}
-        >
-          Brian Kareithi
-        </span>
       </div>
     </div>
   );
