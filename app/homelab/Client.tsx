@@ -233,7 +233,7 @@ function TopologyNode({ icon, title, note, strong = false }: { icon: ReactNode; 
     >
       <span
         className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full"
-        style={{ backgroundColor: strong ? "var(--palette-lavender-mist)" : "var(--color-highlight)", color: "var(--palette-true-cobalt)" }}
+        style={{ backgroundColor: strong ? "var(--palette-cream)" : "var(--color-highlight)", color: "var(--palette-ink)" }}
       >
         {icon}
       </span>

@@ -132,7 +132,7 @@ export default function TroubleshootingClient() {
               <li key={s.title} className="relative pb-9 last:pb-0">
                 <span
                   className="absolute -left-[3.05rem] flex h-10 w-10 items-center justify-center rounded-full sm:-left-[3.55rem]"
-                  style={{ backgroundColor: "var(--palette-true-cobalt)", color: "var(--palette-lavender-mist)" }}
+                  style={{ backgroundColor: "var(--palette-ink)", color: "var(--palette-cream)" }}
                 >
                   {s.icon}
                 </span>

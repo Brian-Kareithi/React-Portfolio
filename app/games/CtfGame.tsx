@@ -157,7 +157,7 @@ export default function CtfGame() {
   const hintsUsed = Object.values(hintLevel).reduce((x, y) => x + y, 0);
 
   const lineColor = (kind: Line["kind"]) =>
-    kind === "ok" ? "#7ee0b0" : kind === "err" ? "#f2a0b0" : "var(--palette-lavender-mist)";
+    kind === "ok" ? "#7ee0b0" : kind === "err" ? "#f2a0b0" : "var(--palette-cream)";
 
   return (
     <div className="grid gap-4 lg:grid-cols-12 lg:items-start">
@@ -171,10 +171,10 @@ export default function CtfGame() {
           <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: "rgb(249 245 255 / 0.1)", backgroundColor: "#26232b" }}>
             <span className="flex gap-1.5" aria-hidden="true">
               <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "#f2a0b0" }} />
-              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-periwinkle)" }} />
+              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-sand)" }} />
               <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "#7ee0b0" }} />
             </span>
-            <span className="flex-1 text-center font-mono text-[11px]" style={{ color: "var(--palette-soft-periwinkle)" }}>
+            <span className="flex-1 text-center font-mono text-[11px]" style={{ color: "var(--palette-taupe)" }}>
               guest@lab: {cwd === startDir ? "~" : cwd} · sandbox
             </span>
             <span className="w-12" aria-hidden="true" />
@@ -185,12 +185,12 @@ export default function CtfGame() {
             role="log"
             aria-live="polite"
             className="h-[26rem] overflow-y-auto px-4 py-3 font-mono text-[13px] leading-relaxed sm:text-sm lg:h-[min(36rem,calc(100vh-13rem))]"
-            style={{ color: "var(--palette-lavender-mist)" }}
+            style={{ color: "var(--palette-cream)" }}
           >
             {lines.map((l, i) =>
               l.kind === "cmd" ? (
                 <p key={i} className="whitespace-pre-wrap break-words">
-                  <span style={{ color: "var(--palette-soft-periwinkle)" }}>{l.prompt}</span> <span>{l.text}</span>
+                  <span style={{ color: "var(--palette-taupe)" }}>{l.prompt}</span> <span>{l.text}</span>
                 </p>
               ) : (
                 <p key={i} className="whitespace-pre-wrap break-words" style={{ color: lineColor(l.kind) }}>
@@ -200,7 +200,7 @@ export default function CtfGame() {
             )}
 
             <form onSubmit={onSubmit} className="flex items-center gap-2">
-              <label htmlFor="ctf-input" className="flex-shrink-0" style={{ color: "var(--palette-soft-periwinkle)" }}>
+              <label htmlFor="ctf-input" className="flex-shrink-0" style={{ color: "var(--palette-taupe)" }}>
                 {prompt(cwd)}
               </label>
               <input
@@ -214,7 +214,7 @@ export default function CtfGame() {
                 autoCorrect="off"
                 spellCheck={false}
                 className="ctf-input min-w-0 flex-1 bg-transparent py-0.5 outline-none"
-                style={{ color: "var(--palette-lavender-mist)", caretColor: "var(--palette-periwinkle)" }}
+                style={{ color: "var(--palette-cream)", caretColor: "var(--palette-sand)" }}
               />
             </form>
           </div>
@@ -294,14 +294,14 @@ export default function CtfGame() {
         </div>
 
         {allDone && (
-          <div className="mt-4 rounded-xl p-5" style={{ backgroundColor: "var(--palette-true-cobalt)", color: "var(--palette-lavender-mist)" }}>
+          <div className="mt-4 rounded-xl p-5" style={{ backgroundColor: "var(--palette-ink)", color: "var(--palette-cream)" }}>
             <p className="display-xl text-2xl sm:text-3xl">
               All flags <span className="font-serif-accent">captured</span>.
             </p>
             <p className="mt-2 text-sm opacity-80">
               {hintsUsed === 0 ? "No hints used. Clean run." : `${hintsUsed} hint${hintsUsed === 1 ? "" : "s"} used.`} I like building things that hold up too.
             </p>
-            <Link href="/contact" className="btn-neon mt-4 inline-flex" style={{ backgroundColor: "var(--palette-lavender-mist)", color: "var(--palette-true-cobalt)" }}>
+            <Link href="/contact" className="btn-neon mt-4 inline-flex" style={{ backgroundColor: "var(--palette-cream)", color: "var(--palette-ink)" }}>
               Let&apos;s talk
             </Link>
           </div>
