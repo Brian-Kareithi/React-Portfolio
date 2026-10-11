@@ -46,7 +46,7 @@ const organizationJsonLd = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ece7f6",
+  themeColor: "#f6f6f9",
   colorScheme: "light",
 };
 
