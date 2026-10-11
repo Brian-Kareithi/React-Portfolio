@@ -25,7 +25,7 @@ export default function Navbar() {
   const progressRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -75,13 +75,23 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed left-4 right-4 z-[60] mx-auto max-w-6xl overflow-hidden glass-nav transition-[top] duration-300 ease-out sm:left-6 sm:right-6 lg:left-8 lg:right-8"
-        style={{ top: scrolled ? 10 : 14, borderRadius: 9999 }}
+        className="fixed z-[60] mx-auto overflow-hidden glass-nav transition-[top,left,right,max-width,border-radius,box-shadow] duration-500 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]"
+        style={{
+          top: scrolled ? 0 : 14,
+          left: scrolled ? 0 : "clamp(1rem, 3vw, 2rem)",
+          right: scrolled ? 0 : "clamp(1rem, 3vw, 2rem)",
+          maxWidth: scrolled ? "100vw" : "72rem",
+          borderRadius: scrolled ? 0 : 9999,
+          borderTopColor: scrolled ? "transparent" : undefined,
+          borderLeftColor: scrolled ? "transparent" : undefined,
+          borderRightColor: scrolled ? "transparent" : undefined,
+        }}
         aria-label="Primary"
       >
         {/* Docked: the bar spans the viewport and its row lines up with the page content */}
         <div
-          className="relative flex h-14 items-center justify-between gap-4 pl-5 pr-3 sm:pl-6 sm:pr-3.5 lg:h-[62px]"
+          className="relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 pl-5 pr-3 transition-[padding] duration-500 sm:pl-6 sm:pr-3.5 lg:h-[62px]"
+          style={scrolled ? { paddingLeft: "clamp(1rem, 3vw, 2rem)", paddingRight: "clamp(1rem, 3vw, 2rem)" } : undefined}
         >
           <Link
             href="/"
@@ -89,7 +99,7 @@ export default function Navbar() {
             className="nav-focus flex items-center gap-3 rounded-lg transition-opacity duration-200 hover:opacity-70"
             aria-label="Brian Kareithi, home"
           >
-            <Image src="/logo.png" alt="" width={112} height={34} className="h-8 w-auto" priority />
+            <Image src="/logo.png" alt="" width={112} height={34} className="h-9 w-auto" priority />
           </Link>
 
           <div className="hidden lg:flex items-center gap-1">
@@ -119,7 +129,7 @@ export default function Navbar() {
             {/* One search entry point per breakpoint: icon on phones, labelled field from sm up */}
             <button
               onClick={openPalette}
-              className="nav-focus flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200 hover:text-[var(--color-accent)] sm:hidden"
+              className="nav-focus flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200 hover:text-[var(--color-text-primary)] sm:hidden"
               style={{ color: "var(--color-text-muted)" }}
               aria-label="Search"
             >
@@ -128,7 +138,7 @@ export default function Navbar() {
 
             <button
               onClick={openPalette}
-              className="nav-focus hidden h-9 items-center gap-2 rounded-full border px-3.5 text-xs font-medium transition-colors duration-200 hover:border-[var(--color-accent)] sm:flex"
+              className="nav-focus hidden h-9 items-center gap-2 rounded-full border px-3.5 text-xs font-medium transition-colors duration-200 hover:border-[var(--color-text-primary)] sm:flex"
               style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}
               aria-label="Search the site (Ctrl+K)"
             >
@@ -169,7 +179,7 @@ export default function Navbar() {
           <div
             ref={progressRef}
             className="h-full w-full origin-left"
-            style={{ backgroundColor: "var(--color-accent)", transform: "scaleX(0)" }}
+            style={{ backgroundColor: "var(--color-text-primary)", transform: "scaleX(0)" }}
           />
         </div>
       </nav>
