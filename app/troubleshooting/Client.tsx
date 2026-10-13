@@ -127,7 +127,7 @@ export default function TroubleshootingClient() {
         />
 
         <MascotNote className="mb-12">
-          Skip to &ldquo;Debug it yourself&rdquo; if you would rather make the calls than read about them.
+          If you would rather make the calls than read how I made them, skip to &ldquo;Debug it yourself&rdquo;.
         </MascotNote>
 
         {/* Process: a connected ladder */}
