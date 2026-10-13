@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import emailjs from "@emailjs/browser";
 import Lottie from "lottie-react";
 import useMediaQuery from "@/app/components/ui/useMediaQuery";
-import { Mascot } from "@/app/components/Mascot";
+import { Mascot, MascotNote } from "@/app/components/Mascot";
 import sittingPerson from "@/app/lib/sitting-person.json";
 import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
@@ -160,6 +160,10 @@ export default function ContactClient() {
             title={<>Let&apos;s build something <em className="font-serif-accent">good</em></>}
             description="Hiring or planning a project? I reply personally, usually within 24 hours."
           />
+
+          <MascotNote className="mb-8" mood="wave">
+            I read every message myself and reply personally.
+          </MascotNote>
 
           <StaggerReveal staggerDelay={100}>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">

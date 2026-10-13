@@ -6,6 +6,7 @@ import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { CaseStudy } from "@/app/components/ui/CaseStudy";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
+import { MascotNote } from "@/app/components/Mascot";
 import NextSection from "@/app/components/NextSection";
 import { caseStudies, otherProjects } from "@/app/lib/projects-data";
 import { Assemble } from "@/app/components/ui/Assemble";
@@ -31,6 +32,10 @@ export default function ProjectsClient() {
           title={<>Not websites. <em className="font-serif-accent">Systems</em>.</>}
           description="Seven projects: the problem, what I built, my part, and the design. Smaller builds are in the archive."
         />
+
+        <MascotNote className="mb-12" mood="happy">
+          Every one of these is live or has run for real users. Open a case study and I will walk you through it.
+        </MascotNote>
 
         {/* Case studies as alternating spreads */}
         <div className="mb-16 flex flex-col gap-6">

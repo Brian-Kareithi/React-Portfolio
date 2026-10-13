@@ -111,7 +111,7 @@ export default function Navbar() {
                   key={r.path}
                   href={r.path}
                   onClick={(e) => onNavClick(e, r.path)}
-                  className="nav-focus nav-link flex flex-col items-center gap-0.5 rounded-full px-4 py-1.5 text-[11px] font-medium"
+                  className="nav-focus nav-link flex flex-col items-center gap-0.5 rounded-lg px-4 py-1.5 text-[11px] font-medium"
                   data-active={active}
                   aria-current={active ? "page" : undefined}
                 >
@@ -138,7 +138,7 @@ export default function Navbar() {
 
             <button
               onClick={openPalette}
-              className="nav-focus hidden h-9 items-center gap-2 rounded-full border px-3.5 text-xs font-medium transition-colors duration-200 hover:border-[var(--color-text-primary)] sm:flex"
+              className="nav-focus hidden h-9 items-center gap-2 rounded-lg border px-3.5 text-xs font-medium transition-colors duration-200 hover:border-[var(--color-text-primary)] sm:flex"
               style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}
               aria-label="Search the site (Ctrl+K)"
             >
@@ -150,7 +150,7 @@ export default function Navbar() {
             <span className="hidden sm:block">
               <Link
                   href="/resume"
-                  className="btn-neon btn-neon-primary !min-h-0 !rounded-full !px-4 !py-2 !text-[12px]"
+                  className="btn-neon btn-neon-primary !min-h-0 !rounded-lg !px-4 !py-2 !text-[12px]"
                   aria-label="Download resume (PDF), choose a role"
                 >
                   <FileDown className="w-3.5 h-3.5" />

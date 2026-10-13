@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import portrait from "@/public/kareithi.jpg";
-import cartoon from "@/public/Kareithi Cartoon.png";
+import { MascotNote } from "@/app/components/Mascot";
 import { Github, Gamepad2, Linkedin, Mail, ArrowRight, ArrowUpRight, Command, FileDown } from "lucide-react";
 import useLocalTime from "@/app/components/ui/useLocalTime";
 import { useCommandPalette } from "@/app/components/CommandPalette";
@@ -57,11 +57,17 @@ export default function HomeContent() {
               <span>Available for work · Remote or Nairobi</span>
             </p>
 
-            <h1 className="display-xl mb-6 text-[3.75rem] leading-[0.92] xs:text-7xl sm:text-8xl lg:text-[8rem]" style={{ color: "var(--color-text-primary)" }}>
-              <span className="hero-letter" style={{ "--i": 0 } as CSSProperties}>Brian</span>
-              <br />
-              <span className="font-serif-accent hero-letter" style={{ "--i": 4, color: "var(--color-accent)" } as CSSProperties}>Kareithi</span>
-            </h1>
+            <div className="mb-6 flex items-center gap-4 sm:block">
+              <h1 className="display-xl min-w-0 text-[3.25rem] leading-[0.92] xs:text-6xl sm:mb-0 sm:text-8xl lg:text-[8rem]" style={{ color: "var(--color-text-primary)" }}>
+                <span className="hero-letter" style={{ "--i": 0 } as CSSProperties}>Brian</span>
+                <br />
+                <span className="font-serif-accent hero-letter" style={{ "--i": 4, color: "var(--color-accent)" } as CSSProperties}>Kareithi</span>
+              </h1>
+              {/* Phones only: small portrait beside the name so it shows on the first screen */}
+              <div className="relative ml-auto h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border xs:h-24 xs:w-24 sm:hidden" style={{ borderColor: "var(--color-border)" }}>
+                <Image src={portrait} alt="Portrait of Brian Kareithi" fill sizes="96px" priority className="object-cover object-center" />
+              </div>
+            </div>
 
             <p className="stagger-item mb-3 max-w-xl text-xl font-medium leading-snug sm:text-2xl" style={{ color: "var(--color-text-primary)" }}>
               <strong className="font-semibold" style={{ color: "var(--color-accent)" }}>Full-stack developer</strong> with an IT and security background.
@@ -111,33 +117,18 @@ export default function HomeContent() {
           </div>
 
           {/* Portrait in an arch, with stickers */}
-          <div className="lg:col-span-5">
-            <div className="relative mx-auto max-w-[17rem] xs:max-w-[21rem] lg:mr-0">
-              <div
-                className="hero-frame relative"
-              >
-                <div
-                  className="group relative aspect-[4/5] overflow-hidden rounded-2xl border"
-                  style={{ borderColor: "var(--color-border-hover)", boxShadow: "0 30px 60px -24px rgb(20 36 138 / 0.45)" }}
-                >
+          <div className="hidden sm:block lg:col-span-5">
+            <div className="relative mx-auto w-full max-w-[21rem] lg:mr-0">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border" style={{ borderColor: "var(--color-border)" }}>
                 <Image
                   src={portrait}
                   placeholder="blur"
                   alt="Portrait of Brian Kareithi, full-stack developer based in Nairobi, Kenya"
                   fill
-                  sizes="(max-width: 375px) 272px, 336px"
+                  sizes="336px"
                   priority
-                  className="object-cover object-center transition-[transform,opacity] duration-[400ms] ease-[var(--ease-out)] group-hover:scale-[1.06] group-hover:opacity-0"
+                  className="object-cover object-center"
                 />
-                <Image
-                  src={cartoon}
-                  alt=""
-                  aria-hidden="true"
-                  fill
-                  sizes="(max-width: 375px) 272px, 336px"
-                  className="object-cover object-center opacity-0 scale-90 -rotate-3 transition-[transform,opacity] duration-[400ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-0 motion-reduce:transition-none"
-                />
-                </div>
               </div>
 
               <div
@@ -284,6 +275,9 @@ export default function HomeContent() {
 
         {/* Section index */}
         <div className="mt-16">
+          <MascotNote mood="wave" className="mb-8">
+            Thanks for reading this far. Pick a section below, or just message me.
+          </MascotNote>
           <div className="mb-6 flex items-end justify-between gap-4">
             <h2 className="display-xl text-4xl sm:text-5xl" style={{ color: "var(--color-text-primary)" }}>
               Where to <span className="font-serif-accent">next</span>

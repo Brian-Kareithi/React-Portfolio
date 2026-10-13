@@ -5,6 +5,7 @@ import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
+import { MascotNote } from "@/app/components/Mascot";
 import NextSection from "@/app/components/NextSection";
 
 export const experience = {
@@ -96,6 +97,10 @@ export default function AboutClient() {
             title={<>How I got <em className="font-serif-accent">good</em> at this</>}
             description="From a science classroom to government security, 50+ client projects, a startup and live systems at a school."
           />
+
+          <MascotNote className="mb-12" mood="wave">
+            Hi, I&apos;m Brian. Here is how I got into this, in short.
+          </MascotNote>
 
           {/* Now */}
           <div className="ink-slab mb-16 grid gap-8 p-7 xs:p-8 md:grid-cols-5 md:p-12">

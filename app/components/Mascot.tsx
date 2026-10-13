@@ -49,10 +49,10 @@ export function Mascot({ mood = "idle", size = 48, className = "" }: { mood?: Ma
 /** A short aside from the mascot, set in a speech bubble. Keep it to a sentence. */
 export function MascotNote({ mood = "idle", children, className = "" }: { mood?: MascotMood; children: ReactNode; className?: string }) {
   return (
-    <aside className={`flex items-end gap-3 ${className}`} aria-label="Mascot's note">
+    <aside className={`flex items-end gap-3 ${className}`} aria-label="A note from Brian">
       <Mascot mood={mood} size={44} />
       <div className="relative max-w-md rounded-2xl rounded-bl-sm border px-4 py-2.5" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)" }}>
-        <p className="field-label mb-1">Mascot&rsquo;s note</p>
+        <p className="field-label mb-1">Brian&rsquo;s note</p>
         <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
           {children}
         </p>

@@ -27,7 +27,7 @@ export default function GamesClient() {
           <CtfGame />
 
           <MascotNote className="mt-8" mood="wave">
-            Psst. There is one more flag, and it is not on this page. If you like trails, the browser console is where it starts.
+            I hid one more flag, and it is not on this page. If you like a trail to follow, start in the browser console.
           </MascotNote>
 
           <NextSection

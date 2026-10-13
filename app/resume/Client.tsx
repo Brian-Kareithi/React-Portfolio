@@ -5,6 +5,7 @@ import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { SpecSheet } from "@/app/components/ui/SpecSheet";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
+import { MascotNote } from "@/app/components/Mascot";
 import NextSection from "@/app/components/NextSection";
 import { resumeRoles, resumeCertifications, resumeEducation, resumeHistory, type ResumeRoleId } from "@/app/lib/resume-data";
 import { siteConfig } from "@/app/lib/site";
@@ -54,6 +55,10 @@ export default function ResumeClient() {
             title={<>One background, <em className="font-serif-accent">told</em> for your role</>}
             description="Full-stack first. Pick the role that fits your opening, preview it, download the PDF."
           />
+
+          <MascotNote className="mb-10 justify-center" mood="wave">
+            Not sure which one to pick? Full-stack is what I would start with.
+          </MascotNote>
 
           {/* Role switcher: one clearly pressable button per role */}
           <div className="mb-12 flex flex-col items-center gap-5">
