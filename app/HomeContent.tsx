@@ -43,8 +43,6 @@ export default function HomeContent() {
 
   return (
     <section id="home" className="relative min-h-screen overflow-x-clip px-4 sm:px-6 lg:px-8" style={{ backgroundColor: "var(--color-bg-primary)" }}>
-      {/* Hero atmosphere: aurora wash */}
-      <div aria-hidden="true" className="hero-aurora" />
 
       <div className="relative mx-auto max-w-5xl pt-28 pb-20 sm:pt-36">
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
