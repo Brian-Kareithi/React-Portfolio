@@ -34,6 +34,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   return (
     <CommandPaletteProvider>
       <div className="flex min-h-screen flex-col overflow-x-clip">
+        {/* Target for the footer's "Back to the beginning" link */}
+        <div id="top" tabIndex={-1} className="absolute top-0 h-0 w-0 outline-none" />
         <Navbar />
         <ScrollBar />
         <main className="relative flex-1">{children}</main>
