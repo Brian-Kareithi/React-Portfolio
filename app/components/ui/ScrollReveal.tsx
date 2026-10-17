@@ -1,81 +1,43 @@
 "use client";
 
-import { useRef, useEffect, ReactNode } from "react";
+import { useRef, useEffect, ReactNode, type CSSProperties } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
   className?: string;
+  /** Seconds. */
   delay?: number;
   direction?: "up" | "down" | "left" | "right" | "scale" | "none";
   duration?: number;
   distance?: number;
 }
 
-export function ScrollReveal({
-  children,
-  className = "",
-  delay = 0,
-  direction = "up",
-  duration = 0.55,
-  distance = 20,
-}: ScrollRevealProps) {
+/**
+ * One-shot reveal. Visible in the server HTML (so first paint, crawlers and no-JS all see it);
+ * only content that starts below the fold is hidden on mount and revealed when it scrolls in.
+ */
+export function ScrollReveal({ children, className = "", delay = 0 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.style.transition = "none";
-      el.style.opacity = "1";
-      el.style.transform = "none";
-      return;
-    }
-
-    const from: Record<string, string> = {};
-    if (direction === "up") from.transform = `translateY(${distance}px)`;
-    else if (direction === "down") from.transform = `translateY(${-distance}px)`;
-    else if (direction === "left") from.transform = `translateX(${distance}px)`;
-    else if (direction === "right") from.transform = `translateX(${-distance}px)`;
-    else if (direction === "scale") from.transform = "scale(0.94)";
-
-    Object.assign(el.style, from, { opacity: "0", willChange: "opacity, transform" });
-
-    const reveal = () => {
-      el.style.transition = `opacity ${duration}s var(--ease-out) ${delay}s, transform ${duration}s var(--ease-out) ${delay}s`;
-      el.style.opacity = "1";
-      el.style.transform = "none";
-      el.addEventListener("transitionend", () => { el.style.willChange = "auto"; }, { once: true });
-      observer.disconnect();
-    };
-
-    const isInViewport = (el: HTMLElement) => {
-      const rect = el.getBoundingClientRect();
-      return rect.top < window.innerHeight && rect.bottom > 0;
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0].isIntersecting) return;
-        reveal();
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+    el.dataset.reveal = "out";
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        el.dataset.reveal = "in";
+        io.disconnect();
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      { rootMargin: "0px 0px -8% 0px" },
     );
-    observer.observe(el);
-
-    if (isInViewport(el)) {
-      reveal();
-    }
-
-    const fallback = setTimeout(() => {
-      if (el.style.opacity !== "1") reveal();
-    }, 2000);
-
-    return () => { observer.disconnect(); clearTimeout(fallback); };
-  }, [delay, direction, duration, distance]);
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <div ref={ref} className={className} style={{ opacity: 0 }}>
+    <div ref={ref} className={`reveal ${className}`} style={{ "--d": `${delay * 1000}ms` } as CSSProperties}>
       {children}
     </div>
   );

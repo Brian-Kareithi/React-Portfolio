@@ -25,6 +25,8 @@ export function SectionHeader({ index, label, title, description, variant = "sta
     const root = rootRef.current;
     if (!root) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Headers sit at the top of the page: if one is already on screen, keep the server render as is.
+    if (root.getBoundingClientRect().top < window.innerHeight) return;
 
     const line = root.querySelector<HTMLElement>("[data-line]");
     const bits = root.querySelectorAll<HTMLElement>("[data-fade]");
@@ -36,10 +38,10 @@ export function SectionHeader({ index, label, title, description, variant = "sta
     });
 
     const reveal = () => {
-      line?.style.setProperty("transition", "transform 0.6s cubic-bezier(0.22,1,0.36,1)");
+      line?.style.setProperty("transition", "transform 0.35s cubic-bezier(0.22,1,0.36,1)");
       line?.style.setProperty("transform", "scaleX(1)");
       bits.forEach((bit, i) => {
-        bit.style.transition = `opacity 0.65s cubic-bezier(0.22,1,0.36,1) ${0.08 * i}s, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${0.08 * i}s`;
+        bit.style.transition = `opacity 0.35s cubic-bezier(0.22,1,0.36,1) ${0.06 * i}s, transform 0.35s cubic-bezier(0.22,1,0.36,1) ${0.06 * i}s`;
         bit.style.opacity = "1";
         bit.style.transform = "none";
       });
