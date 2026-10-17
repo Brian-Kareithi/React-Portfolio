@@ -125,7 +125,7 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={(e) => onNavClick(e, "/")}
-            className="nav-focus flex items-center gap-3 rounded-lg transition-opacity duration-200 hover:opacity-70"
+            className="nav-focus flex min-h-[44px] items-center gap-3 rounded-lg transition-opacity duration-200 hover:opacity-70"
             aria-label="Brian Kareithi, home"
           >
             <Image src="/logo.png" alt="" width={112} height={34} className="h-9 w-auto" priority />
@@ -158,7 +158,7 @@ export default function Navbar() {
             {/* One search entry point per breakpoint: icon on phones, labelled field from sm up */}
             <button
               onClick={openPalette}
-              className="nav-focus flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200 hover:text-[var(--color-text-primary)] sm:hidden"
+              className="nav-focus flex h-11 w-11 items-center justify-center rounded-lg transition-colors duration-200 hover:text-[var(--color-text-primary)] sm:hidden"
               style={{ color: "var(--color-text-muted)" }}
               aria-label="Search"
             >

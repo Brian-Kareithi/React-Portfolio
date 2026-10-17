@@ -53,7 +53,7 @@ export default function Breadcrumbs({ compact = false }: { compact?: boolean }) 
               {index < items.length - 1 ? (
                 <Link
                   href={item.path}
-                  className="uppercase tracking-widest transition-colors duration-200 hover:text-[var(--color-accent)]"
+                  className="inline-flex min-h-[44px] items-center uppercase tracking-widest transition-colors duration-200 hover:text-[var(--color-accent)]"
                   style={{ color: "var(--color-text-muted)" }}
                 >
                   {item.name}

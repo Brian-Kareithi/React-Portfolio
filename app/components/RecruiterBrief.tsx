@@ -46,20 +46,20 @@ export default function RecruiterBrief() {
             </ul>
 
             <dl className="space-y-3 text-sm">
-              <div className="flex items-start gap-2.5">
-                <Clock className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
-                <div>
-                  <dt className="text-xs" style={{ color: "var(--color-text-muted)" }}>Availability</dt>
-                  <dd style={{ color: "var(--color-text-primary)" }}>{brief.availability}</dd>
-                </div>
+              <div>
+                <dt className="flex items-center gap-2 text-xs" style={{ color: "var(--color-text-muted)" }}>
+                  <Clock className="h-4 w-4 flex-shrink-0" style={{ color: "var(--color-accent)" }} aria-hidden="true" />
+                  Availability
+                </dt>
+                <dd className="pl-6" style={{ color: "var(--color-text-primary)" }}>{brief.availability}</dd>
               </div>
-              <div className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
-                <div>
-                  <dt className="text-xs" style={{ color: "var(--color-text-muted)" }}>Location</dt>
-                  <dd style={{ color: "var(--color-text-primary)" }}>{brief.location}</dd>
-                  <dd className="text-xs" style={{ color: "var(--color-text-muted)" }}>{brief.overlap}</dd>
-                </div>
+              <div>
+                <dt className="flex items-center gap-2 text-xs" style={{ color: "var(--color-text-muted)" }}>
+                  <MapPin className="h-4 w-4 flex-shrink-0" style={{ color: "var(--color-accent)" }} aria-hidden="true" />
+                  Location
+                </dt>
+                <dd className="pl-6" style={{ color: "var(--color-text-primary)" }}>{brief.location}</dd>
+                <dd className="pl-6 text-xs" style={{ color: "var(--color-text-muted)" }}>{brief.overlap}</dd>
               </div>
             </dl>
           </div>
