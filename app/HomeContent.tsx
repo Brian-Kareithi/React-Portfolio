@@ -13,6 +13,7 @@ import { Assemble } from "@/app/components/ui/Assemble";
 import { CountUp } from "@/app/components/ui/CountUp";
 import Marquee from "@/app/components/Marquee";
 import FeaturedRelease from "@/app/components/FeaturedRelease";
+import FishSwim from "@/app/components/FishSwim";
 import { routes } from "@/app/lib/nav";
 import { focusAreas } from "@/app/lib/focus";
 import { caseStudies } from "@/app/lib/projects-data";
@@ -62,7 +63,10 @@ export default function HomeContent() {
                 <h1 id="hero-name" className="display-xl title-hero min-w-0" style={{ color: "var(--color-text-primary)" }}>
                   <span className="hero-letter" style={{ "--i": 0 } as CSSProperties}>Brian</span>
                   <br />
-                  <span className="name-block hero-letter" style={{ "--i": 4 } as CSSProperties}>Kareithi</span>
+                  <span className="name-block hero-letter" style={{ "--i": 4 } as CSSProperties}>
+                    Kareithi
+                    <FishSwim />
+                  </span>
                 </h1>
                 {/* Phones only: small portrait beside the name so it shows on the first screen */}
                 <div className="relative ml-auto mt-2 h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border xs:h-24 xs:w-24 sm:hidden" style={{ borderColor: "var(--color-border)" }}>

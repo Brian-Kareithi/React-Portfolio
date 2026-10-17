@@ -428,7 +428,7 @@ html {
 .reveal-mask > span {
   display: inline-block;
   transform: translateY(110%);
-  transition: transform 0.7s var(--ease-out);
+  transition: transform 0.4s var(--ease-out);
 }
 .reveal-mask.is-in > span {
   transform: translateY(0);
@@ -1022,8 +1022,8 @@ html {
   overflow: hidden;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
-  transition-delay: calc(var(--i, 0) * 70ms);
+  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 50ms);
 }
 .next-list[data-in="true"] .next-row { opacity: 1; transform: none; }
 .next-row::before {
@@ -1033,11 +1033,11 @@ html {
   background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.4s var(--ease-out);
+  transition: transform 0.3s var(--ease-out);
 }
-.next-row-link { position: relative; padding-inline: 0.25rem; transition: padding 0.4s var(--ease-out), color 0.3s; }
+.next-row-link { position: relative; padding-inline: 0.25rem; transition: padding 0.3s var(--ease-out), color 0.25s; }
 .next-row-title, .next-row-desc, .next-row-num { transition: color 0.3s var(--ease-out); }
-.next-row-arrow { transition: transform 0.4s var(--ease-out), background-color 0.3s, color 0.3s, border-color 0.3s; }
+.next-row-arrow { transition: transform 0.3s var(--ease-out), background-color 0.3s, color 0.3s, border-color 0.3s; }
 /*
  * Hover and keyboard focus share one state. NextSection lives inside .ink-slab, where the tokens
  * flip: --color-accent is periwinkle and --color-on-accent is shadow grey. Everything here uses
@@ -1467,3 +1467,19 @@ html[data-boot] { overflow: hidden; }
 }
 .strip-btn:disabled { opacity: 0.35; cursor: default; }
 .strip-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+/* Fish in the cobalt name bar: a layer behind the surname, inside a taller bar.
+   Stacking inside .name-block: bar background, left bleed (-2), fish (-1), then the name on top. */
+.name-block { isolation: isolate; padding-block: 0.16em 0.2em; }
+.name-block::before { z-index: -2; }
+.fish-swim {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  /* Start at the left edge of the screen, where the bar starts: the block sits at the content edge. */
+  left: calc(-1 * max(var(--gutter), (100vw - var(--content)) / 2));
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.75;
+}
