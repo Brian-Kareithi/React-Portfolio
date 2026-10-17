@@ -1,12 +1,11 @@
-"use client";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import portrait from "@/public/kareithi.jpg";
 import { MascotNote } from "@/app/components/Mascot";
 import { Github, Gamepad2, Linkedin, Mail, ArrowRight, ArrowUpRight, Command, FileDown } from "lucide-react";
-import useLocalTime from "@/app/components/ui/useLocalTime";
-import { useCommandPalette } from "@/app/components/CommandPalette";
+import HeroClock from "@/app/components/HeroClock";
+import PaletteButton from "@/app/components/PaletteButton";
 import Testimonials from "@/app/components/Testimonials";
 import RecruiterBrief from "@/app/components/RecruiterBrief";
 import { Assemble } from "@/app/components/ui/Assemble";
@@ -42,8 +41,6 @@ const featured = ["sapio-homes", "roadsafe360"]
   .filter((c): c is (typeof caseStudies)[number] => Boolean(c?.screenshot));
 
 export default function HomeContent() {
-  const time = useLocalTime("Africa/Nairobi");
-  const { open: openPalette } = useCommandPalette();
 
   const indexRoutes = routes.filter((r) => r.path !== "/");
 
@@ -122,7 +119,7 @@ export default function HomeContent() {
             </div>
 
             {/* Portrait, with the live Nairobi clock */}
-            <div className="hidden sm:block lg:col-span-4">
+            <div className="hidden sm:block lg:col-span-4 lg:self-center">
               <div className="relative mx-auto w-full max-w-[22rem] lg:mr-0">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
                   <Image
@@ -137,10 +134,7 @@ export default function HomeContent() {
                 </div>
                 <div className="absolute -left-3 bottom-6 px-4 py-2.5 sm:-left-8" style={{ backgroundColor: "var(--palette-espresso)", color: "var(--palette-cream)" }}>
                   <p className="field-label" style={{ color: "var(--palette-sand)" }}>Nairobi</p>
-                  {/* Server and first client render both show --:--, so there is no mismatch; the fixed 5ch width means no shift when the time fills in. */}
-                  <p className="font-mono text-sm">
-                    <time className="inline-block w-[5ch] tabular-nums" suppressHydrationWarning>{time ?? "--:--"}</time> EAT
-                  </p>
+                  <HeroClock />
                 </div>
               </div>
             </div>
@@ -338,13 +332,11 @@ export default function HomeContent() {
             <h2 id="index-title" className="display-xl title-xl" style={{ color: "var(--color-text-primary)" }}>
               Where to <span className="font-serif-accent">next</span>
             </h2>
-            <button
-              type="button"
-              onClick={openPalette}
+            <PaletteButton
               className="pill hidden min-h-[44px] font-mono !text-[11px] transition-colors duration-200 hover:text-[var(--color-accent)] sm:inline-flex"
             >
               <Command className="w-3 h-3" /> Ctrl&nbsp;K to jump
-            </button>
+            </PaletteButton>
           </div>
 
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

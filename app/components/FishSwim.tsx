@@ -1,60 +1,69 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import type { LottieRefCurrentProps } from "lottie-react";
-import type { ComponentType } from "react";
+import { useEffect, useRef } from "react";
+import type { AnimationItem } from "lottie-web";
 
-type LottieProps = {
-  animationData: unknown;
-  loop?: boolean;
-  autoplay?: boolean;
-  lottieRef?: React.MutableRefObject<LottieRefCurrentProps | null>;
-  rendererSettings?: { preserveAspectRatio?: string };
-  className?: string;
-};
+/** Load the player once the visitor engages, or after a quiet pause: it is decoration, never on the critical path. */
+const LOAD_EVENTS = ["pointermove", "pointerdown", "touchstart", "scroll", "keydown"] as const;
+const FALLBACK_MS = 6000;
 
 /**
- * The fish swimming in the cobalt name bar. The player and the animation load after first paint,
- * so they never hold up the hero. It plays only while on screen, and holds a still frame under
- * reduced motion. Purely decorative.
+ * The fish swimming behind the surname in the cobalt bar.
+ * Uses the light (SVG-only) Lottie player, loads after first interaction, pauses off screen,
+ * and shows a single still frame under reduced motion.
  */
 export default function FishSwim({ className = "", fit = "xMidYMid slice" }: { className?: string; fit?: string }) {
   const boxRef = useRef<HTMLSpanElement>(null);
-  const lottieRef = useRef<LottieRefCurrentProps | null>(null);
-  const [mod, setMod] = useState<{ Lottie: ComponentType<LottieProps>; data: unknown } | null>(null);
-  const [reduce, setReduce] = useState(false);
 
   useEffect(() => {
+    const box = boxRef.current;
+    if (!box) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let anim: AnimationItem | null = null;
+    let io: IntersectionObserver | null = null;
+    let started = false;
     let alive = true;
-    setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-    Promise.all([import("lottie-react"), import("@/app/lib/fish.json")]).then(([l, d]) => {
-      if (alive) setMod({ Lottie: l.default as unknown as ComponentType<LottieProps>, data: d.default });
-    });
+    let timer = 0;
+
+    const cleanupTriggers = () => {
+      window.clearTimeout(timer);
+      LOAD_EVENTS.forEach((ev) => window.removeEventListener(ev, start));
+    };
+
+    async function start() {
+      if (started) return;
+      started = true;
+      cleanupTriggers();
+      const [{ default: lottie }, { default: data }] = await Promise.all([
+        import("lottie-web/build/player/lottie_light"),
+        import("@/app/lib/fish.json"),
+      ]);
+      if (!alive || !box) return;
+      anim = lottie.loadAnimation({
+        container: box,
+        renderer: "svg",
+        loop: !reduce,
+        autoplay: false,
+        animationData: data,
+        rendererSettings: { preserveAspectRatio: fit },
+      });
+      if (reduce) {
+        anim.goToAndStop(0, true);
+        return;
+      }
+      io = new IntersectionObserver(([e]) => (e.isIntersecting ? anim?.play() : anim?.pause()));
+      io.observe(box);
+    }
+
+    timer = window.setTimeout(start, FALLBACK_MS);
+    LOAD_EVENTS.forEach((ev) => window.addEventListener(ev, start, { once: true, passive: true }));
+
     return () => {
       alive = false;
+      cleanupTriggers();
+      io?.disconnect();
+      anim?.destroy();
     };
-  }, []);
+  }, [fit]);
 
-  // Pause when the hero scrolls away.
-  useEffect(() => {
-    const el = boxRef.current;
-    if (!el || !mod || reduce) return;
-    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? lottieRef.current?.play() : lottieRef.current?.pause()));
-    io.observe(el);
-    return () => io.disconnect();
-  }, [mod, reduce]);
-
-  return (
-    <span ref={boxRef} aria-hidden="true" className={`fish-swim block ${className}`}>
-      {mod && (
-        <mod.Lottie
-          animationData={mod.data}
-          loop={!reduce}
-          autoplay={!reduce}
-          lottieRef={lottieRef}
-          rendererSettings={{ preserveAspectRatio: fit }}
-          className="h-full w-full"
-        />
-      )}
-    </span>
-  );
+  return <span ref={boxRef} aria-hidden="true" className={`fish-swim block ${className}`} />;
 }

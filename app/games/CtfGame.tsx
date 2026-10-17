@@ -226,7 +226,7 @@ export default function CtfGame() {
             <button
               key={q}
               onClick={() => exec(q)}
-              className="rounded-md border px-2.5 py-1.5 font-mono text-[11px] transition-colors duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+              className="min-h-[44px] min-w-[44px] rounded-md border px-2.5 py-1.5 font-mono text-[11px] transition-colors duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
               style={{ borderColor: "var(--color-border-hover)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }}
             >
               {q}
