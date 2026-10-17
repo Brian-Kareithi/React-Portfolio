@@ -207,14 +207,16 @@ export default function ResumeClient() {
 
                 <section>
                   <h3 className="display-xl mb-4 text-2xl" style={{ color: "var(--color-text-primary)" }}>Earlier experience</h3>
-                  <ul className="space-y-4">
+                  <ul className="row-list">
                     {resumeHistory.map((j) => (
-                      <li key={j.role}>
-                        <div className="flex flex-wrap items-baseline justify-between gap-2">
-                          <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>{j.role}, {j.org}</p>
-                          <span className="pill !py-0.5 !text-[11px]">{j.period}</span>
+                      <li key={j.role} className="row-hover grid gap-x-6 gap-y-1 px-1 py-4 transition-[background-color,padding] duration-200 sm:grid-cols-[8.5rem_minmax(0,1fr)]">
+                        <p className="font-mono text-xs tabular-nums sm:pt-0.5" style={{ color: "var(--color-accent)" }}>{j.period}</p>
+                        <div>
+                          <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
+                            {j.role} <span className="font-normal" style={{ color: "var(--color-text-muted)" }}>· {j.org}</span>
+                          </p>
+                          <p className="mt-1 text-sm" style={{ color: "var(--color-text-secondary)" }}>{j.line}</p>
                         </div>
-                        <p className="mt-1 text-sm" style={{ color: "var(--color-text-secondary)" }}>{j.line}</p>
                       </li>
                     ))}
                   </ul>
