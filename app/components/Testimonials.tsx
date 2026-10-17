@@ -21,13 +21,13 @@ export default function Testimonials({
   if (testimonials.length === 0) return null;
 
   return (
-    <section id="testimonials" aria-label="Testimonials" className="mt-16 scroll-mt-24">
-      <div className="mb-6">
+    <section id="testimonials" aria-label="Testimonials" className="scroll-mt-24">
+      <div className="mb-8">
         <p className="field-label mb-2 flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
           {kicker}
         </p>
-        <h2 className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
+        <h2 className="display-xl title-xl" style={{ color: "var(--color-text-primary)" }}>
           {title}
         </h2>
       </div>
