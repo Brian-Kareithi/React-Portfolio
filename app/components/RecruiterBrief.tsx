@@ -5,8 +5,8 @@ import { brief } from "@/app/lib/brief";
 /** A scannable summary for hiring managers: role fit, availability, and three evidence links. */
 export default function RecruiterBrief() {
   return (
-    <section aria-labelledby="brief-heading" className="mt-16">
-      <div className="ink-slab px-5 py-8 sm:px-8 sm:py-10">
+    <section aria-labelledby="brief-heading">
+      <div className="plate px-5 py-8 sm:px-8 sm:py-10">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
           <div>
             <p className="field-label mb-2 flex items-center gap-2">
