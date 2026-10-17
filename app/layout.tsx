@@ -3,6 +3,8 @@ import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import ClientLayout from "./ClientLayout";
 import { JsonLd } from "@/app/components/JsonLd";
+import BootLine from "@/app/components/BootLine";
+import { bootScript } from "@/app/lib/boot";
 import { siteConfig, ogImageFor } from "@/app/lib/site";
 import "./globals.css";
 
@@ -113,7 +115,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`scroll-smooth ${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+      </head>
       <body className="relative overflow-x-clip antialiased" suppressHydrationWarning>
+        <BootLine />
         <JsonLd data={organizationJsonLd} />
         <ClientLayout>{children}</ClientLayout>
         <Analytics />
