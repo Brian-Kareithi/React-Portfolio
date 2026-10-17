@@ -189,7 +189,6 @@ export default function Navbar() {
         className={`menu-sheet fixed inset-0 z-[55] lg:hidden transition-[opacity,visibility] duration-300 ${
           menuOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
-        style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 95%, transparent)", backdropFilter: "blur(26px) saturate(170%)", WebkitBackdropFilter: "blur(26px) saturate(170%)" }}
         aria-hidden={!menuOpen}
         inert={!menuOpen}
       >

@@ -114,9 +114,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`scroll-smooth ${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="relative overflow-x-clip antialiased" suppressHydrationWarning>
-        <noscript>
-          <style>{".loading-screen{display:none!important}"}</style>
-        </noscript>
         <JsonLd data={organizationJsonLd} />
         <ClientLayout>{children}</ClientLayout>
         <Analytics />
