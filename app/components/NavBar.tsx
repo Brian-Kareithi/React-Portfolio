@@ -23,6 +23,9 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const progressRef = useRef<HTMLDivElement | null>(null);
+  const menuBtnRef = useRef<HTMLButtonElement | null>(null);
+  const sheetRef = useRef<HTMLDivElement | null>(null);
+  const wasOpen = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -46,6 +49,32 @@ export default function Navbar() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  // Focus moves into the sheet on open and back to the toggle on close; Tab stays inside while open.
+  useEffect(() => {
+    if (menuOpen) {
+      wasOpen.current = true;
+      // Wait a frame so the sheet is visible (and focusable) before moving focus into it.
+      const raf = requestAnimationFrame(() => sheetRef.current?.querySelector<HTMLElement>("a")?.focus());
+      const trap = (e: KeyboardEvent) => {
+        if (e.key !== "Tab" || !sheetRef.current) return;
+        const items = [menuBtnRef.current, ...sheetRef.current.querySelectorAll<HTMLElement>("a")].filter(Boolean) as HTMLElement[];
+        const i = items.indexOf(document.activeElement as HTMLElement);
+        const next = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i === items.length - 1 ? 0 : i + 1);
+        e.preventDefault();
+        items[next]?.focus();
+      };
+      window.addEventListener("keydown", trap);
+      return () => {
+        cancelAnimationFrame(raf);
+        window.removeEventListener("keydown", trap);
+      };
+    }
+    if (wasOpen.current) {
+      wasOpen.current = false;
+      menuBtnRef.current?.focus();
+    }
   }, [menuOpen]);
 
   useEffect(() => {
@@ -75,7 +104,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed z-[60] mx-auto overflow-hidden glass-nav transition-[top,left,right,max-width,border-radius,box-shadow] duration-500 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]"
+        className="fixed z-[60] mx-auto overflow-hidden glass-nav transition-[top,left,right,max-width,border-radius,box-shadow] duration-300 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]"
         style={{
           top: scrolled ? 0 : 14,
           left: scrolled ? 0 : "clamp(1rem, 3vw, 2rem)",
@@ -90,7 +119,7 @@ export default function Navbar() {
       >
         {/* Docked: the bar spans the viewport and its row lines up with the page content */}
         <div
-          className="relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 pl-5 pr-3 transition-[padding] duration-500 sm:pl-6 sm:pr-3.5 lg:h-[62px]"
+          className="relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 pl-5 pr-3 transition-[padding] duration-300 sm:pl-6 sm:pr-3.5 lg:h-[62px]"
           style={scrolled ? { paddingLeft: "clamp(1rem, 3vw, 2rem)", paddingRight: "clamp(1rem, 3vw, 2rem)" } : undefined}
         >
           <Link
@@ -159,6 +188,8 @@ export default function Navbar() {
             </span>
 
             <button
+              ref={menuBtnRef}
+              aria-controls="mobile-menu"
               className="nav-focus relative flex h-11 w-11 flex-col items-center justify-center gap-[5px] lg:hidden"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -186,6 +217,8 @@ export default function Navbar() {
 
       {/* Mobile editorial overlay */}
       <div
+        id="mobile-menu"
+        ref={sheetRef}
         className={`menu-sheet fixed inset-0 z-[55] lg:hidden transition-[opacity,visibility] duration-300 ${
           menuOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
@@ -201,12 +234,12 @@ export default function Navbar() {
                 <li
                   key={r.path}
                   style={{
-                    transitionDelay: menuOpen ? `${i * 35 + 60}ms` : "0ms",
+                    transitionDelay: menuOpen ? `${i * 25 + 40}ms` : "0ms",
                     transform: menuOpen ? "none" : "translateY(12px)",
                     opacity: menuOpen ? 1 : 0,
                     transitionProperty: "opacity, transform",
                     transitionTimingFunction: "ease, cubic-bezier(0.22,1,0.36,1)",
-                    transitionDuration: "0.4s, 0.4s",
+                    transitionDuration: "0.3s, 0.3s",
                   }}
                 >
                   <Link
@@ -216,7 +249,7 @@ export default function Navbar() {
                     className="nav-focus group flex min-h-[44px] w-full items-baseline gap-4 border-b py-3 text-left"
                     style={{ borderColor: "var(--color-border)" }}
                   >
-                    <span className="index-num" style={{ color: active ? "var(--color-accent)" : "var(--color-text-muted)" }}>
+                    <span className="index-num" style={{ color: "var(--color-accent)" }}>
                       {r.index}
                     </span>
                     <span className="flex-1">
@@ -243,7 +276,7 @@ export default function Navbar() {
                 href={l.href}
                 target={l.href.startsWith("http") ? "_blank" : undefined}
                 rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="field-label hover:text-[var(--color-accent)] transition-colors"
+                className="field-label nav-focus inline-flex min-h-[44px] items-center hover:text-[var(--color-accent)] transition-colors"
               >
                 {l.label}
               </a>
