@@ -49,7 +49,7 @@ export default function NextSection({
             <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
             Continue
           </p>
-          <h2 className="display-xl mb-3 text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
+          <h2 className="display-xl mb-3 text-4xl sm:text-5xl" style={{ color: "var(--color-text-primary)" }}>
             {title}
           </h2>
           <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>

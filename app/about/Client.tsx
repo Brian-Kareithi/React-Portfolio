@@ -151,72 +151,63 @@ export default function AboutClient() {
             })}
           </div>
 
-          {/* Timeline: a central spine with cards alternating either side on wide screens */}
-          <ol className="relative">
-            <span aria-hidden="true" className="absolute bottom-0 left-4 top-0 w-px md:left-1/2" style={{ backgroundColor: "var(--color-accent-secondary)" }} />
-            {items.map((item, i) => {
+          {/* Timeline: schedule-style rows. Date · role · place · one line; highlights open in place. */}
+          <ol className="row-list">
+            {items.map((item) => {
               const id = timeline.indexOf(item);
               const open = openId === id;
-              const right = i % 2 === 1;
               const { Icon, label } = categoryConfig[item.category];
               return (
-                <li key={id} className="relative mb-6 pl-12 md:grid md:grid-cols-2 md:gap-16 md:pl-0">
-                  <span
-                    aria-hidden="true"
-                    className="absolute left-4 top-7 flex h-7 w-7 -translate-x-1/2 items-center justify-center rounded-full border-2 md:left-1/2"
-                    style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-accent)", color: "var(--color-accent)" }}
-                  >
-                    <Icon className="h-3.5 w-3.5" />
-                  </span>
-                  <div className={right ? "md:col-start-2" : "md:text-right"}>
-                    <div className="flat-card p-5 xs:p-6 text-left">
-                      <button
-                        onClick={() => setOpenId(open ? null : id)}
-                        className="group min-h-[44px] w-full text-left"
-                        aria-expanded={open}
-                        aria-controls={`timeline-details-${id}`}
-                      >
-                        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                          <span className="font-serif-accent text-3xl leading-none" style={{ color: "var(--color-accent)" }}>{item.year}</span>
-                          <span className="pill !py-1 !text-[11px]">{label} · {item.period}</span>
-                        </div>
-                        <h3
-                          className="text-lg font-semibold transition-colors duration-200 group-hover:text-[var(--color-accent)]"
-                          style={{ color: "var(--color-text-primary)" }}
-                        >
-                          {item.title}
-                        </h3>
-                        <p className="text-xs font-medium" style={{ color: "var(--color-text-muted)" }}>
-                          {item.institution}
-                        </p>
-                        <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                          {item.description}
-                        </p>
-                        {item.metrics && (
-                          <span className="mt-3 inline-block text-xs font-medium" style={{ color: "var(--color-accent)" }}>
-                            {open ? "Less" : "Highlights"}
-                          </span>
-                        )}
-                      </button>
-
+                <li key={id}>
+                  <div className="row row-hover">
+                    <p className="font-mono text-sm tabular-nums" style={{ color: "var(--color-accent)" }}>
+                      {item.period}
+                    </p>
+                    <h3 className="text-lg font-semibold leading-snug" style={{ color: "var(--color-text-primary)" }}>
+                      {item.title}
+                    </h3>
+                    <p className="flex items-center gap-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
+                      <Icon className="h-3.5 w-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} aria-hidden="true" />
+                      <span>
+                        {item.institution}
+                        <span className="sr-only"> ({label})</span>
+                      </span>
+                    </p>
+                    <div>
+                      <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                        {item.description}
+                      </p>
                       {(item.significance || item.metrics) && (
-                        <div id={`timeline-details-${id}`} className={open ? "animate-fade-in-up mt-4 space-y-3" : "hidden"}>
-                          {item.significance && (
-                            <p className="rounded-xl px-4 py-3 text-sm font-medium" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-primary)" }}>
-                              {item.significance}
-                            </p>
-                          )}
-                          {item.metrics && (
-                            <ul className="space-y-1.5">
-                              {item.metrics.map((m) => (
-                                <li key={m} className="flex items-start gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
-                                  <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-                                  {m}
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </div>
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => setOpenId(open ? null : id)}
+                            className="link-underline mt-1 inline-flex min-h-[44px] items-center text-xs font-medium"
+                            style={{ color: "var(--color-accent)" }}
+                            aria-expanded={open}
+                            aria-controls={`timeline-details-${id}`}
+                          >
+                            {open ? "Less" : "Highlights"}
+                            <span className="sr-only">: {item.title}</span>
+                          </button>
+                          <div id={`timeline-details-${id}`} className={open ? "animate-fade-in-up space-y-3 pb-2" : "hidden"}>
+                            {item.significance && (
+                              <p className="rounded-xl px-4 py-3 text-sm font-medium" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-primary)" }}>
+                                {item.significance}
+                              </p>
+                            )}
+                            {item.metrics && (
+                              <ul className="space-y-1.5">
+                                {item.metrics.map((m) => (
+                                  <li key={m} className="flex items-start gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
+                                    <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+                                    {m}
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        </>
                       )}
                     </div>
                   </div>

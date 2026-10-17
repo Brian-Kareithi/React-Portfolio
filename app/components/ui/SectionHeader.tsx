@@ -92,8 +92,8 @@ export function SectionHeader({ index, label, title, description, variant = "sta
   const heading = (
     <h1
       data-fade
-      className={`display-xl ${compact ? "text-4xl sm:text-5xl mb-3" : "text-[2.6rem] xs:text-5xl sm:text-6xl md:text-7xl mb-5"}`}
-      style={{ color: "var(--color-text-primary)" }}
+      className={`display-xl ${compact ? "text-4xl sm:text-5xl mb-3" : "mb-6"}`}
+      style={{ color: "var(--color-text-primary)", fontSize: compact ? undefined : "var(--fs-h1)" }}
     >
       {title}
     </h1>
