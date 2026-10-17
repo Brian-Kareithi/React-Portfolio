@@ -12,6 +12,7 @@ import RecruiterBrief from "@/app/components/RecruiterBrief";
 import { Assemble } from "@/app/components/ui/Assemble";
 import { CountUp } from "@/app/components/ui/CountUp";
 import Marquee from "@/app/components/Marquee";
+import FeaturedRelease from "@/app/components/FeaturedRelease";
 import { routes } from "@/app/lib/nav";
 import { focusAreas } from "@/app/lib/focus";
 import { caseStudies } from "@/app/lib/projects-data";
@@ -157,13 +158,21 @@ export default function HomeContent() {
       {/* ── Marquee: the stack, on ink ── */}
       <Marquee items={marqueeItems} label="Stack and focus areas" />
 
+      {/* ── The 20-second version for recruiters ── */}
+      <section className="band band-tight band-light">
+        <div className="wrap">
+          <RecruiterBrief />
+        </div>
+      </section>
+
+      {/* ── Now building: the current client project, on cobalt ── */}
+      <FeaturedRelease />
+
       <section className="band-light overflow-x-clip pb-20">
       <div className="wrap">
-        <RecruiterBrief />
-
         {/* Featured work: real captures of shipped products */}
         {featured.length > 0 && (
-          <div className="mt-24">
+          <div id="proof" className="scroll-mt-24 pt-20 sm:pt-28">
             <Assemble from="up" className="mb-6">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <h2 className="display-xl text-4xl sm:text-5xl" style={{ color: "var(--color-text-primary)" }}>
