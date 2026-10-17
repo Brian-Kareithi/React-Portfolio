@@ -1304,8 +1304,18 @@ html {
   padding: 0.04em 0.18em 0.1em 0;
   background-color: var(--palette-ink);
   color: var(--palette-cream);
-  box-shadow: -100vw 0 0 var(--palette-ink);
 }
+/* The block runs off the left edge of the viewport. */
+.name-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  width: 100vw;
+  background-color: var(--palette-ink);
+}
+.name-block.hero-letter { transform: none; padding-right: 0.22em; }
 .name-block ::selection { background-color: var(--palette-sand); color: var(--palette-ink); }
 
 /* ── Marquee ──────────────────────────────────────────────── */
@@ -1435,3 +1445,9 @@ html[data-boot] { overflow: hidden; }
 .index-card:focus-visible * { color: var(--palette-cream) !important; }
 .index-card:hover .index-num,
 .index-card:focus-visible .index-num { color: var(--palette-sand) !important; }
+
+/* Each marquee group is at least a viewport wide, so the loop never shows a gap on wide screens. */
+.marquee-group { min-width: 100vw; justify-content: space-around; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-group { min-width: 0; flex-wrap: wrap; justify-content: center; row-gap: 0.75rem; width: 100%; }
+}

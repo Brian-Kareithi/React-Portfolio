@@ -11,6 +11,7 @@ import Testimonials from "@/app/components/Testimonials";
 import RecruiterBrief from "@/app/components/RecruiterBrief";
 import { Assemble } from "@/app/components/ui/Assemble";
 import { CountUp } from "@/app/components/ui/CountUp";
+import Marquee from "@/app/components/Marquee";
 import { routes } from "@/app/lib/nav";
 import { focusAreas } from "@/app/lib/focus";
 import { caseStudies } from "@/app/lib/projects-data";
@@ -23,6 +24,9 @@ const heroStats: { value: number; suffix?: string; label: string }[] = [
   { value: 50, suffix: "+", label: "Projects delivered" },
   { value: 19, label: "Homelab devices" },
 ];
+
+/** The ticker under the hero: the stack first, then the infrastructure side. */
+const marqueeItems = ["React", "Next.js", "TypeScript", "Node", "Linux", "Proxmox", "Networking", "Security"];
 
 const socials = [
   { href: siteConfig.github, icon: Github, label: "GitHub" },
@@ -42,115 +46,119 @@ export default function HomeContent() {
   const indexRoutes = routes.filter((r) => r.path !== "/");
 
   return (
-    <section id="home" className="relative min-h-screen overflow-x-clip px-4 sm:px-6 lg:px-8" style={{ backgroundColor: "var(--color-bg-primary)" }}>
+    <>
+      {/* ── Hero: light band, surname on a solid cobalt block ── */}
+      <section id="home" aria-labelledby="hero-name" className="band-light relative overflow-x-clip pt-28 pb-14 sm:pt-36 sm:pb-20">
+        <div className="wrap">
+          <div className="grid items-end gap-12 lg:grid-cols-12 lg:gap-10">
+            <div className="min-w-0 lg:col-span-8">
+              <p className="stagger-item mb-7 inline-flex max-w-full items-center gap-2 rounded-lg border px-3.5 py-1.5 text-xs font-medium sm:text-[13px]" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-primary)" }}>
+                <span className="h-2 w-2 flex-shrink-0 rounded-full" style={{ backgroundColor: "var(--color-live)" }} />
+                <span>Available for work · Remote or Nairobi</span>
+              </p>
 
-      <div className="relative mx-auto max-w-5xl pt-28 pb-20 sm:pt-36">
-        <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
-          {/* Identity */}
-          <div className="min-w-0 lg:col-span-7">
-            <p className="stagger-item mb-6 inline-flex max-w-full items-center gap-2 rounded-lg border px-3.5 py-1.5 text-xs font-medium sm:text-[13px]" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-primary)" }}>
-              <span className="relative flex h-2 w-2 flex-shrink-0">
-                <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: "var(--color-live)" }} />
-              </span>
-              <span>Available for work · Remote or Nairobi</span>
-            </p>
-
-            <div className="mb-6 flex items-center gap-4 sm:block">
-              <h1 className="display-xl min-w-0 text-[3.25rem] leading-[0.92] xs:text-6xl sm:mb-0 sm:text-8xl lg:text-[8rem]" style={{ color: "var(--color-text-primary)" }}>
-                <span className="hero-letter" style={{ "--i": 0 } as CSSProperties}>Brian</span>
-                <br />
-                <span className="font-serif-accent hero-letter" style={{ "--i": 4, color: "var(--color-accent)" } as CSSProperties}>Kareithi</span>
-              </h1>
-              {/* Phones only: small portrait beside the name so it shows on the first screen */}
-              <div className="relative ml-auto h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border xs:h-24 xs:w-24 sm:hidden" style={{ borderColor: "var(--color-border)" }}>
-                <Image src={portrait} alt="Portrait of Brian Kareithi" fill sizes="96px" priority className="object-cover object-center" />
+              <div className="flex items-start gap-4">
+                <h1 id="hero-name" className="display-xl title-hero min-w-0" style={{ color: "var(--color-text-primary)" }}>
+                  <span className="hero-letter" style={{ "--i": 0 } as CSSProperties}>Brian</span>
+                  <br />
+                  <span className="name-block hero-letter" style={{ "--i": 4 } as CSSProperties}>Kareithi</span>
+                </h1>
+                {/* Phones only: small portrait beside the name so it shows on the first screen */}
+                <div className="relative ml-auto mt-2 h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border xs:h-24 xs:w-24 sm:hidden" style={{ borderColor: "var(--color-border)" }}>
+                  <Image src={portrait} alt="Portrait of Brian Kareithi" fill sizes="96px" priority className="object-cover object-center" />
+                </div>
               </div>
-            </div>
 
-            <p className="stagger-item mb-3 max-w-xl text-xl font-medium leading-snug sm:text-2xl" style={{ color: "var(--color-text-primary)" }}>
-              <strong className="font-semibold" style={{ color: "var(--color-accent)" }}>Full-stack developer</strong> with an IT and security background.
-            </p>
-            <p className="stagger-item mb-9 max-w-lg text-base leading-relaxed sm:text-lg" style={{ color: "var(--color-text-secondary)" }}>
-              I build web and mobile products that hold up in the real world, from the screen to the server.
-            </p>
+              <p className="stagger-item measure mt-9 mb-3 font-medium leading-snug" style={{ color: "var(--color-text-primary)", fontSize: "var(--fs-lead)" }}>
+                <strong className="font-semibold" style={{ color: "var(--color-accent)" }}>Full-stack developer</strong> with an IT and security background.
+              </p>
+              <p className="stagger-item mb-9 max-w-lg text-base leading-relaxed sm:text-lg" style={{ color: "var(--color-text-secondary)" }}>
+                I build web and mobile products that hold up in the real world, from the screen to the server.
+              </p>
 
-            <div className="stagger-item mb-9 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
-              <Link href="/projects" className="btn-neon btn-neon-primary justify-center">
-                See my work
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/resume" className="btn-neon btn-neon-ghost justify-center">
-                <FileDown className="w-4 h-4" />
-                Get my resume
-              </Link>
-              <Link href="/contact" className="btn-neon btn-neon-ghost justify-center">
-                Let&apos;s talk
-              </Link>
-            </div>
+              <div className="stagger-item mb-8 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
+                <Link href="/projects" className="btn-neon btn-neon-primary justify-center">
+                  See my work
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link href="/resume" className="btn-neon btn-neon-ghost justify-center">
+                  <FileDown className="w-4 h-4" />
+                  Get my resume
+                </Link>
+                <Link href="/contact" className="btn-neon btn-neon-ghost justify-center">
+                  Let&apos;s talk
+                </Link>
+              </div>
 
-            <div className="stagger-item flex items-center gap-2.5">
-              {socials.map(({ href, icon: Icon, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  aria-label={label}
+              <div className="stagger-item flex items-center gap-2.5">
+                {socials.map(({ href, icon: Icon, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    aria-label={label}
+                    className="icon-chip flex h-11 w-11 items-center justify-center rounded-full"
+                    style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)", backgroundColor: "var(--color-bg-card)" }}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                ))}
+                <Link
+                  href="/games"
+                  aria-label="Minigames: play a mini capture the flag"
+                  title="Minigames"
                   className="icon-chip flex h-11 w-11 items-center justify-center rounded-full"
                   style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)", backgroundColor: "var(--color-bg-card)" }}
                 >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
-              <Link
-                href="/games"
-                aria-label="Minigames: play a mini capture the flag"
-                title="Minigames"
-                className="icon-chip flex h-11 w-11 items-center justify-center rounded-full"
-                style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)", backgroundColor: "var(--color-bg-card)" }}
-              >
-                <Gamepad2 className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Portrait in an arch, with stickers */}
-          <div className="hidden sm:block lg:col-span-5">
-            <div className="relative mx-auto w-full max-w-[21rem] lg:mr-0">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border" style={{ borderColor: "var(--color-border)" }}>
-                <Image
-                  src={portrait}
-                  placeholder="blur"
-                  alt="Portrait of Brian Kareithi, full-stack developer based in Nairobi, Kenya"
-                  fill
-                  sizes="336px"
-                  priority
-                  className="object-cover object-center"
-                />
+                  <Gamepad2 className="w-4 h-4" />
+                </Link>
               </div>
+            </div>
 
-              <div
-                className="absolute -left-3 top-10 rounded-xl border px-4 py-2.5 backdrop-blur-md sm:-left-10"
-                style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-card) 78%, transparent)", borderColor: "var(--color-border-hover)", boxShadow: "0 14px 28px -16px rgb(20 36 138 / 0.4)" }}
-              >
-                <p className="field-label">Nairobi</p>
-                <p className="font-mono text-sm tabular-nums" style={{ color: "var(--color-text-primary)" }}>{time ?? "--:--"} EAT</p>
+            {/* Portrait, with the live Nairobi clock */}
+            <div className="hidden sm:block lg:col-span-4">
+              <div className="relative mx-auto w-full max-w-[22rem] lg:mr-0">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
+                  <Image
+                    src={portrait}
+                    placeholder="blur"
+                    alt="Portrait of Brian Kareithi, full-stack developer based in Nairobi, Kenya"
+                    fill
+                    sizes="(min-width: 1024px) 352px, 336px"
+                    priority
+                    className="object-cover object-center"
+                  />
+                </div>
+                <div className="absolute -left-3 bottom-6 px-4 py-2.5 sm:-left-8" style={{ backgroundColor: "var(--palette-espresso)", color: "var(--palette-cream)" }}>
+                  <p className="field-label" style={{ color: "var(--palette-sand)" }}>Nairobi</p>
+                  {/* Server and first client render both show --:--, so there is no mismatch; the fixed 5ch width means no shift when the time fills in. */}
+                  <p className="font-mono text-sm">
+                    <time className="inline-block w-[5ch] tabular-nums" suppressHydrationWarning>{time ?? "--:--"}</time> EAT
+                  </p>
+                </div>
               </div>
             </div>
           </div>
+
+          <dl className="hero-stats mt-16 grid grid-cols-2 border-t pt-8 sm:mt-20 sm:grid-cols-4" style={{ borderColor: "var(--hairline-strong)" }}>
+            {heroStats.map((st) => (
+              <div key={st.label} className="flex flex-col px-4 py-6 first:pl-0 sm:px-8 sm:py-2">
+                <dt className="field-label order-2">{st.label}</dt>
+                <dd className="display-xl mb-1 tabular-nums" style={{ color: "var(--color-accent)", fontSize: "clamp(3rem, 2rem + 4vw, 6.5rem)" }}>
+                  <CountUp value={st.value} suffix={st.suffix} />
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
+      </section>
 
-        <dl className="hero-stats mt-20 grid grid-cols-2 sm:grid-cols-4">
-          {heroStats.map((st) => (
-            <div key={st.label} className="flex flex-col px-4 py-6 sm:px-8 sm:py-2">
-              <dt className="field-label order-2">{st.label}</dt>
-              <dd className="display-xl mb-1 text-5xl sm:text-6xl" style={{ color: "var(--color-accent)" }}>
-                <CountUp value={st.value} suffix={st.suffix} />
-              </dd>
-            </div>
-          ))}
-        </dl>
+      {/* ── Marquee: the stack, on ink ── */}
+      <Marquee items={marqueeItems} label="Stack and focus areas" />
 
+      <section className="band-light overflow-x-clip pb-20">
+      <div className="wrap">
         <RecruiterBrief />
 
         {/* Featured work: real captures of shipped products */}
@@ -317,6 +325,7 @@ export default function HomeContent() {
           </ul>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 }
