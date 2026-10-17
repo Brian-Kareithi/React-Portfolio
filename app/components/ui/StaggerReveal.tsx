@@ -27,6 +27,9 @@ export function StaggerReveal({ children, className = "", staggerDelay = 70, thr
       return;
     }
 
+    // Already on screen at mount: leave it as server-rendered, no flash.
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+
     targets.forEach((t) => {
       t.style.opacity = "0";
       t.style.transform = "translateY(16px)";
@@ -36,7 +39,7 @@ export function StaggerReveal({ children, className = "", staggerDelay = 70, thr
     const reveal = () => {
       targets.forEach((t, index) => {
         const delay = (index * staggerDelay) / 1000;
-        t.style.transition = `opacity 0.55s var(--ease-out) ${delay}s, transform 0.55s var(--ease-out) ${delay}s`;
+        t.style.transition = `opacity 0.35s var(--ease-out) ${delay}s, transform 0.35s var(--ease-out) ${delay}s`;
         t.style.opacity = "1";
         t.style.transform = "none";
         t.addEventListener("transitionend", () => { t.style.willChange = "auto"; }, { once: true });

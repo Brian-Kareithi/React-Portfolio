@@ -995,15 +995,11 @@ html {
   max-width: min(calc(30vw + 790px), var(--content));
 }
 
-/* ── Scroll assembly ───────────────────────────────────────
-   Pieces start scattered and converge as --p (set by Assemble) goes 0 to 1.
-   --p defaults to 1, so without JS or with reduced motion the page is already assembled. */
-.assemble {
-  --p: 1;
-  opacity: calc(0.15 + 0.85 * var(--p));
-  transform: translate3d(0, calc((1 - var(--p)) * 16px), 0);
-  will-change: transform, opacity;
-}
+/* ── Reveal on scroll ───────────────────────────────────────
+   Visible by default (server HTML, no JS, reduced motion). JS marks only below-the-fold
+   pieces "out", then "in" once they enter: a 350ms fade and 16px rise. */
+.reveal[data-reveal] { transition: opacity 0.35s var(--ease-out) var(--d, 0ms), transform 0.35s var(--ease-out) var(--d, 0ms); }
+.reveal[data-reveal="out"] { opacity: 0; transform: translate3d(0, 16px, 0); }
 
 /* Hero name: letters fly in from different directions and settle. */
 @keyframes letter-in {
