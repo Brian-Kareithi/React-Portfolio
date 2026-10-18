@@ -1,33 +1,18 @@
-import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import portrait from "@/public/kareithi.jpg";
 import { MascotNote } from "@/app/components/Mascot";
 import { Github, Gamepad2, Linkedin, Mail, ArrowRight, ArrowUpRight, Command, FileDown } from "lucide-react";
-import HeroClock from "@/app/components/HeroClock";
 import PaletteButton from "@/app/components/PaletteButton";
 import Testimonials from "@/app/components/Testimonials";
 import RecruiterBrief from "@/app/components/RecruiterBrief";
 import { Assemble } from "@/app/components/ui/Assemble";
-import { CountUp } from "@/app/components/ui/CountUp";
-import Marquee from "@/app/components/Marquee";
 import FeaturedRelease from "@/app/components/FeaturedRelease";
-import FishSwim from "@/app/components/FishSwim";
 import { routes } from "@/app/lib/nav";
 import { focusAreas } from "@/app/lib/focus";
 import { caseStudies } from "@/app/lib/projects-data";
 import { siteConfig } from "@/app/lib/site";
 import { valuePoints } from "@/app/lib/value";
-
-const heroStats: { value: number; suffix?: string; label: string }[] = [
-  { value: 3, label: "Years in tech" },
-  { value: 6, label: "Certifications" },
-  { value: 50, suffix: "+", label: "Projects delivered" },
-  { value: 19, label: "Homelab devices" },
-];
-
-/** The ticker under the hero: the stack first, then the infrastructure side. */
-const marqueeItems = ["React", "Next.js", "TypeScript", "Node", "Linux", "Proxmox", "Networking", "Security"];
 
 const socials = [
   { href: siteConfig.github, icon: Github, label: "GitHub" },
@@ -46,53 +31,43 @@ export default function HomeContent() {
 
   return (
     <>
-      {/* ── Hero: light band, surname on a solid cobalt block ── */}
-      <section id="home" aria-labelledby="hero-name" className="band-light relative overflow-x-clip pt-28 pb-14 sm:pt-36 sm:pb-20">
+      {/* ── Hero: mint bar off the left edge, plum panel off the right; return visits swap them ── */}
+      <section id="home" aria-labelledby="hero-name" className="home-hero band-light overflow-x-clip">
         <div className="wrap">
-          <div className="grid items-end gap-12 lg:grid-cols-12 lg:gap-10">
-            <div className="min-w-0 lg:col-span-8">
-              <p className="stagger-item mb-7 inline-flex max-w-full items-center gap-2 rounded-lg border px-3.5 py-1.5 text-xs font-medium sm:text-[13px]" style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-primary)" }}>
-                <span className="h-2 w-2 flex-shrink-0 rounded-full" style={{ backgroundColor: "var(--color-live)" }} />
-                <span>Available for work · Remote or Nairobi</span>
+          <div className="home-hero-inner">
+            <div className="home-hero-copy">
+              <p className="hero-status stagger-item">
+                <span className="live-dot" aria-hidden="true" />
+                <span>
+                  <span className="hero-welcome">Welcome back. </span>
+                  Available for work · Nairobi / Remote
+                </span>
               </p>
 
-              <div className="flex items-start gap-4">
-                <h1 id="hero-name" className="display-xl title-hero min-w-0" style={{ color: "var(--color-text-primary)" }}>
-                  <span className="hero-letter" style={{ "--i": 0 } as CSSProperties}>Brian</span>
-                  <br />
-                  <span className="name-block hero-letter" style={{ "--i": 4 } as CSSProperties}>
-                    Kareithi
-                    <FishSwim />
-                  </span>
-                </h1>
-                {/* Phones only: small portrait beside the name so it shows on the first screen */}
-                <div className="relative ml-auto mt-2 h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl border xs:h-24 xs:w-24 sm:hidden" style={{ borderColor: "var(--color-border)" }}>
-                  <Image src={portrait} alt="Portrait of Brian Kareithi" fill sizes="96px" priority className="object-cover object-center" />
-                </div>
-              </div>
+              <h1 id="hero-name" className="hero-title">
+                <span className="hero-title-first">Brian</span>
+                <span className="name-block">Kareithi</span>
+              </h1>
 
-              <p className="stagger-item measure mt-9 mb-3 font-medium leading-snug" style={{ color: "var(--color-text-primary)", fontSize: "var(--fs-lead)" }}>
-                <strong className="font-semibold" style={{ color: "var(--color-accent)" }}>Full-stack developer</strong> with an IT and security background.
+              <p className="hero-lede stagger-item">
+                Full-stack developer with an IT and security background.
               </p>
-              <p className="stagger-item mb-9 max-w-lg text-base leading-relaxed sm:text-lg" style={{ color: "var(--color-text-secondary)" }}>
-                I build web and mobile products that hold up in the real world, from the screen to the server.
+              <p className="hero-sub stagger-item">
+                I build reliable web and mobile products, from interface to infrastructure.
               </p>
 
-              <div className="stagger-item mb-8 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
-                <Link href="/projects" className="btn-neon btn-neon-primary justify-center">
+              <div className="hero-actions stagger-item">
+                <Link href="/projects" className="btn-neon btn-neon-primary">
                   See my work
                   <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link href="/resume" className="btn-neon btn-neon-ghost justify-center">
+                <Link href="/resume" className="btn-neon btn-neon-ghost">
                   <FileDown className="w-4 h-4" />
                   Get my resume
                 </Link>
-                <Link href="/contact" className="btn-neon btn-neon-ghost justify-center">
-                  Let&apos;s talk
-                </Link>
               </div>
 
-              <div className="stagger-item flex items-center gap-2.5">
+              <div className="hero-socials stagger-item">
                 {socials.map(({ href, icon: Icon, label }) => (
                   <a
                     key={label}
@@ -100,61 +75,34 @@ export default function HomeContent() {
                     target={href.startsWith("http") ? "_blank" : undefined}
                     rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                     aria-label={label}
-                    className="icon-chip flex h-11 w-11 items-center justify-center rounded-full"
-                    style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)", backgroundColor: "var(--color-bg-card)" }}
+                    className="hero-social"
                   >
                     <Icon className="w-4 h-4" />
                   </a>
                 ))}
-                <Link
-                  href="/games"
-                  aria-label="Minigames: play a mini capture the flag"
-                  title="Minigames"
-                  className="icon-chip flex h-11 w-11 items-center justify-center rounded-full"
-                  style={{ border: "1px solid var(--color-border)", color: "var(--color-text-secondary)", backgroundColor: "var(--color-bg-card)" }}
-                >
+                <Link href="/games" aria-label="Minigames: play a mini capture the flag" title="Minigames" className="hero-social">
                   <Gamepad2 className="w-4 h-4" />
                 </Link>
               </div>
             </div>
 
-            {/* Portrait, with the live Nairobi clock */}
-            <div className="hidden sm:block lg:col-span-4 lg:self-center">
-              <div className="relative mx-auto w-full max-w-[22rem] lg:mr-0">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
-                  <Image
-                    src={portrait}
-                    placeholder="blur"
-                    alt="Portrait of Brian Kareithi, full-stack developer based in Nairobi, Kenya"
-                    fill
-                    sizes="(min-width: 1024px) 352px, 336px"
-                    priority
-                    className="object-cover object-center"
-                  />
-                </div>
-                <div className="absolute -left-3 bottom-6 px-4 py-2.5 sm:-left-8" style={{ backgroundColor: "var(--palette-espresso)", color: "var(--palette-cream)" }}>
-                  <p className="field-label" style={{ color: "var(--palette-sand)" }}>Nairobi</p>
-                  <HeroClock />
-                </div>
+            <div className="hero-portrait row-start-1 lg:col-start-2 lg:row-start-1">
+              <div className="hero-portrait-img">
+                <Image
+                  src={portrait}
+                  placeholder="blur"
+                  alt="Portrait of Brian Kareithi, full-stack developer based in Nairobi, Kenya"
+                  fill
+                  sizes="(min-width: 1024px) 400px, (min-width: 640px) 176px, 136px"
+                  priority
+                  className="object-cover object-center"
+                />
               </div>
+              <span className="hero-tag" aria-hidden="true"><span className="hero-tag-dot" />Nairobi, KE</span>
             </div>
           </div>
-
-          <dl className="hero-stats mt-16 grid grid-cols-2 border-t pt-8 sm:mt-20 sm:grid-cols-4" style={{ borderColor: "var(--hairline-strong)" }}>
-            {heroStats.map((st) => (
-              <div key={st.label} className="flex flex-col px-4 py-6 first:pl-0 sm:px-8 sm:py-2">
-                <dt className="field-label order-2">{st.label}</dt>
-                <dd className="display-xl mb-1 tabular-nums" style={{ color: "var(--color-accent)", fontSize: "clamp(3rem, 2rem + 4vw, 6.5rem)" }}>
-                  <CountUp value={st.value} suffix={st.suffix} />
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </section>
-
-      {/* ── Marquee: the stack, on ink ── */}
-      <Marquee items={marqueeItems} label="Stack and focus areas" />
 
       {/* ── The 20-second version for recruiters ── */}
       <section className="band band-tight band-light">
@@ -221,12 +169,12 @@ export default function HomeContent() {
       )}
 
       {/* ── Pull quote: one line about how I work, set huge on ink ── */}
-      <section aria-label="How I work, in one line" className="band band-dark overflow-x-clip">
+      <section aria-label="How I work, in one line" className="band band-berry overflow-x-clip">
         <div className="wrap">
           <figure>
             <blockquote>
-              <p className="display-xl pull-quote" style={{ color: "var(--palette-cream)" }}>
-                Real users, real deadlines, <span className="font-serif-accent" style={{ color: "var(--palette-sand)" }}>no room for downtime.</span>
+              <p className="display-xl pull-quote" style={{ color: "var(--color-text-primary)" }}>
+                Real users, real deadlines, <span className="font-serif-accent">no room for downtime.</span>
               </p>
             </blockquote>
             <figcaption className="mt-10 flex flex-wrap items-center justify-between gap-6">
@@ -277,7 +225,7 @@ export default function HomeContent() {
       </section>
 
       {/* ── References and tools, on ink ── */}
-      <section aria-label="References and tools" className="band band-dark overflow-x-clip">
+      <section aria-label="References and tools" className="band band-dark band-violet overflow-x-clip">
         <div className="wrap flex flex-col gap-20 sm:gap-24">
           <Testimonials />
 

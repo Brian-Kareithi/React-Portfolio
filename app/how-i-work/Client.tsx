@@ -64,8 +64,8 @@ export default function HowIWorkClient() {
                 className="grid items-center gap-3 rounded-xl border px-5 py-5 md:grid-cols-12 md:gap-6 md:px-8"
                 style={{
                   borderColor: "var(--color-border)",
-                  // Layers deepen from lavender mist to periwinkle as they go down the stack.
-                  backgroundColor: `color-mix(in srgb, var(--palette-sand) ${Math.round((i / (architecture.length - 1)) * 70)}%, var(--palette-cream))`,
+                  // Layers deepen from white toward berry as they go down the stack (berry text stays above 5:1).
+                  backgroundColor: `color-mix(in srgb, var(--palette-berry) ${Math.round((i / (architecture.length - 1)) * 16)}%, var(--palette-white))`,
                   marginLeft: `${i * 0.5}rem`,
                   marginRight: `${i * 0.5}rem`,
                 }}

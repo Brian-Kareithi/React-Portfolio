@@ -16,67 +16,89 @@
 }
 
 /* ───────────────────────────────────────────────────────────
-   Palette: Ink #131313, Soft Periwinkle #998fc7, Periwinkle #d4c2fc,
-   Lavender Mist #f9f5ff, True Cobalt #14248a. No other hues, no gradients.
-   Tones marked "derived" are steps of those five, used where a
-   surface needs to sit between them or text needs contrast.
+   Palette: Pitch Black #0d090a · Midnight Violet #361f27 · Deep Purple #521945
+            Vintage Berry #912f56 · Mint Cream #eaf2ef · plus White #ffffff
+   Roles, checked against WCAG AA:
+   - Light grounds (cream, white): text black 17.4, violet 13.4, muted 5.4.
+     Berry is the one accent that reads as text here (6.7) and the action colour.
+   - Dark grounds (black, violet, purple) sit within 1.5:1 of each other, so they
+     only ever act as surfaces. Berry fails as text on them (2.6), so on dark the
+     text is cream and berry appears only as fills and strokes (buttons, underlines).
+   - White on berry 7.65, cream on purple 11.7, cream on violet 13.4.
+   No colours outside the palette: quieter tones are opacity steps of palette colours.
    ─────────────────────────────────────────────────────────── */
 
 :root {
   color-scheme: light;
 
-  --palette-espresso: #131313;
-  --palette-taupe: #998fc7;
-  --palette-sand: #d4c2fc;
-  --palette-cream: #f9f5ff;
-  --palette-ink: #14248a;
+  --palette-black: #0d090a;
+  --palette-violet: #361f27;
+  --palette-purple: #521945;
+  --palette-berry: #912f56;
+  --palette-cream: #eaf2ef;
+  --palette-white: #ffffff;
 
-  --color-accent: var(--palette-ink);
-  --color-accent-light: #2a3cb0; /* derived */
-  --color-accent-dark: #0e1a66; /* derived */
-  --color-accent-glow: rgba(20, 36, 138, 0.12);
-  --color-accent-secondary: var(--palette-taupe);
-  --color-highlight: var(--palette-sand);
+  /* Legacy names still referenced by components */
+  --palette-espresso: var(--palette-black);
+  --palette-ink: var(--palette-black);
+  --palette-sand: var(--palette-cream);
+  --palette-taupe: var(--palette-berry);
 
-  --color-bg-primary: #f6f6f9; /* derived: neutral cool white */
-  --color-bg-secondary: #ffffff;
-  --color-bg-tertiary: #eeeef4; /* derived */
-  --color-bg-card: #ffffff;
-  --color-bg-card-hover: #fafafd; /* derived */
-  --color-bg-ink: var(--palette-espresso);
+  /* Underline stroke under serif accents */
+  --marker: var(--palette-berry);
 
-  --color-text-primary: var(--palette-espresso);
-  --color-text-secondary: #4a4752; /* derived */
-  --color-text-muted: #625e6c; /* derived */
+  --color-accent: var(--palette-berry);
+  --color-accent-dark: var(--palette-purple);
+  --color-accent-secondary: var(--palette-purple);
+  --color-on-accent: var(--palette-white);
+  --color-accent-glow: rgb(145 47 86 / 0.25);
+  --color-highlight: rgb(145 47 86 / 0.12);
+
+  /* Primary action: the same berry button on every light ground */
+  --color-action: var(--palette-berry);
+  --color-on-action: var(--palette-white);
+  --color-action-hover: var(--palette-black);
+  --color-on-action-hover: var(--palette-cream);
+
+  --color-bg-primary: var(--palette-cream);
+  --color-bg-secondary: var(--palette-white);
+  --color-bg-tertiary: var(--palette-white);
+  --color-bg-card: var(--palette-white);
+  --color-bg-card-hover: var(--palette-white);
+  --color-bg-ink: var(--palette-black);
+
+  --color-text-primary: var(--palette-black);
+  --color-text-secondary: var(--palette-violet);
+  --color-text-muted: rgb(54 31 39 / 0.8); /* violet at 80%: 7.4:1 on cream */
   --color-text-light: var(--palette-cream);
-  --color-on-accent: var(--palette-cream);
 
-  --color-border: #e1e1ea; /* derived */
-  --color-border-hover: var(--palette-taupe);
+  --color-border: rgb(54 31 39 / 0.2);
+  --color-border-hover: var(--palette-berry);
 
-  --color-glass-bg: rgba(255, 255, 255, 0.96);
-  --color-glass-nav-bg: rgba(236, 231, 246, 0.88);
-  --color-glass-nav-done: var(--palette-ink);
-  --color-glass-border: #e1e1ea;
-  --color-glass-border-strong: #c7bedc;
-  --color-glass-shadow: 0 1px 2px rgba(20, 20, 30, 0.05);
+  --color-glass-bg: rgb(234 242 239 / 0.96);
+  --color-glass-nav-bg: rgb(13 9 10 / 0.94);
+  --color-glass-nav-done: var(--palette-berry);
+  --color-glass-border: rgb(54 31 39 / 0.2);
+  --color-glass-border-strong: var(--palette-violet);
+  --color-glass-shadow: 0 1px 2px rgb(13 9 10 / 0.06);
   --color-glass-input-bg: transparent;
-  --color-glass-icon-bg: #e6dcfd; /* derived: light periwinkle */
+  --color-glass-icon-bg: var(--palette-cream);
   --color-glass-item-bg: var(--palette-cream);
 
-  --color-surface: rgba(20, 36, 138, 0.06);
-  --color-surface-strong: rgba(20, 36, 138, 0.11);
+  --color-surface: rgb(145 47 86 / 0.07);
+  --color-surface-strong: rgb(145 47 86 / 0.14);
 
-  --color-live: #22a06b;
-  --color-success: #2f6b4f;
-  --color-warning: #8a5a14;
-  --color-error: #9e2b43;
-  --color-info: var(--palette-ink);
+  /* Status text always carries a label; colour only reinforces it. */
+  --color-live: var(--palette-berry);
+  --color-success: var(--palette-purple);
+  --color-warning: var(--palette-violet);
+  --color-error: var(--palette-berry);
+  --color-info: var(--palette-black);
 
-  --shadow-sm: 0 1px 2px rgba(20, 20, 30, 0.05);
-  --shadow-md: 0 4px 12px rgba(20, 20, 30, 0.07);
-  --shadow-lg: 0 8px 24px rgba(20, 20, 30, 0.09);
-  --shadow-xl: 0 16px 40px rgba(20, 20, 30, 0.12);
+  --shadow-sm: 0 1px 2px rgb(13 9 10 / 0.06);
+  --shadow-md: 0 6px 16px -4px rgb(54 31 39 / 0.14);
+  --shadow-lg: 0 14px 32px -10px rgb(54 31 39 / 0.22);
+  --shadow-xl: 0 24px 48px -16px rgb(13 9 10 / 0.3);
 
   --hairline: color-mix(in srgb, var(--color-text-primary) 12%, transparent);
   --hairline-strong: color-mix(in srgb, var(--color-text-primary) 20%, transparent);
@@ -179,23 +201,34 @@ html {
 /* Nav and command palette: clean, near-opaque surfaces with a hairline edge. */
 .glass-nav {
   /* Dark glass (the contact-card ink): tokens flip to light so labels, icons and the search field keep contrast. */
-  --color-text-primary: #f9f5ff;
-  --color-text-secondary: #e4def2;
-  --color-text-muted: #b9b1cf;
-  --color-border: rgb(249 245 255 / 0.22);
-  --color-accent: #d4c2fc;
-  --color-accent-light: #e4d8fd;
-  --color-on-accent: #131313;
-  background: rgb(19 19 19 / 0.82);
-  border: 1px solid rgb(249 245 255 / 0.1);
+  --color-text-primary: var(--palette-cream);
+  --color-text-secondary: rgb(234 242 239 / 0.84);
+  --color-text-muted: rgb(234 242 239 / 0.7);
+  --color-accent: var(--palette-cream);
+  --color-accent-dark: var(--palette-cream);
+  --color-accent-secondary: var(--palette-berry);
+  --color-on-accent: var(--palette-black);
+  --color-action: var(--palette-berry);
+  --color-on-action: var(--palette-white);
+  --color-action-hover: var(--palette-cream);
+  --color-on-action-hover: var(--palette-black);
+  --color-border: rgb(234 242 239 / 0.16);
+  --color-border-hover: var(--palette-berry);
+  --color-live: var(--palette-cream);
+  --color-success: var(--palette-cream);
+  --color-warning: rgb(234 242 239 / 0.7);
+  --color-error: var(--palette-cream);
+  --marker: var(--palette-berry);
+  background: rgb(13 9 10 / 0.94);
+  border: 1px solid rgb(234 242 239 / 0.12);
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
-  box-shadow: 0 1px 2px rgb(20 20 30 / 0.05), 0 8px 20px -12px rgb(20 20 30 / 0.18);
+  box-shadow: 0 1px 2px rgb(13 9 10 / 0.05), 0 8px 20px -12px rgb(13 9 10 / 0.18);
 }
 .glass-panel {
   background: #fff;
   border: 1px solid var(--color-border);
-  box-shadow: 0 24px 48px -16px rgb(20 20 30 / 0.28);
+  box-shadow: 0 24px 48px -16px rgb(13 9 10 / 0.28);
 }
 
 .liquid-glass {
@@ -207,9 +240,9 @@ html {
 /* Surfaces: hairline glass-paper. Depth is a soft, cool shadow; corner ticks and a
    pointer-following spotlight appear on interaction (--mx/--my set in ClientLayout). */
 :root {
-  --surface-shadow: 0 1px 2px rgb(20 20 30 / 0.05);
-  --surface-shadow-hover: 0 2px 4px rgb(20 20 30 / 0.05), 0 10px 24px -12px rgb(20 20 30 / 0.18);
-  --spot: rgb(20 36 138 / 0.09);
+  --surface-shadow: 0 1px 2px rgb(13 9 10 / 0.05);
+  --surface-shadow-hover: 0 2px 4px rgb(13 9 10 / 0.05), 0 10px 24px -12px rgb(13 9 10 / 0.18);
+  --spot: rgb(145 47 86 / 0.18);
 }
 .liquid-card,
 .liquid-card-hover,
@@ -232,7 +265,7 @@ html {
   .liquid-card-hover:hover,
   .flat-card:hover,
   .plate:hover {
-    border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-border));
+    border-color: color-mix(in srgb, var(--color-border-hover) 75%, var(--color-border));
     background-color: var(--color-bg-card-hover);
     box-shadow: var(--surface-shadow-hover);
   }
@@ -241,32 +274,40 @@ html {
 /* Ink slab / dark band: tokens flip inside, so any content adapts. */
 .ink-slab,
 .band-dark {
-  --color-bg-card: #33303a;
-  --color-bg-card-hover: #3b3843;
-  --color-bg-secondary: #33303a;
-  --color-bg-tertiary: #3b3843;
   --color-text-primary: var(--palette-cream);
-  --color-text-secondary: #d9d2ea;
-  --color-text-muted: #aea6c4;
-  --color-accent: var(--palette-sand);
-  --color-accent-light: #e4d8fd;
-  --color-accent-dark: #bca8f6;
-  --color-accent-secondary: var(--palette-taupe);
-  --color-on-accent: var(--palette-espresso);
-  --color-highlight: #4a4458;
-  --color-border: #48434f;
-  --color-border-hover: var(--palette-taupe);
-  --color-surface: rgba(212, 194, 252, 0.08);
-  --color-surface-strong: rgba(212, 194, 252, 0.14);
-  --hairline: rgba(249, 245, 255, 0.12);
-  --hairline-strong: rgba(249, 245, 255, 0.2);
-  --surface-shadow: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 16px 30px -20px rgb(0 0 0 / 0.7);
-  --surface-shadow-hover: 0 1px 0 rgb(255 255 255 / 0.08) inset, 0 22px 40px -20px rgb(0 0 0 / 0.8);
-  --spot: rgb(212 194 252 / 0.1);
+  --color-text-secondary: rgb(234 242 239 / 0.84);
+  --color-text-muted: rgb(234 242 239 / 0.7);
+  --color-accent: var(--palette-cream);
+  --color-accent-dark: var(--palette-cream);
+  --color-accent-secondary: var(--palette-berry);
+  --color-on-accent: var(--palette-black);
+  --color-action: var(--palette-berry);
+  --color-on-action: var(--palette-white);
+  --color-action-hover: var(--palette-cream);
+  --color-on-action-hover: var(--palette-black);
+  --color-border: rgb(234 242 239 / 0.16);
+  --color-border-hover: var(--palette-berry);
+  --color-live: var(--palette-cream);
+  --color-success: var(--palette-cream);
+  --color-warning: rgb(234 242 239 / 0.7);
+  --color-error: var(--palette-cream);
+  --marker: var(--palette-berry);
+  --color-bg-card: var(--palette-violet);
+  --color-bg-card-hover: var(--palette-purple);
+  --color-bg-secondary: var(--palette-violet);
+  --color-bg-tertiary: var(--palette-purple);
+  --color-highlight: var(--palette-purple);
+  --color-surface: rgb(145 47 86 / 0.16);
+  --color-surface-strong: rgb(145 47 86 / 0.28);
+  --hairline: rgb(234 242 239 / 0.12);
+  --hairline-strong: rgb(234 242 239 / 0.2);
+  --surface-shadow: 0 1px 0 rgb(234 242 239 / 0.05) inset, 0 16px 30px -20px rgb(13 9 10 / 0.7);
+  --surface-shadow-hover: 0 1px 0 rgb(234 242 239 / 0.08) inset, 0 22px 40px -20px rgb(13 9 10 / 0.8);
+  --spot: rgb(145 47 86 / 0.22);
   position: relative;
   background-color: var(--palette-espresso);
-  border: 1px solid rgb(255 255 255 / 0.08);
-  box-shadow: 0 12px 28px -16px rgb(0 0 0 / 0.5);
+  border: 1px solid rgb(234 242 239 / 0.08);
+  box-shadow: 0 12px 28px -16px rgb(13 9 10 / 0.5);
   color: var(--color-text-primary);
   border-radius: 1rem;
 }
@@ -437,17 +478,18 @@ html {
 /* ── Scrollbars / selection / focus ────────────────────── */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-border) transparent;
+  scrollbar-color: var(--palette-berry) transparent;
 }
+input, textarea, [contenteditable] { caret-color: var(--color-accent); }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-border);
+  background-color: var(--palette-berry);
   border-radius: 3px;
 }
 ::selection {
-  background-color: var(--color-accent);
-  color: var(--color-on-accent);
+  background-color: var(--palette-berry);
+  color: var(--palette-white);
 }
 :focus-visible {
   outline: 2px solid var(--color-accent);
@@ -482,6 +524,11 @@ html {
 .display-xl .font-serif-accent {
   color: var(--color-accent);
   font-size: 1em;
+  text-decoration-line: underline;
+  text-decoration-color: var(--marker);
+  text-decoration-thickness: max(2px, 0.045em);
+  text-underline-offset: 0.14em;
+  text-decoration-skip-ink: none;
 }
 
 /* ── Buttons ───────────────────────────────────────────── */
@@ -502,11 +549,11 @@ html {
   transform: scale(0.97);
   transition-duration: 0.1s;
 }
-/* Primary: a lit cobalt lens, top edge catching light */
+/* Primary: the action colour of whatever ground it sits on */
 .btn-neon-primary {
-  background-color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  color: var(--color-on-accent);
+  background-color: var(--color-action);
+  border: 1px solid var(--color-action);
+  color: var(--color-on-action);
 }
 .btn-neon-ghost {
   border: 1px solid var(--hairline-strong);
@@ -515,8 +562,9 @@ html {
 }
 @media (hover: hover) and (pointer: fine) {
   .btn-neon-primary:hover {
-    background-color: var(--color-accent-light);
-    border-color: var(--color-accent-light);
+    background-color: var(--color-action-hover);
+    border-color: var(--color-action-hover);
+    color: var(--color-on-action-hover);
   }
   .btn-neon-primary:active {
     transform: scale(0.97);
@@ -581,7 +629,7 @@ html {
 
   body {
     background: #ffffff !important;
-    color: #28262c !important;
+    color: #0d090a !important;
   }
 
   main {
@@ -611,16 +659,16 @@ html {
   .resume-print {
     display: block !important;
     font-family: var(--font-dm-sans), Arial, Helvetica, sans-serif;
-    color: #28262c;
+    color: #0d090a;
     background: #ffffff;
     font-size: 9.2pt;
     line-height: 1.5;
   }
 
   .rp-banner {
-    background: #28262c !important;
-    color: #f9f5ff !important;
-    border-bottom: 3.5pt solid #14248a !important;
+    background: #0d090a !important;
+    color: #eaf2ef !important;
+    border-bottom: 3.5pt solid #0d090a !important;
     border-radius: 6pt;
     padding: 14pt 16pt 12pt 16pt;
     margin-bottom: 9pt;
@@ -640,11 +688,11 @@ html {
     font-weight: 500;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #d4c2fc !important;
+    color: #eaf2ef !important;
   }
 
   .rp-kicker-right {
-    color: #998fc7 !important;
+    color: #eaf2ef !important;
     letter-spacing: 0.12em;
   }
 
@@ -660,7 +708,7 @@ html {
   .rp-headline {
     font-size: 10.5pt;
     font-weight: 600;
-    color: #d4c2fc !important;
+    color: #eaf2ef !important;
     margin: 0 0 6pt 0;
   }
 
@@ -668,14 +716,14 @@ html {
     font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
     font-size: 7.4pt;
     line-height: 1.6;
-    color: #d6cfe6 !important;
+    color: #eaf2ef !important;
     margin: 0;
   }
 
   .rp-summary {
-    background: #f9f5ff !important;
-    border: 0.75pt solid #d6cfe6 !important;
-    border-left: 3pt solid #14248a !important;
+    background: #eaf2ef !important;
+    border: 0.75pt solid #361f27 !important;
+    border-left: 3pt solid #0d090a !important;
     border-radius: 4pt;
     padding: 8pt 10pt;
     margin-bottom: 10pt;
@@ -687,14 +735,14 @@ html {
     font-weight: 600;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #14248a !important;
+    color: #0d090a !important;
     margin: 0 0 3pt 0;
   }
 
   .rp-summary-text {
     font-size: 9pt;
     line-height: 1.55;
-    color: #4a4752 !important;
+    color: #361f27 !important;
     margin: 0;
   }
 
@@ -710,7 +758,7 @@ html {
   }
 
   .rp-block {
-    border: 0.75pt solid #d6cfe6 !important;
+    border: 0.75pt solid #361f27 !important;
     border-radius: 4pt;
     background: #ffffff !important;
     padding: 9pt 10pt;
@@ -720,14 +768,14 @@ html {
   }
 
   .rp-side-block {
-    background: #f9f5ff !important;
+    background: #eaf2ef !important;
   }
 
   .rp-section-head {
     display: flex;
     align-items: center;
     gap: 6pt;
-    border-bottom: 0.75pt solid #d6cfe6 !important;
+    border-bottom: 0.75pt solid #361f27 !important;
     padding-bottom: 5pt;
     margin-bottom: 7pt;
   }
@@ -736,7 +784,7 @@ html {
     width: 6pt;
     height: 6pt;
     border-radius: 50%;
-    background: #14248a !important;
+    background: #0d090a !important;
     flex-shrink: 0;
   }
 
@@ -745,7 +793,7 @@ html {
     font-weight: 800;
     letter-spacing: -0.01em;
     text-transform: none;
-    color: #28262c !important;
+    color: #0d090a !important;
     margin: 0;
   }
 
@@ -755,8 +803,8 @@ html {
     font-weight: 600;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: #14248a !important;
-    border-bottom: 0.75pt solid #d6cfe6 !important;
+    color: #0d090a !important;
+    border-bottom: 0.75pt solid #361f27 !important;
     padding-bottom: 5pt;
     margin: 0 0 7pt 0;
   }
@@ -772,7 +820,7 @@ html {
   .rp-job-title {
     font-size: 9.4pt;
     font-weight: 700;
-    color: #28262c !important;
+    color: #0d090a !important;
     margin: 0;
   }
 
@@ -781,7 +829,7 @@ html {
     font-size: 7pt;
     font-weight: 500;
     color: #ffffff !important;
-    background: #14248a !important;
+    background: #0d090a !important;
     border-radius: 3pt;
     padding: 1.5pt 5pt;
     white-space: nowrap;
@@ -801,14 +849,14 @@ html {
     gap: 6pt;
     align-items: flex-start;
     font-size: 8.8pt;
-    color: #4a4752 !important;
+    color: #361f27 !important;
   }
 
   .rp-bullet {
     width: 4.5pt;
     height: 4.5pt;
     border-radius: 50%;
-    background: #14248a !important;
+    background: #0d090a !important;
     margin-top: 4.5pt;
     flex-shrink: 0;
   }
@@ -823,7 +871,7 @@ html {
   }
 
   .rp-project + .rp-project {
-    border-top: 0.75pt solid #d6cfe6 !important;
+    border-top: 0.75pt solid #361f27 !important;
   }
 
   .rp-project:first-child {
@@ -837,13 +885,13 @@ html {
   .rp-project-title {
     font-size: 9.2pt;
     font-weight: 700;
-    color: #28262c !important;
+    color: #0d090a !important;
     margin: 0 0 1pt 0;
   }
 
   .rp-project-note {
     font-size: 8.4pt;
-    color: #625e6c !important;
+    color: #361f27 !important;
     margin: 0;
     line-height: 1.5;
   }
@@ -858,9 +906,9 @@ html {
     font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
     font-size: 7.2pt;
     font-weight: 500;
-    color: #0e1a66 !important;
-    background: rgba(20, 36, 138, 0.08) !important;
-    border: 0.75pt solid #14248a !important;
+    color: #0d090a !important;
+    background: rgba(13, 9, 10, 0.06) !important;
+    border: 0.75pt solid #0d090a !important;
     border-radius: 3pt;
     padding: 2pt 5pt;
     white-space: nowrap;
@@ -869,13 +917,13 @@ html {
   .rp-edu-degree {
     font-size: 9pt;
     font-weight: 700;
-    color: #28262c !important;
+    color: #0d090a !important;
     margin: 0 0 1pt 0;
   }
 
   .rp-edu-meta {
     font-size: 8pt;
-    color: #625e6c !important;
+    color: #361f27 !important;
     margin: 0 0 3pt 0;
   }
 
@@ -883,8 +931,8 @@ html {
     display: inline-block;
     font-size: 7.6pt;
     font-weight: 600;
-    color: #0e1a66 !important;
-    background: #e6dcfd !important;
+    color: #0d090a !important;
+    background: #eaf2ef !important;
     border-radius: 3pt;
     padding: 1.5pt 6pt;
     margin: 0;
@@ -905,7 +953,7 @@ html {
     align-items: flex-start;
     font-size: 7.8pt;
     line-height: 1.45;
-    color: #4a4752 !important;
+    color: #361f27 !important;
   }
 
   .rp-check {
@@ -915,7 +963,7 @@ html {
     width: 9pt;
     height: 9pt;
     border-radius: 50%;
-    background: #14248a !important;
+    background: #0d090a !important;
     color: #ffffff !important;
     font-size: 6.5pt;
     font-weight: 700;
@@ -938,7 +986,7 @@ html {
   }
 
   .rp-contact-row + .rp-contact-row {
-    border-top: 0.75pt solid #d6cfe6 !important;
+    border-top: 0.75pt solid #361f27 !important;
   }
 
   .rp-contact-row dt {
@@ -947,13 +995,13 @@ html {
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #625e6c !important;
+    color: #361f27 !important;
   }
 
   .rp-contact-row dd {
     font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
     font-size: 7.2pt;
-    color: #28262c !important;
+    color: #0d090a !important;
     margin: 0;
     overflow-wrap: anywhere;
   }
@@ -963,17 +1011,17 @@ html {
     justify-content: space-between;
     align-items: center;
     gap: 8pt;
-    border-top: 1.5pt solid #14248a !important;
+    border-top: 1.5pt solid #0d090a !important;
     margin-top: 2pt;
     padding-top: 6pt;
     font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
     font-size: 6.8pt;
     letter-spacing: 0.06em;
-    color: #27262a !important;
+    color: #0d090a !important;
   }
 
   .rp-footer-accent {
-    color: #14248a !important;
+    color: #0d090a !important;
     letter-spacing: 0.2em;
   }
 }
@@ -1098,12 +1146,12 @@ html {
   color: var(--color-text-primary);
   transition: color 0.2s var(--ease-out), background-color 0.2s var(--ease-out);
 }
-.nav-link:hover { color: #fff; background-color: rgb(249 245 255 / 0.12); }
-/* The selected tab is a solid periwinkle fill: the accent as the active state. */
+.nav-link:hover { color: var(--palette-white); background-color: rgb(234 242 239 / 0.1); }
+/* The selected tab is a cream chip, so it never competes with the berry Resume action. */
 .nav-link[data-active="true"],
 .nav-link[data-active="true"]:hover {
-  color: var(--palette-espresso);
-  background-color: var(--palette-sand);
+  color: var(--palette-black);
+  background-color: var(--palette-cream);
 }
 
 /* Editorial rows (home "why" list): quiet tint on hover. */
@@ -1123,7 +1171,7 @@ html {
   position: absolute;
   inset: 0;
   width: 35%;
-  background: rgb(249 245 255 / 0.18);
+  background: rgb(234 242 239 / 0.18);
   transform: translateX(-100%) skewX(-20deg);
   animation: send-sweep 1.2s ease-in-out infinite;
 }
@@ -1176,7 +1224,7 @@ html {
 
 /* CTF terminal: block caret where supported, and selection that stays readable on the dark body. */
 .ctf-input { caret-shape: block; }
-.ctf-term ::selection { background: var(--palette-sand); color: #1d1b21; }
+.ctf-term ::selection { background: var(--palette-berry); color: var(--palette-white); }
 .ctf-term { font-variant-ligatures: none; }
 
 /* Mascot: the cartoon as a small character. Mood is a data attribute; the gaze offset (--lx/--ly)
@@ -1206,6 +1254,88 @@ html {
 
 /* Mobile menu sheet: a solid page-colour sheet. */
 .menu-sheet { background-color: var(--color-bg-primary); }
+
+/* Minimal portfolio layer: quieter geometry, clear hierarchy, deliberate depth. */
+:root {
+  --nav-surface: var(--palette-black);
+  --nav-ink: var(--palette-cream);
+  --nav-active: var(--palette-cream);
+  --surface-shadow: 0 1px 2px rgb(13 9 10 / 0.04);
+  --surface-shadow-hover: 0 8px 22px -14px rgb(54 31 39 / 0.3);
+}
+.site-nav {
+  --color-text-primary: var(--palette-cream);
+  --color-text-secondary: rgb(234 242 239 / 0.84);
+  --color-text-muted: rgb(234 242 239 / 0.7);
+  --color-accent: var(--palette-cream);
+  --color-accent-dark: var(--palette-cream);
+  --color-accent-secondary: var(--palette-berry);
+  --color-on-accent: var(--palette-black);
+  --color-action: var(--palette-berry);
+  --color-on-action: var(--palette-white);
+  --color-action-hover: var(--palette-cream);
+  --color-on-action-hover: var(--palette-black);
+  --color-border: rgb(234 242 239 / 0.16);
+  --color-border-hover: var(--palette-berry);
+  --color-live: var(--palette-cream);
+  --color-success: var(--palette-cream);
+  --color-warning: rgb(234 242 239 / 0.7);
+  --color-error: var(--palette-cream);
+  --marker: var(--palette-berry);
+  --color-accent: var(--nav-active);
+  background: var(--nav-surface);
+  border: 1px solid var(--palette-violet);
+  box-shadow: var(--shadow-md);
+}
+.site-nav .nav-link:hover { color: var(--palette-white); background-color: rgb(234 242 239 / 0.1); }
+.site-nav .nav-link[data-active="true"],
+.site-nav .nav-link[data-active="true"]:hover { color: var(--palette-black); background: var(--nav-active); }
+.site-nav .btn-neon-ghost { color: var(--nav-ink); border-color: rgb(234 242 239 / 0.28); }
+.site-nav .btn-neon-ghost:hover { background: rgb(234 242 239 / 0.1); color: var(--palette-white); }
+.site-nav .nav-focus:focus-visible { outline-color: var(--nav-active); }
+.site-nav button:hover { color: var(--palette-white) !important; }
+.hero-social {
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero-social:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--color-accent); color: var(--color-accent); }
+}
+.hero-social:active { transform: translateY(0) scale(0.97); box-shadow: var(--shadow-sm); }
+.hero-social:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-social { transition: none; }
+}
+.compact-footer { padding-block: 1rem; }
+.compact-footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; }
+.compact-footer-brand { display: flex; align-items: baseline; gap: 0.75rem; font-size: 0.75rem; white-space: nowrap; }
+.compact-footer-nav, .compact-footer-actions { display: flex; align-items: center; gap: 0.75rem; }
+.compact-footer-nav { font-size: 0.75rem; }
+.compact-footer-actions a { display: inline-flex; min-width: 2rem; min-height: 2rem; align-items: center; justify-content: center; color: var(--color-text-secondary); }
+.compact-footer-actions svg { width: 1rem; height: 1rem; }
+.compact-footer-actions a:hover { color: var(--color-accent); }
+.display-xl {
+  font-family: var(--font-dm-sans), Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+.field-label { letter-spacing: 0.16em; }
+.flat-card, .liquid-card, .liquid-card-hover {
+  border-radius: 0.65rem;
+  box-shadow: var(--surface-shadow);
+}
+.flat-card:hover, .liquid-card:hover, .liquid-card-hover:hover {
+  box-shadow: var(--surface-shadow-hover);
+}
+.btn-neon { border-radius: 0.4rem; }
+.band { padding-block: clamp(3.5rem, 3rem + 4vw, 6.5rem); }
+@media (max-width: 639px) {
+  .compact-footer-inner { align-items: flex-start; flex-direction: column; }
+  .compact-footer-nav { flex-wrap: wrap; }
+  .compact-footer-brand { flex-wrap: wrap; }
+}
 
 /* ═══════════════════════════════════════════════════════════
    Bands: full-bleed sections that alternate light, ink and cobalt
@@ -1238,37 +1368,97 @@ html {
   box-shadow: none;
 }
 
-/* Cobalt band: the accent as a solid block behind key moments.
-   Every pair below is AA: cream 11.8, periwinkle 7.8, muted 7.0, on the card tone cream 10.1. */
-.band-accent,
-.accent-block {
-  --color-bg-card: #1c2e9e; /* derived: one step up from cobalt */
-  --color-bg-card-hover: #22349f; /* derived */
-  --color-bg-secondary: #1c2e9e;
-  --color-bg-tertiary: #22349f;
-  --color-text-primary: var(--palette-cream);
-  --color-text-secondary: #d9d2f5; /* derived: cream toward periwinkle */
-  --color-text-muted: #c3bbea; /* derived */
-  --color-accent: var(--palette-sand);
-  --color-accent-light: #e4d8fd;
-  --color-accent-dark: #bca8f6;
-  --color-accent-secondary: var(--palette-sand);
-  --color-on-accent: var(--palette-ink);
-  --color-highlight: #22349f;
-  --color-border: rgb(249 245 255 / 0.24);
-  --color-border-hover: var(--palette-sand);
-  --color-surface: rgb(249 245 255 / 0.08);
-  --color-surface-strong: rgb(249 245 255 / 0.14);
-  --hairline: rgb(249 245 255 / 0.18);
-  --hairline-strong: rgb(249 245 255 / 0.3);
-  --surface-shadow: none;
-  --surface-shadow-hover: none;
-  --spot: rgb(212 194 252 / 0.12);
-  background-color: var(--palette-ink);
+/* ── Ground roles ───────────────────────────────────────────
+   Black frames the site (nav, footer, terminal). Violet holds proof and data
+   panels. Purple marks "where to next" and the current build. Berry is the
+   brand moment and every interaction. Each dark ground keeps the dark token set
+   above; only the surface and its cards change. */
+
+/* Violet: proof and data panels (ink slabs) and the home tools band. Cards drop to black. */
+.ink-slab,
+.band-violet {
+  --color-bg-card: var(--palette-black);
+  --color-bg-card-hover: var(--palette-purple);
+  --color-bg-secondary: var(--palette-black);
+  --color-bg-tertiary: var(--palette-purple);
+  --color-highlight: var(--palette-black);
+  --spot: rgb(145 47 86 / 0.3);
+  background-color: var(--palette-violet);
+}
+.ink-slab { border-color: rgb(234 242 239 / 0.1); }
+
+/* Berry: one full band per page at most, for the loudest line. White on berry 7.65,
+   cream 6.7; quieter text is white at 86% (6.0). The action flips to cream. */
+.band-berry {
+  --color-text-primary: var(--palette-white);
+  --color-text-secondary: rgb(255 255 255 / 0.92);
+  --color-text-muted: rgb(255 255 255 / 0.86);
+  --color-accent: var(--palette-white);
+  --color-accent-secondary: var(--palette-cream);
+  --color-on-accent: var(--palette-berry);
+  --color-action: var(--palette-cream);
+  --color-on-action: var(--palette-berry);
+  --color-action-hover: var(--palette-black);
+  --color-on-action-hover: var(--palette-cream);
+  --color-border: rgb(255 255 255 / 0.3);
+  --color-border-hover: var(--palette-white);
+  --color-surface: rgb(255 255 255 / 0.1);
+  --hairline: rgb(255 255 255 / 0.2);
+  --hairline-strong: rgb(255 255 255 / 0.36);
+  --marker: var(--palette-black);
+  background-color: var(--palette-berry);
   color: var(--color-text-primary);
 }
-.band-accent ::selection,
-.band-dark ::selection { background-color: var(--palette-sand); color: var(--palette-espresso); }
+.band-berry ::selection { background-color: var(--palette-black); color: var(--palette-cream); }
+
+/* Purple band: the deep counter-ground behind the current build.
+   Cream on purple 11.7. Cards are violet. Berry blends into purple (1.7),
+   so the action here is a cream button that turns berry on hover. */
+.band-accent,
+.accent-block {
+  --color-text-primary: var(--palette-cream);
+  --color-text-secondary: rgb(234 242 239 / 0.84);
+  --color-text-muted: rgb(234 242 239 / 0.7);
+  --color-accent: var(--palette-cream);
+  --color-accent-dark: var(--palette-cream);
+  --color-accent-secondary: var(--palette-berry);
+  --color-on-accent: var(--palette-black);
+  --color-action: var(--palette-berry);
+  --color-on-action: var(--palette-white);
+  --color-action-hover: var(--palette-cream);
+  --color-on-action-hover: var(--palette-black);
+  --color-border: rgb(234 242 239 / 0.16);
+  --color-border-hover: var(--palette-berry);
+  --color-live: var(--palette-cream);
+  --color-success: var(--palette-cream);
+  --color-warning: rgb(234 242 239 / 0.7);
+  --color-error: var(--palette-cream);
+  --marker: var(--palette-berry);
+  --color-action: var(--palette-cream);
+  --color-on-action: var(--palette-purple);
+  --color-action-hover: var(--palette-berry);
+  --color-on-action-hover: var(--palette-white);
+  --color-border-hover: var(--palette-cream);
+  --color-accent-secondary: var(--palette-cream);
+  --marker: var(--palette-cream);
+  --color-bg-card: var(--palette-violet);
+  --color-bg-card-hover: var(--palette-black);
+  --color-bg-secondary: var(--palette-violet);
+  --color-bg-tertiary: var(--palette-black);
+  --color-highlight: var(--palette-violet);
+  --color-border: rgb(234 242 239 / 0.2);
+  --color-surface: rgb(234 242 239 / 0.06);
+  --color-surface-strong: rgb(234 242 239 / 0.1);
+  --hairline: rgb(234 242 239 / 0.18);
+  --hairline-strong: rgb(234 242 239 / 0.3);
+  --surface-shadow: none;
+  --surface-shadow-hover: none;
+  --spot: rgb(234 242 239 / 0.1);
+  background-color: var(--palette-purple);
+  color: var(--color-text-primary);
+}
+.band-accent ::selection { background-color: var(--palette-cream); color: var(--palette-purple); }
+.band-dark ::selection { background-color: var(--palette-berry); color: var(--palette-white); }
 
 /* Break out of a centred container to the full viewport width. */
 .bleed {
@@ -1290,29 +1480,9 @@ html {
   content: "";
   width: 1.5rem;
   height: 2px;
-  background-color: var(--color-accent);
+  background-color: var(--color-accent-secondary);
 }
 
-/* Hero name: the surname sits on a solid cobalt block that runs off the left edge. */
-.name-block {
-  display: inline-block;
-  position: relative;
-  padding: 0.04em 0.18em 0.1em 0;
-  background-color: var(--palette-ink);
-  color: var(--palette-cream);
-}
-/* The block runs off the left edge of the viewport. */
-.name-block::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 100%;
-  width: 100vw;
-  background-color: var(--palette-ink);
-}
-.name-block.hero-letter { transform: none; padding-right: 0.22em; }
-.name-block ::selection { background-color: var(--palette-sand); color: var(--palette-ink); }
 
 /* ── Marquee ──────────────────────────────────────────────── */
 .marquee {
@@ -1434,13 +1604,11 @@ html[data-boot] { overflow: hidden; }
 .index-card { transition: background-color 0.2s var(--ease-out), border-color 0.2s var(--ease-out), color 0.2s; }
 .index-card:hover,
 .index-card:focus-visible {
-  background-color: var(--palette-ink) !important;
-  border-color: var(--palette-ink) !important;
+  background-color: var(--palette-berry) !important;
+  border-color: var(--palette-berry) !important;
 }
 .index-card:hover *,
-.index-card:focus-visible * { color: var(--palette-cream) !important; }
-.index-card:hover .index-num,
-.index-card:focus-visible .index-num { color: var(--palette-sand) !important; }
+.index-card:focus-visible * { color: var(--palette-white) !important; }
 
 /* Each marquee group is at least a viewport wide, so the loop never shows a gap on wide screens. */
 .marquee-group { min-width: 100vw; justify-content: space-around; }
@@ -1470,8 +1638,6 @@ html[data-boot] { overflow: hidden; }
 
 /* Fish in the cobalt name bar: a layer behind the surname, inside a taller bar.
    Stacking inside .name-block: bar background, left bleed (-2), fish (-1), then the name on top. */
-.name-block { isolation: isolate; padding-block: 0.16em 0.2em; }
-.name-block::before { z-index: -2; }
 .fish-swim {
   position: absolute;
   top: 0;
@@ -1483,3 +1649,212 @@ html[data-boot] { overflow: hidden; }
   pointer-events: none;
   opacity: 0.75;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Home hero: cream stage. The surname rides a berry bar that runs off the
+   left edge; the portrait stands on a purple panel that runs off the right.
+   Both share one colour: berry, or purple on alternate return visits (html[data-visit="even"]).
+   ═══════════════════════════════════════════════════════════ */
+.home-hero {
+  --hero-bar: var(--palette-berry);
+  --hero-panel: var(--hero-bar); /* the portrait panel always matches the name bar */
+  --edge: max(var(--gutter), (100vw - var(--content)) / 2);
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 100svh;
+  align-items: center;
+  padding-block: 6.5rem 3rem;
+}
+html[data-visit="even"] .home-hero {
+  --hero-bar: var(--palette-purple);
+}
+.home-hero-inner { display: grid; width: 100%; gap: 2.25rem; }
+.home-hero-copy { max-width: 44rem; }
+
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+.hero-welcome { color: var(--color-text-primary); font-weight: 600; }
+
+/* Live dot: berry on light grounds, cream on dark. */
+.live-dot {
+  position: relative;
+  width: 0.6rem;
+  height: 0.6rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background-color: var(--color-live);
+}
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: var(--color-live);
+  animation: live-ping 2.4s var(--ease-out) infinite;
+}
+@keyframes live-ping { 0% { transform: scale(1); opacity: 0.7; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
+
+.hero-title {
+  margin-top: 1.25rem;
+  font-size: clamp(3rem, 1.4rem + 6.8vw, 6rem);
+  font-weight: 650;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+}
+.hero-title-first { display: block; }
+
+/* The surname bar. Clip-path wipes it in once; the left bleed is part of the box via ::before. */
+.name-block {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  margin-top: 0.08em;
+  padding: 0.08em 0.22em 0.14em 0;
+  background-color: var(--hero-bar);
+  color: var(--palette-white);
+  transition: background-color 0.6s var(--ease-out);
+  animation: bar-in 0.8s var(--ease-out) 0.15s both;
+}
+.name-block::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  width: 100vw;
+  background-color: inherit;
+}
+.name-block ::selection,
+.name-block::selection { background-color: var(--palette-cream); color: var(--palette-black); }
+@keyframes bar-in {
+  from { clip-path: inset(0 100% 0 -100vw); }
+  to { clip-path: inset(0 0 0 -100vw); }
+}
+
+.hero-lede {
+  max-width: 34ch;
+  margin-top: 1.75rem;
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+.hero-sub {
+  max-width: 46ch;
+  margin-top: 0.75rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+.hero-socials { display: flex; align-items: center; gap: 0.625rem; margin-top: 1.75rem; }
+
+.hero-social {
+  display: flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+  background-color: var(--palette-white);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero-social:hover {
+    transform: translateY(-3px);
+    background-color: var(--hero-bar);
+    border-color: var(--hero-bar);
+    color: var(--palette-white);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* Portrait: on phones a framed print on a plum mat; from lg it stands on the bleeding panel. */
+.hero-portrait {
+  position: relative;
+  width: 8.5rem;
+  aspect-ratio: 4 / 5;
+  padding: 0.4rem;
+  border-radius: 0.9rem;
+  background-color: var(--hero-panel);
+  transition: background-color 0.6s var(--ease-out);
+}
+.hero-portrait-img {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0.6rem;
+  box-shadow: var(--shadow-lg);
+}
+.hero-portrait-img img { transition: transform 0.6s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .hero-portrait:hover .hero-portrait-img img { transform: scale(1.035); }
+}
+.hero-tag {
+  position: absolute;
+  left: 50%;
+  bottom: -0.9rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  border: 1px solid var(--palette-black);
+  border-radius: 9999px;
+  padding: 0.3rem 0.75rem;
+  background-color: var(--palette-black);
+  color: var(--palette-cream);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+}
+.hero-tag { display: inline-flex; align-items: center; gap: 0.45rem; }
+.hero-tag-dot { width: 0.4rem; height: 0.4rem; border-radius: 9999px; background-color: var(--palette-cream); }
+
+@media (min-width: 640px) {
+  .hero-portrait { width: 11rem; }
+}
+@media (min-width: 1024px) {
+  .home-hero { padding-block: 7rem 4rem; }
+  .home-hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: calc(var(--edge) + clamp(14rem, 22vw, 20rem));
+    background-color: var(--hero-panel);
+    transition: background-color 0.6s var(--ease-out);
+  }
+  .home-hero-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(19rem, 25rem);
+    align-items: center;
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+  .hero-portrait {
+    width: 100%;
+    height: min(64vh, 34rem);
+    aspect-ratio: auto;
+    padding: 0;
+    background-color: transparent;
+  }
+  .hero-portrait-img { border-radius: 0.9rem; box-shadow: var(--shadow-xl); }
+  .hero-tag { left: 1.25rem; transform: none; bottom: 1.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .name-block { animation: none; }
+  .live-dot::after { animation: none; opacity: 0; }
+  .hero-portrait-img img, .name-block, .hero-portrait, .home-hero::before { transition: none; }
+}
+.hero-welcome { display: none; }
+html[data-return] .hero-welcome { display: inline; }

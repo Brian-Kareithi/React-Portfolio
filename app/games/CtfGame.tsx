@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type FormEvent, type KeyboardEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties, type FormEvent, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { Flag, RotateCcw } from "lucide-react";
 import { complete, isDecoy, missions, prompt, runCommand, startDir, type CommandResult } from "@/app/lib/ctf";
@@ -156,8 +156,13 @@ export default function CtfGame() {
 
   const hintsUsed = Object.values(hintLevel).reduce((x, y) => x + y, 0);
 
-  const lineColor = (kind: Line["kind"]) =>
-    kind === "ok" ? "#7ee0b0" : kind === "err" ? "#f2a0b0" : "var(--palette-cream)";
+  // Output is cream; a capture is white and bold; an error keeps cream text with a berry wavy underline.
+  const lineStyle = (kind: Line["kind"]): CSSProperties =>
+    kind === "ok"
+      ? { color: "var(--palette-white)", fontWeight: 600 }
+      : kind === "err"
+        ? { color: "var(--palette-cream)", textDecoration: "underline wavy var(--palette-berry)", textUnderlineOffset: "4px" }
+        : { color: "rgb(234 242 239 / 0.84)" };
 
   return (
     <div className="grid gap-4 lg:grid-cols-12 lg:items-start">
@@ -165,16 +170,16 @@ export default function CtfGame() {
       <div className="lg:col-span-8">
         <div
           className="ctf-term overflow-hidden rounded-xl border"
-          style={{ backgroundColor: "#1d1b21", borderColor: "rgb(249 245 255 / 0.14)", boxShadow: "var(--shadow-xl)" }}
+          style={{ backgroundColor: "var(--palette-black)", borderColor: "rgb(234 242 239 / 0.14)", boxShadow: "var(--shadow-xl)" }}
           onClick={() => inputRef.current?.focus()}
         >
-          <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: "rgb(249 245 255 / 0.1)", backgroundColor: "#26232b" }}>
+          <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: "rgb(234 242 239 / 0.1)", backgroundColor: "var(--palette-violet)" }}>
             <span className="flex gap-1.5" aria-hidden="true">
-              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "#f2a0b0" }} />
-              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-sand)" }} />
-              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "#7ee0b0" }} />
+              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-berry)" }} />
+              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-purple)" }} />
+              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-cream)" }} />
             </span>
-            <span className="flex-1 text-center font-mono text-[11px]" style={{ color: "var(--palette-taupe)" }}>
+            <span className="flex-1 text-center font-mono text-[11px]" style={{ color: "rgb(234 242 239 / 0.7)" }}>
               guest@lab: {cwd === startDir ? "~" : cwd} · sandbox
             </span>
             <span className="w-12" aria-hidden="true" />
@@ -190,17 +195,17 @@ export default function CtfGame() {
             {lines.map((l, i) =>
               l.kind === "cmd" ? (
                 <p key={i} className="whitespace-pre-wrap break-words">
-                  <span style={{ color: "var(--palette-taupe)" }}>{l.prompt}</span> <span>{l.text}</span>
+                  <span style={{ color: "rgb(234 242 239 / 0.7)" }}>{l.prompt}</span> <span>{l.text}</span>
                 </p>
               ) : (
-                <p key={i} className="whitespace-pre-wrap break-words" style={{ color: lineColor(l.kind) }}>
+                <p key={i} className="whitespace-pre-wrap break-words" style={lineStyle(l.kind)}>
                   {l.text}
                 </p>
               ),
             )}
 
             <form onSubmit={onSubmit} className="flex items-center gap-2">
-              <label htmlFor="ctf-input" className="flex-shrink-0" style={{ color: "var(--palette-taupe)" }}>
+              <label htmlFor="ctf-input" className="flex-shrink-0" style={{ color: "rgb(234 242 239 / 0.7)" }}>
                 {prompt(cwd)}
               </label>
               <input
@@ -214,7 +219,7 @@ export default function CtfGame() {
                 autoCorrect="off"
                 spellCheck={false}
                 className="ctf-input min-w-0 flex-1 bg-transparent py-0.5 outline-none"
-                style={{ color: "var(--palette-cream)", caretColor: "var(--palette-sand)" }}
+                style={{ color: "var(--palette-cream)", caretColor: "var(--palette-white)" }}
               />
             </form>
           </div>

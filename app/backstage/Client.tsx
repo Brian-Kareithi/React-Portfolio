@@ -47,7 +47,7 @@ export default function BackstageClient() {
             </p>
             <pre
               className="overflow-x-auto rounded-lg border p-4 font-mono text-[12px]"
-              style={{ borderColor: "var(--color-border)", backgroundColor: "rgba(0,0,0,0.25)", color: "var(--color-text-primary)" }}
+              style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-surface)", color: "var(--color-text-primary)" }}
             >
               {BLOB}
             </pre>
@@ -72,7 +72,7 @@ export default function BackstageClient() {
               <button type="submit" className="btn-neon btn-neon-primary justify-center">Submit</button>
             </form>
             {state === "wrong" && (
-              <p role="status" className="text-sm" style={{ color: "#f0a0a0" }}>
+              <p role="status" className="text-sm" style={{ color: "var(--color-error)" }}>
                 Not it. Check the casing and the braces, and decode the whole string.
               </p>
             )}

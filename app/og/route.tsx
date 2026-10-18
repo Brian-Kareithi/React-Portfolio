@@ -22,13 +22,13 @@ export async function GET(request: Request) {
           width: "100%",
           height: "100%",
           display: "flex",
-          backgroundColor: "#ece7f6",
+          backgroundColor: "#eaf2ef",
           padding: 64,
           position: "relative",
           fontFamily: "sans-serif",
         }}
       >
-        {/* Periwinkle glow */}
+        {/* Plum disc */}
         <div
           style={{
             position: "absolute",
@@ -37,7 +37,7 @@ export async function GET(request: Request) {
             width: 560,
             height: 560,
             borderRadius: 9999,
-            backgroundColor: "#d4c2fc",
+            backgroundColor: "#912f56",
             display: "flex",
           }}
         />
@@ -52,23 +52,23 @@ export async function GET(request: Request) {
                 width: 72,
                 height: 72,
                 borderRadius: 20,
-                backgroundColor: "#f9f5ff",
-                border: "2px solid #d6cfe6",
-                boxShadow: "5px 5px 0 #998fc7",
+                backgroundColor: "#eaf2ef",
+                border: "2px solid #0d090a",
+                boxShadow: "0 10px 24px -8px rgba(13, 9, 10, 0.3)",
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={logoSrc} width={56} height={56} alt="" />
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontSize: 28, fontWeight: 700, color: "#28262c" }}>{siteConfig.name}</span>
-              <span style={{ fontSize: 20, color: "#625e6c" }}>kareithi.vercel.app</span>
+              <span style={{ fontSize: 28, fontWeight: 700, color: "#0d090a" }}>{siteConfig.name}</span>
+              <span style={{ fontSize: 20, color: "#361f27" }}>kareithi.vercel.app</span>
             </div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", maxWidth: 900 }}>
-            <span style={{ fontSize: 88, fontWeight: 700, color: "#28262c", lineHeight: 1.05, letterSpacing: -2 }}>{title}</span>
-            <span style={{ marginTop: 20, fontSize: 30, color: "#4a4752", lineHeight: 1.35 }}>{subtitle}</span>
+            <span style={{ fontSize: 88, fontWeight: 700, color: "#0d090a", lineHeight: 1.05, letterSpacing: -2 }}>{title}</span>
+            <span style={{ marginTop: 20, fontSize: 30, color: "#361f27", lineHeight: 1.35 }}>{subtitle}</span>
           </div>
 
           <div style={{ display: "flex", gap: 12 }}>
@@ -80,9 +80,9 @@ export async function GET(request: Request) {
                   fontSize: 22,
                   padding: "10px 22px",
                   borderRadius: 9999,
-                  backgroundColor: tag === "Full-Stack Developer" ? "#14248a" : "#f9f5ff",
-                  color: tag === "Full-Stack Developer" ? "#f9f5ff" : "#28262c",
-                  border: "2px solid #14248a",
+                  backgroundColor: tag === "Full-Stack Developer" ? "#0d090a" : "#521945",
+                  color: tag === "Full-Stack Developer" ? "#eaf2ef" : "#eaf2ef",
+                  border: "2px solid #0d090a",
                 }}
               >
                 {tag}

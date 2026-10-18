@@ -104,7 +104,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed z-[60] mx-auto overflow-hidden glass-nav transition-[top,left,right,max-width,border-radius,box-shadow] duration-300 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]"
+        className="site-nav fixed z-[60] mx-auto overflow-hidden transition-[top,left,right,max-width,border-radius,box-shadow] duration-300 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]"
         style={{
           top: scrolled ? 0 : 14,
           left: scrolled ? 0 : "clamp(1rem, 3vw, 2rem)",
