@@ -3,13 +3,13 @@ import type { CaseStudy } from "@/app/lib/projects-data";
 import type { ProjectDoc } from "@/app/lib/project-docs";
 import { siteConfig } from "@/app/lib/site";
 
-// Palette mirrors the site (cobalt, shadow grey, lavender), as fixed hex so the PDF never depends on theme.
-const COBALT = "#14248a";
-const INK = "#28262c";
-const MUTED = "#6b667a";
-const RULE = "#d6cfe6";
-const TINT = "#f1eef9";
-const PERI = "#c5cbff";
+// Palette mirrors the site (berry banner, mint-cream tints, violet secondary text), as fixed hex so the PDF never depends on theme.
+const COBALT = "#912f56"; // vintage berry: banner, headings, accents
+const INK = "#0d090a";
+const MUTED = "#361f27"; // midnight violet
+const RULE = "rgba(54, 31, 39, 0.2)"; // violet at 20%
+const TINT = "#eaf2ef"; // mint cream
+const PERI = "#eaf2ef"; // mint cream, on the berry banner (6.7:1)
 
 const s = StyleSheet.create({
   page: { fontFamily: "Helvetica", fontSize: 8.8, color: INK, lineHeight: 1.42, backgroundColor: "#ffffff", paddingBottom: 34 },

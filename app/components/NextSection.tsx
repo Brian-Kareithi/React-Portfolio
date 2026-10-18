@@ -42,7 +42,7 @@ export default function NextSection({
   }, []);
 
   return (
-    <section className="ink-slab mt-16 xs:mt-20 sm:mt-24 px-6 py-10 xs:px-8 sm:px-12 sm:py-14">
+    <section className="ink-slab accent-block mt-16 xs:mt-20 sm:mt-24 px-6 py-10 xs:px-8 sm:px-12 sm:py-14">
       <div className="grid gap-8 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <p className="field-label mb-4 flex items-center gap-2">

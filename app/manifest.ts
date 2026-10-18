@@ -11,8 +11,8 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["portfolio", "technology"],
     start_url: "/",
     display: "standalone",
-    background_color: "#ece7f6",
-    theme_color: "#ece7f6",
+    background_color: "#eaf2ef",
+    theme_color: "#eaf2ef",
     icons: [
       { src: "/favicon_io/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
       { src: "/favicon_io/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },

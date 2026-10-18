@@ -10,9 +10,9 @@ interface Attempt {
 }
 
 const VERDICT: Record<Verdict, { label: string; color: string }> = {
-  good: { label: "Good call", color: "var(--palette-sand)" },
-  detour: { label: "A detour", color: "#e8c27a" },
-  wrong: { label: "Wrong turn", color: "#f0a0a0" },
+  good: { label: "Good call", color: "var(--color-success)" },
+  detour: { label: "A detour", color: "var(--color-warning)" },
+  wrong: { label: "Wrong turn", color: "var(--color-error)" },
 };
 
 // A case file you drive yourself. Pick the next diagnostic step from three; wasted moves are
@@ -79,7 +79,7 @@ export default function DebugIt() {
           <>
             <pre
               className="overflow-x-auto rounded-lg border p-4 font-mono text-[12px] leading-relaxed"
-              style={{ borderColor: "var(--color-border)", backgroundColor: "rgba(0,0,0,0.25)", color: "var(--color-text-primary)" }}
+              style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-surface)", color: "var(--color-text-primary)" }}
               aria-label="Evidence"
             >
               {node.evidence.join("\n")}
