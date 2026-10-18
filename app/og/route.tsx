@@ -28,7 +28,7 @@ export async function GET(request: Request) {
           fontFamily: "sans-serif",
         }}
       >
-        {/* Plum disc */}
+        {/* Vintage Berry disc */}
         <div
           style={{
             position: "absolute",
@@ -80,7 +80,7 @@ export async function GET(request: Request) {
                   fontSize: 22,
                   padding: "10px 22px",
                   borderRadius: 9999,
-                  backgroundColor: tag === "Full-Stack Developer" ? "#0d090a" : "#521945",
+                  backgroundColor: tag === "Full-Stack Developer" ? "#0d090a" : "#912f56",
                   color: tag === "Full-Stack Developer" ? "#eaf2ef" : "#eaf2ef",
                   border: "2px solid #0d090a",
                 }}

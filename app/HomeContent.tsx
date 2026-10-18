@@ -31,7 +31,7 @@ export default function HomeContent() {
 
   return (
     <>
-      {/* ── Hero: mint bar off the left edge, plum panel off the right; return visits swap them ── */}
+      {/* ── Hero: berry bar off the left edge, coordinated color panel off the right ── */}
       <section id="home" aria-labelledby="hero-name" className="home-hero band-light overflow-x-clip">
         <div className="wrap">
           <div className="home-hero-inner">
@@ -111,7 +111,7 @@ export default function HomeContent() {
         </div>
       </section>
 
-      {/* ── Now building: the current client project, on cobalt ── */}
+      {/* ── Now building: the current client project, on berry ── */}
       <FeaturedRelease />
 
       {/* ── Proof: shipped products, light band ── */}

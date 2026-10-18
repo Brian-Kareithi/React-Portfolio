@@ -176,7 +176,7 @@ export default function CtfGame() {
           <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: "rgb(234 242 239 / 0.1)", backgroundColor: "var(--palette-violet)" }}>
             <span className="flex gap-1.5" aria-hidden="true">
               <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-berry)" }} />
-              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-purple)" }} />
+              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-berry)" }} />
               <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-cream)" }} />
             </span>
             <span className="flex-1 text-center font-mono text-[11px]" style={{ color: "rgb(234 242 239 / 0.7)" }}>

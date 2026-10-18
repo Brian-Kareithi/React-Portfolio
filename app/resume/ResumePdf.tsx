@@ -4,58 +4,57 @@ import { resumeCertifications, resumeEducation, resumeHistory } from "@/app/lib/
 import { siteConfig } from "@/app/lib/site";
 
 // Palette mirrors the site (berry banner, mint-cream tints, violet secondary text), as fixed hex so the PDF never depends on theme.
-const COBALT = "#912f56"; // vintage berry: banner, headings, accents
+const BERRY = "#912f56";
 const INK = "#0d090a";
-const MUTED = "#361f27"; // midnight violet
-const RULE = "rgba(54, 31, 39, 0.2)"; // violet at 20%
-const TINT = "#eaf2ef"; // mint cream
-const PERI = "#eaf2ef"; // mint cream, on the berry banner (6.7:1)
+const VIOLET = "#361f27";
+const RULE = "rgba(54, 31, 39, 0.2)";
+const CREAM = "#eaf2ef";
 
 const s = StyleSheet.create({
-  page: { fontFamily: "Helvetica", fontSize: 8.6, color: INK, lineHeight: 1.4, backgroundColor: "#ffffff" },
-  banner: { backgroundColor: COBALT, paddingHorizontal: 32, paddingTop: 22, paddingBottom: 16 },
-  kicker: { fontSize: 7, letterSpacing: 1.6, color: PERI, textTransform: "uppercase", marginBottom: 8 },
-  name: { fontFamily: "Helvetica-Bold", fontSize: 28, color: "#ffffff", letterSpacing: -0.5 },
-  headline: { fontFamily: "Times-Italic", fontSize: 14, color: PERI, marginTop: 3 },
+  page: { fontFamily: "Helvetica", fontSize: 8.6, color: INK, lineHeight: 1.4, backgroundColor: CREAM },
+  banner: { backgroundColor: BERRY, paddingHorizontal: 32, paddingTop: 22, paddingBottom: 16 },
+  kicker: { fontSize: 7, letterSpacing: 1.6, color: CREAM, textTransform: "uppercase", marginBottom: 8 },
+  name: { fontFamily: "Helvetica-Bold", fontSize: 28, color: CREAM, letterSpacing: -0.5 },
+  headline: { fontFamily: "Times-Italic", fontSize: 14, color: CREAM, marginTop: 3 },
   contactRow: { flexDirection: "row", flexWrap: "wrap", marginTop: 12 },
-  contactItem: { fontSize: 8, color: "#ffffff", marginRight: 14 },
-  stats: { flexDirection: "row", backgroundColor: TINT, borderBottomWidth: 1, borderBottomColor: RULE, paddingHorizontal: 32, paddingVertical: 10 },
+  contactItem: { fontSize: 8, color: CREAM, marginRight: 14 },
+  stats: { flexDirection: "row", backgroundColor: CREAM, borderBottomWidth: 1, borderBottomColor: RULE, paddingHorizontal: 32, paddingVertical: 10 },
   stat: { flex: 1, flexDirection: "row", alignItems: "baseline" },
-  statValue: { fontFamily: "Helvetica-Bold", fontSize: 15, color: COBALT, marginRight: 6 },
-  statLabel: { fontSize: 7.5, color: MUTED, textTransform: "uppercase", letterSpacing: 0.8 },
+  statValue: { fontFamily: "Helvetica-Bold", fontSize: 15, color: BERRY, marginRight: 6 },
+  statLabel: { fontSize: 7.5, color: VIOLET, textTransform: "uppercase", letterSpacing: 0.8 },
   body: { flexDirection: "row", paddingHorizontal: 32, paddingTop: 14 },
   main: { flex: 1.9, paddingRight: 22 },
   side: { flex: 1 },
-  h: { fontFamily: "Helvetica-Bold", fontSize: 8, letterSpacing: 1.6, textTransform: "uppercase", color: COBALT, marginBottom: 6, paddingBottom: 3, borderBottomWidth: 1, borderBottomColor: RULE },
+  h: { fontFamily: "Helvetica-Bold", fontSize: 8, letterSpacing: 1.6, textTransform: "uppercase", color: BERRY, marginBottom: 6, paddingBottom: 3, borderBottomWidth: 1, borderBottomColor: RULE },
   block: { marginBottom: 11 },
   summary: { fontSize: 9, lineHeight: 1.45 },
   jobHead: { flexDirection: "row", justifyContent: "space-between", alignItems: "baseline", marginBottom: 5 },
   jobTitle: { fontFamily: "Helvetica-Bold", fontSize: 10 },
-  jobPeriod: { fontSize: 8, color: MUTED },
+  jobPeriod: { fontSize: 8, color: VIOLET },
   li: { flexDirection: "row", marginBottom: 2.5 },
-  bullet: { width: 4, height: 4, borderRadius: 2, backgroundColor: COBALT, marginTop: 4.2, marginRight: 7 },
+  bullet: { width: 4, height: 4, borderRadius: 2, backgroundColor: BERRY, marginTop: 4.2, marginRight: 7 },
   liText: { flex: 1 },
   past: { marginTop: 6 },
   pastHead: { flexDirection: "row", justifyContent: "space-between" },
   pastRole: { fontFamily: "Helvetica-Bold", fontSize: 9 },
-  pastPeriod: { fontSize: 7.5, color: MUTED },
-  pastOrg: { fontSize: 8, color: COBALT },
+  pastPeriod: { fontSize: 7.5, color: VIOLET },
+  pastOrg: { fontSize: 8, color: BERRY },
   pastLine: { fontSize: 8.2, marginTop: 1 },
-  project: { marginBottom: 6, paddingLeft: 8, borderLeftWidth: 2, borderLeftColor: COBALT },
+  project: { marginBottom: 6, paddingLeft: 8, borderLeftWidth: 2, borderLeftColor: BERRY },
   projectTitle: { fontFamily: "Helvetica-Bold", fontSize: 9.5 },
   projectNote: { fontSize: 8.5, color: INK, marginTop: 1 },
-  projectStack: { fontSize: 7.5, color: COBALT, marginTop: 2 },
+  projectStack: { fontSize: 7.5, color: BERRY, marginTop: 2 },
   group: { marginBottom: 8 },
-  groupName: { fontSize: 7.5, color: MUTED, textTransform: "uppercase", letterSpacing: 0.8, marginBottom: 3 },
+  groupName: { fontSize: 7.5, color: VIOLET, textTransform: "uppercase", letterSpacing: 0.8, marginBottom: 3 },
   chips: { flexDirection: "row", flexWrap: "wrap" },
-  chip: { fontSize: 7.5, backgroundColor: TINT, color: COBALT, borderRadius: 3, paddingHorizontal: 5, paddingVertical: 2, marginRight: 3, marginBottom: 3 },
+  chip: { fontSize: 7.5, backgroundColor: CREAM, color: BERRY, borderRadius: 3, paddingHorizontal: 5, paddingVertical: 2, marginRight: 3, marginBottom: 3 },
   eduDegree: { fontFamily: "Helvetica-Bold", fontSize: 9.5 },
-  eduMeta: { fontSize: 8, color: MUTED, marginTop: 1 },
+  eduMeta: { fontSize: 8, color: VIOLET, marginTop: 1 },
   cert: { flexDirection: "row", marginBottom: 4 },
-  certMark: { width: 5, height: 5, backgroundColor: COBALT, marginTop: 3, marginRight: 6 },
+  certMark: { width: 5, height: 5, backgroundColor: BERRY, marginTop: 3, marginRight: 6 },
   certText: { flex: 1, fontSize: 8.2 },
   footer: { position: "absolute", left: 32, right: 32, bottom: 16, flexDirection: "row", justifyContent: "space-between", borderTopWidth: 1, borderTopColor: RULE, paddingTop: 6 },
-  footerText: { fontSize: 7, color: MUTED },
+  footerText: { fontSize: 7, color: VIOLET },
 });
 
 export function ResumePdf({ role, date }: { role: ResumeRole; date: string }) {

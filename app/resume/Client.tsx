@@ -81,7 +81,7 @@ export default function ResumeClient() {
                       </span>
                       {r.label}
                       {r.primary && (
-                        <span className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide" style={{ backgroundColor: active ? "rgb(255 255 255 / 0.2)" : "var(--color-highlight)" }}>
+                        <span className="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide" style={{ backgroundColor: active ? "rgb(13 9 10 / 0.22)" : "var(--color-highlight)" }}>
                           Primary
                         </span>
                       )}
