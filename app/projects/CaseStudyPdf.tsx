@@ -4,47 +4,46 @@ import type { ProjectDoc } from "@/app/lib/project-docs";
 import { siteConfig } from "@/app/lib/site";
 
 // Palette mirrors the site (berry banner, mint-cream tints, violet secondary text), as fixed hex so the PDF never depends on theme.
-const COBALT = "#912f56"; // vintage berry: banner, headings, accents
+const BERRY = "#912f56";
 const INK = "#0d090a";
-const MUTED = "#361f27"; // midnight violet
-const RULE = "rgba(54, 31, 39, 0.2)"; // violet at 20%
-const TINT = "#eaf2ef"; // mint cream
-const PERI = "#eaf2ef"; // mint cream, on the berry banner (6.7:1)
+const VIOLET = "#361f27";
+const RULE = "rgba(54, 31, 39, 0.2)";
+const CREAM = "#eaf2ef";
 
 const s = StyleSheet.create({
-  page: { fontFamily: "Helvetica", fontSize: 8.8, color: INK, lineHeight: 1.42, backgroundColor: "#ffffff", paddingBottom: 34 },
-  banner: { backgroundColor: COBALT, paddingHorizontal: 32, paddingTop: 22, paddingBottom: 16 },
-  kicker: { fontSize: 7, letterSpacing: 1.6, color: PERI, textTransform: "uppercase", marginBottom: 8 },
-  title: { fontFamily: "Helvetica-Bold", fontSize: 26, color: "#ffffff", letterSpacing: -0.4 },
-  tagline: { fontFamily: "Times-Italic", fontSize: 13, color: PERI, marginTop: 3 },
+  page: { fontFamily: "Helvetica", fontSize: 8.8, color: INK, lineHeight: 1.42, backgroundColor: CREAM, paddingBottom: 34 },
+  banner: { backgroundColor: BERRY, paddingHorizontal: 32, paddingTop: 22, paddingBottom: 16 },
+  kicker: { fontSize: 7, letterSpacing: 1.6, color: CREAM, textTransform: "uppercase", marginBottom: 8 },
+  title: { fontFamily: "Helvetica-Bold", fontSize: 26, color: CREAM, letterSpacing: -0.4 },
+  tagline: { fontFamily: "Times-Italic", fontSize: 13, color: CREAM, marginTop: 3 },
   metaRow: { flexDirection: "row", flexWrap: "wrap", marginTop: 12 },
-  metaItem: { fontSize: 8, color: "#ffffff", marginRight: 14 },
+  metaItem: { fontSize: 8, color: CREAM, marginRight: 14 },
   body: { paddingHorizontal: 32, paddingTop: 16 },
   block: { marginBottom: 12 },
-  h: { fontFamily: "Helvetica-Bold", fontSize: 8, letterSpacing: 1.6, textTransform: "uppercase", color: COBALT, marginBottom: 6, paddingBottom: 3, borderBottomWidth: 1, borderBottomColor: RULE },
+  h: { fontFamily: "Helvetica-Bold", fontSize: 8, letterSpacing: 1.6, textTransform: "uppercase", color: BERRY, marginBottom: 6, paddingBottom: 3, borderBottomWidth: 1, borderBottomColor: RULE },
   p: { fontSize: 9, lineHeight: 1.45 },
   twoCol: { flexDirection: "row", gap: 20 },
   col: { flex: 1 },
   li: { flexDirection: "row", marginBottom: 3 },
-  dot: { width: 4, height: 4, borderRadius: 2, backgroundColor: COBALT, marginTop: 4.4, marginRight: 7 },
-  mark: { width: 6, fontSize: 9, color: COBALT, fontFamily: "Helvetica-Bold" },
+  dot: { width: 4, height: 4, borderRadius: 2, backgroundColor: BERRY, marginTop: 4.4, marginRight: 7 },
+  mark: { width: 6, fontSize: 9, color: BERRY, fontFamily: "Helvetica-Bold" },
   liText: { flex: 1 },
   flow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", marginTop: 2 },
-  stage: { fontSize: 8, backgroundColor: TINT, color: COBALT, borderRadius: 3, paddingHorizontal: 6, paddingVertical: 3, marginRight: 4, marginBottom: 4, fontFamily: "Helvetica-Bold" },
-  arrow: { fontSize: 9, color: MUTED, marginRight: 4, marginBottom: 4 },
-  entity: { marginBottom: 7, paddingLeft: 8, borderLeftWidth: 2, borderLeftColor: COBALT },
+  stage: { fontSize: 8, backgroundColor: CREAM, color: BERRY, borderRadius: 3, paddingHorizontal: 6, paddingVertical: 3, marginRight: 4, marginBottom: 4, fontFamily: "Helvetica-Bold" },
+  arrow: { fontSize: 9, color: VIOLET, marginRight: 4, marginBottom: 4 },
+  entity: { marginBottom: 7, paddingLeft: 8, borderLeftWidth: 2, borderLeftColor: BERRY },
   entityName: { fontFamily: "Helvetica-Bold", fontSize: 9.5 },
-  entityNote: { fontSize: 7.5, color: MUTED, marginTop: 1 },
+  entityNote: { fontSize: 7.5, color: VIOLET, marginTop: 1 },
   field: { flexDirection: "row", marginTop: 1.5 },
   fieldName: { fontSize: 8, fontFamily: "Helvetica-Bold", color: INK },
-  fieldType: { fontSize: 8, color: MUTED },
-  relation: { fontSize: 8, color: MUTED, marginBottom: 1.5 },
+  fieldType: { fontSize: 8, color: VIOLET },
+  relation: { fontSize: 8, color: VIOLET, marginBottom: 1.5 },
   chips: { flexDirection: "row", flexWrap: "wrap" },
-  chip: { fontSize: 7.5, backgroundColor: TINT, color: COBALT, borderRadius: 3, paddingHorizontal: 5, paddingVertical: 2, marginRight: 3, marginBottom: 3 },
-  contribution: { marginTop: 2, padding: 10, backgroundColor: TINT, borderLeftWidth: 3, borderLeftColor: COBALT },
+  chip: { fontSize: 7.5, backgroundColor: CREAM, color: BERRY, borderRadius: 3, paddingHorizontal: 5, paddingVertical: 2, marginRight: 3, marginBottom: 3 },
+  contribution: { marginTop: 2, padding: 10, backgroundColor: CREAM, borderLeftWidth: 3, borderLeftColor: BERRY },
   footnote: { fontSize: 8.5, color: INK },
   footer: { position: "absolute", left: 32, right: 32, bottom: 16, flexDirection: "row", justifyContent: "space-between", borderTopWidth: 1, borderTopColor: RULE, paddingTop: 6 },
-  footerText: { fontSize: 7, color: MUTED },
+  footerText: { fontSize: 7, color: VIOLET },
 });
 
 export function CaseStudyPdf({ study, doc }: { study: CaseStudy; doc?: ProjectDoc }) {

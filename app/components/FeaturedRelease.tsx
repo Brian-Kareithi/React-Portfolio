@@ -2,7 +2,7 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 import FilmStrip from "@/app/components/FilmStrip";
 import { currentProject as p } from "@/app/lib/current-project";
 
-/** The current client build, on a full-bleed plum band, with its screens in a film strip. */
+/** The current client build, on a full-bleed berry band, with its screens in a film strip. */
 export default function FeaturedRelease() {
   return (
     <section id="now-building" aria-labelledby="now-building-title" className="band band-accent overflow-x-clip">
