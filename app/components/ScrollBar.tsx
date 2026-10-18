@@ -2,29 +2,38 @@
 import { useEffect, useState } from "react";
 
 export default function ScrollBar() {
-  const [scrollPercent, setScrollPercent] = useState(0);
+  const [scrollState, setScrollState] = useState({ position: 0, size: 100 });
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const percent = (scrollTop / docHeight) * 100;
-      setScrollPercent(Math.min(percent, 98));
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollRange = Math.max(documentHeight - window.innerHeight, 0);
+      const size = documentHeight > 0 ? Math.min(window.innerHeight / documentHeight, 1) : 1;
+      const progress = scrollRange > 0 ? Math.min(Math.max(window.scrollY / scrollRange, 0), 1) : 0;
+      setScrollState({ size: size * 100, position: progress * (1 - size) * 100 });
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   return (
-    <div className="fixed right-2 top-0 h-screen overflow-hidden pointer-events-none z-50">
+    <div
+      className="scroll-indicator"
+      role="progressbar"
+      aria-label="Page scroll position"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(scrollState.position / Math.max(100 - scrollState.size, 1) * 100)}
+      aria-hidden={scrollState.size >= 100}
+    >
       <div
-        className="absolute right-0 w-[2px] transition-all duration-150 rounded-full"
-        style={{
-          height: `${Math.max(scrollPercent, 1)}%`,
-          top: 0,
-          backgroundColor: "var(--color-accent)",
-          opacity: 0.4,
-        }}
+        className="scroll-indicator-thumb"
+        style={{ height: `${scrollState.size}%`, transform: `translateY(${scrollState.position / Math.max(scrollState.size, 1) * 100}%)` }}
       />
     </div>
   );
