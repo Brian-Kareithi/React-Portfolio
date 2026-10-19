@@ -5,11 +5,6 @@ import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import CtfGame from "./CtfGame";
 import WordleGame from "./WordleGame";
 
-const shelf = [
-  { id: "ctf", index: "01", title: "Capture the flag", note: "A terminal with six flags hidden on it" },
-  { id: "wordle-title", index: "02", title: "Guess the button", note: "A word game with a developer vocabulary" },
-];
-
 export default function GamesClient() {
   return (
     <div id="games" className="q-page">
@@ -21,17 +16,22 @@ export default function GamesClient() {
           title={<>Play a <em>little</em></>}
           description="A sandbox. Nothing here touches anything real. It is where the security habits get exercised for fun."
           aside={
-            <ol className="g-shelf" aria-label="Games on this page">
-              {shelf.map((g) => (
-                <li key={g.id}>
-                  <a href={`#${g.id}`}>
-                    <span>{g.index}</span>
-                    <strong>{g.title}</strong>
-                    <small>{g.note}</small>
-                  </a>
-                </li>
-              ))}
-            </ol>
+            <div className="g-deck">
+              <a href="#ctf" className="g-card g-card-ctf" aria-label="Capture the flag">
+                <span className="g-card-label">01 · capture the flag</span>
+                <code>$ cat README.txt</code>
+                <code>six flags, some decoys</code>
+                <code className="g-caret">$ _</code>
+              </a>
+              <a href="#wordle-title" className="g-card g-card-word" aria-label="Guess the button">
+                <span className="g-card-label">02 · guess the button</span>
+                <span className="g-tiles" aria-hidden="true">
+                  {["B", "U", "T", "T", "O", "N"].map((l, i) => (
+                    <i key={i} data-s={["g", "y", "x", "g", "x", "y"][i]}>{l}</i>
+                  ))}
+                </span>
+              </a>
+            </div>
           }
         />
 

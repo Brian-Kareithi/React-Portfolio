@@ -5,6 +5,7 @@ import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
 import SmoothScroll from "@/app/components/SmoothScroll";
 import ScrollEffects from "@/app/components/ScrollEffects";
+import CursorGlow from "@/app/components/CursorGlow";
 import { CommandPaletteProvider } from "@/app/components/CommandPalette";
 
 const SPOT_TARGETS = ".flat-card, .plate, .liquid-card, .liquid-card-hover";
@@ -37,6 +38,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <div id="top" tabIndex={-1} className="absolute top-0 h-0 w-0 outline-none" />
         <SmoothScroll />
         <ScrollEffects />
+        <CursorGlow />
         <Navbar />
         <ScrollBar />
         <main className="relative flex-1">{children}</main>
