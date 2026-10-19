@@ -116,7 +116,7 @@ export default function AboutClient() {
                 return (
                   <button
                     key={f}
-                    className="q-tab"
+                    className="a-tab"
                     aria-pressed={active}
                     onClick={() => {
                       setFilter(f);
