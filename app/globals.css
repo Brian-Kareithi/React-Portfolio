@@ -1802,11 +1802,29 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: clip; }
 
+.journey { position: relative; overflow-x: clip; }
+.journey-inner { position: relative; padding-block: clamp(4rem, 9vw, 7rem); }
+.journey-head { margin-bottom: 2.5rem; max-width: 40rem; }
+.journey-rail { display: none; }
+.journey-stage { display: grid; gap: 4.5rem; }
+.journey-panel { display: grid; gap: 1.75rem; }
+.journey-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 0.9rem; max-width: 30rem; }
+.journey-copy h3 { font-size: clamp(1.9rem, 4vw, 2.75rem); line-height: 1.08; color: var(--color-text-primary); }
+.journey-copy p:not(.field-label) { color: var(--color-text-secondary); line-height: 1.6; }
+.journey-visual { min-width: 0; }
+.journey-progress { display: none; }
 
 @media (min-width: 1024px) {
   .journey-panel { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: 3rem; }
 }
 
+.journey[data-pinned] { height: 100svh; }
+.journey[data-pinned] .journey-inner { display: flex; height: 100%; flex-direction: column; padding-block: 5.5rem 2rem; }
+.journey[data-pinned] .journey-head { margin-bottom: 1.25rem; }
+.journey[data-pinned] .journey-head h2 { font-size: clamp(2rem, 3.4vw, 3rem); }
+.journey[data-pinned] .journey-body { display: grid; flex: 1; min-height: 0; grid-template-columns: 11rem minmax(0, 1fr); gap: 2.5rem; }
+.journey[data-pinned] .journey-rail { display: flex; flex-direction: column; justify-content: center; gap: 0.25rem; }
+.journey-rail button {
   display: flex;
   width: 100%;
   align-items: baseline;
@@ -1820,6 +1838,12 @@ html.lenis, html.lenis body { height: auto; }
   cursor: pointer;
   transition: color 0.2s, transform 0.25s var(--ease-out);
 }
+.journey-rail button span { font-family: var(--font-jetbrains-mono), ui-monospace, monospace; font-size: 0.6875rem; }
+.journey-rail button[data-active] { color: var(--color-text-primary); transform: translateX(6px); font-weight: 600; }
+.journey-rail button:hover { color: var(--color-text-primary); }
+.journey-rail button:focus-visible { outline: 2px solid var(--palette-cream); outline-offset: 2px; }
+.journey[data-pinned] .journey-stage { position: relative; display: block; }
+.journey[data-pinned] .journey-panel {
   position: absolute;
   inset: 0;
   align-content: center;
@@ -1828,6 +1852,9 @@ html.lenis, html.lenis body { height: auto; }
   pointer-events: none;
   transition: opacity 0.4s var(--ease-out), transform 0.5s var(--ease-out);
 }
+.journey[data-pinned] .journey-panel[data-active] { opacity: 1; transform: none; pointer-events: auto; }
+.journey[data-pinned] .journey-progress { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 1rem; display: block; height: 2px; background: rgb(242 238 242 / 0.14); }
+.journey-progress span { display: block; height: 100%; background: var(--palette-berry); transform-origin: left; transition: transform 0.4s var(--ease-out); }
 
 .jv-window { overflow: hidden; border: 1px solid rgb(242 238 242 / 0.2); border-radius: 0.75rem; background: rgb(242 238 242 / 0.04); }
 .jv-window-bar { display: flex; gap: 0.4rem; padding: 0.7rem 0.9rem; border-bottom: 1px solid rgb(242 238 242 / 0.14); }
