@@ -91,8 +91,7 @@ export default function HomeContent() {
           </div>
 
           <HeroTerminal />
-        </div>
-        <p className="h-scroll" aria-hidden="true"><span />Scroll</p>
+        </div>
       </section>
 
       <section aria-label="At a glance" className="h-glance">
