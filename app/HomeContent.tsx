@@ -1,19 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import portrait from "@/public/kareithi.jpg";
-import { Github, Linkedin, Mail, ArrowRight, ArrowUpRight, Command } from "lucide-react";
-import HeroTerminal from "@/app/components/HeroTerminal";
+import { ArrowRight, ArrowUpRight, Command } from "lucide-react";
+import Hero from "@/app/components/Hero";
 import PaletteButton from "@/app/components/PaletteButton";
 import { Assemble } from "@/app/components/ui/Assemble";
 import { routes } from "@/app/lib/nav";
 import { caseStudies } from "@/app/lib/projects-data";
-import { siteConfig } from "@/app/lib/site";
-
-const socials = [
-  { href: siteConfig.github, icon: Github, label: "GitHub" },
-  { href: siteConfig.linkedin, icon: Linkedin, label: "LinkedIn" },
-  { href: `mailto:${siteConfig.email}`, icon: Mail, label: "Email" },
-];
 
 const glance = [
   { value: "50+", label: "Client projects shipped", note: "Freelance, 2022 to 2024" },
@@ -29,67 +21,7 @@ export default function HomeContent() {
 
   return (
     <>
-      <section id="home" aria-labelledby="hero-name" className="h-hero">
-        <div className="q-wrap h-hero-grid">
-          <div className="h-hero-copy">
-            <div className="h-hero-top stagger-item">
-              <div className="hero-avatar">
-                <Image
-                  src={portrait}
-                  placeholder="blur"
-                  alt="Portrait of Brian Kareithi, full-stack developer based in Nairobi, Kenya"
-                  fill
-                  sizes="52px"
-                  priority
-                  className="object-cover object-center"
-                />
-              </div>
-              <p className="q-eyebrow" style={{ flex: 1 }}>
-                <span>
-                  <span className="hero-welcome">Welcome back. </span>
-                  Nairobi, Kenya <b>·</b> Full-stack developer
-                </span>
-              </p>
-            </div>
-
-            <h1 id="hero-name" className="h-hero-name">
-              <span className="h-hero-line stagger-item">Brian</span>
-              <span className="h-hero-line h-hero-line-2 stagger-item"><em>Kareithi</em></span>
-            </h1>
-
-            <p className="q-lede stagger-item" style={{ marginTop: "2rem" }}>
-              I build web and mobile products from the interface down to the infrastructure, with a security background underneath.
-            </p>
-
-            <div className="h-hero-actions stagger-item">
-              <Link href="/projects" className="q-btn" data-solid>
-                Selected work
-                <ArrowRight aria-hidden="true" />
-              </Link>
-              <Link href="/about" className="q-link">
-                About me
-                <ArrowUpRight aria-hidden="true" />
-              </Link>
-              <span className="h-hero-socials">
-                {socials.map(({ href, icon: Icon, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target={href.startsWith("http") ? "_blank" : undefined}
-                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    aria-label={label}
-                    className="hero-social"
-                  >
-                    <Icon aria-hidden="true" />
-                  </a>
-                ))}
-              </span>
-            </div>
-          </div>
-
-          <HeroTerminal />
-        </div>
-      </section>
+      <Hero />
 
       <section aria-label="At a glance" className="h-glance">
         <div className="q-wrap">

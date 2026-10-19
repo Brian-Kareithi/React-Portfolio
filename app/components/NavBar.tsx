@@ -91,7 +91,8 @@ export default function Navbar() {
   return (
     <>
       <header className="q-nav" data-scrolled={scrolled || undefined}>
-        <nav className="q-wrap q-nav-inner" aria-label="Primary">
+        <div className="q-nav-shell">
+        <nav className="q-nav-inner" aria-label="Primary">
           <Link href="/" onClick={(e) => onNavClick(e, "/")} className="q-wordmark" aria-label="Brian Kareithi, home">
             Brian Kareithi<i>.</i>
           </Link>
@@ -138,6 +139,7 @@ export default function Navbar() {
         </nav>
         <div className="q-progress" aria-hidden="true">
           <div ref={progressRef} />
+        </div>
         </div>
       </header>
 
