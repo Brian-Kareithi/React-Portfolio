@@ -1,5 +1,3 @@
-// Generates /docs from the same data that powers /projects, so the site and the
-// repository documentation cannot drift. Run with: npm run docs (Node 22.6+).
 import { mkdirSync, writeFileSync } from "node:fs";
 import { caseStudies } from "../app/lib/projects-data.ts";
 import { projectDocs } from "../app/lib/project-docs.ts";

@@ -2,54 +2,52 @@
 
 import Link from "next/link";
 import { ArrowUp, Github, Instagram, Linkedin, Mail } from "lucide-react";
-import { primaryNav } from "@/app/lib/nav";
+import SoundToggle from "@/app/components/SoundToggle";
+import { routes } from "@/app/lib/nav";
 import { siteConfig } from "@/app/lib/site";
 
 const socials = [
   { href: siteConfig.github, icon: Github, label: "GitHub" },
   { href: siteConfig.linkedin, icon: Linkedin, label: "LinkedIn" },
   { href: siteConfig.instagram, icon: Instagram, label: "Instagram" },
+  { href: `mailto:${siteConfig.email}`, icon: Mail, label: "Email" },
 ];
+
+const links = routes.filter((r) => r.path !== "/");
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="site-footer band-dark">
-      <div className="wrap site-footer-inner">
-        <div className="site-footer-brand">
-          <Link href="/" className="site-footer-name">Brian Kareithi</Link>
-          <span className="site-footer-meta">Full-stack developer · © {year} · Nairobi, Kenya</span>
-        </div>
+    <footer className="site-footer">
+      <div className="q-wrap sf-inner">
+        <p className="sf-note">
+          <Link href="/" className="sf-brand">Brian Kareithi</Link>
+          <span>© {year}</span>
+        </p>
 
-        <nav aria-label="Footer navigation" className="site-footer-nav">
-          {primaryNav.map((item) => (
-            <Link key={item.path} href={item.path} className="site-footer-link">
-              {item.label}
-            </Link>
+        <nav aria-label="Footer" className="sf-nav">
+          {links.map((l) => (
+            <Link key={l.path} href={l.path} className="sf-link">{l.label}</Link>
           ))}
         </nav>
 
-        <div className="site-footer-actions">
-          <a href={`mailto:${siteConfig.email}`} aria-label={`Email ${siteConfig.email}`} className="site-footer-email">
-            <Mail aria-hidden="true" />
-            Email
-          </a>
-          <span className="site-footer-divider" aria-hidden="true" />
+        <div className="sf-tools">
           {socials.map(({ href, icon: Icon, label }) => (
             <a
               key={label}
               href={href}
               aria-label={label}
               title={label}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="site-footer-icon"
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="sf-icon"
             >
               <Icon aria-hidden="true" />
             </a>
           ))}
-          <a href="#top" aria-label="Back to top" title="Back to top" className="site-footer-icon site-footer-top">
+          <SoundToggle />
+          <a href="#top" aria-label="Back to top" title="Back to top" className="sf-icon">
             <ArrowUp aria-hidden="true" />
           </a>
         </div>

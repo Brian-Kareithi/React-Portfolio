@@ -2,17 +2,12 @@ export type ResumeRoleId = "frontend" | "fullstack" | "mobile" | "it-support" | 
 
 export interface ResumeRole {
   id: ResumeRoleId;
-  /** The role I am primarily applying for. The others come with the territory. */
   primary?: boolean;
-  /** Tab label */
   label: string;
-  /** Used in the PDF filename */
   fileLabel: string;
   headline: string;
   summary: string;
-  /** Three at-a-glance facts shown under the headline */
   highlights: { value: string; label: string }[];
-  /** Grouped so the skills block reads as a map, not a word cloud */
   skillGroups: { group: string; items: string[] }[];
   experience: string[];
   projects: { title: string; note: string; stack: string }[];
@@ -76,7 +71,7 @@ export const resumeRoles: ResumeRole[] = [
       "Supported users and troubleshooting, turning real feedback into interface fixes",
     ],
     projects: [
-      { title: "Sapio Homes", note: "Client real-estate site with a 3D property viewer, search by budget and floor area, and booking flow", stack: "Next.js · React Three Fiber · Tailwind" },
+      { title: "POS System", note: "Multi-branch point of sale for a client: till, stock with expiry batches, accounting and an audit trail", stack: "Next.js · TypeScript · Tailwind" },
       { title: "RoadSafe360", note: "Role-based dashboards, QR licence view, appeals workflow and Leaflet map analytics", stack: "Next.js · Recharts · Leaflet" },
       { title: "Steadfast Parent Portal", note: "Responsive parent and teacher portals integrated with a Node.js API", stack: "Next.js · TypeScript" },
     ],
@@ -173,11 +168,10 @@ export const resumeRoles: ResumeRole[] = [
   },
 ];
 
-/** Earlier roles, shown under the current one on every tailored resume. */
 export const resumeHistory = [
-  { role: "Co-Founder & Backend Developer", org: "Thee Entity Limited", period: "2025 – Present", line: "Designed the cloud-native architecture and an automated deployment pipeline, keeping infrastructure cost lean." },
-  { role: "Information Security Specialist", org: "ICT Authority of Kenya", period: "2022 – 2024", line: "Supported security hardening, incident monitoring and vulnerability remediation for internal government systems." },
-  { role: "Freelance Full-Stack Developer", org: "Fiverr & Upwork", period: "2022 – 2024", line: "Delivered 50+ web projects for clients with consistently positive feedback." },
+  { role: "Co-Founder & Backend Developer", org: "Thee Entity Limited", period: "2025 - Present", line: "Designed the cloud-native architecture and an automated deployment pipeline, keeping infrastructure cost lean." },
+  { role: "Information Security Specialist", org: "ICT Authority of Kenya", period: "2022 - 2024", line: "Supported security hardening, incident monitoring and vulnerability remediation for internal government systems." },
+  { role: "Freelance Full-Stack Developer", org: "Fiverr & Upwork", period: "2022 - 2024", line: "Delivered 50+ web projects for clients with consistently positive feedback." },
 ];
 
 export const resumeCertifications = [

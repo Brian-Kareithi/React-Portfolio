@@ -6,13 +6,10 @@ import {
 } from "lucide-react";
 
 interface ArchitectureFlowProps {
-  /** Pipeline stages in order, e.g. ["Frontend", "API", "Backend", "Database"]. */
   stages: string[];
-  /** Optional branch drawn beneath one stage, e.g. { under: 2, label: "Services" }. */
   branch?: { under: number; label: string };
 }
 
-/** Picks an icon from the words in a stage name. First match wins. */
 const iconRules: [RegExp, LucideIcon][] = [
   [/dashboard/i, LayoutDashboard],
   [/auth/i, KeyRound],
@@ -30,10 +27,6 @@ const iconRules: [RegExp, LucideIcon][] = [
 
 const iconFor = (label: string) => iconRules.find(([re]) => re.test(label))?.[1] ?? Layers;
 
-/**
- * Architecture diagram: numbered nodes joined by arrows, left to right on wider
- * screens and top to bottom on phones. A branch hangs off its parent stage.
- */
 export function ArchitectureFlow({ stages, branch }: ArchitectureFlowProps) {
   const BranchIcon = branch ? iconFor(branch.label) : null;
 

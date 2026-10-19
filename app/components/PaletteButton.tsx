@@ -2,7 +2,6 @@
 import type { ReactNode } from "react";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 
-/** Opens the command palette; the only interactive bit of the home index, so it is its own small island. */
 export default function PaletteButton({ className, children }: { className?: string; children: ReactNode }) {
   const { open } = useCommandPalette();
   return (

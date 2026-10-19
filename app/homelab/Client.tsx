@@ -2,15 +2,13 @@
 import { useState, ReactNode } from "react";
 import {
   Server, Cpu, Monitor, Smartphone, Headphones, Watch, Keyboard, HardDrive,
-  Camera, Wifi, ChevronDown, Activity, Database, ShieldCheck, Radio,
+  Camera, Wifi, Activity, Database, ShieldCheck, Radio, Plus,
 } from "lucide-react";
-import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
-import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 import FridaySurprise from "./FridaySurprise";
-import { MascotNote } from "@/app/components/Mascot";
+import NetworkSwitch from "@/app/components/NetworkSwitch";
 
 interface GearItem {
   name: string;
@@ -202,53 +200,11 @@ export const labStats = [
   { label: "Devices Managed", value: "19", note: "every lease assigned by me", icon: <Radio className="w-3.5 h-3.5" /> },
 ];
 
-function SubHead({ label, title }: { label: string; title: string }) {
-  return (
-    <div className="mb-8">
-      <p className="field-label mb-2 flex items-center gap-2">
-        <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-        {label}
-      </p>
-      <h2 className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
-        {title}
-      </h2>
-    </div>
-  );
-}
-
 const services = [
-  { label: "Jellyfin", note: "Media server", icon: <Monitor className="w-4 h-4" /> },
-  { label: "Backups", note: "Nightly", icon: <HardDrive className="w-4 h-4" /> },
-  { label: "ESP32 Mesh", note: "Automation", icon: <Radio className="w-4 h-4" /> },
+  { label: "Jellyfin", note: "Media server" },
+  { label: "Backups", note: "Nightly" },
+  { label: "ESP32 mesh", note: "Automation" },
 ];
-
-function TopologyNode({ icon, title, note, strong = false }: { icon: ReactNode; title: string; note: string; strong?: boolean }) {
-  return (
-    <div
-      className="flex items-center gap-3 rounded-lg border px-4 py-2.5"
-      style={{
-        backgroundColor: strong ? "var(--color-accent)" : "var(--color-bg-card)",
-        borderColor: strong ? "var(--color-accent)" : "var(--color-border)",
-        color: strong ? "var(--color-on-accent)" : "var(--color-text-primary)",
-      }}
-    >
-      <span
-        className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full"
-        style={{ backgroundColor: strong ? "var(--palette-cream)" : "var(--color-highlight)", color: "var(--palette-ink)" }}
-      >
-        {icon}
-      </span>
-      <span className="text-left">
-        <span className="block text-sm font-semibold leading-tight">{title}</span>
-        <span className="block text-[11px] opacity-75">{note}</span>
-      </span>
-    </div>
-  );
-}
-
-const Wire = ({ dashed = false }: { dashed?: boolean }) => (
-  <span aria-hidden="true" className="h-8 w-0" style={{ borderLeft: `2px ${dashed ? "dashed" : "solid"} var(--color-accent-secondary)` }} />
-);
 
 export default function HomelabClient() {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
@@ -267,196 +223,134 @@ export default function HomelabClient() {
     .flatMap((c) => c.items.map((item, idx) => ({ ...item, key: `${c.title}-${idx}`, category: c.title })));
 
   return (
-      <section id="homelab" className="min-h-screen w-full pt-28 md:pt-32 pb-24 md:pb-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden isolate"
-        style={{ backgroundColor: "var(--color-bg-primary)" }}>
-      <ScrollReveal className="relative z-10">
-      <div className="max-w-5xl mx-auto w-full">
-
+    <div id="homelab" className="q-page q-dark" data-nav="dark">
+      <div className="q-wrap">
         <Breadcrumbs />
         <SectionHeader
           index="05"
-          label="My lab"
-          title={<>The lab that <em className="font-serif-accent">never sleeps</em></>}
+          label="Homelab"
+          title={<>The lab that <em>never sleeps</em></>}
           description="Where I started and where I still learn. I broke plenty before it stayed up, and that is how I learned to keep services running."
         />
 
-        <MascotNote className="mb-10">
-          That is the lab. It runs around the clock, and it is where I break things on purpose so I do not break them at work.
-        </MascotNote>
+        <div className="term-window ink-slab l-map">
+          <div className="term-window-bar" aria-hidden="true"><i /><i /><i /><span>homelab.map</span></div>
+          <div className="l-map-body"><NetworkSwitch /></div>
+        </div>
 
-        {/* Lab status */}
-        <StaggerReveal staggerDelay={80}>
-        <div className="ink-slab mb-20 px-6 py-8 sm:px-10">
-          <p className="mb-8 flex items-center gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ backgroundColor: "var(--color-accent)" }} />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-            </span>
-            All systems normal
-          </p>
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+        <section aria-label="Lab status" className="l-status">
+          <p className="l-live"><span className="live-dot" aria-hidden="true" /> All systems normal</p>
+          <dl>
             {labStats.map((s) => (
               <div key={s.label}>
-                <span className="mb-3 flex h-9 w-9 items-center justify-center rounded-full" style={{ backgroundColor: "var(--color-surface-strong)", color: "var(--color-accent)" }}>
-                  {s.icon}
-                </span>
-                <p className="display-xl text-4xl" style={{ color: "var(--color-text-primary)" }}>{s.value}</p>
-                <p className="mt-1 text-sm font-medium" style={{ color: "var(--color-accent)" }}>{s.label}</p>
-                <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>{s.note}</p>
+                <dd>{s.value}</dd>
+                <dt>{s.label}</dt>
+                <p>{s.note}</p>
               </div>
             ))}
-          </div>
-        </div>
-        </StaggerReveal>
+          </dl>
+        </section>
 
-        {/* Network topology */}
-        <div className="mb-20">
-          <SubHead label="Topology" title="How it's wired together" />
-          <div className="flex flex-col items-center rounded-2xl px-5 py-10 sm:px-10" style={{ backgroundColor: "var(--color-highlight)" }}>
-            <span className="pill font-mono !text-[11px]"><Wifi className="w-3.5 h-3.5" /> Internet</span>
-            <Wire dashed />
-            <TopologyNode icon={<Wifi className="w-4 h-4" />} title="Router" note="Safaricom 4G LTE" />
-            <Wire />
-            <TopologyNode icon={<Server className="w-4 h-4" />} title="HP Tower Server" note="Proxmox VE · 24/7 · RAID-1 · 3TB" strong />
-            <Wire />
-            {/* Fan-out bar to the three services */}
-            <div className="relative w-full max-w-2xl">
-              <span aria-hidden="true" className="absolute left-[16.66%] right-[16.66%] top-0 hidden sm:block" style={{ borderTop: "2px solid var(--color-accent-secondary)" }} />
-              <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
-                {services.map((s) => (
-                  <div key={s.label} className="flex flex-col items-center">
-                    <span aria-hidden="true" className="hidden h-6 w-0 sm:block" style={{ borderLeft: "2px solid var(--color-accent-secondary)" }} />
-                    <TopologyNode icon={s.icon} title={s.label} note={s.note} />
-                  </div>
+        <section aria-labelledby="topology-title" className="q-section">
+          <div className="q-section-head">
+            <p className="q-eyebrow"><b>01</b> Topology</p>
+            <h2 id="topology-title" data-split className="q-h2">How it&apos;s <em>wired together</em></h2>
+          </div>
+          <ol className="l-chain">
+            <li><span className="l-node"><Wifi aria-hidden="true" /> Internet</span></li>
+            <li><span className="l-node"><Wifi aria-hidden="true" /> Router <small>Safaricom 4G LTE</small></span></li>
+            <li><span className="l-node" data-strong><Server aria-hidden="true" /> HP Tower Server <small>Proxmox VE · RAID-1 · 3TB</small></span></li>
+            <li>
+              <ul className="l-leaves">
+                {services.map((svc) => (
+                  <li key={svc.label}><span className="l-node">{svc.label} <small>{svc.note}</small></span></li>
                 ))}
-              </div>
-            </div>
-          </div>
-        </div>
+              </ul>
+            </li>
+          </ol>
+        </section>
 
-        {/* Gear */}
-        <div className="mb-20">
-          <SubHead label="Equipment" title="The gear that runs it" />
-
-          <div className="mb-6 flex flex-wrap gap-2">
-            {tabs.map((t) => {
-              const active = activeCat === t.title;
-              return (
-                <button key={t.title} onClick={() => setActiveCat(t.title)} aria-pressed={active}
-                  className="min-h-[44px] whitespace-nowrap rounded-lg border px-4 py-2 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
-                  style={active
-                    ? { backgroundColor: "var(--color-accent)", borderColor: "var(--color-accent)", color: "var(--color-on-accent)" }
-                    : { borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }}>
-                  {t.title}
-                  <span className="ml-1.5 font-mono text-xs opacity-70">{t.count}</span>
-                </button>
-              );
-            })}
+        <section aria-labelledby="gear-title" className="q-section">
+          <div className="q-section-head">
+            <p className="q-eyebrow"><b>02</b> Equipment</p>
+            <h2 id="gear-title" data-split className="q-h2">The gear that <em>runs it</em></h2>
           </div>
 
-          <StaggerReveal key={activeCat} staggerDelay={50}>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="q-tabs" role="group" aria-label="Filter equipment">
+            {tabs.map((t) => (
+              <button key={t.title} onClick={() => setActiveCat(t.title)} aria-pressed={activeCat === t.title} className="q-tab">
+                {t.title}
+                <sup>{t.count}</sup>
+              </button>
+            ))}
+          </div>
+
+          <ul className="l-inventory">
             {visibleItems.map((item) => {
               const open = expandedItem === item.key;
               return (
-                <div key={item.key} className="flat-card flex flex-col p-5" style={open ? { borderColor: "var(--color-accent)" } : undefined}>
-                  <div className="mb-3 flex items-start justify-between gap-2">
-                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full"
-                      style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }} aria-hidden="true">
-                      {item.icon}
-                    </span>
-                    <span className="pill !py-1 !text-[10px]">{item.skill}</span>
-                  </div>
-                  <h3 className="font-serif-accent text-xl leading-tight" style={{ color: "var(--color-text-primary)" }}>
-                    {item.name}
-                  </h3>
-                  <p className="mb-3 text-[11px]" style={{ color: "var(--color-text-muted)" }}>{item.category}</p>
-                  <p className="flex-1 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                    {item.outcome}
-                  </p>
-
-                  <button onClick={() => toggleItem(item.key)}
-                    aria-expanded={open}
-                    className="mt-4 flex min-h-[44px] items-center gap-1.5 self-start text-xs font-medium transition-colors duration-200 hover:text-[var(--color-accent)]"
-                    style={{ color: "var(--color-text-muted)" }}>
-                    {open ? "Hide" : "Show"} {item.specs.length} specs
-                    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+                <li key={item.key}>
+                  <button className="l-row" onClick={() => toggleItem(item.key)} aria-expanded={open}>
+                    <span className="l-row-name">{item.name}</span>
+                    <span className="l-row-cat">{item.category}</span>
+                    <span className="l-row-outcome">{item.outcome}</span>
+                    <span className="q-chip">{item.skill}</span>
+                    <Plus className="l-row-plus" data-open={open || undefined} aria-hidden="true" />
                   </button>
-
                   {open && (
-                    <div className="animate-fade-in-up flex flex-wrap gap-1.5 border-t pt-3" style={{ borderColor: "var(--color-border)" }}>
-                      {item.specs.map((spec) => (
-                        <span key={spec} className="rounded-md px-2.5 py-1 font-mono text-[10px]"
-                          style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-secondary)" }}>
-                          {spec}
-                        </span>
-                      ))}
+                    <div className="l-specs animate-fade-in-up">
+                      <p className="q-body l-specs-outcome">{item.outcome}</p>
+                      <ul>
+                        {item.specs.map((spec) => (
+                          <li key={spec} className="q-mono">{spec}</li>
+                        ))}
+                      </ul>
                     </div>
                   )}
-                </div>
+                </li>
               );
             })}
-          </div>
-          </StaggerReveal>
-        </div>
+          </ul>
+        </section>
 
-        {/* Builds */}
-        <div className="mb-20">
-          <SubHead label="What I build" title="What I build here" />
-          <StaggerReveal staggerDelay={80}>
-          <div className="grid gap-5 md:grid-cols-3">
-            {builds.map((p) => (
-              <div key={p.title} className="plate flex flex-col p-6">
-                <div className="mb-4 flex items-center justify-between gap-2">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full"
-                    style={{ backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }}>
-                    {p.icon}
-                  </span>
-                  <span className="pill !py-1 !text-[10px]">
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full" style={{ backgroundColor: "var(--color-success)" }} />
-                    {p.status}
-                  </span>
-                </div>
-                <h3 className="font-serif-accent mb-2 text-2xl" style={{ color: "var(--color-text-primary)" }}>
-                  {p.title}
-                </h3>
-                <p className="flex-1 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                  {p.outcome}
-                </p>
-                <p className="mt-4 border-t pt-4 font-mono text-[11px] leading-relaxed" style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}>
-                  {p.stack}
-                </p>
-              </div>
+        <section aria-labelledby="builds-title" className="q-section">
+          <div className="q-section-head">
+            <p className="q-eyebrow"><b>03</b> Builds</p>
+            <h2 id="builds-title" data-split className="q-h2">What I build <em>here</em></h2>
+          </div>
+          <div className="l-builds">
+            {builds.map((b) => (
+              <article key={b.title}>
+                <p className="q-eyebrow"><span className="live-dot" aria-hidden="true" /> {b.status}</p>
+                <h3 className="q-h3" style={{ fontSize: "clamp(1.8rem, 1.2rem + 2vw, 2.6rem)" }}>{b.title}</h3>
+                <p className="q-body">{b.outcome}</p>
+                <p className="q-mono q-small">{b.stack}</p>
+              </article>
             ))}
           </div>
-          </StaggerReveal>
-        </div>
+        </section>
 
-        {/* Closing line */}
-        <blockquote className="mb-20 max-w-3xl">
-          <span className="font-serif-accent block text-7xl leading-none" style={{ color: "var(--color-accent-secondary)" }} aria-hidden="true">&ldquo;</span>
-          <p className="display-xl -mt-4 text-2xl leading-snug sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
-            Every device here serves real life: monitored, backed up and refined until it is reliable.
-          </p>
+        <blockquote className="l-quote">
+          <p data-split>Every device here serves real life: monitored, backed up and refined until it is <em>reliable.</em></p>
         </blockquote>
 
-        {/* End-of-week surprise */}
-        <div className="mb-20">
-          <SubHead label="Off the clock" title="Is it Friday yet?" />
+        <section aria-labelledby="friday-title" className="q-section">
+          <div className="q-section-head">
+            <p className="q-eyebrow"><b>04</b> Off the clock</p>
+            <h2 id="friday-title" data-split className="q-h2">Is it <em>Friday</em> yet?</h2>
+          </div>
           <FridaySurprise />
-        </div>
+        </section>
 
         <NextSection
-          title="From the lab to my work"
-          description="The same habits, applied to real systems."
+          title="From the lab to the work"
           links={[
-            { href: "/how-i-work", label: "How I Work", description: "The principles behind the lab and the products." },
             { href: "/troubleshooting", label: "Diagnostics", description: "Root-cause work from real failures." },
-            { href: "/contact", label: "Contact", description: "Building something similar?" },
+            { href: "/how-i-work", label: "How I work", description: "The principles behind the lab and the products." },
+            { href: "/projects", label: "Selected work", description: "Where the habits ship." },
           ]}
         />
       </div>
-      </ScrollReveal>
-      </section>
+    </div>
   );
 }

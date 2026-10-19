@@ -1,6 +1,6 @@
 # Steadfast Parent Portal
 
-> Education management platform for parents, teachers and students
+> School platform for parents, teachers and students
 
 **Status:** Active · **Access:** Private school system
 
@@ -10,7 +10,7 @@ Keep parents informed about a child's progress and in direct contact with teache
 
 ## Problem
 
-Steadfast Academy needed a way for parents to track a child's progress, communicate with teachers and stay engaged with school life, without relying on paper notices or ad hoc group chats, across both web and mobile.
+Parents needed to follow a child's progress and reach teachers on web and mobile, without paper notices or group chats.
 
 ## Target audience
 
@@ -37,10 +37,10 @@ Steadfast Academy needed a way for parents to track a child's progress, communic
 
 ## Solution
 
-1. Built a responsive Parent portal alongside the Teacher portal on the web
-2. Integrated the frontend with backend APIs for progress tracking and communication
-3. Built the companion mobile app with Expo / React Native for Android and iOS
-4. Implemented academic engagement and communication workflows end to end
+1. Responsive Parent and Teacher portals
+2. Frontend integration for progress tracking and messaging
+3. Companion mobile app with Expo / React Native
+4. Engagement and communication workflows, end to end
 
 ## Architecture
 
@@ -107,4 +107,4 @@ Next.js · React Native · Expo · TypeScript · Node.js · PostgreSQL
 
 ## My contribution
 
-Part of my role at Steadfast Academy: the web and mobile parent experience, the API integration, and coordination with the school's information systems.
+Part of my role at Steadfast. The web and mobile parent experience, API integration and school systems.

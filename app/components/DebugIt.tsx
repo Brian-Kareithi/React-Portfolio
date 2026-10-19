@@ -15,8 +15,6 @@ const VERDICT: Record<Verdict, { label: string; color: string }> = {
   wrong: { label: "Wrong turn", color: "var(--color-error)" },
 };
 
-// A case file you drive yourself. Pick the next diagnostic step from three; wasted moves are
-// counted and explained, so a wrong turn teaches the same thing the write-up above does.
 export default function DebugIt() {
   const [puzzleIdx, setPuzzleIdx] = useState(0);
   const [nodeId, setNodeId] = useState(puzzles[0].start);

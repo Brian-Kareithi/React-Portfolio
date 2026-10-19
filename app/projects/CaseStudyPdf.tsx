@@ -3,12 +3,11 @@ import type { CaseStudy } from "@/app/lib/projects-data";
 import type { ProjectDoc } from "@/app/lib/project-docs";
 import { siteConfig } from "@/app/lib/site";
 
-// Palette mirrors the site (berry banner, mint-cream tints, violet secondary text), as fixed hex so the PDF never depends on theme.
-const BERRY = "#912f56";
-const INK = "#0d090a";
-const VIOLET = "#361f27";
+const BERRY = "#87334f";
+const INK = "#17141a";
+const VIOLET = "#40334a";
 const RULE = "rgba(54, 31, 39, 0.2)";
-const CREAM = "#eaf2ef";
+const CREAM = "#f2eef2";
 
 const s = StyleSheet.create({
   page: { fontFamily: "Helvetica", fontSize: 8.8, color: INK, lineHeight: 1.42, backgroundColor: CREAM, paddingBottom: 34 },
@@ -52,7 +51,7 @@ export function CaseStudyPdf({ study, doc }: { study: CaseStudy; doc?: ProjectDo
 
   return (
     <Document
-      title={`${study.title} — Case study`}
+      title={`${study.title} - Case study`}
       author={siteConfig.fullName}
       subject={study.tagline}
     >

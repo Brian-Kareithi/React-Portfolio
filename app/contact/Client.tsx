@@ -2,40 +2,35 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import emailjs from "@emailjs/browser";
-import Lottie from "lottie-react";
-import useMediaQuery from "@/app/components/ui/useMediaQuery";
-import { Mascot, MascotNote } from "@/app/components/Mascot";
-import sittingPerson from "@/app/lib/sitting-person.json";
-import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
-import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
+import useLocalTime from "@/app/components/ui/useLocalTime";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
-import { Github, Instagram, Linkedin, Mail, Phone, MapPin, Send, TriangleAlert } from "lucide-react";
+import { ArrowUpRight, Send, TriangleAlert, Check } from "lucide-react";
+import { siteConfig } from "@/app/lib/site";
 
 type FieldName = "name" | "email" | "subject" | "message";
 type Errors = Partial<Record<FieldName, string>>;
 
 const MESSAGE_MIN = 20;
 const MESSAGE_MAX = 2000;
-const topics = ["Hiring / job opportunity", "Project or freelance work", "Collaboration", "Something else"];
-/** Placeholders follow the selected topic so each prompt asks for what a good first message needs. */
+const topics = ["A project", "A role", "Collaboration", "Just hello"];
 const topicPrompts: Record<string, { subject: string; message: string }> = {
-  "Hiring / job opportunity": {
-    subject: "Senior Frontend Engineer, Nairobi or remote",
-    message: "Role, team, stack and timeline.",
+  "A project": {
+    subject: "Booking platform for a property developer",
+    message: "What you want built, who uses it, and roughly when.",
   },
-  "Project or freelance work": {
-    subject: "Booking platform for a property developer, MVP in 8 weeks",
-    message: "What you want built, who uses it, timeline and budget.",
+  "A role": {
+    subject: "Frontend engineer, Nairobi or remote",
+    message: "The team, the stack and what the first months look like.",
   },
   Collaboration: {
-    subject: "Partnership on an open-source road-safety tool",
-    message: "What you are working on and how I can help.",
+    subject: "Open-source road-safety tool",
+    message: "What you are working on and where I could help.",
   },
-  "Something else": {
-    subject: "Question about your work or availability",
-    message: "What you need, and any helpful context.",
+  "Just hello": {
+    subject: "A question about your work",
+    message: "Whatever is on your mind.",
   },
 };
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -50,20 +45,20 @@ function validate(values: Record<FieldName, string>): Errors {
   return errors;
 }
 
-const inputClass =
-  "w-full rounded-lg border bg-transparent px-3.5 py-2.5 text-sm outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:shadow-[0_0_0_3px_var(--color-accent-glow)]";
-
 export default function ContactClient() {
   const [values, setValues] = useState<Record<FieldName, string>>({ name: "", email: "", subject: "", message: "" });
   const [topic, setTopic] = useState(topics[0]);
-  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [toastOpen, setToastOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const time = useLocalTime("Africa/Nairobi");
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   useEffect(() => {
     if (!toastOpen) return;
@@ -123,15 +118,15 @@ export default function ContactClient() {
   };
 
   const direct = [
-    { icon: Mail, label: "Email", value: "kareithibrian2@gmail.com", href: "mailto:kareithibrian2@gmail.com" },
-    { icon: Phone, label: "Phone", value: "+254 119 343 294", href: "tel:+254119343294" },
-    { icon: MapPin, label: "Location", value: "Nairobi, Kenya (EAT, UTC+3)", href: null as string | null },
+    { label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
+    { label: "Phone", value: siteConfig.phoneDisplay, href: `tel:${siteConfig.phone}` },
+    { label: "Based in", value: "Nairobi, Kenya", href: null as string | null },
   ];
 
-  const socials = [
-    { icon: Github, href: "https://github.com/Brian-Kareithi", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/brian-kareithi-04007637b/", label: "LinkedIn" },
-    { icon: Instagram, href: "https://www.instagram.com/kareithi._/", label: "Instagram" },
+  const elsewhere = [
+    { href: siteConfig.github, label: "GitHub" },
+    { href: siteConfig.linkedin, label: "LinkedIn" },
+    { href: siteConfig.instagram, label: "Instagram" },
   ];
 
   const fieldProps = (f: FieldName) => ({
@@ -141,217 +136,156 @@ export default function ContactClient() {
     onChange: handleChange,
     onBlur: () => setTouched((t) => ({ ...t, [f]: true })),
     "aria-invalid": showError(f) ? true : undefined,
-    "aria-describedby": showError(f) ? `contact-${f}-error` : f === "message" ? "contact-message-hint" : undefined,
+    "aria-describedby": showError(f) ? `contact-${f}-error` : undefined,
     required: true,
-    style: { color: "var(--color-text-primary)", borderColor: showError(f) ? "var(--color-error)" : "var(--color-border-hover)" },
+    className: "c-input",
   });
 
   return (
-    <section id="contact" className="relative w-full px-4 sm:px-6 lg:px-8 pb-12 pt-24 md:pb-14 md:pt-28"
-      style={{ backgroundColor: "var(--color-bg-primary)" }}>
-      <ScrollReveal>
-        <div className="max-w-5xl mx-auto w-full">
-          <Breadcrumbs />
-          <SectionHeader
-            index="04"
-            label="Connect"
-            variant="split"
-            compact
-            title={<>Let&apos;s build something <em className="font-serif-accent">good</em></>}
-            description="Hiring or planning a project? I reply personally, usually within 24 hours."
-          />
+    <div id="contact" className="q-page">
+      <div className="q-wrap">
+        <Breadcrumbs />
+        <SectionHeader
+          index="04"
+          label="Contact"
+          title={<>Say <em>hello</em></>}
+          description="Questions, ideas, collaborations or just a hello. I read every message myself and reply within a day."
+        />
 
-          <MascotNote className="mb-8" mood="wave">
-            I read every message myself and reply personally.
-          </MascotNote>
-
-          <StaggerReveal staggerDelay={100}>
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
-
-            {/* Direct lines */}
-            <div className="ink-slab relative flex flex-col justify-between gap-6 p-5 sm:p-6 lg:col-span-2">
-              {/* Sits on the top edge of the slab, outside it, so it keeps the light-page colours */}
-              <div className="pointer-events-none absolute -top-[44px] left-8 h-[70px] w-[52px]" aria-hidden="true">
-                <Lottie animationData={sittingPerson} loop={!reduceMotion} autoplay={!reduceMotion} rendererSettings={{ preserveAspectRatio: "xMidYMax meet" }} />
-              </div>
-              <div>
-                <p className="field-label mb-5">Direct</p>
-                <ul className="space-y-4">
-                  {direct.map((item) => (
-                    <li key={item.label} className="flex items-start gap-3">
-                      <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg" style={{ backgroundColor: "var(--color-surface-strong)", color: "var(--color-accent)" }}>
-                        <item.icon className="h-4 w-4" aria-hidden="true" />
-                      </span>
-                      <div className="min-w-0">
-                        <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>{item.label}</p>
-                        {item.href ? (
-                          <a href={item.href} className="link-underline block break-words text-base font-medium" style={{ color: "var(--color-text-primary)" }}>
-                            {item.value}
-                          </a>
-                        ) : (
-                          <span className="block text-base font-medium" style={{ color: "var(--color-text-primary)" }}>{item.value}</span>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <div className="flex gap-2">
-                  {socials.map((item) => (
-                    <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
-                      aria-label={item.label}
-                      className="icon-chip flex h-11 w-11 items-center justify-center rounded-lg border"
-                      style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
-                      <item.icon className="h-4 w-4" />
-                    </a>
-                  ))}
+        <div className="c-layout">
+          <aside className="c-side">
+            <dl className="c-direct">
+              {direct.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.label}</dt>
+                  <dd>
+                    {item.href ? (
+                      <a href={item.href} className="c-big">{item.value}</a>
+                    ) : (
+                      <span className="c-big">{item.value}</span>
+                    )}
+                  </dd>
                 </div>
+              ))}
+              <div>
+                <dt>Local time</dt>
+                <dd>
+                  <span className="c-big">
+                    <time className="tabular-nums">{time ?? "--:--"}</time> <span className="q-small">EAT, UTC+3</span>
+                  </span>
+                </dd>
               </div>
+            </dl>
+            <div className="c-elsewhere">
+              <p className="q-eyebrow" style={{ marginBottom: "0.5rem" }}>Elsewhere</p>
+              {elsewhere.map((item) => (
+                <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="q-link">
+                  {item.label} <ArrowUpRight aria-hidden="true" />
+                </a>
+              ))}
             </div>
+          </aside>
 
-            {/* Form */}
-            <div className="plate p-5 sm:p-6 lg:col-span-3">
-              <div className="mb-4 flex items-baseline justify-between gap-3">
-                <h2 className="text-lg font-semibold" style={{ color: "var(--color-text-primary)" }}>Send a message</h2>
-                <p className="text-xs" style={{ color: "var(--color-text-muted)" }}>All fields required</p>
-              </div>
-
-              <form onSubmit={handleSubmit} noValidate className="space-y-3">
-                <fieldset disabled={isSubmitting} className="m-0 min-w-0 space-y-3 border-0 p-0">
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                  <Field label="Your name" name="name" error={showError("name")}>
-                    <input {...fieldProps("name")} type="text" autoComplete="name" placeholder="Full name" className={inputClass} />
-                  </Field>
-                  <Field label="Email address" name="email" error={showError("email")}>
-                    <input {...fieldProps("email")} type="email" autoComplete="email" inputMode="email" placeholder="name@company.com" className={inputClass} />
-                  </Field>
-                </div>
-
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="contact-topic" className="mb-1 block text-xs font-medium" style={{ color: "var(--color-text-primary)" }}>
-                    What is this about?
-                  </label>
-                  <select
-                    id="contact-topic"
-                    value={topic}
-                    onChange={(e) => setTopic(e.target.value)}
-                    className={inputClass}
-                    style={{ color: "var(--color-text-primary)", borderColor: "var(--color-border-hover)" }}
+          <form onSubmit={handleSubmit} noValidate className="c-form" aria-label="Send a message">
+            <fieldset disabled={isSubmitting} className="c-fieldset">
+              <legend className="q-eyebrow" style={{ marginBottom: "1.5rem" }}>What is this about?</legend>
+              <div className="c-topics" role="radiogroup" aria-label="Topic">
+                {topics.map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    role="radio"
+                    aria-checked={topic === t}
+                    onClick={() => setTopic(t)}
+                    className="c-topic"
                   >
-                    {topics.map((t) => (
-                      <option key={t} value={t}>{t}</option>
-                    ))}
-                  </select>
-                </div>
+                    {topic === t && <Check aria-hidden="true" />}
+                    {t}
+                  </button>
+                ))}
+              </div>
 
-                <Field label="Subject" name="subject" error={showError("subject")}>
-                  <input {...fieldProps("subject")} type="text" autoComplete="off" placeholder={topicPrompts[topic]?.subject} className={inputClass} />
+              <div className="c-grid">
+                <Field label="Your name" name="name" error={showError("name")}>
+                  <input {...fieldProps("name")} type="text" autoComplete="name" placeholder="Full name" />
                 </Field>
-                </div>
-
-                <Field
-                  label="Message"
-                  name="message"
-                  hint={`Goals, timeline, links. Min ${MESSAGE_MIN} characters.`}
-                  error={showError("message")}
-                  counter={`${values.message.length} / ${MESSAGE_MAX}`}
-                >
-                  <textarea {...fieldProps("message")} rows={3} maxLength={MESSAGE_MAX} placeholder={topicPrompts[topic]?.message} className={`${inputClass} resize-y`} />
+                <Field label="Email address" name="email" error={showError("email")}>
+                  <input {...fieldProps("email")} type="email" autoComplete="email" inputMode="email" placeholder="name@company.com" />
                 </Field>
+              </div>
 
-                <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}
-                  className="btn-neon btn-neon-primary send-btn w-full justify-center" data-sending={isSubmitting}>
-                  {isSubmitting ? (
-                    <>
-                      <Send className="send-plane h-4 w-4" aria-hidden="true" />
-                      <span>Sending... relax, I&apos;m still sending</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send className="h-4 w-4" aria-hidden="true" />
-                      Send message
-                    </>
-                  )}
+              <Field label="Subject" name="subject" error={showError("subject")}>
+                <input {...fieldProps("subject")} type="text" autoComplete="off" placeholder={topicPrompts[topic]?.subject} />
+              </Field>
+
+              <Field label="Message" name="message" error={showError("message")} counter={`${values.message.length} / ${MESSAGE_MAX}`}>
+                <textarea {...fieldProps("message")} rows={4} maxLength={MESSAGE_MAX} placeholder={topicPrompts[topic]?.message} style={{ resize: "vertical" }} />
+              </Field>
+
+              <div className="c-submit">
+                <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting} className="q-btn" data-solid>
+                  <Send className={isSubmitting ? "send-plane" : undefined} aria-hidden="true" />
+                  {isSubmitting ? "Sending…" : "Send message"}
                 </button>
-                </fieldset>
+                <p className="q-small">All fields required.</p>
+              </div>
+            </fieldset>
 
-                <div role="status" aria-live="polite">
-                  {submitStatus === "error" && (
-                    <div className="animate-fade-in-up flex items-start gap-2.5 rounded-lg border p-3 text-sm"
-                      style={{ borderColor: "var(--color-error)", color: "var(--color-error)" }}>
-                      <TriangleAlert className="mt-0.5 h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                      Message not sent. Please try again or email me directly.
-                    </div>
-                  )}
-                </div>
-              </form>
+            <div role="status" aria-live="polite">
+              {submitStatus === "error" && (
+                <p className="c-error animate-fade-in-up">
+                  <TriangleAlert aria-hidden="true" />
+                  Message not sent. Please try again or email me directly.
+                </p>
+              )}
             </div>
-          </div>
-          </StaggerReveal>
-
-          {mounted &&
-            createPortal(
-              <div
-                role="status"
-                aria-live="polite"
-                className="toast-pop fixed right-4 top-20 z-[90] flex max-w-[calc(100vw-2rem)] items-center gap-3 rounded-xl px-4 py-3 shadow-lg sm:right-6"
-                data-open={toastOpen}
-                style={{ backgroundColor: "var(--palette-ink)", color: "var(--palette-cream)" }}
-              >
-                {toastOpen && (
-                  <>
-                    <Mascot mood="happy" size={32} />
-                    <span className="text-sm font-medium">Message sent successfully</span>
-                    <button
-                      onClick={() => setToastOpen(false)}
-                      aria-label="Dismiss"
-                      className="ml-1 flex h-6 w-6 items-center justify-center rounded-full text-lg leading-none opacity-70 transition-opacity hover:opacity-100"
-                    >
-                      &times;
-                    </button>
-                  </>
-                )}
-              </div>,
-              document.body,
-            )}
-
-          <NextSection
-            title="Not ready to write yet?"
-            description="Read my story or see my work first."
-            links={[
-              { href: "/about", label: "About", description: "My story and track record." },
-              { href: "/projects", label: "Selected Work", description: "Live products and demos." },
-              { href: "/homelab", label: "Homelab", description: "The lab I run at home." },
-            ]}
-          />
+          </form>
         </div>
-      </ScrollReveal>
-    </section>
+
+        {mounted &&
+          createPortal(
+            <div role="status" aria-live="polite" className="toast-pop c-toast" data-open={toastOpen}>
+              {toastOpen && (
+                <>
+                  <Check aria-hidden="true" />
+                  <span>Message sent. Thank you.</span>
+                  <button onClick={() => setToastOpen(false)} aria-label="Dismiss">&times;</button>
+                </>
+              )}
+            </div>,
+            document.body,
+          )}
+
+        <NextSection
+          title="Or read on"
+          links={[
+            { href: "/about", label: "About", description: "My story and track record." },
+            { href: "/projects", label: "Selected work", description: "Live products and demos." },
+            { href: "/homelab", label: "Homelab", description: "The lab I run at home." },
+          ]}
+        />
+      </div>
+    </div>
   );
 }
 
-function Field({ label, name, hint, error, counter, children }: { label: string; name: string; hint?: string; error?: string; counter?: string; children: React.ReactNode }) {
+function Field({ label, name, error, counter, children }: { label: string; name: string; error?: string; counter?: string; children: React.ReactNode }) {
   return (
-    <div>
-      <label htmlFor={`contact-${name}`} className="mb-1 block text-xs font-medium" style={{ color: "var(--color-text-primary)" }}>
-        {label}
-      </label>
+    <div className="c-field">
+      <label htmlFor={`contact-${name}`}>{label}</label>
       {children}
-      {(error || hint || counter) && (
-      <div className="mt-1 flex items-start justify-between gap-3 text-xs">
-        {error ? (
-          <p id={`contact-${name}-error`} className="flex items-start gap-1.5" style={{ color: "var(--color-error)" }}>
-            <TriangleAlert className="mt-px h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
-            {error}
-          </p>
-        ) : (
-          <p id={`contact-${name}-hint`} style={{ color: "var(--color-text-muted)" }}>{hint}</p>
-        )}
-        {counter && <span className="flex-shrink-0 font-mono tabular-nums" style={{ color: "var(--color-text-muted)" }}>{counter}</span>}
-      </div>
+      {(error || counter) && (
+        <div className="c-meta">
+          {error ? (
+            <p id={`contact-${name}-error`} className="c-error">
+              <TriangleAlert aria-hidden="true" />
+              {error}
+            </p>
+          ) : (
+            <span />
+          )}
+          {counter && <span className="q-mono">{counter}</span>}
+        </div>
       )}
     </div>
   );

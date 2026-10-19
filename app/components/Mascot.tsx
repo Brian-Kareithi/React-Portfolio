@@ -13,7 +13,6 @@ const BADGE: Record<MascotMood, string | null> = {
   lost: "?",
 };
 
-/** The cartoon, cropped to a face. Mood is a CSS animation on a data attribute, so it costs no JS per frame. */
 export function Mascot({ mood = "idle", size = 48, className = "" }: { mood?: MascotMood; size?: number; className?: string }) {
   const badge = BADGE[mood];
   return (
@@ -46,7 +45,6 @@ export function Mascot({ mood = "idle", size = 48, className = "" }: { mood?: Ma
   );
 }
 
-/** A short aside from the mascot, set in a speech bubble. Keep it to a sentence. */
 export function MascotNote({ mood = "idle", children, className = "" }: { mood?: MascotMood; children: ReactNode; className?: string }) {
   return (
     <aside className={`flex items-end gap-3 ${className}`} aria-label="A note from Brian">

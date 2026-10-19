@@ -7,7 +7,6 @@ import { complete, isDecoy, missions, prompt, runCommand, startDir, type Command
 type Line = { kind: "cmd" | "out" | "ok" | "err"; text: string; prompt?: string };
 
 const STORAGE_KEY = "ctf-solved";
-// Saved progress lives in localStorage; useSyncExternalStore keeps SSR and hydration consistent.
 let memory: string | null = null;
 const readSaved = () => {
   if (memory !== null) return memory;
@@ -156,30 +155,28 @@ export default function CtfGame() {
 
   const hintsUsed = Object.values(hintLevel).reduce((x, y) => x + y, 0);
 
-  // Output is cream; a capture is white and bold; an error keeps cream text with a berry wavy underline.
   const lineStyle = (kind: Line["kind"]): CSSProperties =>
     kind === "ok"
       ? { color: "var(--palette-white)", fontWeight: 600 }
       : kind === "err"
         ? { color: "var(--palette-cream)", textDecoration: "underline wavy var(--palette-berry)", textUnderlineOffset: "4px" }
-        : { color: "rgb(234 242 239 / 0.84)" };
+        : { color: "rgb(242 238 242 / 0.84)" };
 
   return (
     <div className="grid gap-4 lg:grid-cols-12 lg:items-start">
-      {/* Terminal */}
       <div className="lg:col-span-8">
         <div
           className="ctf-term overflow-hidden rounded-xl border"
-          style={{ backgroundColor: "var(--palette-black)", borderColor: "rgb(234 242 239 / 0.14)", boxShadow: "var(--shadow-xl)" }}
+          style={{ backgroundColor: "var(--palette-black)", borderColor: "rgb(242 238 242 / 0.14)", boxShadow: "var(--shadow-xl)" }}
           onClick={() => inputRef.current?.focus()}
         >
-          <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: "rgb(234 242 239 / 0.1)", backgroundColor: "var(--palette-violet)" }}>
+          <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: "rgb(242 238 242 / 0.1)", backgroundColor: "var(--palette-violet)" }}>
             <span className="flex gap-1.5" aria-hidden="true">
               <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-berry)" }} />
               <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-berry)" }} />
               <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-cream)" }} />
             </span>
-            <span className="flex-1 text-center font-mono text-[11px]" style={{ color: "rgb(234 242 239 / 0.7)" }}>
+            <span className="flex-1 text-center font-mono text-[11px]" style={{ color: "rgb(242 238 242 / 0.7)" }}>
               guest@lab: {cwd === startDir ? "~" : cwd} · sandbox
             </span>
             <span className="w-12" aria-hidden="true" />
@@ -195,7 +192,7 @@ export default function CtfGame() {
             {lines.map((l, i) =>
               l.kind === "cmd" ? (
                 <p key={i} className="whitespace-pre-wrap break-words">
-                  <span style={{ color: "rgb(234 242 239 / 0.7)" }}>{l.prompt}</span> <span>{l.text}</span>
+                  <span style={{ color: "rgb(242 238 242 / 0.7)" }}>{l.prompt}</span> <span>{l.text}</span>
                 </p>
               ) : (
                 <p key={i} className="whitespace-pre-wrap break-words" style={lineStyle(l.kind)}>
@@ -205,7 +202,7 @@ export default function CtfGame() {
             )}
 
             <form onSubmit={onSubmit} className="flex items-center gap-2">
-              <label htmlFor="ctf-input" className="flex-shrink-0" style={{ color: "rgb(234 242 239 / 0.7)" }}>
+              <label htmlFor="ctf-input" className="flex-shrink-0" style={{ color: "rgb(242 238 242 / 0.7)" }}>
                 {prompt(cwd)}
               </label>
               <input
@@ -243,7 +240,6 @@ export default function CtfGame() {
         </div>
       </div>
 
-      {/* Flags */}
       <aside className="lg:col-span-4 lg:sticky lg:top-24" aria-label="Flags">
         <div className="flat-card p-4 sm:p-5">
           <div className="mb-4 flex items-start justify-between gap-3">

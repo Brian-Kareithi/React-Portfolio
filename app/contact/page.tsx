@@ -4,10 +4,10 @@ import { pageMeta, siteConfig } from "@/app/lib/site";
 import { JsonLd } from "@/app/components/JsonLd";
 
 const description =
-  "Hire Brian Kareithi for a full-time role, contract or freelance project. Send a message and he usually replies within 24 hours.";
+  "Contact Brian Kareithi in Nairobi, Kenya about a project, a collaboration, his work, or anything else worth discussing.";
 
 export const metadata: Metadata = pageMeta({
-  title: "Hire a Full-Stack Developer in Nairobi",
+  title: "Contact Brian Kareithi",
   heading: "Contact",
   description,
   path: "/contact",

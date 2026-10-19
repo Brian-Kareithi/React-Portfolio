@@ -1,7 +1,3 @@
-/**
- * The project on the bench right now: a client point of sale, still in progress.
- * Every line here describes something visible in the live demo; nothing is projected.
- */
 export const currentProject = {
   id: "pos",
   status: "In progress",

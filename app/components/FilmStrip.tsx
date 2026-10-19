@@ -9,11 +9,6 @@ export interface Frame {
   caption: string;
 }
 
-/**
- * A horizontal strip of screenshots with snap points.
- * Touch and trackpads scroll natively; a mouse can drag; the focused strip scrolls with the arrow
- * keys; and the two buttons step one frame at a time.
- */
 export default function FilmStrip({ frames, label }: { frames: Frame[]; label: string }) {
   const ref = useRef<HTMLUListElement>(null);
   const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
@@ -40,7 +35,6 @@ export default function FilmStrip({ frames, label }: { frames: Frame[]; label: s
     el.scrollBy({ left: dir * (item.getBoundingClientRect().width + 16), behavior: smooth ? "smooth" : "auto" });
   };
 
-  // Mouse drag only; touch and pens keep native scrolling and momentum.
   const onPointerDown = (e: ReactPointerEvent<HTMLUListElement>) => {
     if (e.pointerType !== "mouse" || e.button !== 0 || !ref.current) return;
     drag.current = { x: e.clientX, left: ref.current.scrollLeft, moved: false };
@@ -63,7 +57,6 @@ export default function FilmStrip({ frames, label }: { frames: Frame[]; label: s
     drag.current = null;
     if (el.dataset.dragging) {
       delete el.dataset.dragging;
-      // Settle onto the nearest snap point once snapping is back on.
       const item = el.querySelector("li");
       if (item) {
         const w = item.getBoundingClientRect().width + 16;

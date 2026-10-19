@@ -1,7 +1,3 @@
-/**
- * The engineering standards every build on this site is held to. Each line is a
- * deliberate choice you can verify in the source, so this is evidence, not a claim.
- */
 
 export interface StandardGroup {
   id: "accessibility" | "performance" | "security" | "reach";
@@ -57,12 +53,6 @@ export const standards: StandardGroup[] = [
   },
 ];
 
-/**
- * Optional measured results. Leave empty until you have a real Lighthouse run.
- * Run Lighthouse against the deployed site, then add entries like:
- *   { label: "Performance", score: 100 }
- * The section only shows this row when at least one score is present.
- */
 export interface AuditScore {
   label: string;
   score: number;

@@ -11,7 +11,6 @@ import { SiKotlin, SiCplusplus, SiDotnet, SiNextdotjs, SiFirebase, SiDocker, SiA
 import { FaApple, FaWindows, FaLinux, FaAndroid } from "react-icons/fa";
 import { DiMongodb } from "react-icons/di";
 
-/** Shared by /how-i-work. */
 
 export interface Capability {
   title: string;

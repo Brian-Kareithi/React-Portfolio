@@ -1,6 +1,6 @@
 # Fitness Tracker
 
-> Personal health & habit tracking Android app
+> Sleep and diet tracker for Android
 
 **Status:** Active · **Access:** Public repository · [Source](https://github.com/Brian-Kareithi/Physical-Fitness)
 
@@ -10,7 +10,7 @@ Track sleep and diet in one Android app that stores everything on the device.
 
 ## Problem
 
-Off-the-shelf fitness apps buried the two things I actually wanted to track, sleep and diet, under features I didn't need, so I built a Kotlin app scoped to exactly what I use daily.
+Fitness apps buried the two things I track, sleep and diet. So I built a Kotlin app for exactly those.
 
 ## Target audience
 
@@ -35,10 +35,10 @@ Off-the-shelf fitness apps buried the two things I actually wanted to track, sle
 
 ## Solution
 
-1. Sleep tracking and habit monitoring with daily logging and progress charts
-2. Diet and nutrition tracking with meal logging and health metrics
-3. Local-first storage with Room Database, no account or backend required
-4. Actively used and iterated on daily, driven by real usage rather than a spec
+1. Sleep and habit logging with progress charts
+2. Meal logging and health metrics
+3. Local-first with Room, no account or backend
+4. Used daily and shaped by real use
 
 ## Architecture
 
@@ -87,4 +87,4 @@ Kotlin · Android SDK · Room Database · MPAndroidChart
 
 ## My contribution
 
-Solo personal project: designed, built and continue to maintain it.
+Solo project. Designed, built and maintained by me.

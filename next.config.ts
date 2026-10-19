@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Pages merged or renamed; keep old links and search results working.
   async redirects() {
     return [
       { source: "/home", destination: "/", permanent: true },

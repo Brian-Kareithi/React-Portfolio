@@ -1,23 +1,14 @@
-/**
- * "Debug it yourself": a case file played as a decision tree. Each node shows what you can see so
- * far, then offers three next moves. A good move advances; a detour or a wrong turn costs a step,
- * explains why, and leaves you where you were. The endings mirror the cases on the page.
- */
 
 export type Verdict = "good" | "detour" | "wrong";
 
 export interface Choice {
-  /** What you would type or do. */
   label: string;
   verdict: Verdict;
-  /** What happens, and why it was or was not the right call. */
   result: string;
-  /** Node to move to. Only good moves have one. */
   next?: string;
 }
 
 export interface PuzzleNode {
-  /** Evidence on screen: a command and its output, as a terminal would show it. */
   evidence: string[];
   question: string;
   choices: Choice[];
