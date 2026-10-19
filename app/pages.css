@@ -793,3 +793,49 @@ body:has([data-nav="dark"]) .q-wordmark i { color: #d98aa3; }
 .a-line { margin-top: 1rem; }
 
 .c-form { padding: clamp(1.5rem, 3.5vw, 2.75rem); border: 1px solid var(--hairline-strong); border-radius: 1rem; background: color-mix(in srgb, var(--palette-cream) 45%, white); box-shadow: 0 30px 60px -45px rgb(23 20 26 / 0.45); }
+
+.pc { position: relative; margin-bottom: clamp(2rem, 4vw, 3rem); padding: clamp(2rem, 5vw, 3.5rem) 0 1.5rem; overflow: hidden; border-radius: 1.25rem; background: var(--palette-black); color: var(--palette-cream); }
+.pc-glow { position: absolute; left: 50%; top: 44%; width: min(46rem, 90%); height: 16rem; transform: translate(-50%, -50%); border-radius: 9999px; background: var(--palette-berry); opacity: 0.55; filter: blur(90px); pointer-events: none; }
+.pc-stage { --cw: clamp(11.5rem, 58vw, 17.5rem); position: relative; height: calc(var(--cw) * 1.5); margin-inline: auto; touch-action: pan-y; user-select: none; }
+.pc-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--cw);
+  height: calc(var(--cw) * 1.4);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgb(242 238 242 / 0.14);
+  border-radius: 1.1rem;
+  background: var(--palette-violet);
+  color: var(--palette-cream);
+  cursor: pointer;
+  transform: translate(-50%, -50%) translateX(calc(var(--o) * 76%)) scale(calc(1 - var(--a) * 0.13));
+  transition: transform 0.6s var(--ease-out), opacity 0.5s var(--ease-out), filter 0.5s;
+  filter: brightness(calc(1 - var(--a) * 0.18));
+  text-align: left;
+}
+.pc-card[data-active] { box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.7); filter: none; }
+.pc-img { object-fit: cover; object-position: top left; }
+.pc-fallback { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-instrument-serif), Georgia, serif; font-size: 9rem; color: rgb(242 238 242 / 0.14); }
+.pc-shade { position: absolute; inset: 0; background: rgb(23 20 26 / 0.42); }
+.pc-card[data-active] .pc-shade { background: rgb(23 20 26 / 0.3); }
+.pc-index { position: absolute; top: 0.9rem; right: 1.1rem; font-family: var(--font-instrument-serif), Georgia, serif; font-size: 2rem; line-height: 1; color: var(--palette-cream); }
+.pc-info { position: absolute; left: 0; right: 0; bottom: 0; display: grid; gap: 0.6rem; padding: 1.1rem; background: rgb(23 20 26 / 0.7); backdrop-filter: blur(6px); }
+.pc-info strong { font-family: var(--font-instrument-serif), Georgia, serif; font-size: 1.5rem; font-weight: 400; line-height: 1.05; }
+.pc-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.pc-tags span { padding: 0.15rem 0.6rem; border-radius: 9999px; background: rgb(242 238 242 / 0.14); font: 0.625rem var(--font-jetbrains-mono), monospace; }
+.pc-caption { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 2rem; margin: 1.5rem var(--gutter) 0; text-align: center; }
+.pc-tagline { font-size: 0.9375rem; color: rgb(242 238 242 / 0.8); }
+.pc .q-link { color: var(--palette-cream); }
+.pc-controls { position: relative; display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin-top: 0.75rem; }
+.pc-btn { display: grid; width: 2.75rem; height: 2.75rem; place-items: center; border: 1px solid rgb(242 238 242 / 0.3); border-radius: 9999px; background: transparent; color: var(--palette-cream); cursor: pointer; transition: background-color 0.25s, color 0.25s, opacity 0.25s; }
+.pc-btn svg { width: 1rem; height: 1rem; }
+.pc-btn:hover:not(:disabled) { background: var(--palette-cream); color: var(--palette-black); }
+.pc-btn:disabled { opacity: 0.35; cursor: default; }
+.pc-dots { display: flex; gap: 0.25rem; }
+.pc-dots button { display: grid; width: 1.5rem; height: 2.75rem; place-items: center; border: 0; background: none; cursor: pointer; }
+.pc-dots button::before { content: ""; width: 0.4rem; height: 0.4rem; border-radius: 9999px; background: rgb(242 238 242 / 0.35); transition: width 0.3s var(--ease-out), background-color 0.3s; }
+.pc-dots button[aria-current="true"]::before { width: 1.25rem; background: var(--palette-cream); }
+.pc-card:focus-visible, .pc-btn:focus-visible, .pc-dots button:focus-visible { outline: 2px solid var(--palette-cream); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .pc-card, .pc-btn, .pc-dots button::before { transition: none; } }
