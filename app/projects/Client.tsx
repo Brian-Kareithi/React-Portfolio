@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowUpRight, ExternalLink, Github, Lock, Plus } from "lucide-react";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { CaseStudy } from "@/app/components/ui/CaseStudy";
@@ -7,7 +7,6 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 import FilmStrip from "@/app/components/FilmStrip";
 import ProjectCarousel from "./ProjectCarousel";
-import { Assemble } from "@/app/components/ui/Assemble";
 import { caseStudies, otherProjects } from "@/app/lib/projects-data";
 import { currentProject as now } from "@/app/lib/current-project";
 
@@ -19,6 +18,20 @@ const githubStats = [
 
 export default function ProjectsClient() {
   const [expanded, setExpanded] = useState<number | null>(null);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const fromHash = () => {
+      const i = caseStudies.findIndex((c) => c.id === window.location.hash.slice(1));
+      if (i >= 0) setActive(i);
+    };
+    const id = requestAnimationFrame(fromHash);
+    window.addEventListener("hashchange", fromHash);
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener("hashchange", fromHash);
+    };
+  }, []);
 
   return (
     <div className="q-page" id="projects">
@@ -37,7 +50,7 @@ export default function ProjectsClient() {
           }
         />
 
-        <ProjectCarousel studies={caseStudies} />
+        <ProjectCarousel studies={caseStudies} active={active} onChange={setActive} />
 
         <section id="now-building" aria-labelledby="now-title" className="q-section">
           <div className="q-section-head">
@@ -71,12 +84,10 @@ export default function ProjectsClient() {
       </div>
 
       <div className="q-wrap">
-        <section aria-label="Case studies" className="p-cases">
-          {caseStudies.map((study) => (
-            <Assemble key={study.id}>
-              <CaseStudy study={study} />
-            </Assemble>
-          ))}
+        <section id="case-detail" aria-label="Selected case study" className="p-cases">
+          <div key={caseStudies[active].id} className="animate-fade-in-up">
+            <CaseStudy study={caseStudies[active]} />
+          </div>
         </section>
 
         <section className="q-section p-self">
