@@ -223,7 +223,7 @@ export default function HomelabClient() {
     .flatMap((c) => c.items.map((item, idx) => ({ ...item, key: `${c.title}-${idx}`, category: c.title })));
 
   return (
-    <div id="homelab" className="q-page q-dark" data-nav="dark">
+    <div id="homelab" className="q-page">
       <div className="q-wrap">
         <Breadcrumbs />
         <SectionHeader
@@ -240,9 +240,9 @@ export default function HomelabClient() {
 
         <section aria-label="Lab status" className="l-status">
           <p className="l-live"><span className="live-dot" aria-hidden="true" /> All systems normal</p>
-          <dl>
+          <dl className="l-stats">
             {labStats.map((s) => (
-              <div key={s.label}>
+              <div key={s.label} className="l-stat">
                 <dd>{s.value}</dd>
                 <dt>{s.label}</dt>
                 <p>{s.note}</p>
