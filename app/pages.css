@@ -279,11 +279,6 @@
 @media (hover: hover) and (pointer: fine) {
   .hero-social:hover { transform: none; background: var(--palette-black); color: var(--palette-cream); border-color: var(--palette-black); box-shadow: none; }
 }
-.h-scroll { position: absolute; left: 50%; bottom: 1.5rem; display: none; flex-direction: column; align-items: center; gap: 0.6rem; transform: translateX(-50%); font: 0.625rem var(--font-jetbrains-mono), monospace; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-text-muted); }
-@media (min-width: 1024px) and (min-height: 700px) { .h-scroll { display: flex; } }
-.h-scroll span { display: block; width: 1px; height: 2.4rem; background: var(--palette-berry); transform-origin: top; animation: h-scroll 2.2s var(--ease-in-out) infinite; }
-@keyframes h-scroll { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .h-scroll span { animation: none; } }
 
 .h-glance { border-block: 1px solid var(--hairline-strong); }
 .h-glance-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
