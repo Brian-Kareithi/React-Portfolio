@@ -1,12 +1,12 @@
 "use client";
-import { useRef, useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import { ArrowUpRight, ExternalLink, Github, Lock, Plus } from "lucide-react";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import { CaseStudy } from "@/app/components/ui/CaseStudy";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 import FilmStrip from "@/app/components/FilmStrip";
+import ProjectCarousel from "./ProjectCarousel";
 import { Assemble } from "@/app/components/ui/Assemble";
 import { caseStudies, otherProjects } from "@/app/lib/projects-data";
 import { currentProject as now } from "@/app/lib/current-project";
@@ -19,18 +19,6 @@ const githubStats = [
 
 export default function ProjectsClient() {
   const [expanded, setExpanded] = useState<number | null>(null);
-  const [hover, setHover] = useState<string | null>(null);
-  const listRef = useRef<HTMLOListElement>(null);
-
-  const trackPointer = (e: React.PointerEvent) => {
-    const el = listRef.current;
-    if (!el || e.pointerType !== "mouse") return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--px", `${e.clientX - r.left}px`);
-    el.style.setProperty("--py", `${e.clientY - r.top}px`);
-  };
-
-  const preview = caseStudies.find((c) => c.id === hover)?.screenshot;
 
   return (
     <div className="q-page" id="projects">
@@ -49,32 +37,7 @@ export default function ProjectsClient() {
           }
         />
 
-        <section aria-label="Project index" className="p-index">
-          <ol ref={listRef} onPointerMove={trackPointer} onPointerLeave={() => setHover(null)}>
-            {caseStudies.map((study) => (
-              <li key={study.id}>
-                <a
-                  href={`#${study.id}`}
-                  className="p-index-row"
-                  onPointerEnter={(e) => e.pointerType === "mouse" && setHover(study.id)}
-                  onFocus={() => setHover(study.id)}
-                  onBlur={() => setHover(null)}
-                >
-                  <span className="p-index-num">{study.index}</span>
-                  <span className="p-index-title">{study.title}</span>
-                  <span className="p-index-stack">{study.stack.slice(0, 3).join(" · ")}</span>
-                  <span className="p-index-status">{study.status}</span>
-                  <ArrowUpRight className="p-index-arrow" aria-hidden="true" />
-                </a>
-              </li>
-            ))}
-            {preview && (
-              <div className="p-peek" aria-hidden="true">
-                <Image src={preview.src} alt="" width={720} height={450} sizes="360px" />
-              </div>
-            )}
-          </ol>
-        </section>
+        <ProjectCarousel studies={caseStudies} />
 
         <section id="now-building" aria-labelledby="now-title" className="q-section">
           <div className="q-section-head">
