@@ -6,7 +6,6 @@ import HeroTerminal from "@/app/components/HeroTerminal";
 import PaletteButton from "@/app/components/PaletteButton";
 import { Assemble } from "@/app/components/ui/Assemble";
 import { routes } from "@/app/lib/nav";
-import { caseStudies } from "@/app/lib/projects-data";
 import { siteConfig } from "@/app/lib/site";
 
 const socials = [
@@ -21,10 +20,6 @@ const glance = [
   { value: "19", label: "Devices in my homelab", note: "Proxmox, RAID-1, always on" },
   { value: "2", label: "Systems live at a school", note: "Teacher and parent portals" },
 ];
-
-const featured = ["pos-system", "roadsafe360"]
-  .map((id) => caseStudies.find((c) => c.id === id))
-  .filter((c): c is (typeof caseStudies)[number] => Boolean(c?.screenshot));
 
 export default function HomeContent() {
   const indexRoutes = routes.filter((r) => r.path !== "/");
@@ -90,7 +85,7 @@ export default function HomeContent() {
           </div>
 
           <HeroTerminal />
-        </div>
+        </div>
       </section>
 
       <section aria-label="At a glance" className="h-glance">
@@ -110,70 +105,6 @@ export default function HomeContent() {
           </dl>
         </div>
       </section>
-
-      <StackJourney />
-
-      {featured.length > 0 && (
-        <section id="proof" aria-labelledby="proof-title" className="h-proof">
-          <div className="q-wrap">
-            <Assemble className="q-section-head">
-              <p className="q-eyebrow"><b>01</b> Shipped</p>
-              <div className="h-proof-head">
-                <h2 id="proof-title" data-split className="q-h2">
-                  In production, <em>used by real people</em>
-                </h2>
-                <Link href="/projects" className="q-link">
-                  All projects <ArrowUpRight aria-hidden="true" />
-                </Link>
-              </div>
-            </Assemble>
-
-            <ol className="h-proof-list">
-              {featured.map((study, i) => (
-                <li key={study.id}>
-                  <Assemble>
-                    <article className="h-proof-item" data-flip={i % 2 === 1 || undefined}>
-                      <Link
-                        href={`/projects#${study.id}`}
-                        data-cursor="view"
-                        tabIndex={-1}
-                        aria-hidden="true"
-                        className="h-proof-shot"
-                      >
-                        <div className="jv-window-bar"><i /><i /><i /><span className="jv-window-url">{study.title.toLowerCase().replace(/\s+/g, "-")}.app</span></div>
-                        <Image
-                          src={study.screenshot!.src}
-                          alt=""
-                          width={1440}
-                          height={900}
-                          sizes="(max-width: 1024px) 100vw, 640px"
-                          className="h-proof-img"
-                        />
-                      </Link>
-                      <div className="h-proof-copy">
-                        <p className="q-eyebrow"><b>0{i + 1}</b> {study.status}</p>
-                        <h3 className="q-h2">{study.title}</h3>
-                        <p className="q-body">{study.tagline}</p>
-                        <p className="q-mono q-small">{study.stack.slice(0, 4).join(" · ")}</p>
-                        <div className="h-proof-links">
-                          <Link href={`/projects#${study.id}`} className="q-link">
-                            Case study<span className="sr-only">: {study.title}</span> <ArrowRight aria-hidden="true" />
-                          </Link>
-                          {study.access.demo && (
-                            <a href={study.access.demo} target="_blank" rel="noopener noreferrer" className="q-link">
-                              Live demo <ArrowUpRight aria-hidden="true" />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </article>
-                  </Assemble>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-      )}
 
       <section aria-label="How I work, in one line" className="h-quote">
         <div className="q-wrap">
