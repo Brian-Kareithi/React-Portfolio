@@ -1,21 +1,11 @@
 "use client";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
-import { FileDown, FolderKanban, House, Mail, Search, User, Workflow, type LucideIcon } from "lucide-react";
+import Link from "next/link";
+import { Search } from "lucide-react";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
-import Link from "next/link";
 import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
-
-/** Icon above each label in the desktop pill, as in the liquid-glass tab bar it is modelled on. */
-const NAV_ICONS: Record<string, LucideIcon> = {
-  "/": House,
-  "/about": User,
-  "/how-i-work": Workflow,
-  "/projects": FolderKanban,
-  "/contact": Mail,
-};
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -28,7 +18,7 @@ export default function Navbar() {
   const wasOpen = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -51,11 +41,9 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
-  // Focus moves into the sheet on open and back to the toggle on close; Tab stays inside while open.
   useEffect(() => {
     if (menuOpen) {
       wasOpen.current = true;
-      // Wait a frame so the sheet is visible (and focusable) before moving focus into it.
       const raf = requestAnimationFrame(() => sheetRef.current?.querySelector<HTMLElement>("a")?.focus());
       const trap = (e: KeyboardEvent) => {
         if (e.key !== "Tab" || !sheetRef.current) return;
@@ -93,7 +81,6 @@ export default function Navbar() {
     },
   });
 
-  // Real links keep middle-click, prefetch and crawlability; only a click on the current page is intercepted.
   const onNavClick = (e: MouseEvent<HTMLAnchorElement>, path: string) => {
     setMenuOpen(false);
     if (path !== pathname || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
@@ -103,119 +90,57 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className="site-nav fixed z-[60] mx-auto overflow-hidden transition-[top,left,right,max-width,border-radius,box-shadow] duration-300 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]"
-        style={{
-          top: scrolled ? 0 : 14,
-          left: scrolled ? 0 : "clamp(1rem, 3vw, 2rem)",
-          right: scrolled ? 0 : "clamp(1rem, 3vw, 2rem)",
-          maxWidth: scrolled ? "100vw" : "72rem",
-          borderRadius: scrolled ? 0 : 9999,
-          borderTopColor: scrolled ? "transparent" : undefined,
-          borderLeftColor: scrolled ? "transparent" : undefined,
-          borderRightColor: scrolled ? "transparent" : undefined,
-        }}
-        aria-label="Primary"
-      >
-        {/* Docked: the bar spans the viewport and its row lines up with the page content */}
-        <div
-          className="relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 pl-5 pr-3 transition-[padding] duration-300 sm:pl-6 sm:pr-3.5 lg:h-[62px]"
-          style={scrolled ? { paddingLeft: "clamp(1rem, 3vw, 2rem)", paddingRight: "clamp(1rem, 3vw, 2rem)" } : undefined}
-        >
-          <Link
-            href="/"
-            onClick={(e) => onNavClick(e, "/")}
-            className="nav-focus flex min-h-[44px] items-center gap-3 rounded-lg transition-opacity duration-200 hover:opacity-70"
-            aria-label="Brian Kareithi, home"
-          >
-            <Image src="/logo.png" alt="" width={112} height={34} className="h-9 w-auto" priority />
+      <header className="q-nav" data-scrolled={scrolled || undefined}>
+        <nav className="q-wrap q-nav-inner" aria-label="Primary">
+          <Link href="/" onClick={(e) => onNavClick(e, "/")} className="q-wordmark" aria-label="Brian Kareithi, home">
+            Brian Kareithi<i>.</i>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="q-nav-links">
             {primaryNav.map((r) => {
               const active = r.path === pathname;
-              const Icon = NAV_ICONS[r.path];
               return (
                 <Link
                   key={r.path}
                   href={r.path}
                   onClick={(e) => onNavClick(e, r.path)}
-                  className="nav-focus nav-link flex flex-col items-center gap-0.5 rounded-lg px-4 py-1.5 text-[11px] font-medium"
+                  className="q-nav-link"
                   data-active={active}
                   aria-current={active ? "page" : undefined}
                 >
-                  {Icon && <Icon className="h-[18px] w-[18px]" aria-hidden="true" />}
-                  <span className="flex items-center">
-                    {r.label}
-                    {r.tag && <NavTag label={r.tag} />}
-                  </span>
+                  {r.label}
                 </Link>
               );
             })}
           </div>
 
-          <div className="flex items-center gap-1.5">
-            {/* One search entry point per breakpoint: icon on phones, labelled field from sm up */}
-            <button
-              onClick={openPalette}
-              className="nav-focus flex h-11 w-11 items-center justify-center rounded-lg transition-colors duration-200 hover:text-[var(--color-text-primary)] sm:hidden"
-              style={{ color: "var(--color-text-muted)" }}
-              aria-label="Search"
-            >
+          <div className="q-nav-tools">
+            <button onClick={openPalette} className="q-nav-icon q-only-small" aria-label="Search">
               <Search className="h-4 w-4" />
             </button>
-
-            <button
-              onClick={openPalette}
-              className="nav-focus hidden h-9 items-center gap-2 rounded-lg border px-3.5 text-xs font-medium transition-colors duration-200 hover:border-[var(--color-text-primary)] sm:flex"
-              style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}
-              aria-label="Search the site (Ctrl+K)"
-            >
+            <button onClick={openPalette} className="q-nav-search" aria-label="Search the site (Ctrl+K)">
               <Search className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Search</span>
-              <kbd className="ml-2 rounded border px-1.5 py-px font-mono text-[10px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>Ctrl K</kbd>
+              <kbd>Ctrl K</kbd>
             </button>
-
-            <span className="hidden sm:block">
-              <Link
-                  href="/resume"
-                  className="btn-neon btn-neon-primary !min-h-0 !rounded-lg !px-4 !py-2 !text-[12px]"
-                  aria-label="Download resume (PDF), choose a role"
-                >
-                  <FileDown className="w-3.5 h-3.5" />
-                  <span>Resume</span>
-              </Link>
-            </span>
-
             <button
               ref={menuBtnRef}
               aria-controls="mobile-menu"
-              className="nav-focus relative flex h-11 w-11 flex-col items-center justify-center gap-[5px] lg:hidden"
+              className="q-nav-icon q-burger"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
             >
-              <span
-                className="h-px w-5 transition-transform duration-300"
-                style={{ backgroundColor: "var(--color-text-primary)", transform: menuOpen ? "translateY(3px) rotate(45deg)" : "none" }}
-              />
-              <span
-                className="h-px w-5 transition-transform duration-300"
-                style={{ backgroundColor: "var(--color-text-primary)", transform: menuOpen ? "translateY(-3px) rotate(-45deg)" : "none" }}
-              />
+              <span style={{ transform: menuOpen ? "translateY(3px) rotate(45deg)" : "none" }} />
+              <span style={{ transform: menuOpen ? "translateY(-3px) rotate(-45deg)" : "none" }} />
             </button>
           </div>
+        </nav>
+        <div className="q-progress" aria-hidden="true">
+          <div ref={progressRef} />
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-px overflow-hidden" style={{ opacity: scrolled ? 1 : 0, transition: "opacity 0.3s ease" }}>
-          <div
-            ref={progressRef}
-            className="h-full w-full origin-left"
-            style={{ backgroundColor: "var(--color-text-primary)", transform: "scaleX(0)" }}
-          />
-        </div>
-      </nav>
+      </header>
 
-      {/* Mobile editorial overlay */}
       <div
         id="mobile-menu"
         ref={sheetRef}
@@ -226,8 +151,8 @@ export default function Navbar() {
         inert={!menuOpen}
       >
         <div className="flex h-full flex-col overflow-y-auto px-4 pb-8 pt-20">
-          <p className="field-label mb-4">Index</p>
-          <ul className="flex-1 space-y-1">
+          <p className="q-eyebrow" style={{ marginBottom: "1rem" }}>Index</p>
+          <ul className="flex-1">
             {routes.map((r, i) => {
               const active = r.path === pathname;
               return (
@@ -238,31 +163,22 @@ export default function Navbar() {
                     transform: menuOpen ? "none" : "translateY(12px)",
                     opacity: menuOpen ? 1 : 0,
                     transitionProperty: "opacity, transform",
-                    transitionTimingFunction: "ease, cubic-bezier(0.22,1,0.36,1)",
-                    transitionDuration: "0.3s, 0.3s",
+                    transitionDuration: "0.3s",
                   }}
                 >
                   <Link
                     href={r.path}
                     onClick={(e) => onNavClick(e, r.path)}
                     aria-current={active ? "page" : undefined}
-                    className="nav-focus group flex min-h-[44px] w-full items-baseline gap-4 border-b py-3 text-left"
-                    style={{ borderColor: "var(--color-border)" }}
+                    className="group flex min-h-[44px] w-full items-baseline gap-4 border-b py-3 text-left"
+                    style={{ borderColor: "var(--hairline-strong)" }}
                   >
-                    <span className="index-num" style={{ color: "var(--color-accent)" }}>
-                      {r.index}
-                    </span>
+                    <span className="index-num">{r.index}</span>
                     <span className="flex-1">
-                      <span
-                        className="block font-serif-accent text-3xl leading-tight sm:text-4xl"
-                        style={{ color: active ? "var(--color-accent)" : "var(--color-text-primary)" }}
-                      >
+                      <span className="q-h3 block" style={{ color: active ? "var(--palette-berry)" : undefined }}>
                         {r.label}
-                        {r.tag && <NavTag label={r.tag} />}
                       </span>
-                      <span className="block text-xs" style={{ color: "var(--color-text-muted)" }}>
-                        {r.description}
-                      </span>
+                      <span className="q-small block">{r.description}</span>
                     </span>
                   </Link>
                 </li>
@@ -276,7 +192,7 @@ export default function Navbar() {
                 href={l.href}
                 target={l.href.startsWith("http") ? "_blank" : undefined}
                 rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="field-label nav-focus inline-flex min-h-[44px] items-center hover:text-[var(--color-accent)] transition-colors"
+                className="field-label inline-flex min-h-[44px] items-center transition-colors hover:text-[var(--color-accent)]"
               >
                 {l.label}
               </a>
@@ -285,16 +201,5 @@ export default function Navbar() {
         </div>
       </div>
     </>
-  );
-}
-
-function NavTag({ label }: { label: string }) {
-  return (
-    <span
-      className="ml-1.5 inline-block rounded-lg px-1.5 py-px align-middle text-[9px] font-semibold uppercase tracking-wider"
-      style={{ backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }}
-    >
-      {label}
-    </span>
   );
 }

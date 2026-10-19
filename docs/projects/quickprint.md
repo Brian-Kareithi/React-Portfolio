@@ -1,6 +1,6 @@
 # QuickPrint
 
-> QR-based document submission & printing platform
+> QR-based document printing for cyber cafés
 
 **Status:** Completed · **Access:** Public repository · [Source](https://github.com/Thee-Entity/QuickPrint-Client)
 
@@ -10,7 +10,7 @@ Replace flash drives at a cyber café with a phone-based upload that deletes its
 
 ## Problem
 
-Cyber café printing usually means handing a flash drive to a stranger's computer, a privacy risk and a slow workflow. QuickPrint replaces it with a self-service, ephemeral upload flow built for a single-till café.
+Cyber café printing means handing a flash drive to a stranger's computer. QuickPrint replaces it with a self-service upload that deletes itself.
 
 ## Target audience
 
@@ -36,10 +36,10 @@ Cyber café printing usually means handing a flash drive to a stranger's compute
 
 ## Solution
 
-1. Customers scan a QR code to open a temporary upload portal on their own phone
-2. Documents upload to a transient server, get printed, then are automatically deleted
-3. No flash drives or shared storage, reducing the risk of files left behind
-4. Built for the specific constraints of a single-till cyber café workflow
+1. Scan a QR code to open an upload page on your phone
+2. Files print, then delete automatically
+3. No flash drives or shared storage
+4. Built for a single-till café workflow
 
 ## Architecture
 
@@ -88,4 +88,4 @@ React · Node.js · Express · SQLite · QR Code API
 
 ## My contribution
 
-Designed and built end to end, from the QR upload flow to the ephemeral file lifecycle.
+Built end to end, from QR upload to file deletion.

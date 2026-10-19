@@ -7,6 +7,7 @@ import BootLine from "@/app/components/BootLine";
 import { bootScript } from "@/app/lib/boot";
 import { siteConfig, ogImageFor } from "@/app/lib/site";
 import "./globals.css";
+import "./pages.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -48,7 +49,7 @@ const organizationJsonLd = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#eaf2ef",
+  themeColor: "#f2eef2",
   colorScheme: "light",
 };
 

@@ -1,7 +1,3 @@
-/**
- * Mini capture the flag. Everything here is a pure, sandboxed simulation: a tiny virtual
- * filesystem and a handful of fake commands, with pipes. Nothing touches the real machine.
- */
 
 type Entry = { type: "dir"; children: Record<string, Entry> } | { type: "file"; content: string; locked?: boolean };
 
@@ -14,7 +10,6 @@ export interface Mission {
   title: string;
   brief: string;
   flag: string;
-  /** Revealed one at a time by the hint command, from a nudge to nearly the answer. */
   hints: string[];
   lesson: string;
 }
@@ -84,7 +79,6 @@ export const missions: Mission[] = [
   },
 ];
 
-/** Plausible-looking flags that are not real. Submitting one is a trap. */
 const decoys = ["FLAG{nice_try_internal_login}", "FLAG{that_was_a_decoy}", "FLAG{the_cake_is_a_lie}"];
 export const isDecoy = (value: string) => decoys.includes(value);
 
@@ -112,7 +106,6 @@ const authLog = (() => {
     { at: 121, user: "alice", ip: "10.0.0.21", token: "none" },
     { at: 133, user: "carol", ip: "10.0.0.52", token: decoys[2] },
   ];
-  // insert from the back so earlier indexes stay valid
   [...accepted].sort((a, b) => b.at - a.at).forEach((a) => {
     lines.splice(a.at, 0, `Oct 08 ${String(9 + (a.at % 12)).padStart(2, "0")}:${String(a.at % 60).padStart(2, "0")}:12 lab sshd[${1500 + a.at}]: Accepted password for ${a.user} from ${a.ip} port ${50000 + a.at} token=${a.token}`);
   });
@@ -194,10 +187,8 @@ export interface CommandResult {
   lines: { kind: "out" | "ok" | "err"; text: string }[];
   cwd?: string;
   clear?: boolean;
-  /** A flag the player submitted, for the UI to check. */
   submitted?: string;
   wantsHint?: boolean;
-  /** A file the player made readable with chmod. */
   unlocked?: string;
 }
 
@@ -209,7 +200,6 @@ const fail = (error: string): Stage => ({ error });
 
 const COMMANDS = ["help", "ls", "cat", "cd", "pwd", "grep", "find", "head", "tail", "wc", "sort", "uniq", "rev", "rot13", "base64", "chmod", "whoami", "hint", "submit", "clear"];
 
-/** Text a filter command works on: piped input if there is any, otherwise the file argument. */
 function readInput(name: string, fileArg: string | undefined, cwd: string, unlocked: string[], stdin: string[] | null): { lines: string[] } | { error: string } {
   if (stdin) return { lines: stdin };
   if (!fileArg) return { error: `usage: ${name} <file>` };
@@ -336,7 +326,6 @@ export function runCommand(raw: string, cwd: string, unlocked: string[] = []): C
   const segments = input.split("|").map((s) => s.trim());
   const [firstCmd, ...firstArgs] = segments[0].split(/\s+/);
 
-  // Commands that act on the session itself, and cannot be piped.
   if (segments.length === 1) {
     switch (firstCmd) {
       case "help":
@@ -392,7 +381,6 @@ export function runCommand(raw: string, cwd: string, unlocked: string[] = []): C
     return { lines: [err(`${firstCmd}: cannot be piped`)] };
   }
 
-  // Everything else is a data command that can sit in a pipeline.
   let data: string[] | null = null;
   for (const seg of segments) {
     const [cmd, ...args] = seg.split(/\s+/);
@@ -406,7 +394,6 @@ export function runCommand(raw: string, cwd: string, unlocked: string[] = []): C
   return { lines: lines.length ? lines : [] };
 }
 
-/** Tab completion for the command name or the last path-like word. Returns the new input, or null. */
 export function complete(input: string, cwd: string): string | null {
   const words = input.split(/\s+/);
   const last = words[words.length - 1];

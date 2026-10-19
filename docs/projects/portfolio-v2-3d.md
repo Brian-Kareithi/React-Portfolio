@@ -1,6 +1,6 @@
 # Portfolio V2 (3D)
 
-> Scroll-driven 3D portfolio experience built with Three.js
+> Scroll-driven 3D portfolio built with Three.js
 
 **Status:** Shipped · **Access:** Private repository · [Live demo](https://portfoliov2-ruby.vercel.app/)
 
@@ -10,13 +10,13 @@ Show range beyond standard UI: real-time 3D and scroll-driven storytelling carry
 
 ## Problem
 
-My first portfolio proved I could ship clean UI, but I wanted a second version that showed range: real-time 3D, scroll-choreographed storytelling and a themeable experience, while still carrying the full resume (about, projects, experience, contact).
+My first portfolio proved clean UI. This one shows range: real-time 3D and scroll-driven storytelling.
 
 ## Target audience
 
 | Audience | Needs |
 | --- | --- |
-| Recruiters and hiring managers | The same facts as a conventional resume, presented memorably. |
+| Portfolio visitors | A clear view of the same experience in a more visual format. |
 | Creative-technology teams | Evidence of Three.js and animation craft. |
 
 ## Scope
@@ -35,10 +35,10 @@ My first portfolio proved I could ship clean UI, but I wanted a second version t
 
 ## Solution
 
-1. A Three.js experience canvas choreographed to scroll, with preloader and section transitions
-2. Light/dark theme toggle carried across the 3D scene and the content layer
-3. Full portfolio content: hero, about and skills grid, project archive, experience cards, contact dashboard
-4. Personal-portfolio lineage section linking V1 (Vite) and V2 (Next.js) to show growth
+1. A Three.js scene choreographed to scroll
+2. Light and dark themes across the scene and content
+3. Full portfolio content, from hero to contact
+4. A section linking V1 and V2 to show growth
 
 ## Architecture
 
@@ -59,4 +59,4 @@ Vite · Three.js · JavaScript · GSAP · CSS3
 
 ## My contribution
 
-Solo build: the 3D scene, scroll choreography, theming and all content sections.
+Solo build. 3D scene, scroll choreography, theming and content.

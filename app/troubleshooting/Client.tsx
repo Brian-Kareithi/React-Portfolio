@@ -3,15 +3,12 @@ import { useState } from "react";
 import {
   Bug, SearchCheck, ScanLine, Brain,
   ListChecks, IterationCw, Flame, Database, HardDrive, MemoryStick, Network,
-  Wrench, CircleAlert, CheckCircle,
+  CircleAlert, Plus,
 } from "lucide-react";
-import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
-import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 import DebugIt from "@/app/components/DebugIt";
-import { MascotNote } from "@/app/components/Mascot";
 
 export const steps = [
   {
@@ -113,155 +110,99 @@ export default function TroubleshootingClient() {
   const [openCase, setOpenCase] = useState(0);
 
   return (
-    <section id="troubleshooting" className="min-h-screen w-full py-20 xs:py-24 sm:py-28 md:py-36 px-4 sm:px-6 lg:px-8 relative"
-      style={{ backgroundColor: "var(--color-bg-primary)" }}>
-      <ScrollReveal>
-      <div className="max-w-5xl mx-auto w-full">
+    <div id="troubleshooting" className="q-page">
+      <div className="q-wrap">
         <Breadcrumbs />
         <SectionHeader
           index="06"
           label="Diagnostics"
-          variant="split"
-          title={<>Finding the <em className="font-serif-accent">real fault</em></>}
+          title={<>Finding the <em>real fault</em></>}
           description="I follow the evidence to the root cause across software, hardware and networks, then write it down so it stays fixed."
         />
 
-        <MascotNote className="mb-12">
-          If you would rather make the calls than read how I made them, skip to &ldquo;Debug it yourself&rdquo;.
-        </MascotNote>
-
-        {/* Process: a connected ladder */}
-        <div className="mb-20">
-          <SubTitle kicker="The process" title="Five steps to a root cause" />
-          <ol className="relative ml-5 border-l-2 pl-8 sm:ml-6 sm:pl-10" style={{ borderColor: "var(--color-accent-secondary)" }}>
-            {steps.map((s, i) => (
-              <li key={s.title} className="relative pb-9 last:pb-0">
-                <span
-                  className="absolute -left-[3.05rem] flex h-10 w-10 items-center justify-center rounded-full sm:-left-[3.55rem]"
-                  style={{ backgroundColor: "var(--palette-ink)", color: "var(--palette-cream)" }}
-                >
-                  {s.icon}
-                </span>
-                <p className="font-mono text-xs mb-1" style={{ color: "var(--color-accent)" }}>Step {String(i + 1).padStart(2, "0")}</p>
-                <h3 className="font-serif-accent mb-1.5 text-3xl" style={{ color: "var(--color-text-primary)" }}>
-                  {s.title}
-                </h3>
-                <p className="max-w-2xl text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                  {s.desc}
-                </p>
+        <section aria-labelledby="process-title" className="d-process">
+          <div className="q-section-head">
+            <p className="q-eyebrow"><b>01</b> The process</p>
+            <h2 id="process-title" data-split className="q-h2">Five steps to <em>a root cause</em></h2>
+          </div>
+          <ol className="d-steps">
+            {steps.map((st, i) => (
+              <li key={st.title}>
+                <span className="d-step-dot" aria-hidden="true" />
+                <span className="d-step-num">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="q-h3">{st.title}</h3>
+                <p className="q-small">{st.desc}</p>
               </li>
             ))}
           </ol>
-        </div>
+        </section>
 
-        {/* Case files */}
-        <div className="mb-20">
-          <SubTitle kicker="Field notes" title="Real problems, real causes" />
-          <div className="space-y-3">
+        <section aria-labelledby="cases-title" className="q-section">
+          <div className="q-section-head">
+            <p className="q-eyebrow"><b>02</b> Field notes</p>
+            <h2 id="cases-title" data-split className="q-h2">Real problems, <em>real causes</em></h2>
+          </div>
+          <ul className="d-log">
             {cases.map((c, i) => {
               const open = openCase === i;
               return (
-                <div key={c.title} className={open ? "plate overflow-hidden" : "flat-card overflow-hidden"}>
+                <li key={c.title}>
                   <button
                     onClick={() => setOpenCase(open ? -1 : i)}
                     aria-expanded={open}
                     aria-controls={`case-${i}`}
-                    className="flex min-h-[44px] w-full items-center gap-4 px-5 py-4 text-left sm:px-6"
+                    className="d-row"
                   >
-                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-accent)" }}>
-                      {c.icon}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-[11px] font-medium" style={{ color: "var(--color-text-muted)" }}>
-                        Case {String(i + 1).padStart(2, "0")} · {c.domain}
-                      </span>
-                      <span className="block font-serif-accent text-xl sm:text-2xl" style={{ color: "var(--color-text-primary)" }}>
-                        {c.title}
-                      </span>
-                    </span>
-                    <span className="font-mono text-lg" style={{ color: "var(--color-accent)" }} aria-hidden="true">{open ? "−" : "+"}</span>
+                    <span className="d-row-id">INC-{String(i + 1).padStart(3, "0")}</span>
+                    <span className="d-row-title">{c.title}</span>
+                    <span className="d-row-domain">{c.domain}</span>
+                    <Plus className="d-row-plus" data-open={open || undefined} aria-hidden="true" />
                   </button>
                   {open && (
-                    <div id={`case-${i}`} className="animate-fade-in-up grid gap-5 border-t px-5 pb-6 pt-5 sm:px-6 md:grid-cols-2" style={{ borderColor: "var(--color-border)" }}>
-                      <div className="space-y-4">
-                        <div>
-                          <p className="field-label mb-1.5">The problem</p>
-                          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-primary)" }}>{c.summary}</p>
-                        </div>
-                        <div>
-                          <p className="field-label mb-1.5">Approach</p>
-                          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{c.approach}</p>
-                        </div>
-                      </div>
-                      <div className="space-y-3">
-                        <div className="rounded-xl p-4" style={{ backgroundColor: "var(--color-highlight)" }}>
-                          <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold" style={{ color: "var(--color-accent)" }}>
-                            <CircleAlert className="w-3.5 h-3.5" /> Root cause
-                          </p>
-                          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-primary)" }}>{c.rootCause}</p>
-                        </div>
-                        <div className="rounded-xl border p-4" style={{ borderColor: "var(--color-border)" }}>
-                          <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold" style={{ color: "var(--color-success)" }}>
-                            <CheckCircle className="w-3.5 h-3.5" /> Resolution
-                          </p>
-                          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{c.resolution}</p>
-                        </div>
-                      </div>
-                    </div>
+                    <dl id={`case-${i}`} className="d-detail animate-fade-in-up">
+                      <div><dt>Problem</dt><dd>{c.summary}</dd></div>
+                      <div><dt>Approach</dt><dd>{c.approach}</dd></div>
+                      <div data-key><dt><CircleAlert aria-hidden="true" /> Root cause</dt><dd>{c.rootCause}</dd></div>
+                      <div><dt>Resolution</dt><dd>{c.resolution}</dd></div>
+                    </dl>
                   )}
-                </div>
+                </li>
               );
             })}
+          </ul>
+        </section>
+
+        <section aria-labelledby="debug-title" className="q-section">
+          <div className="q-section-head">
+            <p className="q-eyebrow"><b>03</b> Your turn</p>
+            <h2 id="debug-title" data-split className="q-h2">Debug it <em>yourself</em></h2>
           </div>
-        </div>
+          <div className="d-frame">
+            <DebugIt />
+          </div>
+        </section>
 
-        {/* Interactive case: the reader makes the calls */}
-        <div className="mb-20">
-          <SubTitle kicker="Your turn" title="Debug it yourself" />
-          <DebugIt />
-        </div>
-
-        {/* Diagnostic kit */}
-        <StaggerReveal staggerDelay={60}>
-        <div className="ink-slab px-6 py-8 sm:px-10">
-          <p className="field-label mb-4 flex items-center gap-2">
-            <Wrench className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
-            My diagnostic kit
-          </p>
-          <div className="flex flex-wrap gap-2">
+        <section aria-labelledby="kit-title" className="q-section">
+          <div className="q-section-head">
+            <p className="q-eyebrow"><b>04</b> Kit</p>
+            <h2 id="kit-title" data-split className="q-h2">What&apos;s in <em>the bag</em></h2>
+          </div>
+          <ul className="d-kit">
             {kit.map((t) => (
-              <span key={t} className="rounded-md border px-3.5 py-1.5 font-mono text-xs" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
-                {t}
-              </span>
+              <li key={t} className="q-chip">{t}</li>
             ))}
-          </div>
-        </div>
-        </StaggerReveal>
-      <NextSection
+          </ul>
+        </section>
+
+        <NextSection
           title="The method in use"
-          description="The same discipline, applied to what I build and run."
           links={[
-            { href: "/how-i-work", label: "How I Work", description: "How I build and ship." },
             { href: "/homelab", label: "Homelab", description: "A live lab where the method is tested." },
-            { href: "/projects", label: "Selected Work", description: "Shipped systems, method applied." },
+            { href: "/how-i-work", label: "How I work", description: "How I build and ship." },
+            { href: "/projects", label: "Selected work", description: "Shipped systems, method applied." },
           ]}
         />
       </div>
-      </ScrollReveal>
-    </section>
-  );
-}
-
-function SubTitle({ kicker, title }: { kicker: string; title: string }) {
-  return (
-    <div className="mb-8">
-      <p className="field-label mb-2 flex items-center gap-2">
-        <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-        {kicker}
-      </p>
-      <h2 className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
-        {title}
-      </h2>
     </div>
   );
 }

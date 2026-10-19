@@ -5,7 +5,7 @@ Product documentation for each case study on the portfolio: purpose, target audi
 | # | Project | Status | Data model |
 | --- | --- | --- | --- |
 | 01 | [RoadSafe360](projects/roadsafe360.md) | Shipped | 5 entities |
-| 02 | [Sapio Homes](projects/sapio-homes.md) | Shipped | 4 entities |
+| 02 | [POS System](projects/pos-system.md) | Active | No database |
 | 03 | [Steadfast Parent Portal](projects/steadfast-parent.md) | Active | 6 entities |
 | 04 | [QuickPrint](projects/quickprint.md) | Completed | 3 entities |
 | 05 | [Fitness Tracker](projects/fitness-tracker.md) | Active | 4 entities |

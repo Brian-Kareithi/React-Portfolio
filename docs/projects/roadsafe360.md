@@ -1,6 +1,6 @@
 # RoadSafe360
 
-> Road safety & driver demerit management platform
+> Road safety and driver demerit platform
 
 **Status:** Shipped · **Access:** Public repository · [Live demo](https://roadsafe-opal.vercel.app/auth) · [Source](https://github.com/Brian-Kareithi/RoadSafe360)
 
@@ -10,7 +10,7 @@ Give road authorities one auditable record of licences, offences, demerit points
 
 ## Problem
 
-Road authorities need a way to track driver licences, traffic offences and demerit points without paper trails or siloed records, and appeals need a transparent, auditable process. RoadSafe360 models that entire workflow end to end, from offence issuance through licence suspension to appeal resolution.
+Road authorities need to track licences, offences and demerit points without paper trails, with an auditable appeals process. RoadSafe360 covers the whole workflow, from offence to suspension to appeal.
 
 ## Target audience
 
@@ -39,11 +39,11 @@ Road authorities need a way to track driver licences, traffic offences and demer
 
 ## Solution
 
-1. Role-based dashboards for drivers, police officers, road authorities and admins, each scoped to what that role needs
-2. Digital licences with QR-code verification and automatic demerit point calculation
-3. Traffic offence issuance and tracking, with point deductions tied to offence severity
-4. An appeals workflow that lets drivers contest offences, with point restoration on approval
-5. Regional road-safety analytics with interactive charts and a Leaflet map
+1. Role-based dashboards for drivers, police, authorities and admins
+2. Digital licences with QR verification and automatic demerit points
+3. Offence tracking, with deductions tied to severity
+4. Appeals that restore points when approved
+5. Regional analytics with charts and a Leaflet map
 
 ## Architecture
 
@@ -112,4 +112,4 @@ Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · Firebase · Recharts �
 
 ## My contribution
 
-Designed the data model and Firebase security rules, built the role-based dashboards, the QR licence and appeals workflow, and the map-based analytics view.
+Data model and security rules, dashboards, QR licences, appeals and the analytics map.

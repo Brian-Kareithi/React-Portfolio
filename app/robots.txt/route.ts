@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/app/lib/site";
 
-// Written by hand instead of robots.ts so it can carry a comment. The comment is part of the
-// site's hidden flag trail (see /backstage).
 const body = `# Crawlers: everything public is welcome.
 User-agent: *
 Allow: /

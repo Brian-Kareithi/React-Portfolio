@@ -1,6 +1,5 @@
 import { siteConfig } from "@/app/lib/site";
 
-/** Plain-text profile shared by /llms.txt. */
 export const profileText = `# Brian Kareithi: llms.txt
 > Full-stack developer trained in IT and security (Nairobi, Kenya)
 

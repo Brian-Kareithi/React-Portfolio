@@ -52,7 +52,6 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
   const close = useCallback(() => setIsOpen(false), []);
   const toggle = useCallback(() => (isOpen ? close() : open()), [isOpen, open, close]);
 
-  // Global shortcut
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -64,7 +63,6 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
     return () => window.removeEventListener("keydown", onKey);
   }, [toggle]);
 
-  // Lock scroll + focus input while open
   useEffect(() => {
     if (!isOpen) return;
     const prev = document.body.style.overflow;
@@ -138,7 +136,6 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
       e.preventDefault();
       runItem(filtered[active]);
     } else if (e.key === "Tab") {
-      // trap focus inside the dialog
       e.preventDefault();
     }
   };
@@ -194,7 +191,7 @@ export function CommandPaletteProvider({ children }: { children: React.ReactNode
               </kbd>
             </div>
 
-            <div ref={listRef} className="max-h-[52vh] overflow-y-auto p-2">
+            <div ref={listRef} data-lenis-prevent className="max-h-[52vh] overflow-y-auto p-2">
               {filtered.length === 0 && (
                 <p className="px-3 py-6 text-center text-xs" style={{ color: "var(--color-text-muted)" }}>
                   Nothing matches “{query}”.

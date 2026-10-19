@@ -1,12 +1,10 @@
 "use client";
 import { useMemo, useState } from "react";
-import { CheckCircle, GraduationCap, BadgeCheck, Briefcase, Rocket } from "lucide-react";
-import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
-import { StaggerReveal } from "@/app/components/ui/StaggerReveal";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
-import { MascotNote } from "@/app/components/Mascot";
 import NextSection from "@/app/components/NextSection";
+import Testimonials from "@/app/components/Testimonials";
+import { Assemble } from "@/app/components/ui/Assemble";
 
 export const experience = {
   role: "IT Support / Frontend Development",
@@ -52,10 +50,10 @@ export const timeline: TimelineItem[] = [
 ];
 
 const categoryConfig = {
-  education: { label: "Education", Icon: GraduationCap },
-  certification: { label: "Certifications", Icon: BadgeCheck },
-  professional: { label: "Professional", Icon: Briefcase },
-  entrepreneurial: { label: "Entrepreneurial", Icon: Rocket },
+  education: { label: "Education" },
+  certification: { label: "Certifications" },
+  professional: { label: "Professional" },
+  entrepreneurial: { label: "Entrepreneurial" },
 } as const;
 
 const filters = ["all", ...Object.keys(categoryConfig)] as const;
@@ -82,168 +80,131 @@ export default function AboutClient() {
   }, []);
 
   return (
-    <section
-      id="about"
-      className="relative min-h-screen w-full px-4 sm:px-6 lg:px-8 py-24 xs:py-28 sm:py-32 md:py-36"
-      style={{ backgroundColor: "var(--color-bg-primary)" }}
-    >
-      <ScrollReveal>
-        <div className="mx-auto w-full max-w-5xl">
-          <Breadcrumbs />
-          <SectionHeader
-            index="01"
-            label="Journey"
-            variant="split"
-            title={<>How I got <em className="font-serif-accent">good</em> at this</>}
-            description="From a science classroom to government security, 50+ client projects, a startup and live systems at a school."
-          />
+    <div id="about" className="q-page">
+      <div className="q-wrap">
+        <Breadcrumbs />
+        <SectionHeader
+          index="01"
+          label="Journey"
+          title={<>How I got <em>good</em> at this</>}
+          description="From a science classroom to government security, fifty-plus client projects, a startup and live systems at a school."
+        />
 
-          <MascotNote className="mb-12" mood="wave">
-            Hi, I&apos;m Brian. Here is how I got into this, in short.
-          </MascotNote>
-
-          {/* Now */}
-          <div className="ink-slab mb-16 grid gap-8 p-7 xs:p-8 md:grid-cols-5 md:p-12">
-            <div className="md:col-span-2">
-              <p className="pill mb-5 font-mono !text-[11px]">
-                <Briefcase className="h-3 w-3" style={{ color: "var(--color-accent)" }} /> Now · {experience.period}
-              </p>
-              <h2 className="display-xl mb-2 text-3xl sm:text-4xl">{experience.role}</h2>
-              <p className="font-serif-accent text-xl" style={{ color: "var(--color-accent)" }}>{experience.company}</p>
-              <p className="mt-5 text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                {experience.summary}
-              </p>
+        <section aria-labelledby="now-title" className="a-now">
+          <p className="q-eyebrow"><b>●</b> Now · {experience.period}</p>
+          <div className="a-now-body">
+            <div>
+              <h2 id="now-title" data-split className="q-h2">{experience.role}</h2>
+              <p className="a-now-company">{experience.company}</p>
+              <p className="q-body" style={{ maxWidth: "30rem", marginTop: "1.25rem" }}>{experience.summary}</p>
             </div>
-            <ul className="grid content-start gap-2.5 sm:grid-cols-2 md:col-span-3">
+            <ul className="a-duties">
               {experience.duties.map((duty) => (
-                <li key={duty} className="flex items-start gap-2.5 rounded-xl border px-4 py-3 text-sm" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
-                  <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
-                  {duty}
-                </li>
+                <li key={duty}>{duty}</li>
               ))}
             </ul>
           </div>
+        </section>
 
-          {/* Filter */}
-          <div className="mb-12 flex flex-wrap items-center justify-center gap-2">
-            {filters.map((f) => {
-              const active = f === filter;
-              const label = f === "all" ? "All" : categoryConfig[f as TimelineItem["category"]].label;
-              return (
-                <button
-                  key={f}
-                  aria-pressed={active}
-                  onClick={() => {
-                    setFilter(f);
-                    setOpenId(null);
-                  }}
-                  className="min-h-[44px] rounded-lg border px-4 py-2 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-accent)]"
-                  style={
-                    active
-                      ? { backgroundColor: "var(--color-accent)", borderColor: "var(--color-accent)", color: "var(--color-on-accent)" }
-                      : { borderColor: "var(--color-border)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)" }
-                  }
-                >
-                  {label}
-                  <span className="ml-1.5 font-mono text-xs opacity-70">{counts[f] ?? 0}</span>
-                </button>
-              );
-            })}
-          </div>
+        <section aria-labelledby="chapters-title" className="a-chapters">
+          <aside className="a-rail">
+            <h2 id="chapters-title" className="q-eyebrow"><b>02</b> Chapters</h2>
+            <div className="a-filters" role="group" aria-label="Filter the timeline">
+              {filters.map((f) => {
+                const active = f === filter;
+                const label = f === "all" ? "Everything" : categoryConfig[f as TimelineItem["category"]].label;
+                return (
+                  <button
+                    key={f}
+                    className="q-tab"
+                    aria-pressed={active}
+                    onClick={() => {
+                      setFilter(f);
+                      setOpenId(null);
+                    }}
+                  >
+                    {label}
+                    <sup>{counts[f] ?? 0}</sup>
+                  </button>
+                );
+              })}
+            </div>
+          </aside>
 
-          {/* Timeline: schedule-style rows. Date · role · place · one line; highlights open in place. */}
-          <ol className="row-list">
+          <ol className="a-line">
             {items.map((item) => {
               const id = timeline.indexOf(item);
               const open = openId === id;
-              const { Icon, label } = categoryConfig[item.category];
+              const { label } = categoryConfig[item.category];
               return (
-                <li key={id}>
-                  <div className="row row-hover">
-                    <p className="font-mono text-sm tabular-nums" style={{ color: "var(--color-accent)" }}>
-                      {item.period}
+                <li key={id} className="a-item">
+                  <span className="a-dot" aria-hidden="true" />
+                  <p className="a-when">{item.period}</p>
+                  <div>
+                    <h3 className="q-h3">{item.title}</h3>
+                    <p className="a-where">
+                      {item.institution}
+                      <span className="sr-only"> ({label})</span>
                     </p>
-                    <h3 className="text-lg font-semibold leading-snug" style={{ color: "var(--color-text-primary)" }}>
-                      {item.title}
-                    </h3>
-                    <p className="flex items-center gap-2 text-sm" style={{ color: "var(--color-text-muted)" }}>
-                      <Icon className="h-3.5 w-3.5 flex-shrink-0" style={{ color: "var(--color-accent)" }} aria-hidden="true" />
-                      <span>
-                        {item.institution}
-                        <span className="sr-only"> ({label})</span>
-                      </span>
-                    </p>
-                    <div>
-                      <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                        {item.description}
-                      </p>
-                      {(item.significance || item.metrics) && (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => setOpenId(open ? null : id)}
-                            className="link-underline mt-1 inline-flex min-h-[44px] items-center text-xs font-medium"
-                            style={{ color: "var(--color-accent)" }}
-                            aria-expanded={open}
-                            aria-controls={`timeline-details-${id}`}
-                          >
-                            {open ? "Less" : "Highlights"}
-                            <span className="sr-only">: {item.title}</span>
-                          </button>
-                          <div id={`timeline-details-${id}`} className={open ? "animate-fade-in-up space-y-3 pb-2" : "hidden"}>
-                            {item.significance && (
-                              <p className="rounded-xl px-4 py-3 text-sm font-medium" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-primary)" }}>
-                                {item.significance}
-                              </p>
-                            )}
-                            {item.metrics && (
-                              <ul className="space-y-1.5">
-                                {item.metrics.map((m) => (
-                                  <li key={m} className="flex items-start gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
-                                    <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-                                    {m}
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                          </div>
-                        </>
-                      )}
-                    </div>
+                    <p className="q-body" style={{ marginTop: "0.6rem", maxWidth: "36rem" }}>{item.description}</p>
+                    {(item.significance || item.metrics) && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => setOpenId(open ? null : id)}
+                          className="q-link"
+                          aria-expanded={open}
+                          aria-controls={`timeline-details-${id}`}
+                        >
+                          {open ? "Less" : "Highlights"}
+                          <span className="sr-only">: {item.title}</span>
+                        </button>
+                        <div id={`timeline-details-${id}`} className={open ? "animate-fade-in-up" : "hidden"}>
+                          {item.significance && <p className="q-body" style={{ marginBottom: "0.5rem" }}>{item.significance}</p>}
+                          {item.metrics && (
+                            <ul className="a-metrics">
+                              {item.metrics.map((m) => (
+                                <li key={m}>{m}</li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </li>
               );
             })}
           </ol>
+        </section>
 
-          {/* Closing */}
-          <StaggerReveal staggerDelay={90}>
-            <div className="mt-16 grid gap-4 xs:grid-cols-2 md:grid-cols-3">
-              {closing.map((c, i) => (
-                <div key={c.title} className="flat-card p-6">
-                  <p className="font-serif-accent mb-3 text-4xl" style={{ color: "var(--color-accent-secondary)" }}>0{i + 1}</p>
-                  <h4 className="mb-1.5 text-base font-semibold" style={{ color: "var(--color-text-primary)" }}>
-                    {c.title}
-                  </h4>
-                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                    {c.desc}
-                  </p>
+        <section className="q-section">
+          <div className="a-closing">
+            {closing.map((c, i) => (
+              <Assemble key={c.title} index={i}>
+                <div className="a-closing-item">
+                  <p className="q-eyebrow"><b>0{i + 1}</b></p>
+                  <h3 className="q-h3">{c.title}</h3>
+                  <p className="q-body">{c.desc}</p>
                 </div>
-              ))}
-            </div>
-          </StaggerReveal>
+              </Assemble>
+            ))}
+          </div>
+        </section>
 
-          <NextSection
-            title="Where to next"
-            description="How I work, what I built, my resume."
-            links={[
-              { href: "/resume", label: "Resume", description: "A PDF tailored to the role you are hiring for." },
-              { href: "/how-i-work", label: "How I Work", description: "How I take an idea to production." },
-              { href: "/projects", label: "Selected Work", description: "What I shipped and who uses it." },
-            ]}
-          />
+        <div className="q-section">
+          <Testimonials />
         </div>
-      </ScrollReveal>
-    </section>
+
+        <NextSection
+          title="Next"
+          links={[
+            { href: "/how-i-work", label: "How I work", description: "How I take an idea to production." },
+            { href: "/projects", label: "Selected work", description: "What I shipped and who uses it." },
+            { href: "/resume", label: "Resume", description: "This path, as a PDF." },
+          ]}
+        />
+      </div>
+    </div>
   );
 }

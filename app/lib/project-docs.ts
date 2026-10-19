@@ -1,13 +1,7 @@
-/**
- * Product documentation for each case study: audience, scope and data model.
- * Keyed by CaseStudy.id. Rendered on /projects and exported to /docs/projects/*.md
- * by `npm run docs`, so the site and the repository documentation never drift.
- */
 
 export interface ErdField {
   name: string;
   type: string;
-  /** pk = primary key, fk = foreign key, uq = unique */
   key?: "pk" | "fk" | "uq";
 }
 
@@ -20,22 +14,16 @@ export interface ErdEntity {
 export interface ErdRelation {
   from: string;
   to: string;
-  /** Cardinality read from `from` to `to`. */
   cardinality: "1:1" | "1:N" | "N:M";
   label: string;
 }
 
 export interface ProjectDoc {
-  /** One-line statement of what the product is for. */
   purpose: string;
-  /** Who uses it and what each group needs from it. */
   audience: { who: string; needs: string }[];
   scope: { in: string[]; out: string[] };
-  /** Quality attributes the design was shaped around. */
   qualities: string[];
-  /** Entity-relationship model. Omitted when the product has no persistent data layer. */
   erd?: { entities: ErdEntity[]; relations: ErdRelation[] };
-  /** Shown instead of an ERD when the product has no database. */
   dataNote?: string;
 }
 
@@ -81,38 +69,28 @@ export const projectDocs: Record<string, ProjectDoc> = {
     },
   },
 
-  "sapio-homes": {
-    purpose: "Let prospective buyers find a unit, see the building, and book a visit without a phone call.",
+  "pos-system": {
+    purpose: "Give a multi-branch shop one system for selling, stock, accounts and a trustworthy record of every change.",
     audience: [
-      { who: "Prospective buyers", needs: "Filter by budget and floor area, preview the development, book a site visit." },
-      { who: "Existing unit owners", needs: "Find the property management services on offer." },
-      { who: "Sapio sales team", needs: "Receive qualified visit bookings with the unit of interest attached." },
+      { who: "Owner", needs: "See sales, profit and cash flow across every branch, and who changed what." },
+      { who: "Manager", needs: "Watch stock, reorder in time and review the day." },
+      { who: "Cashier", needs: "Sell quickly with cash, card, M-Pesa or bank transfer." },
+      { who: "Stockkeeper", needs: "Receive stock into the right branch and batch, with expiry dates." },
     ],
     scope: {
       in: [
-        "Search by unit type, budget and floor area",
-        "3D building viewer",
-        "Site-visit booking per development",
-        "Project pages with pricing, floor plans and amenities",
-        "Property management service pages",
+        "Till with scan or tap selling",
+        "Stock by branch with expiry batches",
+        "Reorder and busy-hour insights",
+        "Accounting for any period",
+        "Audit log of price changes, discounts, voids and refunds",
+        "CSV, Excel and PDF exports",
       ],
-      out: ["Online payment or reservation deposits", "Customer account area", "Content management UI for the client"],
+      out: ["Customer-facing storefront", "Supplier portal", "Payroll"],
     },
-    qualities: ["Fast first load despite the 3D viewer", "Mobile-first browsing", "Accurate pricing data per unit"],
-    erd: {
-      entities: [
-        { name: "developments", fields: [id(), { name: "slug", type: "string", key: "uq" }, { name: "name", type: "string" }, { name: "location", type: "string" }, { name: "model_url", type: "string" }] },
-        { name: "unit_types", fields: [id(), fk("development_id"), { name: "name", type: "string" }, { name: "floor_area_m2", type: "int" }, { name: "price", type: "decimal" }, { name: "floor_plan_url", type: "string" }] },
-        { name: "amenities", fields: [id(), fk("development_id"), { name: "label", type: "string" }] },
-        { name: "site_visits", fields: [id(), fk("development_id"), fk("unit_type_id"), { name: "visitor_name", type: "string" }, { name: "contact", type: "string" }, { name: "slot", type: "timestamp" }] },
-      ],
-      relations: [
-        { from: "developments", to: "unit_types", cardinality: "1:N", label: "offers" },
-        { from: "developments", to: "amenities", cardinality: "1:N", label: "includes" },
-        { from: "developments", to: "site_visits", cardinality: "1:N", label: "is visited via" },
-        { from: "unit_types", to: "site_visits", cardinality: "1:N", label: "is the interest of" },
-      ],
-    },
+    qualities: ["Fast at the till", "Every sensitive action is traceable", "Role-based access"],
+    dataNote:
+      "The data model is kept private with the client's source. The live demo exposes branches, stock batches with expiry, sales, accounts and an audit trail.",
   },
 
   "steadfast-parent": {
@@ -193,7 +171,7 @@ export const projectDocs: Record<string, ProjectDoc> = {
   "flip-book-portfolio": {
     purpose: "Present a portfolio as a bound book so the structure of the content is the interface.",
     audience: [
-      { who: "Recruiters and hiring managers", needs: "Skim chapters quickly and jump to what matters via the index." },
+      { who: "Portfolio visitors", needs: "Skim chapters quickly and jump to the details that matter via the index." },
       { who: "Fellow developers", needs: "See what a non-standard portfolio interaction model looks like." },
     ],
     scope: {
@@ -207,7 +185,7 @@ export const projectDocs: Record<string, ProjectDoc> = {
   "portfolio-v2-3d": {
     purpose: "Show range beyond standard UI: real-time 3D and scroll-driven storytelling carrying the full resume.",
     audience: [
-      { who: "Recruiters and hiring managers", needs: "The same facts as a conventional resume, presented memorably." },
+      { who: "Portfolio visitors", needs: "A clear view of the same experience in a more visual format." },
       { who: "Creative-technology teams", needs: "Evidence of Three.js and animation craft." },
     ],
     scope: {

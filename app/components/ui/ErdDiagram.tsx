@@ -7,7 +7,6 @@ const cardinalityLabel: Record<ErdRelation["cardinality"], string> = {
   "N:M": "many to many",
 };
 
-/** Entity-relationship diagram: one table per entity, then each relationship spelled out. */
 export function ErdDiagram({ entities, relations }: { entities: ErdEntity[]; relations: ErdRelation[] }) {
   return (
     <div>

@@ -2,30 +2,11 @@
 
 import { useEffect, useRef } from "react";
 
-/**
- * Options for `useScrollProgress`.
- */
 export interface UseScrollProgressOptions {
-  /**
-   * Selector of the element that marks the start of the measured range.
-   * When the element is absent (or the selector is null) the top of the page is used.
-   */
   from?: string | null;
-  /**
-   * Selector of the element that marks the end of the measured range.
-   * Progress reaches 100% once the bottom of this element reaches the bottom
-   * of the viewport. When the element is absent the end of the document is used.
-   */
   to?: string | null;
-  /** Spring stiffness - higher values track the scroll position more eagerly. */
   stiffness?: number;
-  /** Spring damping - higher values reduce overshoot and oscillation. */
   damping?: number;
-  /**
-   * Called once per animation frame with the smoothed progress (0..1)
-   * and the raw window scroll offset. Kept stable via a ref, so this
-   * callback never re-registers and the hook never triggers re-renders.
-   */
   onFrame: (progress: number, scrollY: number) => void;
 }
 
@@ -38,20 +19,6 @@ interface SpringState {
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
-/**
- * Smooth scroll progress through a measured section of the page.
- *
- * - Progress is 0 when the `from` element enters the viewport and 1 when the
- *   bottom of the `to` element reaches the bottom of the viewport.
- * - A critically damped spring interpolates the raw scroll position, giving
- *   fluid, jump-free motion that eases into place when scrolling stops.
- * - The spring is replaced with direct tracking when the user prefers reduced
- *   motion (the indicator stays functional, only the animation is removed).
- * - Measurements are taken on mount, on resize, on window load, and whenever
- *   the `from`/`to` selectors change (e.g. route navigation), so they never go stale.
- * - The whole loop runs on `requestAnimationFrame` and writes to refs only -
- *   no state, no React re-renders, no layout reads inside the frame loop.
- */
 export default function useScrollProgress({
   from,
   to,

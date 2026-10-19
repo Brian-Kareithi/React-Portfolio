@@ -9,9 +9,7 @@ export interface CaseStudy {
   architecture: { stages: string[]; branch?: { under: number; label: string } };
   stack: string[];
   contribution: string;
-  /** One measurable result. Leave unset until there is a real number to quote. */
   outcome?: string;
-  /** A real capture of the product, stored in /public/projects. */
   screenshot?: { src: string; alt: string };
   access: {
     kind: "public" | "client" | "internal";
@@ -19,7 +17,6 @@ export interface CaseStudy {
     demo?: string;
     note: string;
   };
-  /** Optional supporting document (e.g. a presentation deck) shown as an inline exhibit. */
   exhibit?: {
     label: string;
     fileUrl: string;
@@ -27,7 +24,6 @@ export interface CaseStudy {
   };
 }
 
-/** Featured systems, told as problem → solution → architecture → contribution. */
 export const caseStudies: CaseStudy[] = [
   {
     id: "roadsafe360",
@@ -65,33 +61,33 @@ export const caseStudies: CaseStudy[] = [
     },
   },
   {
-    id: "sapio-homes",
+    id: "pos-system",
     index: "02",
-    title: "Sapio Homes",
-    tagline: "Property discovery for Nairobi developments",
-    status: "Shipped",
+    title: "POS System",
+    tagline: "Point of sale for multi-branch retail",
+    status: "Active",
     problem:
-      "Buyers needed to filter units by budget and floor area, see a building before it was finished, and book a site visit without a phone call.",
+      "A shop needs one place to sell at the till, track stock across branches and expiry batches, and see exactly who changed a price, gave a discount or voided a sale.",
     solution: [
-      "Property search by unit type, budget and floor area",
-      "A 3D building viewer built with React Three Fiber",
-      "Site-visit booking on every project page",
-      "Project pages with pricing, floor plans and amenities",
-      "Service pages for existing unit owners",
+      "A till with scan-or-tap selling and keyboard shortcuts for search, charge, hold and discount",
+      "Stock by branch, with expiry batches and low-stock status",
+      "Reorder and busy-hour insights drawn from the shop's own sales history",
+      "Income, expenses and profit for any period, exported to CSV, Excel and PDF",
+      "An audit log of price changes, discounts, voids and refunds",
     ],
     architecture: {
-      stages: ["Next.js Frontend", "Next.js API Routes", "Three.js / R3F Viewer"],
-      branch: { under: 1, label: "Booking & Property Data" },
+      stages: ["Till & Back Office UI", "API Layer", "Branch Data Store"],
+      branch: { under: 1, label: "Roles & Audit Trail" },
     },
-    stack: ["Next.js 16", "TypeScript", "Tailwind CSS v4", "Three.js", "React Three Fiber", "Framer Motion"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     contribution:
-      "Client work. Site architecture, 3D viewer, booking flow and per-development pricing data.",
+      "Client work, in progress. I am building the till, the back office and the audit trail end to end.",
     access: {
       kind: "client",
-      demo: "https://sapio-homes.vercel.app",
+      demo: "https://pos-zeta-eight.vercel.app/",
       note: "Client project: source is proprietary",
     },
-    screenshot: { src: "/projects/sapio-homes.png", alt: "Sapio Homes landing page with property search by type, budget and floor area" },
+    screenshot: { src: "/projects/pos/overview.png", alt: "POS System dashboard showing net sales, profit and cash flow for the day" },
   },
   {
     id: "steadfast-parent",
@@ -235,7 +231,6 @@ export interface OtherProject {
   repoType: "public" | "private";
 }
 
-/** Smaller or archived builds, shown as a lighter-weight grid below the case studies. */
 export const otherProjects: OtherProject[] = [
   {
     title: "Steadfast Library Module",

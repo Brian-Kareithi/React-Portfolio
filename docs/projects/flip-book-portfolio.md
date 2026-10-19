@@ -1,6 +1,6 @@
 # Flip-Book Portfolio
 
-> A portfolio bound as an interactive book, with a full page-flipping experience
+> A portfolio bound as an interactive book
 
 **Status:** Shipped · **Access:** Private repository · [Live demo](https://flip-book-portfolio-omega.vercel.app/)
 
@@ -10,13 +10,13 @@ Present a portfolio as a bound book so the structure of the content is the inter
 
 ## Problem
 
-Portfolio sites all look the same: grids of cards and scroll sections. I wanted a portfolio that reads like a bound volume, where each chapter (identity, journey, tech stack, selected work, expertise, homelab, contact) is a leaf you physically turn.
+Portfolios all look the same. I wanted one that reads like a bound volume, where each chapter is a page you turn.
 
 ## Target audience
 
 | Audience | Needs |
 | --- | --- |
-| Recruiters and hiring managers | Skim chapters quickly and jump to what matters via the index. |
+| Portfolio visitors | Skim chapters quickly and jump to the details that matter via the index. |
 | Fellow developers | See what a non-standard portfolio interaction model looks like. |
 
 ## Scope
@@ -35,10 +35,10 @@ Portfolio sites all look the same: grids of cards and scroll sections. I wanted 
 
 ## Solution
 
-1. A skeuomorphic book with drag-a-corner, swipe, arrow-key and Home/End page turning
-2. Seventeen leaves from Cover and Title Page through eleven chapters to Finis and Back Cover
-3. An Index of Leaves drawer for jumping to any chapter, with live reading progress
-4. Candlelight day/night theme and toggleable page-turn sounds for atmosphere
+1. Drag, swipe or use the keyboard to turn pages
+2. Seventeen leaves, from cover to back cover
+3. An index drawer with live reading progress
+4. Candlelight theme and optional page-turn sounds
 
 ## Architecture
 
@@ -62,4 +62,4 @@ Next.js · React · TypeScript · Tailwind CSS · Web Audio API
 
 ## My contribution
 
-Designed and built solo: the book engine, the chapter content model, the candlelight theming and the sound design.
+Solo build. Book engine, content model, theming and sound.

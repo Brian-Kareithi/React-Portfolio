@@ -8,14 +8,12 @@ import { caseStudies, type CaseStudy as CaseStudyType } from "@/app/lib/projects
 import { projectDocs } from "@/app/lib/project-docs";
 import { siteConfig } from "@/app/lib/site";
 
-/** One case study: a scannable summary that expands into scope, audience, architecture and data model. */
 export function CaseStudy({ study }: { study: CaseStudyType }) {
   const [open, setOpen] = useState(false);
   const [building, setBuilding] = useState(false);
   const doc = projectDocs[study.id];
   const panelId = `${study.id}-details`;
 
-  // The PDF engine is large, so it is only loaded when someone actually downloads.
   const downloadPdf = async () => {
     if (building) return;
     setBuilding(true);
@@ -34,7 +32,6 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
       link.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     } catch {
-      // Silently ignore; the expandable write-up above is always available.
     } finally {
       setBuilding(false);
     }
@@ -42,23 +39,20 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
 
 
   return (
-    <article id={study.id} className="plate scroll-mt-24 p-5 sm:p-8 lg:p-10">
+    <article id={study.id} className="q-case scroll-mt-24">
       <header className="mb-6 flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
         <div className="min-w-0">
           <p className="field-label mb-2">
             Case study {study.index} / {String(caseStudies.length).padStart(2, "0")}
           </p>
-          <h3 className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
+          <h3 className="q-h2">
             {study.title}
           </h3>
-          <p className="mt-2 max-w-2xl text-base" style={{ color: "var(--color-text-secondary)" }}>
+          <p className="q-lede" style={{ marginTop: "0.75rem" }}>
             {study.tagline}
           </p>
         </div>
-        <span className="pill !text-xs">
-          <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-          {study.status}
-        </span>
+        <span className="q-chip">{study.status}</span>
       </header>
 
       {study.screenshot && (
@@ -66,7 +60,7 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
           href={study.access.demo ?? study.screenshot.src}
           target="_blank"
           rel="noopener noreferrer"
-          className="mb-6 block overflow-hidden rounded-xl border"
+          className="q-case-shot"
           style={{ borderColor: "var(--color-border)" }}
         >
           <Image
@@ -80,7 +74,6 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
         </a>
       )}
 
-      {/* Summary: always visible */}
       <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
         <div className="lg:col-span-2">
           <p className="field-label mb-2">Purpose</p>
@@ -88,7 +81,7 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
             {doc?.purpose ?? study.problem}
           </p>
           {study.outcome && (
-            <p className="mt-4 flex items-start gap-2.5 rounded-xl border px-4 py-3 text-sm font-medium" style={{ borderColor: "var(--color-accent)", color: "var(--color-text-primary)" }}>
+            <p className="mt-5 flex items-start gap-2.5 border-l-2 pl-4 text-sm font-medium" style={{ borderColor: "var(--palette-berry)", color: "var(--color-text-primary)" }}>
               <TrendingUp className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ color: "var(--color-accent)" }} />
               {study.outcome}
             </p>
@@ -100,7 +93,7 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
               <dt className="field-label mb-1.5">Target audience</dt>
               <dd className="flex flex-wrap gap-1.5">
                 {doc.audience.map((a) => (
-                  <span key={a.who} className="rounded-md border px-2 py-0.5 text-xs" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
+                  <span key={a.who} className="q-chip" style={{ fontFamily: "var(--font-dm-sans)" }}>
                     {a.who}
                   </span>
                 ))}
@@ -111,7 +104,7 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
             <dt className="field-label mb-1.5">Stack</dt>
             <dd className="flex flex-wrap gap-1.5">
               {study.stack.map((tech) => (
-                <span key={tech} className="rounded-md border px-2 py-0.5 font-mono text-[11px]" style={{ borderColor: "var(--color-border)", color: "var(--color-text-secondary)" }}>
+                <span key={tech} className="q-chip">
                   {tech}
                 </span>
               ))}
@@ -120,14 +113,13 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
         </dl>
       </div>
 
-      {/* Actions */}
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={panelId}
-          className="btn-neon btn-neon-ghost"
+          className="q-btn"
         >
           {open ? "Hide details" : "View scope, architecture & data model"}
           <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
@@ -137,19 +129,19 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
           onClick={downloadPdf}
           disabled={building}
           aria-busy={building}
-          className="btn-neon btn-neon-ghost disabled:cursor-wait disabled:opacity-70"
+          className="q-btn"
         >
           {building ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <FileDown className="h-4 w-4" aria-hidden="true" />}
           {building ? "Building PDF…" : "Case study PDF"}
         </button>
         {study.access.demo && (
-          <a href={study.access.demo} target="_blank" rel="noopener noreferrer" className="btn-neon btn-neon-primary">
+          <a href={study.access.demo} target="_blank" rel="noopener noreferrer" className="q-btn" data-solid>
             <ExternalLink className="h-4 w-4" />
             Live demo
           </a>
         )}
         {study.access.repo && (
-          <a href={study.access.repo} target="_blank" rel="noopener noreferrer" className="btn-neon btn-neon-ghost">
+          <a href={study.access.repo} target="_blank" rel="noopener noreferrer" className="q-btn">
             <Github className="h-4 w-4" />
             Source
           </a>
@@ -162,7 +154,6 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
         )}
       </div>
 
-      {/* Details: animated expand, collapsed content is inert so it leaves the tab order */}
       <div
         id={panelId}
         className="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none"
@@ -197,7 +188,7 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
               <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
                 <div>
                   <p className="text-[15px] leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{study.problem}</p>
-                  <p className="mt-4 rounded-xl px-4 py-3 text-sm leading-relaxed" style={{ backgroundColor: "var(--color-highlight)", color: "var(--color-text-primary)" }}>
+                  <p className="mt-4 border-l-2 pl-4 text-sm leading-relaxed" style={{ borderColor: "var(--palette-berry)", color: "var(--color-text-primary)" }}>
                     <span className="font-semibold">My contribution: </span>
                     {study.contribution}
                   </p>
@@ -277,7 +268,7 @@ export function CaseStudy({ study }: { study: CaseStudyType }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h4 className="field-label mb-4">{title}</h4>
+      <h4 className="q-eyebrow" style={{ marginBottom: "1.25rem" }}>{title}</h4>
       {children}
     </section>
   );

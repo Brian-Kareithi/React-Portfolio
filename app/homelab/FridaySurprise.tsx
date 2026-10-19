@@ -6,7 +6,6 @@ import { Gift, PartyPopper, Clock } from "lucide-react";
 const FRIDAY = 5;
 const KNOCK_OFF_HOUR = 17;
 
-/** Next Friday 17:00 local time. */
 function nextKnockOff(now: Date) {
   const target = new Date(now);
   target.setHours(KNOCK_OFF_HOUR, 0, 0, 0);
@@ -24,7 +23,6 @@ const surprises = [
   "No deploys after 4pm. That's not a rule, it's a kindness.",
   "The bug will still be there on Monday. So will you, rested.",
   "git commit -m \"weekend\" && git push --force-with-joy",
-  // Tech dad jokes
   "Why do programmers prefer dark mode? Because light attracts bugs.",
   "I would tell you a UDP joke, but you might not get it.",
   "Why did the developer go broke? He used up all his cache.",
@@ -49,7 +47,6 @@ const surprises = [
 
 const confettiColors = ["var(--color-accent)", "var(--color-accent-secondary)", "var(--color-accent-light)", "var(--color-border-hover)"];
 
-/** "Is it Friday yet?" countdown plus a click-to-unwrap surprise. */
 export default function FridaySurprise() {
   const [now, setNow] = useState<Date | null>(null);
   const [opened, setOpened] = useState(false);
@@ -66,7 +63,6 @@ export default function FridaySurprise() {
   }, []);
 
   const unwrap = () => {
-    // Random pick, never the same one twice in a row.
     setPick((p) => {
       let next = Math.floor(Math.random() * surprises.length);
       if (opened && next === p) next = (next + 1) % surprises.length;
@@ -89,7 +85,6 @@ export default function FridaySurprise() {
 
   return (
     <div className="grid gap-4 lg:grid-cols-2">
-      {/* Live verdict + countdown */}
       <div className="flat-card overflow-hidden">
         <div className="flex items-center gap-2 px-4 py-2.5 border-b" style={{ borderColor: "var(--color-border)" }}>
           <Clock className="w-3.5 h-3.5" style={{ color: "var(--color-accent)" }} />
@@ -121,7 +116,6 @@ export default function FridaySurprise() {
         </div>
       </div>
 
-      {/* The surprise */}
       <div className="flat-card relative flex flex-col items-center justify-center overflow-hidden p-6 text-center">
         {opened && (
           <div className="friday-confetti pointer-events-none absolute inset-0" aria-hidden="true" key={pick}>

@@ -1,46 +1,59 @@
 "use client";
-import { ScrollReveal } from "@/app/components/ui/ScrollReveal";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
+import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import CtfGame from "./CtfGame";
-import { MascotNote } from "@/app/components/Mascot";
+import WordleGame from "./WordleGame";
+
+const shelf = [
+  { id: "ctf", index: "01", title: "Capture the flag", note: "A terminal with six flags hidden on it" },
+  { id: "wordle-title", index: "02", title: "Guess the button", note: "A word game with a developer vocabulary" },
+];
 
 export default function GamesClient() {
   return (
-    <section
-      id="games"
-      className="relative min-h-screen w-full px-4 pb-16 pt-24 sm:px-6 sm:pt-28 lg:px-8"
-      style={{ backgroundColor: "var(--color-bg-primary)" }}
-    >
-      <ScrollReveal>
-        <div className="mx-auto w-full max-w-5xl">
-          <Breadcrumbs compact />
-          <div className="mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-1">
-            <h1 className="display-xl text-3xl sm:text-4xl" style={{ color: "var(--color-text-primary)" }}>
-              Play a <em className="font-serif-accent">little</em>
-            </h1>
-            <p className="text-sm" style={{ color: "var(--color-text-secondary)" }}>
-              A sandbox. Nothing here touches anything real.
-            </p>
-          </div>
+    <div id="games" className="q-page">
+      <div className="q-wrap">
+        <Breadcrumbs />
+        <SectionHeader
+          index="08"
+          label="Minigames"
+          title={<>Play a <em>little</em></>}
+          description="A sandbox. Nothing here touches anything real. It is where the security habits get exercised for fun."
+          aside={
+            <ol className="g-shelf" aria-label="Games on this page">
+              {shelf.map((g) => (
+                <li key={g.id}>
+                  <a href={`#${g.id}`}>
+                    <span>{g.index}</span>
+                    <strong>{g.title}</strong>
+                    <small>{g.note}</small>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          }
+        />
 
+        <section id="ctf" aria-label="Capture the flag" className="g-game">
           <CtfGame />
+        </section>
 
-          <MascotNote className="mt-8" mood="wave">
-            I hid one more flag, and it is not on this page. If you like a trail to follow, start in the browser console.
-          </MascotNote>
+        <WordleGame />
 
-          <NextSection
-            title="Liked that?"
-            description="The same instincts, applied to real work."
-            links={[
-              { href: "/troubleshooting", label: "Diagnostics", description: "How I find the real fault." },
-              { href: "/homelab", label: "Homelab", description: "The lab that never sleeps." },
-              { href: "/contact", label: "Contact", description: "Hire me or say hello." },
-            ]}
-          />
-        </div>
-      </ScrollReveal>
-    </section>
+        <p className="q-small g-hint">
+          I hid one more flag, and it is not on this page. If you like a trail to follow, start in the browser console.
+        </p>
+
+        <NextSection
+          title="Liked that?"
+          links={[
+            { href: "/troubleshooting", label: "Diagnostics", description: "How I find the real fault." },
+            { href: "/homelab", label: "Homelab", description: "The lab that never sleeps." },
+            { href: "/about", label: "About", description: "Where the habits came from." },
+          ]}
+        />
+      </div>
+    </div>
   );
 }

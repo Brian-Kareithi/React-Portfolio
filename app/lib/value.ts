@@ -1,18 +1,11 @@
 export interface ValuePoint {
   id: string;
-  /** The headline of this reason */
   edge: string;
-  /** Why it matters, in my own words */
   benefit: string;
-  /** Verifiable evidence elsewhere on the site */
   proof: string;
   href: string;
 }
 
-/**
- * Why I am good at what I do, in five reasons, in the first person.
- * Every proof line must stay traceable to the About, Projects or Homelab pages.
- */
 export const valuePoints: ValuePoint[] = [
   {
     id: "full-spectrum",
@@ -32,7 +25,7 @@ export const valuePoints: ValuePoint[] = [
     id: "shipped",
     edge: "I build for real users",
     benefit: "At Steadfast Academy my users are teachers and parents. When something is unclear or broken, they tell me fast.",
-    proof: "Teacher and Parent portals and a mobile app at Steadfast Academy, plus a live client site for Sapio Homes.",
+    proof: "Teacher and Parent portals and a mobile app at Steadfast Academy, plus a multi-branch POS system I am building for a client.",
     href: "/projects",
   },
   {

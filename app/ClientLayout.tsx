@@ -3,12 +3,13 @@ import { useEffect } from "react";
 import Navbar from "@/app/components/NavBar";
 import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
+import SmoothScroll from "@/app/components/SmoothScroll";
+import ScrollEffects from "@/app/components/ScrollEffects";
 import { CommandPaletteProvider } from "@/app/components/CommandPalette";
 
 const SPOT_TARGETS = ".flat-card, .plate, .liquid-card, .liquid-card-hover";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
-  // Feeds the card spotlight: hand the pointer position to the card under it.
   useEffect(() => {
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     const onMove = (e: PointerEvent) => {
@@ -22,11 +23,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     return () => document.removeEventListener("pointermove", onMove);
   }, []);
 
-  // The first clue of the hidden flag. Console only, so it costs nothing for anyone who never opens it.
   useEffect(() => {
     console.log(
       "%cHey, you opened the console.%c There is a flag hidden on this site. The trail is short: crawlers are told where not to go. Start at /robots.txt",
-      "font: 600 14px monospace; color: #eaf2ef; background: #912f56; padding: 2px 6px",
+      "font: 600 14px monospace; color: #f2eef2; background: #87334f; padding: 2px 6px",
       "font: 12px monospace",
     );
   }, []);
@@ -34,8 +34,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   return (
     <CommandPaletteProvider>
       <div className="flex min-h-screen flex-col overflow-x-clip">
-        {/* Target for the footer's "Back to the beginning" link */}
         <div id="top" tabIndex={-1} className="absolute top-0 h-0 w-0 outline-none" />
+        <SmoothScroll />
+        <ScrollEffects />
         <Navbar />
         <ScrollBar />
         <main className="relative flex-1">{children}</main>

@@ -3,12 +3,11 @@ import type { ResumeRole } from "@/app/lib/resume-data";
 import { resumeCertifications, resumeEducation, resumeHistory } from "@/app/lib/resume-data";
 import { siteConfig } from "@/app/lib/site";
 
-// Palette mirrors the site (berry banner, mint-cream tints, violet secondary text), as fixed hex so the PDF never depends on theme.
-const BERRY = "#912f56";
-const INK = "#0d090a";
-const VIOLET = "#361f27";
+const BERRY = "#87334f";
+const INK = "#17141a";
+const VIOLET = "#40334a";
 const RULE = "rgba(54, 31, 39, 0.2)";
-const CREAM = "#eaf2ef";
+const CREAM = "#f2eef2";
 
 const s = StyleSheet.create({
   page: { fontFamily: "Helvetica", fontSize: 8.6, color: INK, lineHeight: 1.4, backgroundColor: CREAM },
