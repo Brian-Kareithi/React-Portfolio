@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import LensHeading from "@/app/components/LensHeading";
 
 interface SectionHeaderProps {
   index: string;
@@ -18,9 +19,7 @@ export function SectionHeader({ index, label, title, description, aside, variant
       </p>
       <div className={aside ? "q-head-grid" : undefined}>
         <div>
-          <h1 data-split className="q-title q-rise" style={rise(1)}>
-            {title}
-          </h1>
+          <LensHeading style={rise(1)}>{title}</LensHeading>
           {description && (
             <p className="q-lede q-rise" style={rise(2)}>
               {description}
