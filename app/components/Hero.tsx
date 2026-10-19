@@ -5,17 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import portrait from "@/public/kareithi.jpg";
 import { Github, Linkedin, Mail, ArrowRight, ArrowUpRight } from "lucide-react";
-import HeroTerminal from "@/app/components/HeroTerminal";
 import { siteConfig } from "@/app/lib/site";
 
 const socials = [
   { href: siteConfig.github, icon: Github, label: "GitHub" },
   { href: siteConfig.linkedin, icon: Linkedin, label: "LinkedIn" },
   { href: `mailto:${siteConfig.email}`, icon: Mail, label: "Email" },
-];
-
-const nodes = [
-  [30, 36], [150, 22], [262, 58], [236, 150], [118, 168], [28, 120],
 ];
 
 function Chars({ text, start = 0 }: { text: string; start?: number }) {
@@ -148,31 +143,31 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hh-deck" aria-hidden="true">
-          <div className="hh-layer hh-layer-net" style={{ "--z": 0.5 } as CSSProperties}>
-            <p className="hh-layer-label">network</p>
-            <svg viewBox="0 0 300 190" className="hh-net">
-              {nodes.map(([x, y], i) => (
-                <g key={i}>
-                  <line x1="150" y1="95" x2={x} y2={y} />
-                  <circle r="3" className="hh-packet">
-                    <animateMotion dur={`${2.4 + (i % 3) * 0.7}s`} begin={`${i * 0.4}s`} repeatCount="indefinite" path={`M150,95 L${x},${y}`} />
-                  </circle>
-                  <circle cx={x} cy={y} r="6" className="hh-node" />
-                </g>
-              ))}
-              <circle cx="150" cy="95" r="11" className="hh-hub" />
-            </svg>
-          </div>
+        <div className="hh-deck">
+          <section className="hh-layer hh-layer-lab" style={{ "--z": 0.5 } as CSSProperties} aria-label="Homelab status" tabIndex={0}>
+            <p className="hh-layer-label">homelab</p>
+            <p className="hh-lab-status">All systems normal</p>
+            <dl className="hh-lab-list">
+              <div><dt>Proxmox host</dt><dd>24/7</dd></div>
+              <div><dt>RAID-1 storage</dt><dd>3 TB</dd></div>
+              <div><dt>Devices managed</dt><dd>19</dd></div>
+              <div><dt>Data lost</dt><dd>0 B</dd></div>
+            </dl>
+          </section>
 
-          <div className="hh-layer hh-layer-app" style={{ "--z": 1 } as CSSProperties}>
-            <p className="hh-layer-label">application</p>
+          <Link href="/projects#pos-system" className="hh-layer hh-layer-app" style={{ "--z": 1 } as CSSProperties} aria-label="Open the POS system case study">
+            <p className="hh-layer-label">pos system</p>
             <Image src="/projects/pos/overview.png" alt="" width={720} height={450} sizes="320px" className="hh-shot" />
-          </div>
+          </Link>
 
-          <div className="hh-layer hh-layer-term" style={{ "--z": 1.7 } as CSSProperties}>
-            <HeroTerminal />
-          </div>
+          <section className="hh-layer hh-layer-id" style={{ "--z": 1.7 } as CSSProperties} aria-label="Profile" tabIndex={0}>
+            <p className="hh-layer-label">profile</p>
+            <dl className="hh-id-rows">
+              <div><dt>stack</dt><dd>Next.js, React Native, TypeScript</dd></div>
+              <div><dt>exploring</dt><dd>AI, GIS, cloud, DevOps</dd></div>
+              <div><dt>certified</dt><dd>Security+, CCNA, AWS, Azure, Google, IBM</dd></div>
+            </dl>
+          </section>
         </div>
       </div>
     </section>
