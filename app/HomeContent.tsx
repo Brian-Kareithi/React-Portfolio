@@ -3,7 +3,6 @@ import Image from "next/image";
 import portrait from "@/public/kareithi.jpg";
 import { Github, Linkedin, Mail, ArrowRight, ArrowUpRight, Command } from "lucide-react";
 import HeroTerminal from "@/app/components/HeroTerminal";
-import StackJourney from "@/app/components/StackJourney";
 import PaletteButton from "@/app/components/PaletteButton";
 import { Assemble } from "@/app/components/ui/Assemble";
 import { routes } from "@/app/lib/nav";
