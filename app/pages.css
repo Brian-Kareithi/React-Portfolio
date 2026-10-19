@@ -1012,3 +1012,8 @@ body:has([data-nav="dark"]) .q-nav[data-scrolled] .q-nav-shell { border-color: t
 .l-quote p { max-width: 22ch; font-family: var(--font-instrument-serif), Georgia, serif; font-size: clamp(2.2rem, 1rem + 4.5vw, 5rem); line-height: 1; letter-spacing: -0.02em; color: var(--palette-black); }
 .l-quote em { font-style: italic; color: var(--palette-berry); }
 @media (prefers-reduced-motion: reduce) { .l-map, .l-stat, .l-node, .l-builds article, .l-row { transition: none; } }
+
+.lens-clone { display: none !important; }
+.lens-wrap[data-done] .hh-char { animation: none; transform: none; transition: color 0.3s, transform 0.35s var(--ease-out); will-change: transform; }
+.lens-wrap[data-done] .lh-word { overflow: visible; }
+.lens-wrap .lh-word { padding-top: 0.1em; margin-top: -0.1em; }
