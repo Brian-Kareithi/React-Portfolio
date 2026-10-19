@@ -1,15 +1,14 @@
 "use client";
-import { useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent as ReactPointerEvent } from "react";
+import { useRef, type CSSProperties, type KeyboardEvent, type PointerEvent as ReactPointerEvent } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { CaseStudy } from "@/app/lib/projects-data";
 
 const SPREAD = 3;
 
-export default function ProjectCarousel({ studies }: { studies: CaseStudy[] }) {
-  const [active, setActive] = useState(0);
+export default function ProjectCarousel({ studies, active, onChange }: { studies: CaseStudy[]; active: number; onChange: (i: number) => void }) {
   const drag = useRef<{ x: number; moved: boolean } | null>(null);
-  const go = (i: number) => setActive(Math.max(0, Math.min(studies.length - 1, i)));
+  const go = (i: number) => onChange(Math.max(0, Math.min(studies.length - 1, i)));
 
   const onKey = (e: KeyboardEvent) => {
     if (e.key === "ArrowRight") go(active + 1);
@@ -72,7 +71,7 @@ export default function ProjectCarousel({ studies }: { studies: CaseStudy[] }) {
             </>
           );
           return isActive ? (
-            <a key={study.id} href={`#${study.id}`} className="pc-card" data-active style={style} data-cursor="open" aria-label={`${study.title}: open the case study`}>
+            <a key={study.id} href="#case-detail" className="pc-card" data-active style={style} data-cursor="open" aria-label={`${study.title}: jump to the details`}>
               {body}
             </a>
           ) : (
@@ -93,8 +92,8 @@ export default function ProjectCarousel({ studies }: { studies: CaseStudy[] }) {
 
       <div className="pc-caption" aria-live="polite">
         <p className="pc-tagline">{current.tagline}</p>
-        <a href={`#${current.id}`} className="q-link">
-          Read the case study <ArrowUpRight aria-hidden="true" />
+        <a href="#case-detail" className="q-link">
+          See the details <ArrowUpRight aria-hidden="true" />
         </a>
       </div>
 
