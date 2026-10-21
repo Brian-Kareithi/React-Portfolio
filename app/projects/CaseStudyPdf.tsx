@@ -3,11 +3,11 @@ import type { CaseStudy } from "@/app/lib/projects-data";
 import type { ProjectDoc } from "@/app/lib/project-docs";
 import { siteConfig } from "@/app/lib/site";
 
-const BERRY = "#87334f";
-const INK = "#17141a";
-const VIOLET = "#40334a";
+const BERRY = "#49111c";
+const INK = "#0a0908";
+const VIOLET = "#5e503f";
 const RULE = "rgba(54, 31, 39, 0.2)";
-const CREAM = "#f2eef2";
+const CREAM = "#f2f4f3";
 
 const s = StyleSheet.create({
   page: { fontFamily: "Helvetica", fontSize: 8.8, color: INK, lineHeight: 1.42, backgroundColor: CREAM, paddingBottom: 34 },

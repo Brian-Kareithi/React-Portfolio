@@ -49,7 +49,7 @@ const organizationJsonLd = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f2eef2",
+  themeColor: "#f2f4f3",
   colorScheme: "light",
 };
 
