@@ -18,7 +18,7 @@ export async function GET(request: Request) {
           width: "100%",
           height: "100%",
           display: "flex",
-          backgroundColor: "#f2eef2",
+          backgroundColor: "#f2f4f3",
           padding: 64,
           position: "relative",
           fontFamily: "sans-serif",
@@ -32,7 +32,7 @@ export async function GET(request: Request) {
             width: 560,
             height: 560,
             borderRadius: 9999,
-            backgroundColor: "#87334f",
+            backgroundColor: "#49111c",
             display: "flex",
           }}
         />
@@ -47,22 +47,22 @@ export async function GET(request: Request) {
                 width: 72,
                 height: 72,
                 borderRadius: 20,
-                backgroundColor: "#f2eef2",
-                border: "2px solid #17141a",
+                backgroundColor: "#f2f4f3",
+                border: "2px solid #0a0908",
                 boxShadow: "0 10px 24px -8px rgba(23, 20, 26, 0.3)",
               }}
             >
               <img src={logoSrc} width={56} height={56} alt="" />
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontSize: 28, fontWeight: 700, color: "#17141a" }}>{siteConfig.name}</span>
-              <span style={{ fontSize: 20, color: "#40334a" }}>kareithi.vercel.app</span>
+              <span style={{ fontSize: 28, fontWeight: 700, color: "#0a0908" }}>{siteConfig.name}</span>
+              <span style={{ fontSize: 20, color: "#5e503f" }}>kareithi.vercel.app</span>
             </div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", maxWidth: 900 }}>
-            <span style={{ fontSize: 88, fontWeight: 700, color: "#17141a", lineHeight: 1.05, letterSpacing: -2 }}>{title}</span>
-            <span style={{ marginTop: 20, fontSize: 30, color: "#40334a", lineHeight: 1.35 }}>{subtitle}</span>
+            <span style={{ fontSize: 88, fontWeight: 700, color: "#0a0908", lineHeight: 1.05, letterSpacing: -2 }}>{title}</span>
+            <span style={{ marginTop: 20, fontSize: 30, color: "#5e503f", lineHeight: 1.35 }}>{subtitle}</span>
           </div>
 
           <div style={{ display: "flex", gap: 12 }}>
@@ -74,9 +74,9 @@ export async function GET(request: Request) {
                   fontSize: 22,
                   padding: "10px 22px",
                   borderRadius: 9999,
-                  backgroundColor: tag === "Full-Stack Developer" ? "#17141a" : "#87334f",
-                  color: "#f2eef2",
-                  border: "2px solid #17141a",
+                  backgroundColor: tag === "Full-Stack Developer" ? "#0a0908" : "#49111c",
+                  color: "#f2f4f3",
+                  border: "2px solid #0a0908",
                 }}
               >
                 {tag}

@@ -7,6 +7,12 @@ import portrait from "@/public/kareithi.jpg";
 import { Github, Linkedin, Mail, ArrowRight, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/app/lib/site";
 
+const proof = [
+  { value: "50+", label: "client projects shipped" },
+  { value: "2", label: "systems live at a school" },
+  { value: "19", label: "devices in my homelab" },
+];
+
 const socials = [
   { href: siteConfig.github, icon: Github, label: "GitHub" },
   { href: siteConfig.linkedin, icon: Linkedin, label: "LinkedIn" },
@@ -114,8 +120,17 @@ export default function Hero() {
           </div>
 
           <p className="q-lede hh-rise" style={{ "--d": "0.95s", marginTop: "2rem" } as CSSProperties}>
-            I build web and mobile products from the interface down to the infrastructure, with a security background underneath.
+            Full-stack developer. I ship web and mobile products, then run the infrastructure underneath them, with a security background.
           </p>
+
+          <dl className="hh-proof hh-rise" style={{ "--d": "1s" } as CSSProperties}>
+            {proof.map((p) => (
+              <div key={p.label}>
+                <dd>{p.value}</dd>
+                <dt>{p.label}</dt>
+              </div>
+            ))}
+          </dl>
 
           <div className="hh-actions hh-rise" style={{ "--d": "1.1s" } as CSSProperties}>
             <Link href="/projects" className="q-btn" data-solid>

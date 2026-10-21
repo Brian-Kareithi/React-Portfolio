@@ -6,9 +6,9 @@ import { Line, OrbitControls, Text } from "@react-three/drei";
 import * as THREE from "three";
 import { nodes } from "@/app/components/NetworkMap";
 
-const BERRY = "#87334f";
-const PINK = "#d98aa3";
-const CREAM = "#f2eef2";
+const BERRY = "#49111c";
+const PINK = "#a9927d";
+const CREAM = "#f2f4f3";
 
 function layout() {
   return nodes.map((_, i) => {
