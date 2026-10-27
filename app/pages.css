@@ -1050,3 +1050,45 @@ body:has([data-nav="dark"]) .q-nav[data-scrolled] .q-nav-shell { border-color: t
 .h-quote .q-link { color: var(--palette-cream); }
 .h-quote .q-link:hover { color: #e7c8d3; }
 .h-quote .q-link:focus-visible { outline-color: var(--palette-cream); }
+
+/* Homelab live stats */
+.hs { display: grid; gap: 1.75rem; }
+.hs-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+.hs .live-dot[data-stale]::after { animation: none; opacity: 0; }
+.hs .live-dot[data-stale] { background: var(--palette-taupe); }
+.hs-empty { padding: 1.25rem 1.3rem; border: 1px dashed var(--hairline-strong); border-radius: 0.9rem; font-size: 0.8125rem; color: var(--color-text-muted); }
+.hs-card { display: grid; align-content: start; gap: 0.6rem; min-width: 0; padding: 1.1rem 1.2rem 1.2rem; border: 1px solid var(--hairline-strong); border-radius: 0.9rem; background: color-mix(in srgb, var(--palette-cream) 55%, white); transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out); }
+@media (hover: hover) { .hs-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -40px rgb(23 20 26 / 0.5); } }
+.hs-meters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+@media (min-width: 900px) { .hs-meters { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.hs-meter-top { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
+.hs-label, .hs-group-title, .hs-widget dt { font: 500 0.625rem/1 var(--font-jetbrains-mono), monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-text-muted); }
+.hs-value { font-family: var(--font-instrument-serif), Georgia, serif; font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.4rem); line-height: 1; color: var(--palette-berry); font-variant-numeric: tabular-nums; }
+.hs-bar { height: 0.3rem; overflow: hidden; border-radius: 9999px; background: var(--hairline); }
+.hs-bar > div { height: 100%; border-radius: inherit; transition: width 0.7s var(--ease-out); }
+.hs-bar > div[data-level="ok"] { background: var(--palette-taupe); }
+.hs-bar > div[data-level="warm"] { background: var(--palette-violet); }
+.hs-bar > div[data-level="hot"] { background: var(--palette-berry); }
+.hs-detail { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.75rem; color: var(--color-text-muted); }
+.hs-warn { color: var(--palette-berry); }
+.hs-group { display: grid; gap: 0.75rem; }
+.hs-services { display: grid; gap: 1rem; }
+@media (min-width: 640px) { .hs-services { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .hs-services { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.hs-service-head { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+.hs-icon { width: 2rem; height: 2rem; flex-shrink: 0; object-fit: contain; }
+.hs-icon[data-blank] { border-radius: 0.5rem; background: var(--color-surface-strong); }
+.hs-service-text { display: grid; gap: 0.15rem; min-width: 0; }
+.hs-service-name { display: flex; align-items: center; gap: 0.5rem; min-width: 0; font-weight: 500; color: var(--palette-black); }
+.hs-service-name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hs-dot { width: 0.5rem; height: 0.5rem; flex-shrink: 0; border-radius: 9999px; }
+.hs-dot[data-status="healthy"] { background: var(--palette-berry); }
+.hs-dot[data-status="running"] { background: var(--palette-violet); }
+.hs-dot[data-status="none"] { border: 1.5px solid var(--palette-taupe); }
+.hs-dot[data-status="down"] { border: 1.5px solid var(--palette-berry); box-shadow: 0 0 0 2px var(--color-highlight); }
+.hs-widget { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem 0.25rem; padding: 0.6rem 0.4rem; border-radius: 0.6rem; background: var(--color-surface); text-align: center; }
+.hs-widget > div { display: flex; flex-direction: column-reverse; gap: 0.3rem; min-width: 0; }
+.hs-widget dt { font-size: 0.5625rem; letter-spacing: 0.1em; }
+.hs-widget dd, .hs-widget dt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hs-widget dd { font: 500 0.8125rem/1.2 var(--font-jetbrains-mono), monospace; color: var(--palette-black); font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .hs-card, .hs-bar > div { transition: none; } }
