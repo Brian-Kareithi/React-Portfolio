@@ -11,7 +11,7 @@ Live: https://kareithi.vercel.app
 - `/how-i-work` Why the work holds up, principles, stack by layer, delivery, standards and toolbox
 - `/projects` Case studies, the POS system, an archive of smaller builds
 - `/contact` A contact form and direct channels
-- `/homelab` The 19-device Proxmox homelab, with an interactive network map
+- `/homelab` The Proxmox homelab, with an interactive 3D network map and topology view
 - `/troubleshooting` The diagnostic method, field notes and an interactive debugging case
 - `/resume` A resume tailored to a chosen role, generated as a PDF in the browser
 - `/games` A capture-the-flag terminal and a word game
