@@ -6,7 +6,7 @@ import { Billboard, Environment, Lightformer, Text } from "@react-three/drei";
 import { BallCollider, Physics, RigidBody, type RapierRigidBody } from "@react-three/rapier";
 import { easing } from "maath";
 import * as THREE from "three";
-import { homelabDevices, type Device, type DeviceStatus } from "@/app/lib/homelab";
+import { homelabDevices, labMachines, type Device, type DeviceStatus } from "@/app/lib/homelab";
 
 const BERRY = "#6b1a2e";
 const CREAM = "#f2f4f3";
@@ -98,9 +98,12 @@ function Scene({ devices, accent, live, onActive }: { devices: Device[]; accent:
       <Physics timeStep="vary" gravity={[0, 0, 0]} paused={!live}>
         <Pointer />
         <Sphere label="dreezy0" color={BERRY} radius={1.5} active={hover === -1} onHover={(on) => set(on ? -1 : null)} />
-        {devices.map((d, i) => (
-          <Sphere key={d.name} label={d.name} color={colorFor(d, i)} radius={0.85} active={hover === i} onHover={(on) => set(on ? i : null)} />
-        ))}
+        {devices.map((d, i) => {
+          const machine = i < labMachines.length;
+          return (
+            <Sphere key={d.name} label={d.name} color={machine ? CREAM : colorFor(d, i)} radius={machine ? 1.05 : 0.75} active={hover === i} onHover={(on) => set(on ? i : null)} />
+          );
+        })}
       </Physics>
       <Environment resolution={256}>
         <group rotation={[-Math.PI / 3, 0, 1]}>
@@ -131,13 +134,14 @@ export default function Network3D({ devices = homelabDevices }: { devices?: Devi
     return () => mo.disconnect();
   }, []);
 
-  const current = active === -1 ? { name: "dreezy0", note: "The home server every service below runs on, in Docker.", status: "running" as DeviceStatus } : active === null ? null : devices[active];
+  const all = useMemo(() => [...labMachines, ...devices], [devices]);
+  const current = active === -1 ? { name: "dreezy0", note: "HP Tower Server. Runs every service here in Docker, 24/7.", status: "running" as DeviceStatus } : active === null ? null : all[active];
 
   return (
     <div className="net">
-      <div ref={box} className="net-3d" data-cursor="orbit" role="img" aria-label={`Interactive map of the homelab: dreezy0 and ${devices.length} services. Move the cursor to push them, hover one to see what it runs.`}>
+      <div ref={box} className="net-3d" data-cursor="orbit" role="img" aria-label={`Interactive map of the homelab: dreezy0, ${labMachines.length} machines and ${devices.length} services. Move the cursor to push them, hover one to see what it runs.`}>
         <Canvas frameloop={live ? "always" : "never"} onClick={nextAccent} camera={{ position: [0, 0, 30], fov: 17.5 }} dpr={[1, 1.5]} gl={{ antialias: true, powerPreference: "low-power" }}>
-          <Scene devices={devices} accent={ACCENTS[accentIndex]} live={live} onActive={setActive} />
+          <Scene devices={all} accent={ACCENTS[accentIndex]} live={live} onActive={setActive} />
         </Canvas>
       </div>
       <p className="net-readout" aria-live="polite">

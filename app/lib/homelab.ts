@@ -42,6 +42,16 @@ export interface Device {
   status: DeviceStatus;
 }
 
+// The named machines on the lab network (dreezy0, the server, is the hub).
+export const labMachines: Device[] = [
+  { name: "Dreezy1", note: "HP 820 G3. Test bench for risky experiments.", status: "unknown" },
+  { name: "Dreezy2", note: "HP 745 G7. Second dev machine for VMs and dev servers.", status: "unknown" },
+  { name: "Dreezy3", note: "Dell OptiPlex. Lab node for extra services.", status: "unknown" },
+  { name: "Dreezy4", note: "Galaxy A05s. Remote control for the lab over SSH.", status: "unknown" },
+  { name: "Dreezy5", note: "HP Tower. Second tower, adding capacity to the lab.", status: "unknown" },
+  { name: "Dreezy6", note: "ROG Zephyrus G14. Daily driver where every build starts.", status: "unknown" },
+];
+
 // Shown until (or if never) the live stats arrive.
 export const homelabDevices: Device[] = [
   { name: "Jellyfin", note: "Media server for movies, series and music.", status: "unknown" },

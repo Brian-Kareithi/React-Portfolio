@@ -5,11 +5,10 @@ import emailjs from "@emailjs/browser";
 import useLocalTime from "@/app/components/ui/useLocalTime";
 import { SectionHeader } from "@/app/components/ui/SectionHeader";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
-import NextSection from "@/app/components/NextSection";
-import { ArrowUpRight, Send, TriangleAlert, Check } from "lucide-react";
+import { ArrowUpRight, Send, TriangleAlert, Check, Mail, Phone, MapPin } from "lucide-react";
 import { siteConfig } from "@/app/lib/site";
 
-type FieldName = "name" | "email" | "subject" | "message";
+type FieldName = "name" | "email" | "message";
 type Errors = Partial<Record<FieldName, string>>;
 
 // EmailJS runs in the browser, so these are public by design; keeping them in env
@@ -20,42 +19,22 @@ const EMAILJS = {
   publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
 };
 
-const MESSAGE_MIN = 20;
+const MESSAGE_MIN = 10;
 const MESSAGE_MAX = 2000;
-const topics = ["A project", "A role", "Collaboration", "Just hello"];
-const topicPrompts: Record<string, { subject: string; message: string }> = {
-  "A project": {
-    subject: "Booking platform for a property developer",
-    message: "What you want built, who uses it, and roughly when.",
-  },
-  "A role": {
-    subject: "Frontend engineer, Nairobi or remote",
-    message: "The team, the stack and what the first months look like.",
-  },
-  Collaboration: {
-    subject: "Open-source road-safety tool",
-    message: "What you are working on and where I could help.",
-  },
-  "Just hello": {
-    subject: "A question about your work",
-    message: "Whatever is on your mind.",
-  },
-};
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const empty: Record<FieldName, string> = { name: "", email: "", message: "" };
 
 function validate(values: Record<FieldName, string>): Errors {
   const errors: Errors = {};
-  if (values.name.trim().length < 2) errors.name = "Enter your name (at least 2 characters).";
-  if (!emailPattern.test(values.email.trim())) errors.email = "Enter a valid email address, for example you@company.com.";
-  if (values.subject.trim().length < 3) errors.subject = "Add a short subject so I know what this is about.";
+  if (values.name.trim().length < 2) errors.name = "Enter your name.";
+  if (!emailPattern.test(values.email.trim())) errors.email = "Enter a valid email, like you@company.com.";
   const len = values.message.trim().length;
-  if (len < MESSAGE_MIN) errors.message = `Tell me a little more (${MESSAGE_MIN - len} more characters needed).`;
+  if (len < MESSAGE_MIN) errors.message = `A little more, please (${MESSAGE_MIN - len} more characters).`;
   return errors;
 }
 
 export default function ContactClient() {
-  const [values, setValues] = useState<Record<FieldName, string>>({ name: "", email: "", subject: "", message: "" });
-  const [topic, setTopic] = useState(topics[0]);
+  const [values, setValues] = useState(empty);
   const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
@@ -91,7 +70,7 @@ export default function ContactClient() {
     e.preventDefault();
     const firstInvalid = (Object.keys(errors) as FieldName[])[0];
     if (firstInvalid) {
-      setTouched({ name: true, email: true, subject: true, message: true });
+      setTouched({ name: true, email: true, message: true });
       (e.currentTarget.elements.namedItem(firstInvalid) as HTMLElement | null)?.focus();
       return;
     }
@@ -107,16 +86,16 @@ export default function ContactClient() {
         {
           name: values.name.trim(),
           email: values.email.trim(),
-          subject: values.subject.trim(),
-          message: `Topic: ${topic}\n\n${values.message.trim()}`,
+          subject: `Portfolio message from ${values.name.trim()}`,
+          message: values.message.trim(),
           time: currentTime,
-          to_email: "kareithibrian2@gmail.com",
+          to_email: siteConfig.email,
         },
         EMAILJS.publicKey
       );
       setSubmitStatus("success");
       setToastOpen(true);
-      setValues({ name: "", email: "", subject: "", message: "" });
+      setValues(empty);
       setTouched({});
     } catch (error) {
       console.error("EmailJS Error:", error);
@@ -126,10 +105,16 @@ export default function ContactClient() {
     }
   };
 
-  const direct = [
-    { label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
-    { label: "Phone", value: siteConfig.phoneDisplay, href: `tel:${siteConfig.phone}` },
-    { label: "Based in", value: "Nairobi, Kenya", href: null as string | null },
+  const cards = [
+    { icon: Mail, title: "Email me", value: siteConfig.email, href: `mailto:${siteConfig.email}`, external: false },
+    { icon: Phone, title: "Call me", value: siteConfig.phoneDisplay, href: `tel:${siteConfig.phone}`, external: false },
+    {
+      icon: MapPin,
+      title: "Based in",
+      value: `Nairobi, Kenya · ${time ?? "--:--"} EAT`,
+      href: "https://www.google.com/maps/place/Nairobi,+Kenya",
+      external: true,
+    },
   ];
 
   const elsewhere = [
@@ -163,81 +148,51 @@ export default function ContactClient() {
 
         <div className="c-layout">
           <aside className="c-side">
-            <dl className="c-direct">
-              {direct.map((item) => (
-                <div key={item.label}>
-                  <dt>{item.label}</dt>
-                  <dd>
-                    {item.href ? (
-                      <a href={item.href} className="c-big">{item.value}</a>
-                    ) : (
-                      <span className="c-big">{item.value}</span>
-                    )}
-                  </dd>
-                </div>
+            <ul className="c-cards">
+              {cards.map(({ icon: Icon, title, value, href, external }) => (
+                <li key={title}>
+                  <a
+                    href={href}
+                    className="c-card"
+                    target={external ? "_blank" : undefined}
+                    rel={external ? "noopener noreferrer" : undefined}
+                  >
+                    <span className="c-card-icon" aria-hidden="true"><Icon /></span>
+                    <span className="c-card-text">
+                      <strong>{title}</strong>
+                      <span>{value}</span>
+                    </span>
+                    <span className="c-card-go" aria-hidden="true"><ArrowUpRight /></span>
+                  </a>
+                </li>
               ))}
-              <div>
-                <dt>Local time</dt>
-                <dd>
-                  <span className="c-big">
-                    <time className="tabular-nums">{time ?? "--:--"}</time> <span className="q-small">EAT, UTC+3</span>
-                  </span>
-                </dd>
-              </div>
-            </dl>
-            <div className="c-elsewhere">
-              <p className="q-eyebrow" style={{ marginBottom: "0.5rem" }}>Elsewhere</p>
+            </ul>
+            <p className="c-elsewhere">
+              <span className="q-eyebrow">Elsewhere</span>
               {elsewhere.map((item) => (
                 <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="q-link">
                   {item.label} <ArrowUpRight aria-hidden="true" />
                 </a>
               ))}
-            </div>
+            </p>
           </aside>
 
           <form onSubmit={handleSubmit} noValidate className="c-form" aria-label="Send a message">
             <fieldset disabled={isSubmitting} className="c-fieldset">
-              <legend className="q-eyebrow" style={{ marginBottom: "1.5rem" }}>What is this about?</legend>
-              <div className="c-topics" role="radiogroup" aria-label="Topic">
-                {topics.map((t) => (
-                  <button
-                    key={t}
-                    type="button"
-                    role="radio"
-                    aria-checked={topic === t}
-                    onClick={() => setTopic(t)}
-                    className="c-topic"
-                  >
-                    {topic === t && <Check aria-hidden="true" />}
-                    {t}
-                  </button>
-                ))}
-              </div>
-
-              <div className="c-grid">
-                <Field label="Your name" name="name" error={showError("name")}>
-                  <input {...fieldProps("name")} type="text" autoComplete="name" placeholder="Full name" />
-                </Field>
-                <Field label="Email address" name="email" error={showError("email")}>
-                  <input {...fieldProps("email")} type="email" autoComplete="email" inputMode="email" placeholder="name@company.com" />
-                </Field>
-              </div>
-
-              <Field label="Subject" name="subject" error={showError("subject")}>
-                <input {...fieldProps("subject")} type="text" autoComplete="off" placeholder={topicPrompts[topic]?.subject} />
+              <Field label="Name" name="name" error={showError("name")}>
+                <input {...fieldProps("name")} type="text" autoComplete="name" />
+              </Field>
+              <Field label="Email" name="email" error={showError("email")}>
+                <input {...fieldProps("email")} type="email" autoComplete="email" inputMode="email" />
+              </Field>
+              <Field label="Message" name="message" error={showError("message")} grow>
+                <textarea {...fieldProps("message")} rows={5} maxLength={MESSAGE_MAX} />
               </Field>
 
-              <Field label="Message" name="message" error={showError("message")} counter={`${values.message.length} / ${MESSAGE_MAX}`}>
-                <textarea {...fieldProps("message")} rows={4} maxLength={MESSAGE_MAX} placeholder={topicPrompts[topic]?.message} style={{ resize: "vertical" }} />
-              </Field>
-
-              <div className="c-submit">
-                <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting} className="q-btn" data-solid>
-                  <Send className={isSubmitting ? "send-plane" : undefined} aria-hidden="true" />
-                  {isSubmitting ? "Sending…" : "Send message"}
-                </button>
-                <p className="q-small">All fields required.</p>
-              </div>
+              <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting} className="c-send">
+                <Send className={isSubmitting ? "send-plane" : undefined} aria-hidden="true" />
+                {isSubmitting ? "Sending…" : "Send message"}
+              </button>
             </fieldset>
 
             <div role="status" aria-live="polite">
@@ -265,36 +220,21 @@ export default function ContactClient() {
             document.body,
           )}
 
-        <NextSection
-          title="Or read on"
-          links={[
-            { href: "/about", label: "About", description: "My story and track record." },
-            { href: "/projects", label: "Selected work", description: "Live products and demos." },
-            { href: "/homelab", label: "Homelab", description: "The lab I run at home." },
-          ]}
-        />
       </div>
     </div>
   );
 }
 
-function Field({ label, name, error, counter, children }: { label: string; name: string; error?: string; counter?: string; children: React.ReactNode }) {
+function Field({ label, name, error, grow, children }: { label: string; name: string; error?: string; grow?: boolean; children: React.ReactNode }) {
   return (
-    <div className="c-field">
+    <div className="c-field" data-grow={grow || undefined} data-invalid={error ? "" : undefined}>
       <label htmlFor={`contact-${name}`}>{label}</label>
       {children}
-      {(error || counter) && (
-        <div className="c-meta">
-          {error ? (
-            <p id={`contact-${name}-error`} className="c-error">
-              <TriangleAlert aria-hidden="true" />
-              {error}
-            </p>
-          ) : (
-            <span />
-          )}
-          {counter && <span className="q-mono">{counter}</span>}
-        </div>
+      {error && (
+        <p id={`contact-${name}-error`} className="c-error">
+          <TriangleAlert aria-hidden="true" />
+          {error}
+        </p>
       )}
     </div>
   );

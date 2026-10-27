@@ -14,6 +14,9 @@ export function SectionHeader({ index, label, title, description, aside, variant
   const rise = (i: number) => ({ "--i": i }) as CSSProperties;
   return (
     <header className={`q-head${variant ? ` q-head-${variant}` : ""}`}>
+      <span className="q-ghost" aria-hidden="true" style={{ "--chars": label.length } as CSSProperties}>
+        {label}
+      </span>
       <p className="q-eyebrow q-rise" style={rise(0)}>
         <b>{index}</b> {label}
       </p>

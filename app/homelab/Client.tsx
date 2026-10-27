@@ -32,25 +32,46 @@ export const gearCategories: GearCategory[] = [
     icon: <Cpu className="w-3.5 h-3.5" />,
     items: [
       {
-        name: "HP 745 G7",
-        outcome: "Daily driver. Every build starts here, with VMs, Docker and dev servers side by side.",
-        skill: "Dev Environment",
-        icon: <Cpu className="w-3.5 h-3.5" />,
-        specs: ["AMD Ryzen 5 PRO 3500U", "16GB DDR4 RAM", "512GB NVMe SSD", "14\" FHD Display", "Radeon Vega 8 Graphics"],
+        name: "Dreezy0 · HP Tower Server",
+        outcome: "The always-on server that runs the lab: media, requests, deployments and backups in Docker.",
+        skill: "Server Administration",
+        icon: <Server className="w-3.5 h-3.5" />,
+        specs: ["Intel Xeon / Core i5", "16GB ECC DDR4 RAM", "3TB HDD Storage", "RAID 1 Config", "Proxmox VE", "Docker host", "24/7 Self-Hosted"],
       },
       {
-        name: "HP 820 G3",
+        name: "Dreezy1 · HP 820 G3",
         outcome: "Test bench. Risky experiments run here, never on the main machine.",
         skill: "Lab & Testing",
         icon: <Cpu className="w-3.5 h-3.5" />,
         specs: ["Intel Core i5-6200U", "12GB DDR4 RAM", "256GB SATA SSD", "12.5\" FHD Display"],
       },
       {
-        name: "HP Tower Server",
-        outcome: "The Proxmox node that runs the lab: media, backups and dev services.",
-        skill: "Server Administration",
+        name: "Dreezy2 · HP 745 G7",
+        outcome: "Second dev machine for VMs, Docker and long-running dev servers.",
+        skill: "Dev Environment",
+        icon: <Cpu className="w-3.5 h-3.5" />,
+        specs: ["AMD Ryzen 5 PRO 3500U", "16GB DDR4 RAM", "512GB NVMe SSD", "14\" FHD Display", "Radeon Vega 8 Graphics"],
+      },
+      {
+        name: "Dreezy3 · Dell OptiPlex",
+        outcome: "Lab node for extra services and experiments, keeping load off the main server.",
+        skill: "Lab Node",
         icon: <Server className="w-3.5 h-3.5" />,
-        specs: ["Intel Xeon / Core i5", "16GB ECC DDR4 RAM", "3TB HDD Storage", "RAID 1 Config", "Proxmox VE", "24/7 Self-Hosted"],
+        specs: ["Dell OptiPlex desktop", "Lab node"],
+      },
+      {
+        name: "Dreezy5 · HP Tower",
+        outcome: "Second HP tower, adding capacity to the lab.",
+        skill: "Lab Expansion",
+        icon: <Server className="w-3.5 h-3.5" />,
+        specs: ["HP Tower", "Lab expansion"],
+      },
+      {
+        name: "Dreezy6 · ROG Zephyrus G14",
+        outcome: "Daily driver. Every build starts here, with VMs, Docker and dev servers side by side.",
+        skill: "Dev Environment",
+        icon: <Cpu className="w-3.5 h-3.5" />,
+        specs: ["ASUS ROG Zephyrus G14 (GA401QM)", "AMD Ryzen 9 5900HS", "NVIDIA RTX 3060 Laptop GPU", "24GB DDR4 RAM", "1TB NVMe SSD", "14\" FHD 144Hz Display"],
       },
       {
         name: "HP Tower (Kali Linux)",
@@ -120,7 +141,7 @@ export const gearCategories: GearCategory[] = [
     icon: <Smartphone className="w-3.5 h-3.5" />,
     items: [
       {
-        name: "Galaxy A05s",
+        name: "Dreezy4 · Galaxy A05s",
         outcome: "Remote control for the lab: SSH, automation and camera feeds.",
         skill: "Remote Ops",
         icon: <Smartphone className="w-3.5 h-3.5" />,
@@ -269,7 +290,7 @@ export default function HomelabClient({ initialStats }: { initialStats?: Stats |
           <ol className="l-chain">
             <li><span className="l-node"><Wifi aria-hidden="true" /> Internet</span></li>
             <li><span className="l-node"><Wifi aria-hidden="true" /> Router <small>Safaricom 4G LTE</small></span></li>
-            <li><span className="l-node" data-strong><Server aria-hidden="true" /> HP Tower Server <small>Proxmox VE · RAID-1 · 3TB</small></span></li>
+            <li><span className="l-node" data-strong><Server aria-hidden="true" /> Dreezy0 <small>HP Tower Server · Proxmox VE · Docker · RAID-1 · 3TB</small></span></li>
             <li>
               <ul className="l-leaves">
                 {services.map((svc) => (
