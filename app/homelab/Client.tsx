@@ -9,6 +9,8 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 import NextSection from "@/app/components/NextSection";
 import FridaySurprise from "./FridaySurprise";
 import NetworkSwitch from "@/app/components/NetworkSwitch";
+import HomelabStats from "@/app/components/HomelabStats";
+import { devicesFromStats, type HomelabStats as Stats } from "@/app/lib/homelab";
 
 interface GearItem {
   name: string;
@@ -206,7 +208,7 @@ const services = [
   { label: "ESP32 mesh", note: "Automation" },
 ];
 
-export default function HomelabClient() {
+export default function HomelabClient({ initialStats }: { initialStats?: Stats | null }) {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const [activeCat, setActiveCat] = useState<string>("All");
 
@@ -235,7 +237,7 @@ export default function HomelabClient() {
 
         <div className="term-window ink-slab l-map">
           <div className="term-window-bar" aria-hidden="true"><i /><i /><i /><span>homelab.map</span></div>
-          <div className="l-map-body"><NetworkSwitch /></div>
+          <div className="l-map-body"><NetworkSwitch devices={devicesFromStats(initialStats)} /></div>
         </div>
 
         <section aria-label="Lab status" className="l-status">
@@ -251,9 +253,17 @@ export default function HomelabClient() {
           </dl>
         </section>
 
+        <section aria-labelledby="live-title" className="q-section">
+          <div className="q-section-head">
+            <p className="q-eyebrow"><b>01</b> Live</p>
+            <h2 id="live-title" data-split className="q-h2">What&apos;s running <em>right now</em></h2>
+          </div>
+          <HomelabStats initial={initialStats} />
+        </section>
+
         <section aria-labelledby="topology-title" className="q-section">
           <div className="q-section-head">
-            <p className="q-eyebrow"><b>01</b> Topology</p>
+            <p className="q-eyebrow"><b>02</b> Topology</p>
             <h2 id="topology-title" data-split className="q-h2">How it&apos;s <em>wired together</em></h2>
           </div>
           <ol className="l-chain">
@@ -272,7 +282,7 @@ export default function HomelabClient() {
 
         <section aria-labelledby="gear-title" className="q-section">
           <div className="q-section-head">
-            <p className="q-eyebrow"><b>02</b> Equipment</p>
+            <p className="q-eyebrow"><b>03</b> Equipment</p>
             <h2 id="gear-title" data-split className="q-h2">The gear that <em>runs it</em></h2>
           </div>
 
@@ -315,7 +325,7 @@ export default function HomelabClient() {
 
         <section aria-labelledby="builds-title" className="q-section">
           <div className="q-section-head">
-            <p className="q-eyebrow"><b>03</b> Builds</p>
+            <p className="q-eyebrow"><b>04</b> Builds</p>
             <h2 id="builds-title" data-split className="q-h2">What I build <em>here</em></h2>
           </div>
           <div className="l-builds">
@@ -336,7 +346,7 @@ export default function HomelabClient() {
 
         <section aria-labelledby="friday-title" className="q-section">
           <div className="q-section-head">
-            <p className="q-eyebrow"><b>04</b> Off the clock</p>
+            <p className="q-eyebrow"><b>05</b> Off the clock</p>
             <h2 id="friday-title" data-split className="q-h2">Is it <em>Friday</em> yet?</h2>
           </div>
           <FridaySurprise />

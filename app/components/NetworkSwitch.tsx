@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import NetworkMap from "@/app/components/NetworkMap";
+import type { Device } from "@/app/lib/homelab";
 
 const Network3D = dynamic(() => import("@/app/components/Network3D"), { ssr: false, loading: () => <NetworkMap /> });
 
@@ -19,7 +20,7 @@ function canRender3D() {
   }
 }
 
-export default function NetworkSwitch() {
+export default function NetworkSwitch({ devices }: { devices?: Device[] }) {
   const box = useRef<HTMLDivElement>(null);
   const [use3D, setUse3D] = useState(false);
 
@@ -38,5 +39,5 @@ export default function NetworkSwitch() {
     return () => io.disconnect();
   }, []);
 
-  return <div ref={box}>{use3D ? <Network3D /> : <NetworkMap />}</div>;
+  return <div ref={box}>{use3D ? <Network3D devices={devices} /> : <NetworkMap />}</div>;
 }
