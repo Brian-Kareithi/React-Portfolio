@@ -9,13 +9,15 @@ export interface NodeDef {
 }
 
 export const nodes: NodeDef[] = [
-  { id: "dev", label: "HP 745 G7", runs: "Daily driver. VMs, Docker and dev servers side by side." },
-  { id: "bench", label: "HP 820 G3", runs: "Test bench. Risky experiments run here, never on the main machine." },
+  { id: "dreezy6", label: "Dreezy6", runs: "ROG Zephyrus G14. Daily driver: VMs, Docker and dev servers side by side." },
+  { id: "dreezy1", label: "Dreezy1", runs: "HP 820 G3. Test bench. Risky experiments run here, never on the main machine." },
+  { id: "dreezy2", label: "Dreezy2", runs: "HP 745 G7. Second dev machine for VMs and long-running dev servers." },
+  { id: "dreezy3", label: "Dreezy3", runs: "Dell OptiPlex. Lab node for extra services and experiments." },
+  { id: "dreezy4", label: "Dreezy4", runs: "Galaxy A05s. Remote control for the lab: SSH, automation and camera feeds." },
+  { id: "dreezy5", label: "Dreezy5", runs: "HP Tower. Second tower, adding capacity to the lab." },
   { id: "kali", label: "Kali tower", runs: "Kali Linux, dedicated to penetration testing practice." },
-  { id: "displays", label: "Displays", runs: "Code and dashboards on one screen, logs and metrics on the other." },
   { id: "auto", label: "Home automation", runs: "Sensors and switches wired into the same network." },
   { id: "robot", label: "Robotics", runs: "Embedded boards and robotics builds, flashed and tested at the bench." },
-  { id: "mobile", label: "Mobile & audio", runs: "Phones and test devices for React Native builds." },
 ];
 
 const hub = { x: 280, y: 180 };
@@ -72,7 +74,7 @@ export default function NetworkMap() {
         <g className="net-hub">
           <circle cx={hub.x} cy={hub.y} r="34" className="net-hub-ring" />
           <circle cx={hub.x} cy={hub.y} r="24" className="net-hub-core" />
-          <text x={hub.x} y={hub.y + 4} textAnchor="middle" className="net-hub-text">PVE</text>
+          <text x={hub.x} y={hub.y + 4} textAnchor="middle" className="net-hub-text">dreezy0</text>
         </g>
 
         {nodes.map((n, i) => (
