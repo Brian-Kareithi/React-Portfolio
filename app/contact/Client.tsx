@@ -12,6 +12,14 @@ import { siteConfig } from "@/app/lib/site";
 type FieldName = "name" | "email" | "subject" | "message";
 type Errors = Partial<Record<FieldName, string>>;
 
+// EmailJS runs in the browser, so these are public by design; keeping them in env
+// makes them easy to rotate. Lock the key to this domain in the EmailJS dashboard.
+const EMAILJS = {
+  serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+  templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+  publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+};
+
 const MESSAGE_MIN = 20;
 const MESSAGE_MAX = 2000;
 const topics = ["A project", "A role", "Collaboration", "Just hello"];
@@ -67,7 +75,7 @@ export default function ContactClient() {
   }, [toastOpen]);
 
   useEffect(() => {
-    emailjs.init("Qpn7vRC-rFaXswyIE");
+    if (EMAILJS.publicKey) emailjs.init(EMAILJS.publicKey);
   }, []);
 
   const errors = validate(values);
@@ -92,9 +100,10 @@ export default function ContactClient() {
     setSubmitStatus("idle");
     try {
       const currentTime = new Date().toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" });
+      if (!EMAILJS.serviceId || !EMAILJS.templateId || !EMAILJS.publicKey) throw new Error("EmailJS env vars not set");
       await emailjs.send(
-        "service_16tnvzd",
-        "template_g2pvfu2",
+        EMAILJS.serviceId,
+        EMAILJS.templateId,
         {
           name: values.name.trim(),
           email: values.email.trim(),
@@ -103,7 +112,7 @@ export default function ContactClient() {
           time: currentTime,
           to_email: "kareithibrian2@gmail.com",
         },
-        "Qpn7vRC-rFaXswyIE"
+        EMAILJS.publicKey
       );
       setSubmitStatus("success");
       setToastOpen(true);
