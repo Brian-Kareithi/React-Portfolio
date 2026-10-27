@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import portrait from "@/public/kareithi.jpg";
 import { Github, Linkedin, Mail, ArrowRight, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/app/lib/site";
+import { formatUptime, type HomelabStats } from "@/app/lib/homelab";
 
 const proof = [
   { value: "50+", label: "client projects shipped" },
@@ -49,6 +50,17 @@ function Name({ lens = false }: { lens?: boolean }) {
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
+  const [lab, setLab] = useState<HomelabStats | null>(null);
+
+  // Live hint of the homelab; the static card stays if the API is unreachable.
+  useEffect(() => {
+    const ctrl = new AbortController();
+    fetch("/api/homelab", { signal: ctrl.signal })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: HomelabStats | null) => d?.system && setLab(d))
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, []);
 
   useEffect(() => {
     const el = root.current;
@@ -159,16 +171,29 @@ export default function Hero() {
         </div>
 
         <div className="hh-deck">
-          <section className="hh-layer hh-layer-lab" style={{ "--z": 0.5 } as CSSProperties} aria-label="Homelab status" tabIndex={0}>
-            <p className="hh-layer-label">homelab</p>
-            <p className="hh-lab-status">All systems normal</p>
+          <Link href="/homelab" className="hh-layer hh-layer-lab" style={{ "--z": 0.5 } as CSSProperties} aria-label="Homelab status. Open the live homelab page">
+            <p className="hh-layer-label">homelab{lab && <span className="hh-lab-live"><span className="live-dot" aria-hidden="true" /> live</span>}</p>
+            <p className="hh-lab-status">
+              {lab ? `${lab.containers.running}/${lab.containers.total} services up on ${lab.system.hostname}` : "All systems normal"}
+            </p>
             <dl className="hh-lab-list">
-              <div><dt>Proxmox host</dt><dd>24/7</dd></div>
-              <div><dt>RAID-1 storage</dt><dd>3 TB</dd></div>
-              <div><dt>Devices managed</dt><dd>19</dd></div>
-              <div><dt>Data lost</dt><dd>0 B</dd></div>
+              {lab ? (
+                <>
+                  <div><dt>Uptime</dt><dd>{formatUptime(lab.system.uptimeSeconds)}</dd></div>
+                  <div><dt>CPU</dt><dd>{Math.round(lab.system.cpu.percent)}%</dd></div>
+                  <div><dt>Memory</dt><dd>{Math.round(lab.system.memory.percent)}%</dd></div>
+                  {lab.system.disk && <div><dt>Storage used</dt><dd>{Math.round(lab.system.disk.percent)}%</dd></div>}
+                </>
+              ) : (
+                <>
+                  <div><dt>Proxmox host</dt><dd>24/7</dd></div>
+                  <div><dt>RAID-1 storage</dt><dd>3 TB</dd></div>
+                  <div><dt>Devices managed</dt><dd>19</dd></div>
+                  <div><dt>Data lost</dt><dd>0 B</dd></div>
+                </>
+              )}
             </dl>
-          </section>
+          </Link>
 
           <Link href="/projects#pos-system" className="hh-layer hh-layer-app" style={{ "--z": 1 } as CSSProperties} aria-label="Open the POS system case study">
             <p className="hh-layer-label">pos system</p>

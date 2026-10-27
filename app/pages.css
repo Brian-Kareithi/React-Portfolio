@@ -888,6 +888,10 @@ body:has([data-nav="dark"]) .q-nav[data-scrolled] .q-nav-shell { border-color: t
 .hh-layer-id { z-index: 3; right: 0; bottom: 0; width: min(22rem, 100%); padding: 1.1rem 1.2rem 1.25rem; border-radius: 0.9rem; background: var(--palette-black); color: var(--palette-cream); box-shadow: 0 40px 70px -30px rgb(23 20 26 / 0.65); animation-delay: -1s; outline: none; }
 .hh-layer:hover, .hh-layer:focus-within, .hh-layer:focus-visible { z-index: 30; transform: translate3d(0, -8px, 0) scale(1.05); animation-play-state: paused; }
 .hh-layer-lab:hover, .hh-layer-app:hover { box-shadow: 0 40px 70px -30px rgb(23 20 26 / 0.55); }
+.hh-layer-lab { display: block; color: inherit; text-decoration: none; }
+.hh-layer-lab:focus-visible { outline: 2px solid var(--palette-berry); outline-offset: 3px; }
+.hh-lab-live { display: inline-flex; align-items: center; gap: 0.4rem; margin-left: 0.6rem; color: var(--palette-berry); }
+.hh-lab-live .live-dot { width: 0.4rem; height: 0.4rem; }
 .hh-lab-status { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; font-size: 0.8125rem; font-weight: 500; color: var(--palette-black); }
 .hh-lab-list > div { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.55rem 0; border-top: 1px solid var(--hairline); }
 .hh-lab-list dt { font-size: 0.75rem; color: var(--color-text-muted); }
