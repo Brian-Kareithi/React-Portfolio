@@ -1,8 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUp, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
+import useLocalTime from "@/app/components/ui/useLocalTime";
+import type { HomelabStats } from "@/app/lib/homelab";
 import SoundToggle from "@/app/components/SoundToggle";
 import { routes } from "@/app/lib/nav";
 import { siteConfig } from "@/app/lib/site";
@@ -17,13 +20,54 @@ const socials = [
 const links = routes.filter((r) => r.path !== "/");
 const built = ["Next.js", "React", "TypeScript", "Tailwind"];
 
+function useLabStatus() {
+  const [lab, setLab] = useState<{ stale: boolean; seen: string } | null>(null);
+  useEffect(() => {
+    const ctrl = new AbortController();
+    fetch("/api/homelab", { signal: ctrl.signal })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: HomelabStats | null) => {
+        if (!d?.generatedAt) return;
+        const seen = new Date(d.generatedAt).toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
+        setLab({ stale: Boolean(d.stale), seen });
+      })
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, []);
+  return lab;
+}
+
 export default function Footer() {
   const year = new Date().getFullYear();
   const pathname = usePathname();
+  const time = useLocalTime("Africa/Nairobi");
+  const lab = useLabStatus();
 
   return (
     <footer className="site-footer">
       <div className="q-wrap">
+        <div className="sf-sign">
+          <Link href="/contact" className="sf-sign-title">
+            Let&apos;s build <em>something</em>
+            <ArrowUpRight aria-hidden="true" />
+          </Link>
+          <dl className="sf-sign-meta">
+            <div>
+              <dt>Nairobi</dt>
+              <dd><time>{time ?? "--:--"}</time> EAT</dd>
+            </div>
+            {lab && (
+              <div>
+                <dt>Homelab</dt>
+                <dd>
+                  <span className="sf-lab-dot" data-stale={lab.stale || undefined} aria-hidden="true" />
+                  {lab.stale ? `Last seen ${lab.seen}` : "Online"}
+                </dd>
+              </div>
+            )}
+          </dl>
+        </div>
+
         <div className="sf-top">
           <div className="sf-id">
             <Link href="/" className="sf-brand">Brian Kareithi<i>.</i></Link>

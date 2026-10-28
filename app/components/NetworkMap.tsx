@@ -14,8 +14,7 @@ export const nodes: NodeDef[] = [
   { id: "dreezy2", label: "Dreezy2", runs: "HP 745 G7. Second dev machine for VMs and long-running dev servers." },
   { id: "dreezy3", label: "Dreezy3", runs: "Dell OptiPlex. Lab node for extra services and experiments." },
   { id: "dreezy4", label: "Dreezy4", runs: "Galaxy A05s. Remote control for the lab: SSH, automation and camera feeds." },
-  { id: "dreezy5", label: "Dreezy5", runs: "HP Tower. Second tower, adding capacity to the lab." },
-  { id: "kali", label: "Kali tower", runs: "Kali Linux, dedicated to penetration testing practice." },
+  { id: "dreezy5", label: "Dreezy5", runs: "HP Tower running Kali Linux, dedicated to penetration testing practice." },
   { id: "auto", label: "Home automation", runs: "Sensors and switches wired into the same network." },
   { id: "robot", label: "Robotics", runs: "Embedded boards and robotics builds, flashed and tested at the bench." },
 ];

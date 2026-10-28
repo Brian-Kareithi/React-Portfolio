@@ -23,13 +23,13 @@ export default function HowIWorkClient() {
             index="02"
             label="How I work"
             title={<>How I <em>deliver</em></>}
-            description="Why the work holds up, the principles behind it, my stack by layer, and the path from an idea to production."
+            description="What I bring to a project, the principles behind it, my stack by layer, and the path from an idea to production."
           />
 
           <section aria-labelledby="reasons-title" className="q-section">
             <div className="q-section-head">
               <p className="q-eyebrow"><b>01</b> Why it holds up</p>
-              <h2 id="reasons-title" data-split className="q-h2">Five reasons <em>it works</em></h2>
+              <h2 id="reasons-title" data-split className="q-h2">Five things I <em>bring</em></h2>
             </div>
             <ol className="w-reasons">
               {valuePoints.map((v, i) => (

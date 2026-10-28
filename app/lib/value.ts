@@ -9,7 +9,7 @@ export interface ValuePoint {
 export const valuePoints: ValuePoint[] = [
   {
     id: "full-spectrum",
-    edge: "I see the whole system",
+    edge: "I look at the whole system",
     benefit: "I started with networks, servers and people who needed things to work. When something breaks, I trace it from the screen down to the wire.",
     proof: "Next.js and React Native apps, CCNA, Linux and a 19-device Proxmox homelab I run myself.",
     href: "/homelab",
@@ -38,8 +38,8 @@ export const valuePoints: ValuePoint[] = [
   {
     id: "root-cause",
     edge: "I fix the cause",
-    benefit: "I cut internet downtime by finding the real fault instead of rebooting and hoping, then wrote down what I found so it stayed fixed.",
-    proof: "A five-step, evidence-driven method, and a homelab that has run 24/7 with zero data lost.",
+    benefit: "I cut internet downtime by tracing the actual fault rather than just rebooting, then wrote down what I found so it stayed fixed.",
+    proof: "A five-step, evidence-driven method, and a homelab that has run 24/7 with no data lost so far.",
     href: "/troubleshooting",
   },
 ];

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, ViewTransition } from "react";
 import Navbar from "@/app/components/NavBar";
 import ScrollBar from "@/app/components/ScrollBar";
 import Footer from "@/app/components/Footer";
@@ -41,7 +41,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <CursorGlow />
         <Navbar />
         <ScrollBar />
-        <main className="relative flex-1">{children}</main>
+        <main className="relative flex-1">
+          <ViewTransition default="page">{children}</ViewTransition>
+        </main>
         <Footer />
       </div>
     </CommandPaletteProvider>

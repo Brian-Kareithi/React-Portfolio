@@ -108,7 +108,7 @@ export default function HomeContent() {
           <figure>
             <blockquote>
               <p data-split className="h-quote-text">
-                Real users, real deadlines, <em>no room for downtime.</em>
+                Real users, real deadlines, <em>systems that need to stay up.</em>
               </p>
             </blockquote>
             <figcaption className="h-quote-cap">
