@@ -1935,7 +1935,11 @@ html.lenis, html.lenis body { height: auto; }
 
 .net-3d { height: min(52vh, 28rem); cursor: grab; }
 .net-3d:active { cursor: grabbing; }
-.net-3d canvas { display: block; touch-action: none; }
+/* pan-y keeps vertical page scrolling on touch screens; sideways drags still push the spheres. */
+.net-3d canvas { display: block; touch-action: pan-y; }
+.net-loading { border-radius: 0.6rem; background: radial-gradient(circle at 50% 50%, rgb(107 26 46 / 0.35), transparent 55%); animation: net-loading 1.8s ease-in-out infinite; }
+@keyframes net-loading { 50% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) { .net-loading { animation: none; } }
 .jv-laptop[data-scrub] .jv-shot { animation: none; opacity: 0; transition: opacity 0.35s var(--ease-out); }
 .jv-laptop[data-scrub] .jv-shot[data-show] { opacity: 1; }
 

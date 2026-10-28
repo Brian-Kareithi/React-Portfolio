@@ -1,31 +1,86 @@
 "use client";
-import { useRef, type CSSProperties, type KeyboardEvent, type PointerEvent as ReactPointerEvent } from "react";
-import Image from "next/image";
+import { useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent as ReactPointerEvent, type WheelEvent } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { CaseStudy } from "@/app/lib/projects-data";
+import { scrollToElement } from "@/app/lib/scroll";
 
-const SPREAD = 3;
+// How many cards trail behind the active one.
+const SPREAD = 4;
+// One step along the trail, as a fraction of card width (matches the 78% in .pc-card).
+const STEP = 0.78;
 
 export default function ProjectCarousel({ studies, active, onChange }: { studies: CaseStudy[]; active: number; onChange: (i: number) => void }) {
-  const drag = useRef<{ x: number; moved: boolean } | null>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const drag = useRef<{ x: number; step: number; moved: boolean } | null>(null);
+  const suppressClick = useRef(false);
+  const wheelLock = useRef(0);
+  // Live drag distance in cards, so the stack follows the finger before snapping.
+  const [pull, setPull] = useState(0);
   const go = (i: number) => onChange(Math.max(0, Math.min(studies.length - 1, i)));
+
+  // Scroll to the selected case study and give it a shareable URL.
+  const openDetails = () => {
+    const el = document.getElementById("case-detail");
+    if (!el) return;
+    history.replaceState(null, "", `#${studies[active].id}`);
+    scrollToElement(el);
+  };
 
   const onKey = (e: KeyboardEvent) => {
     if (e.key === "ArrowRight") go(active + 1);
     if (e.key === "ArrowLeft") go(active - 1);
   };
-  const onDown = (e: ReactPointerEvent) => {
-    drag.current = { x: e.clientX, moved: false };
+
+  const tilt = (x: number, y: number) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    stage.current?.style.setProperty("--mx", x.toFixed(3));
+    stage.current?.style.setProperty("--my", y.toFixed(3));
   };
-  const onUp = (e: ReactPointerEvent) => {
+
+  const onDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return;
+    const card = stage.current?.querySelector<HTMLElement>(".pc-card");
+    drag.current = { x: e.clientX, step: (card?.offsetWidth ?? 260) * STEP, moved: false };
+  };
+  const onMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d) {
+      if (e.pointerType !== "mouse" || !stage.current) return;
+      const r = stage.current.getBoundingClientRect();
+      tilt(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1);
+      return;
+    }
+    const dx = e.clientX - d.x;
+    if (!d.moved && Math.abs(dx) > 6) {
+      d.moved = true;
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
+    if (d.moved) {
+      // Resist past the first and last card.
+      let p = dx / d.step;
+      if ((active === 0 && p > 0) || (active === studies.length - 1 && p < 0)) p *= 0.3;
+      setPull(p);
+    }
+  };
+  const onUp = () => {
     const d = drag.current;
     drag.current = null;
-    if (!d) return;
-    const dx = e.clientX - d.x;
-    if (Math.abs(dx) > 48) {
-      d.moved = true;
-      go(active + (dx < 0 ? 1 : -1));
-    }
+    if (!d?.moved) return;
+    suppressClick.current = true;
+    const jump = Math.round(-pull) || (Math.abs(pull) > 0.18 ? (pull < 0 ? 1 : -1) : 0);
+    setPull(0);
+    go(active + jump);
+  };
+  const onCancel = () => {
+    drag.current = null;
+    setPull(0);
+  };
+  const onWheel = (e: WheelEvent) => {
+    if (Math.abs(e.deltaX) < 24 || Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+    const now = Date.now();
+    if (now < wheelLock.current) return;
+    wheelLock.current = now + 450;
+    go(active + (e.deltaX > 0 ? 1 : -1));
   };
 
   const current = studies[active];
@@ -33,56 +88,63 @@ export default function ProjectCarousel({ studies, active, onChange }: { studies
   return (
     <div className="pc" role="region" aria-roledescription="carousel" aria-label="Case studies" onKeyDown={onKey}>
       <div className="pc-glow" aria-hidden="true" />
-      <div className="pc-stage" onPointerDown={onDown} onPointerUp={onUp} onPointerCancel={() => (drag.current = null)}>
+      <div
+        ref={stage}
+        className="pc-stage"
+        data-dragging={pull !== 0 || undefined}
+        onPointerDown={onDown}
+        onPointerMove={onMove}
+        onPointerUp={onUp}
+        onPointerCancel={onCancel}
+        onPointerLeave={() => tilt(0, 0)}
+        onWheel={onWheel}
+        onClickCapture={(e) => {
+          if (!suppressClick.current) return;
+          suppressClick.current = false;
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+      >
         {studies.map((study, i) => {
           const offset = i - active;
-          const abs = Math.abs(offset);
           const isActive = offset === 0;
+          const pos = offset + pull;
+          const hidden = offset < 0 || offset > SPREAD;
           const style = {
-            "--o": offset,
-            "--a": Math.min(abs, SPREAD),
-            opacity: abs > SPREAD ? 0 : 1 - abs * 0.22,
-            pointerEvents: abs > SPREAD ? "none" : "auto",
-            zIndex: 10 - abs,
+            "--o": pos,
+            "--a": Math.min(Math.abs(pos), SPREAD),
+            "--i": i,
+            // Passed cards fly out toward the viewer; upcoming ones trail behind.
+            opacity: pos < 0 ? Math.max(0, 1 + pos * 1.6) : pos > SPREAD ? Math.max(0, 1 - (pos - SPREAD) * 2) * 0.52 : 1 - pos * 0.12,
+            pointerEvents: hidden ? "none" : "auto",
+            zIndex: 20 - Math.round(pos),
           } as CSSProperties;
           const body = (
             <>
-              {study.screenshot ? (
-                <Image
-                  src={study.screenshot.src}
-                  alt={isActive ? study.screenshot.alt : ""}
-                  fill
-                  sizes="(max-width: 700px) 70vw, 320px"
-                  className="pc-img"
-                  draggable={false}
-                />
-              ) : (
-                <span className="pc-fallback" aria-hidden="true">{study.title.charAt(0)}</span>
-              )}
-              <span className="pc-shade" aria-hidden="true" />
-              <span className="pc-index" aria-hidden="true">{study.index}</span>
-              <span className="pc-info">
-                <strong>{study.title}</strong>
-                <span className="pc-tags">
-                  <span>{study.status}</span>
-                  <span>{study.stack[0]}</span>
-                </span>
+              <span className="pc-panel">
+                <strong className="pc-title">{study.title}</strong>
+                <span className="pc-sub">{study.tagline}</span>
               </span>
+              <span className="pc-bars" aria-hidden="true" />
+              <span className="pc-meta">{study.status} · {study.stack[0]}</span>
+              <span className="pc-num" aria-hidden="true">{study.index}</span>
+              <span className="pc-sheen" aria-hidden="true" />
             </>
           );
-          return isActive ? (
-            <a key={study.id} href="#case-detail" className="pc-card" data-active style={style} data-cursor="open" aria-label={`${study.title}: jump to the details`}>
-              {body}
-            </a>
-          ) : (
+          // Same element for every card so nothing remounts (and replays its entrance)
+          // when it comes forward. First click brings a card forward, the next opens it.
+          return (
             <button
               key={study.id}
               type="button"
               className="pc-card"
+              data-active={isActive || undefined}
+              data-tone={i % 2 ? "solid" : "glass"}
+              data-cursor={isActive ? "open" : undefined}
               style={style}
-              onClick={() => go(i)}
-              tabIndex={abs > SPREAD ? -1 : 0}
-              aria-label={`Show ${study.title}`}
+              onClick={() => (isActive ? openDetails() : go(i))}
+              tabIndex={hidden ? -1 : 0}
+              aria-label={isActive ? `${study.title}: jump to the details` : `Show ${study.title}`}
             >
               {body}
             </button>
@@ -92,7 +154,14 @@ export default function ProjectCarousel({ studies, active, onChange }: { studies
 
       <div className="pc-caption" aria-live="polite">
         <p className="pc-tagline">{current.tagline}</p>
-        <a href="#case-detail" className="q-link">
+        <a
+          href={`#${current.id}`}
+          className="q-link"
+          onClick={(e) => {
+            e.preventDefault();
+            openDetails();
+          }}
+        >
           See the details <ArrowUpRight aria-hidden="true" />
         </a>
       </div>

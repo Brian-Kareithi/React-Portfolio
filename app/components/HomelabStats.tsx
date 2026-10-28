@@ -53,16 +53,18 @@ export default function HomelabStats({ initial }: { initial?: Stats | null }) {
   }
 
   const { system, containers, groups } = data;
+  // Either this browser lost the API, or the API itself is serving dreezy0's last snapshot.
+  const offline = Boolean(error || data.stale);
 
   return (
     <div className="hs">
       <div className="hs-head">
         <p className="l-live">
-          <span className="live-dot" data-stale={error ? "" : undefined} aria-hidden="true" />
+          <span className="live-dot" data-stale={offline ? "" : undefined} aria-hidden="true" />
           <span className="q-mono">{system.hostname}</span>
         </p>
         <p className="q-small q-mono">
-          {error ? "Showing last known stats · " : ""}Updated {new Date(data.generatedAt).toLocaleTimeString()}
+          {offline ? `Server offline · last seen ${seen(data.generatedAt)}` : `Updated ${seen(data.generatedAt)}`}
         </p>
       </div>
 
@@ -95,6 +97,14 @@ export default function HomelabStats({ initial }: { initial?: Stats | null }) {
       ))}
     </div>
   );
+}
+
+// Time alone for today; date and time once the snapshot is from an earlier day.
+function seen(iso: string) {
+  const d = new Date(iso);
+  return d.toDateString() === new Date().toDateString()
+    ? d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    : d.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
 }
 
 function Meter({ label, percent, detail }: { label: string; percent: number; detail: string }) {

@@ -17,6 +17,8 @@ export type Service = ContainerState & {
 
 export type HomelabStats = {
   generatedAt: string;
+  // Set when dreezy0 is unreachable and this is the last snapshot it sent.
+  stale?: boolean;
   system: {
     hostname: string;
     uptimeSeconds: number;
@@ -79,20 +81,6 @@ export function devicesFromStats(stats: HomelabStats | null | undefined): Device
       : s.health === "healthy" ? "healthy"
       : "running",
   }));
-}
-
-export async function fetchHomelabStats(): Promise<HomelabStats> {
-  const url = process.env.HOMELAB_STATS_URL;
-  const token = process.env.HOMELAB_STATS_TOKEN;
-  if (!url || !token) throw new Error("HOMELAB_STATS_URL / HOMELAB_STATS_TOKEN not set");
-
-  const res = await fetch(`${url.replace(/\/$/, "")}/stats`, {
-    headers: { Authorization: `Bearer ${token}` },
-    next: { revalidate: 30 },
-    signal: AbortSignal.timeout(8000),
-  });
-  if (!res.ok) throw new Error(`homelab stats responded ${res.status}`);
-  return res.json();
 }
 
 export function formatBytes(bytes: number, decimals = 1): string {

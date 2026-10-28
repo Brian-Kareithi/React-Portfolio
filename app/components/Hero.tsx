@@ -172,9 +172,9 @@ export default function Hero() {
 
         <div className="hh-deck">
           <Link href="/homelab" className="hh-layer hh-layer-lab" style={{ "--z": 0.5 } as CSSProperties} aria-label="Homelab status. Open the live homelab page">
-            <p className="hh-layer-label">homelab{lab && <span className="hh-lab-live"><span className="live-dot" aria-hidden="true" /> live</span>}</p>
+            <p className="hh-layer-label">homelab{lab && (lab.stale ? <span className="hh-lab-live" data-stale="">last seen</span> : <span className="hh-lab-live"><span className="live-dot" aria-hidden="true" /> live</span>)}</p>
             <p className="hh-lab-status">
-              {lab ? `${lab.containers.running}/${lab.containers.total} services up on ${lab.system.hostname}` : "All systems normal"}
+              {lab ? (lab.stale ? `${lab.system.hostname} is offline right now` : `${lab.containers.running}/${lab.containers.total} services up on ${lab.system.hostname}`) : "All systems normal"}
             </p>
             <dl className="hh-lab-list">
               {lab ? (

@@ -148,7 +148,7 @@ export default function Network3D({ devices = homelabDevices }: { devices?: Devi
         {current ? (
           <><strong>{current.name}</strong> {current.note} {STATUS_TEXT[current.status] && <span>· {STATUS_TEXT[current.status]}</span>}</>
         ) : (
-          <>Move through the cluster to push it around. Hover a sphere to see what it runs. <span>Click to change the accent.</span></>
+          <>Push the cluster around. Hover or tap a sphere to see what it runs. <span>Click to change the accent.</span></>
         )}
       </p>
     </div>
