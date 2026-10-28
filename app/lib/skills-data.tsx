@@ -35,7 +35,7 @@ export const domains: SkillDomain[] = [
     label: "Programming",
     index: "01",
     icon: <Code className="w-4 h-4" />,
-    tagline: "Engineered software, not just written code.",
+    tagline: "Software designed to be maintained.",
     summary:
       "From typed full-stack TypeScript to embedded C/C++, I design for architecture, testability and long-term maintenance.",
     capabilities: [
@@ -62,9 +62,9 @@ export const domains: SkillDomain[] = [
     label: "Troubleshooting",
     index: "02",
     icon: <Wrench className="w-4 h-4" />,
-    tagline: "Root-cause diagnostics, not restarts.",
+    tagline: "Looking for the root cause before the quick fix.",
     summary:
-      "I isolate variables, reproduce failures and trace root causes down to the exact line, packet or component.",
+      "I isolate variables, reproduce failures and trace root causes to the line, packet or component behind them.",
     capabilities: [
       {
         title: "Diagnostic Methodology",
@@ -118,7 +118,7 @@ export const domains: SkillDomain[] = [
     icon: <ShieldCheck className="w-4 h-4" />,
     tagline: "Security is a property of the whole system, not a feature.",
     summary:
-      "I protect infrastructure at every layer, from network hardening to secure application design.",
+      "I work on security at every layer, from network hardening to secure application design.",
     capabilities: [
       {
         title: "Network & Infrastructure Hardening",
@@ -132,7 +132,7 @@ export const domains: SkillDomain[] = [
       },
       {
         title: "Security Operations",
-        description: "Monitoring, detection and response. I think like an attacker to defend like an engineer.",
+        description: "Monitoring, detection and response. I look at systems the way an attacker would, then harden them.",
         points: ["Threat detection & SIEM", "Incident response", "Security frameworks & audit"],
       },
     ],

@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import NetworkMap from "@/app/components/NetworkMap";
 import type { Device } from "@/app/lib/homelab";
 
-// Same footprint as the 3D map, so nothing jumps or flashes the flat diagram while it loads.
 function MapPlaceholder() {
   return (
     <div className="net" aria-hidden="true">
@@ -17,8 +16,6 @@ function MapPlaceholder() {
 
 const Network3D = dynamic(() => import("@/app/components/Network3D"), { ssr: false, loading: MapPlaceholder });
 
-// Phones get the 3D map too; only reduced motion, data saver, low-end hardware
-// and missing WebGL fall back to the flat diagram.
 function canRender3D() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
   const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };

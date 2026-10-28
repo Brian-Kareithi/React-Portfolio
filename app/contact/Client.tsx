@@ -11,8 +11,6 @@ import { siteConfig } from "@/app/lib/site";
 type FieldName = "name" | "email" | "message";
 type Errors = Partial<Record<FieldName, string>>;
 
-// EmailJS runs in the browser, so these are public by design; keeping them in env
-// makes them easy to rotate. Lock the key to this domain in the EmailJS dashboard.
 const EMAILJS = {
   serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
   templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,

@@ -12,7 +12,6 @@ const BERRY = "#6b1a2e";
 const CREAM = "#f2f4f3";
 const INK = "#0a0908";
 const DOWN = "#2a2522";
-// Click the map to cycle the accent shared by every third device.
 const ACCENTS = [BERRY, "#a9927d", "#5e503f"];
 
 const STATUS_TEXT: Record<DeviceStatus, string> = {
@@ -55,7 +54,6 @@ function Sphere({ label, color, radius = 1, active, onHover }: SphereProps) {
 
   useFrame((_, delta) => {
     delta = Math.min(0.1, delta);
-    // Pull every sphere back toward the centre so the cluster reforms after a push.
     const body = api.current;
     if (body) body.applyImpulse(vec.copy(body.translation()).negate().multiplyScalar(0.25 * radius ** 2), true);
     if (mesh.current) easing.dampC(mesh.current.material.color, active ? CREAM : color, 0.2, delta);

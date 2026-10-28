@@ -52,7 +52,7 @@ export const resumeRoles: ResumeRole[] = [
     fileLabel: "Frontend-Engineer",
     headline: "Full-Stack Developer, Frontend Strength",
     summary:
-      "I am a full-stack developer, and the interface is where I care most. I build fast, accessible screens with React, Next.js and TypeScript, and because I also know the APIs, networks and security behind them, what I build holds up in production.",
+      "I am a full-stack developer, and the interface is where I care most. I build fast, accessible screens with React, Next.js and TypeScript, and because I also know the APIs, networks and security behind them, what I build is ready for production.",
     highlights: [
       { value: "50+", label: "projects delivered" },
       { value: "3 yrs", label: "in tech" },
@@ -82,7 +82,7 @@ export const resumeRoles: ResumeRole[] = [
     fileLabel: "Mobile-Developer",
     headline: "Full-Stack Developer, Mobile Strength",
     summary:
-      "I am a full-stack developer who also builds mobile apps. My Expo / React Native Parent app is used by real families, and I write native Kotlin when the job needs it. Because I also work on the web and API side, I am never waiting on someone else to finish a feature.",
+      "I am a full-stack developer who also builds mobile apps. My Expo / React Native Parent app is used by real families, and I write native Kotlin when the job needs it. Because I also work on the web and API side, I can take a feature from end to end.",
     highlights: [
       { value: "iOS + Android", label: "from one codebase" },
       { value: "3", label: "mobile apps built" },
@@ -112,7 +112,7 @@ export const resumeRoles: ResumeRole[] = [
     fileLabel: "IT-Support",
     headline: "Full-Stack Developer, IT Support Background",
     summary:
-      "IT support is where I began and it still comes with me. Hands-on support and school information systems at Steadfast Academy, CompTIA Security+ and CCNA, and a 19-device homelab I run myself. Because I also build the systems I support, I fix root causes and have cut internet downtime instead of repeating the same fixes.",
+      "IT support is where I began and it still comes with me. Hands-on support and school information systems at Steadfast Academy, CompTIA Security+ and CCNA, and a 19-device homelab I run myself. Because I also build the systems I support, I look for root causes, which has helped cut internet downtime.",
     highlights: [
       { value: "Daily", label: "user support" },
       { value: "CCNA", label: "+ Security+" },
@@ -132,7 +132,7 @@ export const resumeRoles: ResumeRole[] = [
     ],
     projects: [
       { title: "Steadfast Academy", note: "Day-to-day IT support, troubleshooting and school information systems", stack: "Support · Systems" },
-      { title: "Homelab", note: "19-device self-hosted lab with RAID-1, 24/7 uptime and zero data lost", stack: "Proxmox · Linux · Networking" },
+      { title: "Homelab", note: "19-device self-hosted lab with RAID-1, 24/7 uptime and no data lost so far", stack: "Proxmox · Linux · Networking" },
       { title: "QuickPrint", note: "Ephemeral upload and print infrastructure for a cyber café workflow", stack: "Node.js · Express" },
     ],
   },

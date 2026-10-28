@@ -40,7 +40,7 @@ export default function ProjectsClient() {
         <SectionHeader
           index="03"
           label="Selected work"
-          title={<>Not websites. <em>Systems.</em></>}
+          title={<>Built to be <em>used</em></>}
           description="Seven projects, each told as the problem, what I built, my part in it, and the design behind it. Smaller builds sit in the archive."
           aside={
             <dl className="p-stats">
@@ -103,7 +103,7 @@ export default function ProjectsClient() {
               <a href="https://kareithi.vercel.app/" target="_blank" rel="noopener noreferrer" className="q-btn">
                 <ExternalLink aria-hidden="true" /> Live site
               </a>
-              <a href="https://github.com/Brian-Kareithi/React-Portfolio" target="_blank" rel="noopener noreferrer" className="q-link">
+              <a href="https://github.com/Brian-Kareithi/React-Portfolio" target="_blank" rel="noopener noreferrer" className="q-link" data-lead>
                 <Github aria-hidden="true" /> Source
               </a>
             </div>
@@ -142,7 +142,7 @@ export default function ProjectsClient() {
                       <div className="p-archive-meta">
                         <span className="q-mono q-small">{project.stack.join(" · ")}</span>
                         {project.repo ? (
-                          <a href={project.repo} target="_blank" rel="noopener noreferrer" className="q-link">
+                          <a href={project.repo} target="_blank" rel="noopener noreferrer" className="q-link" data-lead>
                             <Github aria-hidden="true" /> Source
                           </a>
                         ) : (

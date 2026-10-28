@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import type { HomelabStats as Stats, Service } from "@/app/lib/homelab";
 import { formatBytes, formatUptime } from "@/app/lib/homelab";
 
 const REFRESH_MS = 30_000;
 
-// Labels for each widget's stat keys, in display order (matches Homepage).
 const STAT_LABELS: Record<string, [string, string, ((v: number) => string)?][]> = {
   jellyfin: [["movies", "Movies"], ["series", "Series"], ["episodes", "Episodes"], ["songs", "Songs"], ["streaming", "Streaming"]],
   sonarr: [["series", "Series"], ["wanted", "Wanted"], ["queued", "Queued"]],
@@ -49,11 +48,10 @@ export default function HomelabStats({ initial }: { initial?: Stats | null }) {
   }, [initial]);
 
   if (!data) {
-    return <p className="hs-empty q-mono">{error ?? "Connecting to homelab…"}</p>;
+    return error ? <p className="hs-empty q-mono">{error}</p> : <StatsSkeleton />;
   }
 
   const { system, containers, groups } = data;
-  // Either this browser lost the API, or the API itself is serving dreezy0's last snapshot.
   const offline = Boolean(error || data.stale);
 
   return (
@@ -99,12 +97,44 @@ export default function HomelabStats({ initial }: { initial?: Stats | null }) {
   );
 }
 
-// Time alone for today; date and time once the snapshot is from an earlier day.
 function seen(iso: string) {
   const d = new Date(iso);
   return d.toDateString() === new Date().toDateString()
     ? d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     : d.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
+}
+
+function StatsSkeleton() {
+  return (
+    <div className="hs" role="status" aria-label="Loading homelab stats">
+      <div className="hs-head">
+        <span className="hs-sk" style={{ width: "7rem" }} />
+        <span className="hs-sk" style={{ width: "5rem" }} />
+      </div>
+      <div className="hs-meters">
+        {Array.from({ length: 4 }, (_, i) => (
+          <div key={i} className="hs-card hs-card-sk" style={{ "--d": i } as CSSProperties}>
+            <span className="hs-sk" style={{ width: "40%" }} />
+            <span className="hs-sk hs-sk-lg" style={{ width: "55%" }} />
+            <span className="hs-sk" style={{ width: "75%" }} />
+          </div>
+        ))}
+      </div>
+      <div className="hs-services">
+        {Array.from({ length: 6 }, (_, i) => (
+          <div key={i} className="hs-card hs-card-sk" style={{ "--d": i + 4 } as CSSProperties}>
+            <div className="hs-service-head">
+              <span className="hs-sk hs-sk-icon" />
+              <span className="hs-service-text" style={{ flex: 1 }}>
+                <span className="hs-sk" style={{ width: "60%" }} />
+                <span className="hs-sk" style={{ width: "85%" }} />
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function Meter({ label, percent, detail }: { label: string; percent: number; detail: string }) {

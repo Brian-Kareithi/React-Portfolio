@@ -14,7 +14,7 @@ export const steps = [
   {
     title: "Reproduce & Observe",
     icon: <SearchCheck className="w-4 h-4" />,
-    desc: "Never fix what you can't reproduce. Capture the failure state, logs and conditions as a baseline.",
+    desc: "Reproduce it before you fix it. Capture the failure state, logs and conditions as a baseline.",
   },
   {
     title: "Isolate Variables",

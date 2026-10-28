@@ -52,7 +52,6 @@ export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const [lab, setLab] = useState<HomelabStats | null>(null);
 
-  // Live hint of the homelab; the static card stays if the API is unreachable.
   useEffect(() => {
     const ctrl = new AbortController();
     fetch("/api/homelab", { signal: ctrl.signal })

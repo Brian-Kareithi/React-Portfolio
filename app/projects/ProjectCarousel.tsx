@@ -4,9 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import type { CaseStudy } from "@/app/lib/projects-data";
 import { scrollToElement } from "@/app/lib/scroll";
 
-// How many cards trail behind the active one.
 const SPREAD = 4;
-// One step along the trail, as a fraction of card width (matches the 78% in .pc-card).
 const STEP = 0.78;
 
 export default function ProjectCarousel({ studies, active, onChange }: { studies: CaseStudy[]; active: number; onChange: (i: number) => void }) {
@@ -14,11 +12,9 @@ export default function ProjectCarousel({ studies, active, onChange }: { studies
   const drag = useRef<{ x: number; step: number; moved: boolean } | null>(null);
   const suppressClick = useRef(false);
   const wheelLock = useRef(0);
-  // Live drag distance in cards, so the stack follows the finger before snapping.
   const [pull, setPull] = useState(0);
   const go = (i: number) => onChange(Math.max(0, Math.min(studies.length - 1, i)));
 
-  // Scroll to the selected case study and give it a shareable URL.
   const openDetails = () => {
     const el = document.getElementById("case-detail");
     if (!el) return;
@@ -56,7 +52,6 @@ export default function ProjectCarousel({ studies, active, onChange }: { studies
       e.currentTarget.setPointerCapture(e.pointerId);
     }
     if (d.moved) {
-      // Resist past the first and last card.
       let p = dx / d.step;
       if ((active === 0 && p > 0) || (active === studies.length - 1 && p < 0)) p *= 0.3;
       setPull(p);
@@ -114,7 +109,6 @@ export default function ProjectCarousel({ studies, active, onChange }: { studies
             "--o": pos,
             "--a": Math.min(Math.abs(pos), SPREAD),
             "--i": i,
-            // Passed cards fly out toward the viewer; upcoming ones trail behind.
             opacity: pos < 0 ? Math.max(0, 1 + pos * 1.6) : pos > SPREAD ? Math.max(0, 1 - (pos - SPREAD) * 2) * 0.52 : 1 - pos * 0.12,
             pointerEvents: hidden ? "none" : "auto",
             zIndex: 20 - Math.round(pos),
@@ -131,8 +125,6 @@ export default function ProjectCarousel({ studies, active, onChange }: { studies
               <span className="pc-sheen" aria-hidden="true" />
             </>
           );
-          // Same element for every card so nothing remounts (and replays its entrance)
-          // when it comes forward. First click brings a card forward, the next opens it.
           return (
             <button
               key={study.id}

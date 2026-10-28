@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Brian Kareithi",
   fullName: "Brian Kareithi",
   role: "Full-Stack Developer, Web, Mobile & Cloud-Native Systems",
-  tagline: "Full-stack developer trained in IT and security. I build web and mobile products that hold up in the real world, and I am good at what I do.",
+  tagline: "Full-stack developer trained in IT and security. I build web and mobile products that hold up in the real world.",
   url: "https://kareithi.vercel.app",
   title: "Brian Kareithi | Full-Stack Developer in Nairobi, Kenya",
   description:

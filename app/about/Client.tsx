@@ -10,7 +10,7 @@ export const experience = {
   role: "IT Support / Frontend Development",
   company: "Steadfast Academy",
   period: "2025 - Present",
-  summary: "I build and support the systems a school runs on every day. Real users, real deadlines, no room for downtime.",
+  summary: "I build and support the systems a school runs on every day. Real users and real deadlines, so keeping things running matters.",
   duties: [
     "Teacher and Parent portals (Next.js, React)",
     "Parent mobile app (Expo / React Native)",
@@ -50,11 +50,13 @@ export const timeline: TimelineItem[] = [
 ];
 
 const categoryConfig = {
-  education: { label: "Education" },
-  certification: { label: "Certifications" },
-  professional: { label: "Professional" },
-  entrepreneurial: { label: "Entrepreneurial" },
+  education: { label: "Education", tag: "Education" },
+  certification: { label: "Certifications", tag: "Certification" },
+  professional: { label: "Professional", tag: "Professional" },
+  entrepreneurial: { label: "Entrepreneurial", tag: "Founder" },
 } as const;
+
+const NOW_YEAR = 2025;
 
 const filters = ["all", ...Object.keys(categoryConfig)] as const;
 
@@ -66,11 +68,17 @@ const closing = [
 
 export default function AboutClient() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("all");
-  const [openId, setOpenId] = useState<number | null>(null);
 
-  const items = useMemo(() => {
-    const list = [...timeline].sort((a, b) => a.year - b.year || 0);
-    return filter === "all" ? list : list.filter((i) => i.category === filter);
+  const years = useMemo(() => {
+    const list = [...timeline].sort((a, b) => a.year - b.year);
+    const shown = filter === "all" ? list : list.filter((i) => i.category === filter);
+    const groups = new Map<number, TimelineItem[]>();
+    for (const item of shown) groups.set(item.year, [...(groups.get(item.year) ?? []), item]);
+    return [...groups].map(([year, entries]) => ({
+      year,
+      roles: entries.filter((e) => e.category !== "certification"),
+      certs: entries.filter((e) => e.category === "certification"),
+    }));
   }, [filter]);
 
   const counts = useMemo(() => {
@@ -86,9 +94,15 @@ export default function AboutClient() {
         <SectionHeader
           index="01"
           label="Journey"
-          title={<>How I got <em>good</em> at this</>}
+          title={<>How I <em>got here</em></>}
           description="From a science classroom to government security, fifty-plus client projects, a startup and live systems at a school."
         />
+
+        <p className="a-intro">
+          I started with networks, servers and the people who needed them to work. Security work at the ICT Authority of Kenya taught me
+          to think about what could go wrong, freelance projects taught me to listen before I build, and the systems I look after at
+          Steadfast Academy keep me learning every day.
+        </p>
 
         <section aria-labelledby="now-title" className="a-now">
           <p className="q-eyebrow"><b>●</b> Now · {experience.period}</p>
@@ -118,10 +132,7 @@ export default function AboutClient() {
                     key={f}
                     className="a-tab"
                     aria-pressed={active}
-                    onClick={() => {
-                      setFilter(f);
-                      setOpenId(null);
-                    }}
+                    onClick={() => setFilter(f)}
                   >
                     {label}
                     <sup>{counts[f] ?? 0}</sup>
@@ -132,49 +143,51 @@ export default function AboutClient() {
           </aside>
 
           <ol className="a-line">
-            {items.map((item) => {
-              const id = timeline.indexOf(item);
-              const open = openId === id;
-              const { label } = categoryConfig[item.category];
-              return (
-                <li key={id} className="a-item">
-                  <span className="a-dot" aria-hidden="true" />
-                  <p className="a-when">{item.period}</p>
-                  <div>
-                    <h3 className="q-h3">{item.title}</h3>
-                    <p className="a-where">
-                      {item.institution}
-                      <span className="sr-only"> ({label})</span>
-                    </p>
-                    <p className="q-body" style={{ marginTop: "0.6rem", maxWidth: "36rem" }}>{item.description}</p>
-                    {(item.significance || item.metrics) && (
-                      <>
-                        <button
-                          type="button"
-                          onClick={() => setOpenId(open ? null : id)}
-                          className="q-link"
-                          aria-expanded={open}
-                          aria-controls={`timeline-details-${id}`}
-                        >
-                          {open ? "Less" : "Highlights"}
-                          <span className="sr-only">: {item.title}</span>
-                        </button>
-                        <div id={`timeline-details-${id}`} className={open ? "animate-fade-in-up" : "hidden"}>
-                          {item.significance && <p className="q-body" style={{ marginBottom: "0.5rem" }}>{item.significance}</p>}
-                          {item.metrics && (
-                            <ul className="a-metrics">
-                              {item.metrics.map((m) => (
-                                <li key={m}>{m}</li>
-                              ))}
-                            </ul>
-                          )}
+            {years.map(({ year, roles, certs }) => (
+              <li key={year} className="a-year">
+                <span className="a-dot" aria-hidden="true" />
+                <h3 className="a-year-num">{year > NOW_YEAR ? "Next" : year}</h3>
+                <div className="a-year-body">
+                  {roles.map((item) => {
+                    const now = item.period.includes("Present");
+                    const next = item.year > NOW_YEAR;
+                    return (
+                      <article key={item.title} className="a-card" data-cat={item.category} data-now={now || undefined} data-next={next || undefined}>
+                        <div className="a-card-top">
+                          <span className="a-tag">{categoryConfig[item.category].tag}</span>
+                          <span className="a-when">
+                            {now && <span className="live-dot" aria-hidden="true" />}
+                            {item.period}
+                          </span>
                         </div>
-                      </>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
+                        <h4 className="a-card-title">{item.title}</h4>
+                        <p className="a-where">{item.institution}</p>
+                        <p className="a-desc">{item.description}</p>
+                        {item.significance && <p className="a-desc">{item.significance}</p>}
+                        {item.metrics && (
+                          <ul className="a-chips" aria-label="Highlights">
+                            {item.metrics.map((m) => (
+                              <li key={m} className="q-chip">{m}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </article>
+                    );
+                  })}
+                  {certs.length > 0 && (
+                    <ul className="a-certs" aria-label={`Certifications earned in ${year}`}>
+                      {certs.map((c) => (
+                        <li key={c.title} className="a-cert">
+                          <span className="a-cert-issuer">{c.institution}</span>
+                          <strong>{c.title}</strong>
+                          <span className="a-cert-desc">{c.description}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </li>
+            ))}
           </ol>
         </section>
 

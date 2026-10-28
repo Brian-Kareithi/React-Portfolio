@@ -6,7 +6,7 @@ export default function BuiltToStandard() {
       <div className="q-section-head">
         <p className="q-eyebrow"><b>04</b> Standards</p>
         <h2 id="standards-title" data-split className="q-h2">
-          Built to a standard, <em>not a deadline</em>
+          Built to a <em>clear standard</em>
         </h2>
       </div>
 

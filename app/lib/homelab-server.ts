@@ -1,10 +1,8 @@
-// Server-only: reads secrets. Import from route handlers and server components, never from client code.
 import type { HomelabStats } from "@/app/lib/homelab";
 
 const SNAPSHOT_KEY = "homelab:last";
 const SAVE_EVERY_MS = 2 * 60_000;
 
-// Last good snapshot for this server instance; covers short outages without Redis.
 let lastGood: HomelabStats | null = null;
 let lastSavedAt = 0;
 
@@ -22,7 +20,6 @@ async function fetchLive(): Promise<HomelabStats> {
   return res.json();
 }
 
-// Upstash Redis over its REST API (Vercel's Upstash integration sets either name pair).
 function redis() {
   const url = process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -59,7 +56,6 @@ async function loadSnapshot(): Promise<HomelabStats | null> {
   }
 }
 
-// Live stats when dreezy0 answers; otherwise the last snapshot it sent, marked stale.
 export async function getHomelabStats(): Promise<HomelabStats> {
   try {
     const stats = await fetchLive();

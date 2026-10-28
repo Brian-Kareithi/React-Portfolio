@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import { useCommandPalette } from "@/app/components/CommandPalette";
 import useScrollProgress from "@/app/components/ui/useScrollProgress";
 import { primaryNav, routes, externalLinks } from "@/app/lib/nav";
@@ -143,62 +143,41 @@ export default function Navbar() {
         </div>
       </header>
 
-      <div
-        id="mobile-menu"
-        ref={sheetRef}
-        className={`menu-sheet fixed inset-0 z-[55] lg:hidden transition-[opacity,visibility] duration-300 ${
-          menuOpen ? "visible opacity-100" : "invisible opacity-0"
-        }`}
-        aria-hidden={!menuOpen}
-        inert={!menuOpen}
-      >
-        <div className="flex h-full flex-col overflow-y-auto px-4 pb-8 pt-20">
-          <p className="q-eyebrow" style={{ marginBottom: "1rem" }}>Index</p>
-          <ul className="flex-1">
+      <div id="mobile-menu" ref={sheetRef} className="m-sheet lg:hidden" data-open={menuOpen || undefined} aria-hidden={!menuOpen} inert={!menuOpen}>
+        <div className="m-sheet-inner">
+          <p className="q-eyebrow m-sheet-eyebrow">Menu</p>
+          <ul className="m-sheet-list">
             {routes.map((r, i) => {
               const active = r.path === pathname;
               return (
-                <li
-                  key={r.path}
-                  style={{
-                    transitionDelay: menuOpen ? `${i * 25 + 40}ms` : "0ms",
-                    transform: menuOpen ? "none" : "translateY(12px)",
-                    opacity: menuOpen ? 1 : 0,
-                    transitionProperty: "opacity, transform",
-                    transitionDuration: "0.3s",
-                  }}
-                >
-                  <Link
-                    href={r.path}
-                    onClick={(e) => onNavClick(e, r.path)}
-                    aria-current={active ? "page" : undefined}
-                    className="group flex min-h-[44px] w-full items-baseline gap-4 border-b py-3 text-left"
-                    style={{ borderColor: "var(--hairline-strong)" }}
-                  >
-                    <span className="index-num">{r.index}</span>
-                    <span className="flex-1">
-                      <span className="q-h3 block" style={{ color: active ? "var(--palette-berry)" : undefined }}>
-                        {r.label}
-                      </span>
-                      <span className="q-small block">{r.description}</span>
+                <li key={r.path} style={{ "--i": i } as CSSProperties}>
+                  <Link href={r.path} onClick={(e) => onNavClick(e, r.path)} aria-current={active ? "page" : undefined} className="m-link">
+                    <span className="m-link-num">{r.index}</span>
+                    <span className="m-link-text">
+                      <span className="m-link-label">{r.label}</span>
+                      <span className="m-link-desc">{r.description}</span>
                     </span>
+                    {active && <ArrowRight className="m-link-here" aria-hidden="true" />}
                   </Link>
                 </li>
               );
             })}
           </ul>
-          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2">
-            {externalLinks.filter((l) => l.href !== "/llms.txt").map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                target={l.href.startsWith("http") ? "_blank" : undefined}
-                rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="field-label inline-flex min-h-[44px] items-center transition-colors hover:text-[var(--color-accent)]"
-              >
-                {l.label}
-              </a>
-            ))}
+          <div className="m-sheet-foot" style={{ "--i": routes.length } as CSSProperties}>
+            <p className="m-sheet-sign">Let&apos;s build something.</p>
+            <div className="m-sheet-links">
+              {externalLinks.filter((l) => l.href !== "/llms.txt").map((l) => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  target={l.href.startsWith("http") ? "_blank" : undefined}
+                  rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="q-link"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
