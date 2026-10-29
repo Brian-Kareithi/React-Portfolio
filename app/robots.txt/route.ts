@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { siteConfig } from "@/app/lib/site";
+import { siteConfig } from "@/lib/site";
 
 const body = `# Crawlers: everything public is welcome.
 User-agent: *
