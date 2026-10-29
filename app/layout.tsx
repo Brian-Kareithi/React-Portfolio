@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import ClientLayout from "./ClientLayout";
-import { JsonLd } from "@/app/components/JsonLd";
-import BootLine from "@/app/components/BootLine";
-import { bootScript } from "@/app/lib/boot";
-import { siteConfig, ogImageFor } from "@/app/lib/site";
-import "./globals.css";
-import "./pages.css";
+import { BootScreen } from "@/components/layout/BootScreen";
+import { SiteShell } from "@/components/layout/SiteShell";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { bootScript } from "@/lib/boot";
+import { ogImageFor, siteConfig } from "@/lib/site";
+import "@/styles/globals.css";
+import "@/styles/sections.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -120,9 +120,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body className="relative overflow-x-clip antialiased" suppressHydrationWarning>
-        <BootLine />
+        <BootScreen />
         <JsonLd data={organizationJsonLd} />
-        <ClientLayout>{children}</ClientLayout>
+        <SiteShell>{children}</SiteShell>
         <Analytics />
       </body>
     </html>

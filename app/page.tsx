@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
-import HomeContent from "./HomeContent";
-import { JsonLd } from "@/app/components/JsonLd";
-import { siteConfig, ogImageFor } from "@/app/lib/site";
+import { AtAGlance } from "@/components/home/AtAGlance";
+import { FeaturedWork } from "@/components/home/FeaturedWork";
+import { Hero } from "@/components/home/Hero";
+import { SiteIndex } from "@/components/home/SiteIndex";
+import { WorkQuote } from "@/components/home/WorkQuote";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { siteConfig, ogImageFor } from "@/lib/site";
 
 const description = siteConfig.description;
 
@@ -92,7 +96,11 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <HomeContent />
+      <Hero />
+      <AtAGlance />
+      <FeaturedWork />
+      <WorkQuote />
+      <SiteIndex />
     </>
   );
 }

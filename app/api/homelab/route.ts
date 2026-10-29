@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getHomelabStats } from "@/app/lib/homelab-server";
+import { getHomelabStats } from "@/lib/homelab-server";
 
 export const revalidate = 30;
 

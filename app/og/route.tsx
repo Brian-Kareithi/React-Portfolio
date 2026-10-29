@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import { siteConfig } from "@/app/lib/site";
+import { siteConfig } from "@/lib/site";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -52,6 +52,7 @@ export async function GET(request: Request) {
                 boxShadow: "0 10px 24px -8px rgba(23, 20, 26, 0.3)",
               }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element -- ImageResponse only renders plain <img> */}
               <img src={logoSrc} width={56} height={56} alt="" />
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>

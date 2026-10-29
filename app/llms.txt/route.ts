@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { profileText } from "@/app/lib/profile";
+import { profileText } from "@/data/llms-profile";
 
 export function GET() {
   return new NextResponse(profileText, {

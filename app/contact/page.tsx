@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import ContactClient from "./Client";
-import { pageMeta, siteConfig } from "@/app/lib/site";
-import { JsonLd } from "@/app/components/JsonLd";
+import { ContactChannels } from "@/components/contact/ContactChannels";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { pageMeta, siteConfig } from "@/lib/site";
 
 const description =
   "Contact Brian Kareithi in Nairobi, Kenya about a project, a collaboration, his work, or anything else worth discussing.";
@@ -31,9 +33,21 @@ const jsonLd = {
 
 export default function ContactPage() {
   return (
-    <>
+    <div id="contact" className="q-page">
       <JsonLd data={jsonLd} />
-      <ContactClient />
-    </>
+      <div className="q-wrap">
+        <PageHeader
+          index="04"
+          label="Contact"
+          title={<>Say <em>hello</em></>}
+          description="Questions, ideas, collaborations or just a hello. I read every message myself and reply within a day."
+        />
+
+        <div className="c-layout">
+          <ContactChannels />
+          <ContactForm />
+        </div>
+      </div>
+    </div>
   );
 }
