@@ -766,7 +766,8 @@ html.lenis, html.lenis body { height: auto; }
   .net-packet { display: none; }
 }
 
-.net-3d { height: min(52vh, 28rem); cursor: grab; }
+.net-3d { position: relative; height: min(52vh, 28rem); cursor: grab; }
+.net-loading-note { position: absolute; inset: 0; display: grid; place-items: center; padding: 0 1.5rem; text-align: center; font-size: 0.875rem; color: var(--color-text-secondary); pointer-events: none; }
 .net-3d:active { cursor: grabbing; }
 .net-3d canvas { display: block; touch-action: pan-y; }
 .net-loading { border-radius: 0.6rem; background: radial-gradient(circle at 50% 50%, rgb(107 26 46 / 0.35), transparent 55%); animation: net-loading 1.8s ease-in-out infinite; }
@@ -781,9 +782,34 @@ html.lenis, html.lenis body { height: auto; }
 
 .term-window { overflow: hidden; border-radius: 0.85rem; background: var(--palette-black); color: var(--palette-cream); box-shadow: var(--shadow-xl); font-family: var(--font-jetbrains-mono), ui-monospace, monospace; }
 .term-window-bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.7rem 1rem; border-bottom: 1px solid rgb(242 238 242 / 0.14); }
-.term-window-bar i { width: 0.55rem; height: 0.55rem; border-radius: 9999px; background: rgb(242 238 242 / 0.28); }
-.term-window-bar i:first-child { background: var(--palette-berry); }
 .term-window-bar span { margin-left: 0.5rem; font-size: 0.6875rem; letter-spacing: 0.05em; opacity: 0.55; }
+
+/* Window dots: quiet at rest, they grow and show their glyph when the bar is hovered. */
+.term-dot, .jv-window-bar i, .term-window-bar i { position: relative; flex: none; width: 0.55rem; height: 0.55rem; padding: 0; border: 0; border-radius: 9999px; background: rgb(242 238 242 / 0.28); transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, transform 0.15s ease; }
+.term-dot:first-child, .jv-window-bar i:first-child { background: var(--palette-berry); }
+.term-dot::after, .jv-window-bar i::after { content: ""; position: absolute; inset: 0; display: grid; place-items: center; font: 700 0.5rem/1 var(--font-jetbrains-mono), ui-monospace, monospace; color: var(--palette-black); opacity: 0; transition: opacity 0.15s ease; }
+.term-dot { cursor: pointer; }
+.term-dot:active { transform: scale(0.88); }
+.term-dot:focus-visible { outline: 2px solid var(--palette-cream); outline-offset: 2px; }
+:is(.term-window-bar, .jv-window-bar):hover :is(.term-dot, i) { width: 0.8rem; height: 0.8rem; }
+:is(.term-window-bar, .jv-window-bar):hover :is(.term-dot, i):nth-child(1) { background: var(--palette-berry); }
+:is(.term-window-bar, .jv-window-bar):hover :is(.term-dot, i):nth-child(2) { background: #a9927d; }
+:is(.term-window-bar, .jv-window-bar):hover :is(.term-dot, i):nth-child(3) { background: #8a9a7b; }
+:is(.term-window-bar, .jv-window-bar):hover :is(.term-dot, i):nth-child(1)::after { content: "×"; opacity: 1; color: var(--palette-cream); }
+:is(.term-window-bar, .jv-window-bar):hover :is(.term-dot, i):nth-child(2)::after { content: "−"; opacity: 1; }
+:is(.term-window-bar, .jv-window-bar):hover :is(.term-dot, i):nth-child(3)::after { content: "+"; opacity: 1; }
+
+.term-window-body { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+.term-window-body[data-folded] { grid-template-rows: 0fr; }
+.term-window-body > div { min-height: 0; overflow: hidden; }
+.term-window[data-move="close"] { animation: term-shake 0.4s ease; }
+.term-window[data-move="zoom"] { animation: term-pulse 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes term-shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+@keyframes term-pulse { 40% { transform: scale(1.012); } }
+@media (prefers-reduced-motion: reduce) {
+  .term-window[data-move] { animation: none; }
+  .term-window-body { transition: none; }
+}
 .term-prompt { margin: 0; padding: 1rem 1.25rem 0.4rem; font-size: 0.8125rem; color: rgb(242 238 242 / 0.7); }
 .term-prompt b { color: var(--palette-taupe); font-weight: 500; }
 .term-row { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr) auto; align-items: baseline; gap: 0.15rem 1rem; padding: 0.95rem 1.25rem; border-top: 1px solid rgb(242 238 242 / 0.08); color: var(--palette-cream); transition: background-color 0.2s var(--ease-out), transform 0.25s var(--ease-out); }

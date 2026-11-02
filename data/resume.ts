@@ -43,7 +43,7 @@ export const resumeRoles: ResumeRole[] = [
     projects: [
       { title: "RoadSafe360", note: "Designed the data model and Firebase security rules; QR licences, demerit points and appeals end to end", stack: "Next.js · Firebase · TypeScript" },
       { title: "Steadfast Parent Portal", note: "Web and mobile experience on a Node.js API and PostgreSQL", stack: "Next.js · Expo · Node.js · PostgreSQL" },
-      { title: "QuickPrint", note: "QR-based upload and print platform built for a cyber café workflow", stack: "React · Express · SQLite" },
+      { title: "QuickPrint", note: "Print-shop management and customer ordering portal with QR upload, live queue and M-Pesa payments", stack: "Next.js · React · Tailwind CSS" },
     ],
   },
   {
@@ -133,7 +133,7 @@ export const resumeRoles: ResumeRole[] = [
     projects: [
       { title: "Steadfast Academy", note: "Day-to-day IT support, troubleshooting and school information systems", stack: "Support · Systems" },
       { title: "Homelab", note: "19-device self-hosted lab with RAID-1, 24/7 uptime and no data lost so far", stack: "Proxmox · Linux · Networking" },
-      { title: "QuickPrint", note: "Ephemeral upload and print infrastructure for a cyber café workflow", stack: "Node.js · Express" },
+      { title: "QuickPrint", note: "Print-shop management portal: QR upload, live print queue, local payments and analytics", stack: "Next.js · TypeScript" },
     ],
   },
   {

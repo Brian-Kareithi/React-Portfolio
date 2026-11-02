@@ -25,8 +25,35 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "roadsafe360",
+    id: "quickprint",
     index: "01",
+    title: "QuickPrint",
+    tagline: "Print-shop management and customer ordering portal",
+    status: "Shipped",
+    problem:
+      "Cyber cafés and print shops run on WhatsApp attachments, flash drives and a shouted queue. QuickPrint gives each shop a QR code: customers upload, choose print options and see the price from their phone, and the shop works a live queue.",
+    solution: [
+      "Shop-branded upload portal reached by QR code, with print options, live pricing and order tracking",
+      "Live print queue with searchable orders and one-tap status updates",
+      "Cash, M-Pesa, Airtel Money and bank transfer, with payment status tracking",
+      "Printable QR posters, team and cashier access, and per-shop branding",
+      "Revenue, peak-hour and printer-utilisation analytics, plus a platform admin for super admins",
+    ],
+    architecture: {
+      stages: ["Next.js Portal (QR Upload)", "REST API", "Database"],
+      branch: { under: 1, label: "Queue & Payments" },
+    },
+    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "REST API", "Docker"],
+    contribution: "Built the web app end to end: customer portal, shop dashboard, admin console and QR tooling. Backend in a separate repository.",
+    access: {
+      repo: "https://github.com/Brian-Kareithi/QuickPrint",
+      demo: "https://quickprint-ten.vercel.app/auth/login",
+      note: "Public repository. Backend: github.com/Thee-Entity/QuickPrint-Backend",
+    },
+  },
+  {
+    id: "roadsafe360",
+    index: "02",
     title: "RoadSafe360",
     tagline: "Road safety and driver demerit platform",
     status: "Shipped",
@@ -60,7 +87,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "pos-system",
-    index: "02",
+    index: "03",
     title: "POS System",
     tagline: "Point of sale for multi-branch retail",
     status: "Active",
@@ -88,7 +115,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "steadfast-parent",
-    index: "03",
+    index: "04",
     title: "Steadfast Parent Portal",
     tagline: "School platform for parents, teachers and students",
     status: "Active",
@@ -108,31 +135,6 @@ export const caseStudies: CaseStudy[] = [
       "Part of my role at Steadfast. The web and mobile parent experience, API integration and school systems.",
     access: {
       note: "Private school system",
-    },
-  },
-  {
-    id: "quickprint",
-    index: "04",
-    title: "QuickPrint",
-    tagline: "QR-based document printing for cyber cafés",
-    status: "Completed",
-    problem:
-      "Cyber café printing means handing a flash drive to a stranger's computer. QuickPrint replaces it with a self-service upload that deletes itself.",
-    solution: [
-      "Scan a QR code to open an upload page on your phone",
-      "Files print, then delete automatically",
-      "No flash drives or shared storage",
-      "Built for a single-till café workflow",
-    ],
-    architecture: {
-      stages: ["Client (QR Upload)", "Express API", "SQLite"],
-      branch: { under: 1, label: "Auto-delete Job" },
-    },
-    stack: ["React", "Node.js", "Express", "SQLite", "QR Code API"],
-    contribution: "Built end to end, from QR upload to file deletion.",
-    access: {
-      repo: "https://github.com/Thee-Entity/QuickPrint-Client",
-      note: "Public repository",
     },
   },
   {

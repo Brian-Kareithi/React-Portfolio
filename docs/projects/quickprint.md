@@ -1,91 +1,71 @@
 # QuickPrint
 
-> QR-based document printing for cyber cafés
+> Print-shop management and customer ordering portal
 
-**Status:** Completed · **Access:** Public repository · [Source](https://github.com/Thee-Entity/QuickPrint-Client)
+**Status:** Shipped · **Access:** Public repository. Backend: github.com/Thee-Entity/QuickPrint-Backend · [Live demo](https://quickprint-ten.vercel.app/auth/login) · [Source](https://github.com/Brian-Kareithi/QuickPrint)
 
 ## Purpose
 
-Replace flash drives at a cyber café with a phone-based upload that deletes itself after printing.
+Run a print shop from one QR code: customers upload and pay from their phone, and the shop works a live queue.
 
 ## Problem
 
-Cyber café printing means handing a flash drive to a stranger's computer. QuickPrint replaces it with a self-service upload that deletes itself.
+Cyber cafés and print shops run on WhatsApp attachments, flash drives and a shouted queue. QuickPrint gives each shop a QR code: customers upload, choose print options and see the price from their phone, and the shop works a live queue.
 
 ## Target audience
 
 | Audience | Needs |
 | --- | --- |
-| Café customers | Send a document to print from their own phone, without handing over a drive. |
-| Café operator | A single queue at the till and no leftover customer files. |
+| Print-shop customers | Upload a file, choose print options and see the price from their own phone, with no app or account fuss. |
+| Shop owners and cashiers | A live queue, payment status and daily numbers, without chasing WhatsApp attachments. |
+| Platform admins | Oversight of every shop, plus controls for how long customer files are kept. |
 
 ## Scope
 
 ### In scope
 
-- QR code that opens a temporary upload page
-- Upload to a transient server
-- Print queue for the till
-- Automatic deletion after printing
+- Shop-branded customer portal opened by QR code
+- Live print queue and searchable orders
+- Cash, M-Pesa, Airtel Money and bank payments
+- Printable QR posters and shop branding
+- Team and cashier access
+- Revenue, peak-hour and printer analytics
+- Super-admin console for shops, users and retention
 
 ### Out of scope
 
-- Customer accounts
-- Payment handling
-- Multi-till or multi-branch support
+- Native mobile apps (installable web app instead)
+- Card payments
+- Printer drivers: jobs are printed from the shop's own machine
 
 ## Solution
 
-1. Scan a QR code to open an upload page on your phone
-2. Files print, then delete automatically
-3. No flash drives or shared storage
-4. Built for a single-till café workflow
+1. Shop-branded upload portal reached by QR code, with print options, live pricing and order tracking
+2. Live print queue with searchable orders and one-tap status updates
+3. Cash, M-Pesa, Airtel Money and bank transfer, with payment status tracking
+4. Printable QR posters, team and cashier access, and per-shop branding
+5. Revenue, peak-hour and printer-utilisation analytics, plus a platform admin for super admins
 
 ## Architecture
 
-Client (QR Upload) → Express API → SQLite
+Next.js Portal (QR Upload) → REST API → Database
 
-Branch from *Express API*: Auto-delete Job.
+Branch from *REST API*: Queue & Payments.
 
 ## Data model
 
-```mermaid
-erDiagram
-  upload_sessions ||--o{ documents : "receives"
-  documents ||--o{ print_jobs : "is printed as"
-  upload_sessions {
-    uuid id PK
-    string token UK
-    timestamp expires_at
-    enum status
-  }
-  documents {
-    uuid id PK
-    uuid session_id FK
-    string filename
-    int size_bytes
-    timestamp uploaded_at
-    timestamp deleted_at
-  }
-  print_jobs {
-    uuid id PK
-    uuid document_id FK
-    int copies
-    enum status
-    timestamp printed_at
-  }
-```
+Frontend in Next.js 16 talking to a separate REST backend (Thee-Entity/QuickPrint-Backend). The data model lives in the backend repository.
 
 ## Design priorities
 
-- Privacy: nothing persists after the job
-- Works on any phone browser, no install
-- Simple enough for one operator
+- Customers need nothing but a phone browser
+- Honest prices before the customer pays
+- Files do not linger after an order is done
 
 ## Technology
 
-React · Node.js · Express · SQLite · QR Code API
+Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · REST API · Docker
 
 ## My contribution
 
-Built end to end, from QR upload to file deletion.
+Built the web app end to end: customer portal, shop dashboard, admin console and QR tooling. Backend in a separate repository.

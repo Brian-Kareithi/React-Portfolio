@@ -151,6 +151,12 @@ export const gearCategories: GearCategory[] = [
         specs: ["68g Ultra-Lightweight", "Glorious 16K Optical Sensor", "Up to 12,000 DPI", "Honeycomb Shell Design", "RGB Lighting", "PTFE Mouse Feet"],
       },
       {
+        name: "AULA S12 Pro",
+        outcome: "Second mouse for the desk. Comfortable for long sessions.",
+        skill: "Peripherals",
+        specs: ["AULA S12 Pro Gaming Mouse", "RGB Lighting", "Programmable Buttons", "Adjustable DPI"],
+      },
+      {
         name: "Safaricom Router",
         outcome: "Lab backbone. Static leases, port forwarding and uptime monitoring, all managed by me.",
         skill: "Networking",

@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo, useReducer, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Billboard, Environment, Lightformer, Text } from "@react-three/drei";
 import { BallCollider, Physics, RigidBody, type RapierRigidBody } from "@react-three/rapier";
 import { easing } from "maath";
 import * as THREE from "three";
 import { HUB_NAME, HUB_NOTE, homelabServices, labMachines } from "@/data/homelab";
+import { LoadingNote } from "@/components/homelab/LoadingNote";
 import type { Device, DeviceStatus } from "@/lib/homelab";
 
 const BERRY = "#6b1a2e";
@@ -88,8 +89,10 @@ function Sphere({ label, color, radius = 1, active, onHover }: SphereProps) {
   );
 }
 
-function Scene({ devices, accent, onActive }: { devices: Device[]; accent: string; onActive: (i: number | null) => void }) {
+function Scene({ devices, accent, onActive, onReady }: { devices: Device[]; accent: string; onActive: (i: number | null) => void; onReady: () => void }) {
   const [hover, setHover] = useState<number | null>(null);
+  // Scene sits inside Canvas's Suspense, so this only fires once the physics engine, fonts and lighting have loaded.
+  useEffect(onReady, [onReady]);
   const set = (i: number | null) => {
     setHover(i);
     onActive(i);
@@ -125,6 +128,8 @@ function Scene({ devices, accent, onActive }: { devices: Device[]; accent: strin
 /** Physics cluster of the hub, lab machines and services. Push it with the pointer, click to cycle the accent. */
 export function NetworkMap3D({ devices = homelabServices }: { devices?: Device[] }) {
   const [active, setActive] = useState<number | null>(null);
+  const [ready, setReady] = useState(false);
+  const onReady = useCallback(() => setReady(true), []);
   const [accentIndex, nextAccent] = useReducer((n: number) => (n + 1) % ACCENTS.length, 0);
 
   const all = useMemo(() => [...labMachines, ...devices], [devices]);
@@ -139,8 +144,9 @@ export function NetworkMap3D({ devices = homelabServices }: { devices?: Device[]
         aria-label={`Interactive map of the homelab: ${HUB_NAME}, ${labMachines.length} machines and ${devices.length} services. Move the cursor to push them, hover one to see what it runs.`}
       >
         <Canvas onClick={nextAccent} camera={{ position: [0, 0, 30], fov: 17.5 }} dpr={[1, 1.5]} gl={{ antialias: true, powerPreference: "low-power" }}>
-          <Scene devices={all} accent={ACCENTS[accentIndex]} onActive={setActive} />
+          <Scene devices={all} accent={ACCENTS[accentIndex]} onActive={setActive} onReady={onReady} />
         </Canvas>
+        {!ready && <LoadingNote />}
       </div>
       <p className="net-readout" aria-live="polite">
         {current ? (

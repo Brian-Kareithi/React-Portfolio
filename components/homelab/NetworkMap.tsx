@@ -1,7 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { Component, useEffect, useRef, useState, type ReactNode } from "react";
+import { LoadingNote } from "@/components/homelab/LoadingNote";
 import { NetworkMap2D } from "@/components/homelab/NetworkMap2D";
 import type { Device } from "@/lib/homelab";
 import { prefersReducedMotion } from "@/lib/media";
@@ -9,10 +10,11 @@ import { prefersReducedMotion } from "@/lib/media";
 function MapPlaceholder() {
   return (
     <div className="net" aria-hidden="true">
-      <div className="net-3d net-loading" />
-      <p className="net-readout">
-        <span>Loading the map…</span>
-      </p>
+      <div className="net-3d net-loading">
+        <LoadingNote />
+      </div>
+      <p className="net-readout" />
+
     </div>
   );
 }
@@ -33,6 +35,17 @@ function canRender3D() {
     return Boolean(canvas.getContext("webgl2") ?? canvas.getContext("webgl"));
   } catch {
     return false;
+  }
+}
+
+/** If the WebGL scene throws (context lost, WASM or font failure), fall back to the flat map instead of a blank panel. */
+class MapBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? <NetworkMap2D /> : this.props.children;
   }
 }
 
@@ -62,7 +75,11 @@ export function NetworkMap({ devices }: { devices?: Device[] }) {
 
   return (
     <div ref={box}>
-      {mode === "3d" ? <NetworkMap3D devices={devices} /> : mode === "flat" ? <NetworkMap2D /> : <MapPlaceholder />}
+      {mode === "3d" ? (
+        <MapBoundary>
+          <NetworkMap3D devices={devices} />
+        </MapBoundary>
+      ) : mode === "flat" ? <NetworkMap2D /> : <MapPlaceholder />}
     </div>
   );
 }

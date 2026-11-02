@@ -18,31 +18,27 @@ function isWeekendMode(now: Date) {
   return (day === FRIDAY && now.getHours() >= KNOCK_OFF_HOUR) || day === 6 || day === 0;
 }
 
-const surprises = [
-  "You made it through another week. Ship it, log off, touch grass.",
-  "No deploys after 4pm. That's not a rule, it's a kindness.",
-  "The bug will still be there on Monday. So will you, rested.",
-  "git commit -m \"weekend\" && git push --force-with-joy",
-  "Why do programmers prefer dark mode? Because light attracts bugs.",
-  "I would tell you a UDP joke, but you might not get it.",
-  "Why did the developer go broke? He used up all his cache.",
-  "There are 10 types of people: those who understand binary and those who don't.",
-  "Why was the JavaScript developer sad? He didn't know how to null his feelings.",
-  "I told my Wi-Fi we needed to talk. It lost connection.",
-  "Why do Java developers wear glasses? Because they don't C#.",
-  "A SQL query walks into a bar, sees two tables and asks: can I join you?",
-  "Why did the computer go to the doctor? It had a virus. Doctor said: take two restarts and call me in the morning.",
-  "My password is the last 8 digits of pi. Nobody's getting that one.",
-  "Why was the server so calm? It had plenty of bandwidth to process its feelings.",
-  "I'd tell you a TCP joke, but I'd have to keep repeating it until you acknowledge it.",
-  "Why did the router break up with the switch? It needed more space on the network.",
-  "Debugging: being the detective in a crime movie where you're also the murderer.",
-  "Why don't keyboards ever sleep? Two shifts, every day.",
-  "What's a computer's favourite snack? Microchips.",
-  "Why did the IT guy bring a ladder? He heard the issue was on a higher level.",
-  "Why did the developer quit his job? He didn't get arrays.",
-  "How does a Proxmox server stay cool? It leaves all its windows open. Just kidding, it runs Linux.",
-  "Why was the ESP32 always invited to parties? It really knew how to connect.",
+const surprises: { joke: string; why: string }[] = [
+  { joke: "Programming is 10% writing code and 90% wondering why the other 10% works.", why: "Programmers spend most of their time puzzling over code that works for reasons they can't explain. It's a joke about how even working code can feel like magic." },
+  { joke: "The cloud is just someone else's homelab with a better invoice.", why: "\"The cloud\" sounds like something floating in the sky, but it's really just other people's computers in a building somewhere. A homelab is a personal setup of computers at home, so the joke is that the cloud is the same thing with a bill attached." },
+  { joke: "Another week survived. Close the laptop and go outside.", why: "Not really a joke, just a pat on the back for finishing the week." },
+  { joke: "Why was the computer cold? It left its Windows open.", why: "\"Windows\" is the software on most computers, but it's also the glass in your walls. Leave a real window open and the room gets chilly." },
+  { joke: "Why did the phone wear glasses? It lost its contacts.", why: "\"Contacts\" are the people saved in your phone. They are also contact lenses, which people lose and then can't see." },
+  { joke: "Why did the computer show up late to work? It had a hard drive.", why: "A \"hard drive\" is where a computer stores its files. It also sounds like a long, tiring journey to work." },
+  { joke: "What do you call a computer that sings? A Dell.", why: "Dell is a computer brand. Say it with \"A\" in front and it sounds like Adele, the singer." },
+  { joke: "Why did the developer go broke? He used up all his cache.", why: "A \"cache\" is a computer's quick-access memory, and it sounds exactly like \"cash\". So he ran out of money." },
+  { joke: "What's a computer's favourite snack? Microchips.", why: "Tiny parts inside every computer are called microchips. \"Chips\" are also a snack." },
+  { joke: "Why did the Bluetooth go to the dentist? It had a blue tooth.", why: "Bluetooth is the wireless connection between your phone and headphones. Read it as two words, \"blue tooth\", and it sounds like a dental problem." },
+  { joke: "Why did the programmer quit his job? He didn't get arrays.", why: "An \"array\" is a list in programming. It sounds like \"a raise\", which is what he didn't get, so he quit." },
+  { joke: "How do you comfort a JavaScript bug? You console it.", why: "JavaScript is a programming language. Its tool for checking what's going on is called the \"console\", and to \"console\" someone is to comfort them." },
+  { joke: "What did the router say to the doctor? \"It hurts when IP.\"", why: "An IP address is the number that identifies a device on the internet. Say \"IP\" quickly and it sounds like \"I pee\", which is the classic doctor's-office complaint." },
+  { joke: "Why did the PowerPoint cross the road? To get to the other slide.", why: "It's the classic \"chicken crossing the road\" joke, with a slide from a presentation in the chicken's place." },
+  { joke: "Why do Java developers wear glasses? Because they don't C#.", why: "Java and C# (\"C sharp\") are two programming languages. \"Don't C#\" sounds like \"don't see sharp\", which is why you'd need glasses." },
+  { joke: "A SQL query walks into a bar, sees two tables and asks: \"Can I join you?\"", why: "SQL is how people ask databases for information, and a command in it is called \"join\", which combines tables of data. Here it also means asking to sit down at a table." },
+  { joke: "What's the object-oriented way to become wealthy? Inheritance.", why: "\"Inheritance\" is a programming idea where code is handed down from one piece to another. It's also how people get rich when a relative passes away." },
+  { joke: "Why do programmers mix up Halloween and Christmas? Because Oct 31 equals Dec 25.", why: "Oct is short for October and Dec for December. Programmers sometimes count in a number system where \"31\" in octal (Oct) equals 25 in the normal decimal (Dec) system. The joke only works on people who know that." },
+  { joke: "I'd tell you a UDP joke, but you might not get it.", why: "UDP is a way of sending data that doesn't check the other side received it. So the joke may never land, which is the point." },
+  { joke: "Why did the Wi-Fi go to therapy? It had too many connection issues.", why: "Wi-Fi connects your devices to the internet. \"Connection issues\" is what we call dropped signals, and it's also what people talk about in therapy." },
 ];
 
 const confettiColors = ["var(--color-accent)", "var(--color-accent-secondary)", "var(--color-accent-light)", "var(--color-border-hover)"];
@@ -52,6 +48,7 @@ export function FridaySurprise() {
   const [now, setNow] = useState<Date | null>(null);
   const [opened, setOpened] = useState(false);
   const [pick, setPick] = useState(0);
+  const [explained, setExplained] = useState(false);
 
   useEffect(() => {
     const tick = () => setNow(new Date());
@@ -69,6 +66,7 @@ export function FridaySurprise() {
       if (opened && next === p) next = (next + 1) % surprises.length;
       return next;
     });
+    setExplained(false);
     setOpened(true);
   };
 
@@ -144,12 +142,22 @@ export function FridaySurprise() {
           style={{ color: "var(--color-text-primary)" }}
           aria-live="polite"
         >
-          {opened ? surprises[pick] : "There's something in here for you."}
+          {opened ? surprises[pick].joke : "There's something in here for you."}
         </p>
+        {opened && explained && (
+          <p className="mt-3 max-w-sm text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }} aria-live="polite">
+            {surprises[pick].why}
+          </p>
+        )}
         <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
           <button onClick={unwrap} className="btn-neon btn-neon-primary">
             {opened ? "Another one" : "Open the surprise"}
           </button>
+          {opened && !explained && (
+            <button onClick={() => setExplained(true)} className="btn-neon btn-neon-ghost">
+              I didn&apos;t get the joke
+            </button>
+          )}
           <Link href="/contact" className="btn-neon btn-neon-ghost">
             Say hi
           </Link>
