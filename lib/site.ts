@@ -17,6 +17,11 @@ export const siteConfig = {
   linkedin: "https://www.linkedin.com/in/brian-kareithi-04007637b/",
   instagram: "https://www.instagram.com/kareithi._/",
   ogImage: "https://kareithi.vercel.app/kareithi.jpg",
+  /** Drives the AvailabilityBadge. Set `open: false` to hide it everywhere. */
+  availability: {
+    open: true,
+    label: "Open to new work",
+  },
 } as const;
 
 /** Host without the protocol, for printed links. */
