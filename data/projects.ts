@@ -76,6 +76,10 @@ export const caseStudies: CaseStudy[] = [
     },
     stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "REST API", "Docker"],
     contribution: "Built the web app end to end: customer portal, shop dashboard, admin console and QR tooling. Backend in a separate repository.",
+    screenshot: {
+      src: "/projects/quickprint/landing.png",
+      alt: "QuickPrint landing page: Your print shop, run from one QR code, beside an order card showing a 24-page PDF paid with M-Pesa and ready in about 12 minutes",
+    },
     access: {
       repo: "https://github.com/Brian-Kareithi/QuickPrint",
       demo: "https://quickprint-ten.vercel.app/auth/login",
