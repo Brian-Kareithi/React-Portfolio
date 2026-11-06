@@ -5,14 +5,14 @@ import { prompt, startDir } from "@/lib/ctf";
 
 export type TerminalLine = { kind: "cmd" | "out" | "ok" | "err"; text: string; prompt?: string };
 
-const DIM = "rgb(242 238 242 / 0.7)";
+const DIM = "rgb(242 244 243 / 0.7)";
 
 const lineStyle = (kind: TerminalLine["kind"]): CSSProperties =>
   kind === "ok"
     ? { color: "var(--palette-white)", fontWeight: 600 }
     : kind === "err"
       ? { color: "var(--palette-cream)", textDecoration: "underline wavy var(--palette-berry)", textUnderlineOffset: "4px" }
-      : { color: "rgb(242 238 242 / 0.84)" };
+      : { color: "rgb(242 244 243 / 0.84)" };
 
 interface CtfTerminalProps {
   lines: TerminalLine[];
@@ -41,10 +41,10 @@ export function CtfTerminal({ lines, cwd, input, onInputChange, onSubmit, onKeyD
   return (
     <div
       className="ctf-term overflow-hidden rounded-xl border"
-      style={{ backgroundColor: "var(--palette-black)", borderColor: "rgb(242 238 242 / 0.14)", boxShadow: "var(--shadow-xl)" }}
+      style={{ backgroundColor: "var(--palette-black)", borderColor: "rgb(242 244 243 / 0.14)", boxShadow: "var(--shadow-xl)" }}
       onClick={() => inputRef.current?.focus()}
     >
-      <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: "rgb(242 238 242 / 0.1)", backgroundColor: "var(--palette-violet)" }}>
+      <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: "rgb(242 244 243 / 0.1)", backgroundColor: "var(--tone-umber)" }}>
         <span className="flex gap-1.5" aria-hidden="true">
           <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-berry)" }} />
           <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--palette-berry)" }} />

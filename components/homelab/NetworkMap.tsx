@@ -5,7 +5,7 @@ import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import { LoadingNote } from "@/components/homelab/LoadingNote";
 import { NetworkMap2D } from "@/components/homelab/NetworkMap2D";
 import type { Device } from "@/lib/homelab";
-import { prefersReducedMotion } from "@/lib/media";
+import { canRender3D } from "@/lib/media";
 
 function MapPlaceholder() {
   return (
@@ -23,20 +23,6 @@ const NetworkMap3D = dynamic(() => import("@/components/homelab/NetworkMap3D").t
   ssr: false,
   loading: MapPlaceholder,
 });
-
-/** WebGL on capable devices only: not on reduced motion, data saver, low memory or few cores. */
-function canRender3D() {
-  if (prefersReducedMotion()) return false;
-  const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
-  if (nav.connection?.saveData) return false;
-  if ((nav.deviceMemory ?? 8) < 3 || (nav.hardwareConcurrency ?? 8) < 4) return false;
-  try {
-    const canvas = document.createElement("canvas");
-    return Boolean(canvas.getContext("webgl2") ?? canvas.getContext("webgl"));
-  } catch {
-    return false;
-  }
-}
 
 /** If the WebGL scene throws (context lost, WASM or font failure), fall back to the flat map instead of a blank panel. */
 class MapBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
