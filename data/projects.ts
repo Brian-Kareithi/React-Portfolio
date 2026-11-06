@@ -25,8 +25,39 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "quickprint",
+    id: "homelab-app",
     index: "01",
+    title: "Homelab",
+    tagline: "Native Android dashboard for my self-hosted homelab",
+    status: "Shipped",
+    problem:
+      "My homelab runs Jellyfin, the *arr stack, qBittorrent and Seerr behind a Homepage dashboard, which is clumsy on a phone. I wanted to check the whole lab from my pocket without putting service API keys on the device.",
+    solution: [
+      "Dashboard built from Homepage's /api/services: add a service on the server and it appears in the app, with CPU, RAM and disk gauges and Docker status",
+      "Talks to one URL only. Homepage's server-side widget proxy adds the Sonarr, Radarr and Jellyfin keys, so the app stores no service credentials",
+      "Auto mode probes the LAN for 1.5 s and falls back to Tailscale, re-checking when the network changes",
+      "Activity feed with Jellyfin now-playing, the Sonarr queue and active torrents, plus per-service detail screens",
+      "Offline snapshot cache, and a WorkManager check every 15 minutes that notifies when a container stops, the server goes down or a torrent finishes",
+    ],
+    architecture: {
+      stages: ["Compose UI", "Repository + Cache", "Homepage API", "Service Widgets"],
+      branch: { under: 2, label: "LAN / Tailscale Resolver" },
+    },
+    stack: ["Kotlin", "Jetpack Compose", "Material 3", "Retrofit", "kotlinx.serialization", "DataStore", "WorkManager", "Coil", "Tailscale"],
+    contribution:
+      "Solo build. Networking, widget mappers, Compose UI, notifications and unit tests, with a small manual DI container instead of Hilt.",
+    screenshot: {
+      src: "/projects/homelab/overview.png",
+      alt: "Homelab Android app: the dashboard in light and dark themes with CPU, RAM and disk gauges and media service cards, and the Jellyfin detail screen",
+    },
+    access: {
+      repo: "https://github.com/Brian-Kareithi/Homelab",
+      note: "Public repository. Build the APK with Gradle",
+    },
+  },
+  {
+    id: "quickprint",
+    index: "02",
     title: "QuickPrint",
     tagline: "Print-shop management and customer ordering portal",
     status: "Shipped",
@@ -53,7 +84,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "roadsafe360",
-    index: "02",
+    index: "03",
     title: "RoadSafe360",
     tagline: "Road safety and driver demerit platform",
     status: "Shipped",
@@ -87,7 +118,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "pos-system",
-    index: "03",
+    index: "04",
     title: "POS System",
     tagline: "Point of sale for multi-branch retail",
     status: "Active",
@@ -115,7 +146,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "steadfast-parent",
-    index: "04",
+    index: "05",
     title: "Steadfast Parent Portal",
     tagline: "School platform for parents, teachers and students",
     status: "Active",
@@ -139,7 +170,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "fitness-tracker",
-    index: "05",
+    index: "06",
     title: "Fitness Tracker",
     tagline: "Sleep and diet tracker for Android",
     status: "Active",
@@ -163,7 +194,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "flip-book-portfolio",
-    index: "06",
+    index: "07",
     title: "Flip-Book Portfolio",
     tagline: "A portfolio bound as an interactive book",
     status: "Shipped",
@@ -190,7 +221,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "portfolio-v2-3d",
-    index: "07",
+    index: "08",
     title: "Portfolio V2 (3D)",
     tagline: "Scroll-driven 3D portfolio built with Three.js",
     status: "Shipped",
