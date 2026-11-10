@@ -25,8 +25,39 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "homelab-app",
+    id: "samsung-tv",
     index: "01",
+    title: "Samsung TV Idle Screen",
+    tagline: "Motorsport ambient screen for an idle Samsung Tizen TV",
+    status: "Shipped",
+    problem:
+      "An idle TV either shows a blank No Signal screen or sits on a streaming app's menu. The TV can't report its input, so I needed a way to tell when it was idle and show something worth looking at: a clock, the weather and race photos.",
+    solution: [
+      "A Python watcher polls the TV over its WebSocket API and treats it as idle when it is on, no streaming app is visible and the screen itself isn't showing",
+      "After 5 idle minutes it opens the page in the TV browser and presses OK so it goes full screen. If someone switches input, it waits 15 minutes before reopening",
+      "Big Nairobi clock and Open-Meteo weather, independent of the TV's own settings",
+      "243 Wikimedia Commons race photos across seven series, each credited on screen, rotating every 20 s with a Ken Burns drift",
+      "A tech-joke card with a fake blur, since the 2018 Tizen browser has no backdrop-filter, written in ES5 to run on it",
+    ],
+    architecture: {
+      stages: ["Idle Watcher (Python)", "Samsung TV WebSocket API", "Tizen Browser", "Idle Screen (ES5)"],
+      branch: { under: 3, label: "Heartbeat Ping" },
+    },
+    stack: ["Python", "samsungtvws", "JavaScript (ES5)", "HTML", "CSS", "Open-Meteo", "JokeAPI", "Tizen"],
+    contribution:
+      "Solo build. Idle detection, TV remote control, the idle screen, and curating and crediting the photo set.",
+    screenshot: {
+      src: "/projects/samsung-tv/overview.jpg",
+      alt: "Samsung TV idle screen: a large clock and Nairobi weather over a Formula 1 race photo, with a tech-joke card and the photo credit",
+    },
+    access: {
+      repo: "https://github.com/Brian-Kareithi/Samsung-TV",
+      note: "Public repository. Runs on a PC on the same network as the TV",
+    },
+  },
+  {
+    id: "homelab-app",
+    index: "02",
     title: "Homelab",
     tagline: "Native Android dashboard for my self-hosted homelab",
     status: "Shipped",
@@ -57,7 +88,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "quickprint",
-    index: "02",
+    index: "03",
     title: "QuickPrint",
     tagline: "Print-shop management and customer ordering portal",
     status: "Shipped",
@@ -88,7 +119,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "roadsafe360",
-    index: "03",
+    index: "04",
     title: "RoadSafe360",
     tagline: "Road safety and driver demerit platform",
     status: "Shipped",
@@ -122,7 +153,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "pos-system",
-    index: "04",
+    index: "05",
     title: "POS System",
     tagline: "Point of sale for multi-branch retail",
     status: "Active",
@@ -150,7 +181,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "steadfast-parent",
-    index: "05",
+    index: "06",
     title: "Steadfast Parent Portal",
     tagline: "School platform for parents, teachers and students",
     status: "Active",
@@ -174,7 +205,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "fitness-tracker",
-    index: "06",
+    index: "07",
     title: "Fitness Tracker",
     tagline: "Sleep and diet tracker for Android",
     status: "Active",
@@ -198,7 +229,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "flip-book-portfolio",
-    index: "07",
+    index: "08",
     title: "Flip-Book Portfolio",
     tagline: "A portfolio bound as an interactive book",
     status: "Shipped",
@@ -225,7 +256,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "portfolio-v2-3d",
-    index: "08",
+    index: "09",
     title: "Portfolio V2 (3D)",
     tagline: "Scroll-driven 3D portfolio built with Three.js",
     status: "Shipped",

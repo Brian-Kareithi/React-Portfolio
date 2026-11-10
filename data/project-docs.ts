@@ -31,6 +31,17 @@ const id = (name = "id"): ErdField => ({ name, type: "uuid", key: "pk" });
 const fk = (name: string): ErdField => ({ name, type: "uuid", key: "fk" });
 
 export const projectDocs: Record<string, ProjectDoc> = {
+  "samsung-tv": {
+    purpose: "Turn an idle Samsung TV into an ambient screen with the time, the weather and motorsport photos, opened automatically.",
+    audience: [{ who: "Anyone in the room", needs: "Time and weather at a glance, and something better than No Signal on an idle TV." }],
+    scope: {
+      in: ["Idle detection over the Samsung TV WebSocket API", "Opening the page full screen on the TV", "Clock and Nairobi weather", "Rotating, credited motorsport wallpapers", "Tech-joke card", "Windows auto-start"],
+      out: ["A Tizen app installed on the TV", "Detecting HDMI input or No Signal (the TV doesn't expose it)", "Running without a PC on the network"],
+    },
+    qualities: ["Never interrupts someone watching", "Runs on a 2018 Tizen browser", "Every photo credited"],
+    dataNote: "No database. Photos and jokes are static files (screen/photos.js, screen/quotes.js); the watcher keeps its state in memory and the TV pairing token in a local file.",
+  },
+
   roadsafe360: {
     purpose: "Give road authorities one auditable record of licences, offences, demerit points and appeals.",
     audience: [
