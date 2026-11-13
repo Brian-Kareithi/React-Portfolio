@@ -209,41 +209,51 @@ export function ProjectCarousel() {
         )}
       </div>
 
-      <div className="pc-caption" aria-live="polite">
-        <p className="pc-now">
-          <span className="pc-now-num">{current.index}</span>
-          <span className="pc-now-title">{current.title}</span>
-          <span className="pc-now-meta">
-            {current.status} · {current.stack.slice(0, 2).join(", ")}
-          </span>
-        </p>
-        <p className="pc-tagline">{current.tagline}</p>
-        <a
-          href={`#${current.id}`}
-          className="q-link"
-          onClick={(e) => {
-            e.preventDefault();
-            openDetails();
-          }}
-        >
-          See the details <ArrowUpRight aria-hidden="true" />
-        </a>
-      </div>
+      <div className="pc-dock">
+        <div className="pc-caption" aria-live="polite">
+          <p className="pc-kicker">
+            <span className="pc-now-num">
+              {current.index}
+              <span className="pc-now-total"> / {String(studies.length).padStart(2, "0")}</span>
+            </span>
+            <span className="pc-status">{current.status}</span>
+          </p>
+          <p className="pc-now-title">{current.title}</p>
+          <p className="pc-tagline">{current.tagline}</p>
+          <ul className="pc-stack" aria-label="Built with">
+            {current.stack.slice(0, 3).map((t) => (
+              <li key={t}>{t}</li>
+            ))}
+          </ul>
+        </div>
 
-      <div className="pc-controls">
-        <button type="button" onClick={() => go(active - 1)} disabled={active === 0} aria-label="Previous project" className="pc-btn">
-          <ArrowLeft aria-hidden="true" />
-        </button>
-        <ol className="pc-dots" aria-label="Choose a project">
-          {studies.map((s, i) => (
-            <li key={s.id}>
-              <button type="button" onClick={() => go(i)} aria-label={s.title} aria-current={i === active ? "true" : undefined} />
-            </li>
-          ))}
-        </ol>
-        <button type="button" onClick={() => go(active + 1)} disabled={active === studies.length - 1} aria-label="Next project" className="pc-btn">
-          <ArrowRight aria-hidden="true" />
-        </button>
+        <div className="pc-side">
+          <a
+            href={`#${current.id}`}
+            className="pc-cta"
+            onClick={(e) => {
+              e.preventDefault();
+              openDetails();
+            }}
+          >
+            See the details <ArrowUpRight aria-hidden="true" />
+          </a>
+          <div className="pc-controls">
+            <button type="button" onClick={() => go(active - 1)} disabled={active === 0} aria-label="Previous project" className="pc-btn">
+              <ArrowLeft aria-hidden="true" />
+            </button>
+            <ol className="pc-dots" aria-label="Choose a project">
+              {studies.map((s, i) => (
+                <li key={s.id}>
+                  <button type="button" onClick={() => go(i)} aria-label={s.title} aria-current={i === active ? "true" : undefined} />
+                </li>
+              ))}
+            </ol>
+            <button type="button" onClick={() => go(active + 1)} disabled={active === studies.length - 1} aria-label="Next project" className="pc-btn">
+              <ArrowRight aria-hidden="true" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

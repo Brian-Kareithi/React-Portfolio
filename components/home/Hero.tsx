@@ -42,8 +42,10 @@ function usePointerParallax(root: RefObject<HTMLElement | null>) {
         el.style.setProperty("--oy", `${e.clientY - r.top}px`);
         if (!lens) return;
         const b = lens.getBoundingClientRect();
-        lens.style.setProperty("--lx", `${e.clientX - b.left}px`);
-        lens.style.setProperty("--ly", `${e.clientY - b.top}px`);
+        // The hero card is CSS-zoomed; convert viewport px back into the lens's own px.
+        const k = b.width ? lens.offsetWidth / b.width : 1;
+        lens.style.setProperty("--lx", `${(e.clientX - b.left) * k}px`);
+        lens.style.setProperty("--ly", `${(e.clientY - b.top) * k}px`);
         const inside =
           e.clientX >= b.left - LENS_MARGIN && e.clientX <= b.right + LENS_MARGIN && e.clientY >= b.top - LENS_MARGIN && e.clientY <= b.bottom + LENS_MARGIN;
         lens.dataset.on = inside ? "true" : "false";

@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { Github, Lock, Plus } from "lucide-react";
+import { Disclosure } from "@/components/ui/Disclosure";
 import { Section } from "@/components/ui/Section";
 import { otherProjects, type OtherProject } from "@/data/projects";
 
 function ArchiveDetail({ project, id }: { project: OtherProject; id: string }) {
   return (
-    <div id={id} className="p-archive-detail animate-fade-in-up">
+    <div id={id} className="p-archive-detail">
       <p className="q-small p-archive-mobile">{project.type}</p>
       <ul>
         {project.details.map((detail) => (
@@ -50,7 +51,9 @@ export function ProjectArchive() {
                 </span>
                 <Plus className="p-archive-plus" data-open={isOpen || undefined} aria-hidden="true" />
               </button>
-              {isOpen && <ArchiveDetail project={project} id={detailId} />}
+              <Disclosure open={isOpen}>
+                <ArchiveDetail project={project} id={detailId} />
+              </Disclosure>
             </li>
           );
         })}

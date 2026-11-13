@@ -78,7 +78,7 @@ export function CommandPaletteDialog({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center px-3 pt-[12vh]" role="presentation">
       <div
-        className="absolute inset-0"
+        className="palette-scrim absolute inset-0"
         onMouseDown={onClose}
         style={{ backgroundColor: "color-mix(in srgb, var(--palette-ink) 14%, transparent)", backdropFilter: "blur(8px) saturate(140%)" }}
       />
@@ -88,7 +88,7 @@ export function CommandPaletteDialog({ onClose }: { onClose: () => void }) {
         aria-label="Command palette"
         onKeyDown={onKeyDown}
         className="glass-panel relative w-full max-w-xl overflow-hidden rounded-3xl"
-        style={{ background: "color-mix(in srgb, var(--palette-cream) 94%, transparent)", backdropFilter: "blur(24px) saturate(170%)", WebkitBackdropFilter: "blur(24px) saturate(170%)" }}
+        style={{ background: "color-mix(in srgb, var(--palette-cream) 72%, transparent)", backdropFilter: "blur(28px) saturate(180%)", WebkitBackdropFilter: "blur(28px) saturate(180%)" }}
       >
         <div className="flex items-center gap-3 border-b px-4 py-3.5" style={{ borderColor: "var(--color-border)" }}>
           <Search className="h-4 w-4 flex-shrink-0" style={{ color: "var(--color-text-muted)" }} />
@@ -128,7 +128,10 @@ export function CommandPaletteDialog({ onClose }: { onClose: () => void }) {
                 onMouseMove={() => setActive(i)}
                 onClick={() => run(item)}
                 className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left"
-                style={{ backgroundColor: isActive ? "var(--color-surface)" : "transparent" }}
+                style={{
+                  backgroundColor: isActive ? "rgb(255 255 255 / 0.55)" : "transparent",
+                  boxShadow: isActive ? "inset 0 1px 0 rgb(255 255 255 / 0.9), 0 4px 12px -8px rgb(46 34 24 / 0.35)" : "none",
+                }}
               >
                 <span
                   className="index-num w-7 flex-shrink-0 text-center"

@@ -36,7 +36,7 @@ function project(study) {
     "## Target audience",
     "| Audience | Needs |\n| --- | --- |\n" + doc.audience.map((a) => `| ${a.who} | ${a.needs} |`).join("\n"),
     "## Scope",
-    "### In scope",
+    "### in the scope",
     list(doc.scope.in),
     "### Out of scope",
     list(doc.scope.out),

@@ -7,11 +7,13 @@ import { Search } from "lucide-react";
 import { useCommandPalette } from "@/components/command-palette/CommandPaletteProvider";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { useSlidingIndicator } from "@/hooks/useSlidingIndicator";
 import { primaryRoutes } from "@/lib/navigation";
 
 /** Fixed top bar: wordmark, primary links, search, the mobile menu toggle and a reading progress bar. */
 export function SiteHeader() {
   const pathname = usePathname();
+  const linksRef = useSlidingIndicator<HTMLDivElement>();
   const { open: openPalette } = useCommandPalette();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -48,7 +50,7 @@ export function SiteHeader() {
               Brian Kareithi<i>.</i>
             </Link>
 
-            <div className="q-nav-links">
+            <div ref={linksRef} className="q-nav-links" data-indicator="line">
               {primaryRoutes.map((route) => {
                 const isActive = route.path === pathname;
                 return (

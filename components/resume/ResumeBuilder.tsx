@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Download, Loader2 } from "lucide-react";
 import { ResumeSheet } from "@/components/resume/ResumeSheet";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { useSlidingIndicator } from "@/hooks/useSlidingIndicator";
 import { resumeRoles, type ResumeRole } from "@/data/resume";
 import { downloadBlob } from "@/lib/download";
 
@@ -20,6 +21,7 @@ export function ResumeBuilder() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [status, setStatus] = useState<BuildStatus>("idle");
   const role = resumeRoles[roleIndex];
+  const rolesRef = useSlidingIndicator<HTMLDivElement>();
 
   const handleDownload = async () => {
     setStatus("building");
@@ -35,7 +37,7 @@ export function ResumeBuilder() {
     <div className="r-layout">
       <aside className="r-controls">
         <Eyebrow style={{ marginBottom: "1rem" }}>Choose an angle</Eyebrow>
-        <div role="tablist" aria-label="Resume role" className="r-roles">
+        <div ref={rolesRef} role="tablist" aria-label="Resume role" className="r-roles" data-indicator="soft">
           {resumeRoles.map((r, i) => (
             <button
               key={r.id}

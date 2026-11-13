@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { Section } from "@/components/ui/Section";
+import { useSlidingIndicator } from "@/hooks/useSlidingIndicator";
 import { domains, type SkillDomain } from "@/data/skills";
 
 function DomainPanel({ domain }: { domain: SkillDomain }) {
   return (
-    <div className="animate-fade-in-up">
+    <div className="tab-swap">
       <h3 className="q-h2" style={{ fontSize: "clamp(1.8rem, 1.2rem + 2vw, 2.75rem)" }}>
         {domain.tagline}
       </h3>
@@ -45,11 +46,12 @@ function DomainPanel({ domain }: { domain: SkillDomain }) {
 export function Capabilities() {
   const [activeId, setActiveId] = useState(domains[0].id);
   const active = domains.find((d) => d.id === activeId) ?? domains[0];
+  const tabsRef = useSlidingIndicator<HTMLDivElement>();
 
   return (
     <Section id="capabilities" index="05" label="Capabilities" title={<>What I&apos;m <em>good at</em></>}>
       <div className="w-caps">
-        <div className="w-caps-tabs" role="tablist" aria-label="Skill domains">
+        <div ref={tabsRef} className="w-caps-tabs" data-indicator="soft" role="tablist" aria-label="Skill domains">
           {domains.map((domain) => (
             <button
               key={domain.id}

@@ -5,11 +5,11 @@ import type { NavRoute } from "@/lib/navigation";
 
 function RouteRow({ route }: { route: NavRoute }) {
   return (
-    <Link href={route.path} className="term-row group">
+    <Link href={route.path} className="term-row">
       <span className="term-num">{route.index}</span>
       <span className="term-name">{route.label}</span>
       <span className="term-desc">{route.description}</span>
-      <ArrowRight className="term-arrow h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+      <ArrowRight className="term-arrow h-4 w-4" aria-hidden="true" />
     </Link>
   );
 }

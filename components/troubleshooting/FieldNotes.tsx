@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CircleAlert, Plus } from "lucide-react";
+import { Disclosure } from "@/components/ui/Disclosure";
 import { Section } from "@/components/ui/Section";
 import { fieldNotes, type FieldNote } from "@/data/troubleshooting";
 
@@ -9,7 +10,7 @@ const incidentId = (i: number) => `INC-${String(i + 1).padStart(3, "0")}`;
 
 function FieldNoteDetail({ note, id }: { note: FieldNote; id: string }) {
   return (
-    <dl id={id} className="d-detail animate-fade-in-up">
+    <dl id={id} className="d-detail">
       <div>
         <dt>Problem</dt>
         <dd>{note.summary}</dd>
@@ -50,7 +51,9 @@ export function FieldNotes() {
                 <span className="d-row-domain">{note.domain}</span>
                 <Plus className="d-row-plus" data-open={isOpen || undefined} aria-hidden="true" />
               </button>
-              {isOpen && <FieldNoteDetail note={note} id={detailId} />}
+              <Disclosure open={isOpen}>
+                <FieldNoteDetail note={note} id={detailId} />
+              </Disclosure>
             </li>
           );
         })}

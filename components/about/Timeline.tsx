@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { useSlidingIndicator } from "@/hooks/useSlidingIndicator";
 import {
   timeline,
   timelineCategories,
@@ -76,6 +77,7 @@ function CertificationList({ year, certs }: { year: number; certs: TimelineItem[
 /** Year-by-year career timeline, filterable by category. */
 export function Timeline() {
   const [filter, setFilter] = useState<Filter>("all");
+  const filtersRef = useSlidingIndicator<HTMLDivElement>();
 
   const years = useMemo(
     () => groupByYear(filter === "all" ? timeline : timeline.filter((item) => item.category === filter)),
@@ -88,7 +90,7 @@ export function Timeline() {
         <Eyebrow as="h2" id="chapters-title" index="02">
           Chapters
         </Eyebrow>
-        <div className="a-filters" role="group" aria-label="Filter the timeline">
+        <div ref={filtersRef} className="a-filters" data-indicator="pill" role="group" aria-label="Filter the timeline">
           {filters.map((f) => (
             <button key={f} className="a-tab" aria-pressed={f === filter} onClick={() => setFilter(f)}>
               {f === "all" ? "Everything" : timelineCategories[f].label}
@@ -98,7 +100,7 @@ export function Timeline() {
         </div>
       </aside>
 
-      <ol className="a-line">
+      <ol key={filter} className="a-line tab-swap">
         {years.map(({ year, roles, certs }) => (
           <li key={year} className="a-year">
             <span className="a-dot" aria-hidden="true" />
