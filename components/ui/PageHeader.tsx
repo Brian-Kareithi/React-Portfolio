@@ -17,7 +17,11 @@ export function PageHeader({ index, label, title, description, aside }: PageHead
   return (
     <header className="q-head">
       <span className="q-ghost" aria-hidden="true" style={{ "--chars": label.length } as CSSProperties}>
-        {label}
+        {Array.from(label, (char, i) => (
+          <span key={i} className="q-ghost-char" style={{ "--c": i } as CSSProperties}>
+            {char === " " ? " " : char}
+          </span>
+        ))}
       </span>
       <Eyebrow index={index} className="q-rise" style={rise(0)}>
         {label}

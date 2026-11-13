@@ -68,7 +68,7 @@ function coverTexture(study: CaseStudy) {
     g.fillRect(0, 0, 1440, 900);
 
     const mono = cssFont("--font-jetbrains-mono", "monospace");
-    const serif = cssFont("--font-instrument-serif", "Georgia, serif");
+    const serif = cssFont("--font-display", "Georgia, serif");
     const sans = cssFont("--font-dm-sans", "sans-serif");
 
     g.fillStyle = TAUPE;

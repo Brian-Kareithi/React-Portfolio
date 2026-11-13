@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { LiveStatsSkeleton } from "@/components/homelab/LiveStatsSkeleton";
-import { ServiceCard } from "@/components/homelab/ServiceCard";
+import { ServiceBoard } from "@/components/homelab/ServiceBoard";
 import { MeterCard, ValueCard } from "@/components/homelab/StatCards";
 import { formatBytes, formatUptime, HOMELAB_STATS_ENDPOINT, type HomelabStats } from "@/lib/homelab";
 
@@ -15,7 +15,7 @@ function formatSeen(iso: string) {
     : d.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
 }
 
-/** Polls the homelab every 30 seconds: host meters, uptime and every service grouped as on the Homepage dashboard. */
+/** Polls the homelab every 30 seconds: host gauges, uptime and a board of every service, grouped as on the Homepage dashboard. */
 export function LiveStats({ initial }: { initial?: HomelabStats | null }) {
   const [data, setData] = useState<HomelabStats | null>(initial ?? null);
   const [error, setError] = useState<string | null>(null);
@@ -70,16 +70,7 @@ export function LiveStats({ initial }: { initial?: HomelabStats | null }) {
         <ValueCard label="Uptime" value={formatUptime(system.uptimeSeconds)} detail={`${containers.running}/${containers.total} containers up`} />
       </div>
 
-      {groups.map((group) => (
-        <div key={group.name} className="hs-group">
-          <h3 className="hs-group-title">{group.name}</h3>
-          <div className="hs-services">
-            {group.services.map((service) => (
-              <ServiceCard key={service.name} service={service} />
-            ))}
-          </div>
-        </div>
-      ))}
+      <ServiceBoard groups={groups} />
     </div>
   );
 }

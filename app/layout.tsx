@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { DM_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { BootScreen } from "@/components/layout/BootScreen";
 import { SiteShell } from "@/components/layout/SiteShell";
@@ -8,6 +8,7 @@ import { bootScript } from "@/lib/boot";
 import { ogImageFor, siteConfig } from "@/lib/site";
 import "@/styles/globals.css";
 import "@/styles/sections.css";
+import "@/styles/liquid.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -15,11 +16,14 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
-const instrumentSerif = Instrument_Serif({
+/* Display face for the name and headings: a soft, optically sized serif whose rounded
+   terminals ("SOFT" axis) echo the liquid glass. */
+const display = Fraunces({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: "variable",
   style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
+  axes: ["SOFT", "WONK", "opsz"],
+  variable: "--font-display",
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -115,7 +119,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`scroll-smooth ${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`scroll-smooth ${dmSans.variable} ${display.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>

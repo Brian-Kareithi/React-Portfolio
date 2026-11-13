@@ -12,25 +12,27 @@ export function LiveStatsSkeleton() {
       </div>
       <div className="hs-meters">
         {Array.from({ length: 4 }, (_, i) => (
-          <div key={i} className="hs-card hs-card-sk" style={stagger(i)}>
-            <span className="hs-sk" style={{ width: "40%" }} />
-            <span className="hs-sk hs-sk-lg" style={{ width: "55%" }} />
-            <span className="hs-sk" style={{ width: "75%" }} />
+          <div key={i} className="hs-card hs-card-sk hs-gauge" style={stagger(i)}>
+            <span className="hs-sk hs-ring" />
+            <span className="hs-gauge-text">
+              <span className="hs-sk" style={{ width: "40%" }} />
+              <span className="hs-sk hs-sk-lg" style={{ width: "55%" }} />
+              <span className="hs-sk" style={{ width: "75%" }} />
+            </span>
           </div>
         ))}
       </div>
-      <div className="hs-services">
-        {Array.from({ length: 6 }, (_, i) => (
-          <div key={i} className="hs-card hs-card-sk" style={stagger(i + 4)}>
-            <div className="hs-service-head">
-              <span className="hs-sk hs-sk-icon" />
-              <span className="hs-service-text" style={{ flex: 1 }}>
-                <span className="hs-sk" style={{ width: "60%" }} />
-                <span className="hs-sk" style={{ width: "85%" }} />
-              </span>
-            </div>
-          </div>
-        ))}
+      <div className="sb sb-sk">
+        <div className="sb-list">
+          {Array.from({ length: 7 }, (_, i) => (
+            <span key={i} className="hs-sk" style={{ ...stagger(i + 4), width: `${60 + ((i * 13) % 35)}%`, height: "0.9rem" }} />
+          ))}
+        </div>
+        <div className="sb-detail">
+          <span className="hs-sk hs-sk-lg" style={{ width: "45%" }} />
+          <span className="hs-sk" style={{ width: "80%" }} />
+          <span className="hs-sk" style={{ width: "65%" }} />
+        </div>
       </div>
     </div>
   );

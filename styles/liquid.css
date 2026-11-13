@@ -1,0 +1,345 @@
+/* ───────────────────────── Liquid layer ─────────────────────────
+   Loaded last. Refines the existing liquid-glass design rather than replacing it.
+
+   Palette roles: each colour has one job, so a colour always means the same thing.
+   - Cream  (canvas)    the page the glass sits on.
+   - Ink    (black)     text, and the smoked glass of consoles and active controls.
+   - Umber  (violet)    structure: secondary text, labels, rules.
+   - Taupe  (light)     the light inside the glass: the ambient field, inner caustics.
+   - Berry  (signal)    only what is live, selected or the primary action, plus the
+                        italic accent in headings. Never decoration, never big numbers.
+
+   No gradients anywhere: depth comes from blur, inset light and drop shadows. */
+
+/* The pointer's position over a pane, written by GlassLight.tsx. Registered so a child
+   pane never inherits its parent's highlight. */
+@property --sx { syntax: "<number>"; inherits: false; initial-value: 0; }
+@property --sy { syntax: "<number>"; inherits: false; initial-value: 0; }
+@property --so { syntax: "<number>"; inherits: false; initial-value: 0; }
+
+:root {
+  --role-signal: var(--palette-berry);
+  --role-ink: var(--palette-black);
+  --role-structure: var(--palette-violet);
+  --role-light: var(--palette-taupe);
+
+  /* Heavier glass: more blur and saturation, a thinner fill so the colour field shows through. */
+  --glass-blur: blur(26px) saturate(210%) brightness(1.03);
+  --glass-blur-sm: blur(16px) saturate(200%) brightness(1.02);
+  --glass-fill: rgb(255 255 255 / 0.3);
+  --glass-fill-hover: rgb(255 255 255 / 0.44);
+  --glass-fill-strong: rgb(255 255 255 / 0.56);
+  --glass-fill-soft: rgb(255 255 255 / 0.2);
+  --glass-border: rgb(255 255 255 / 0.72);
+
+  /* The rim reads as thickness: a bright top lip, lit sides, a pale inner glow under the
+     top edge and a warm taupe caustic pooling at the bottom, as light does in real glass. */
+  --glass-rim:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    inset 0 -1px 0 rgb(255 255 255 / 0.4),
+    inset 1px 0 0 rgb(255 255 255 / 0.5),
+    inset -1px 0 0 rgb(255 255 255 / 0.25),
+    inset 0 14px 26px -20px rgb(255 255 255 / 0.95),
+    inset 0 -16px 28px -22px rgb(169 146 125 / 0.45),
+    inset 0 0 0 1px rgb(94 80 63 / 0.05);
+  --glass-drop: 0 1px 2px rgb(46 34 24 / 0.05), 0 22px 44px -26px rgb(46 34 24 / 0.36);
+  --glass-drop-hover: 0 2px 4px rgb(46 34 24 / 0.06), 0 34px 64px -30px rgb(46 34 24 / 0.46);
+
+  /* Fraunces, with its rounded "soft" terminals on everywhere it is used. */
+  font-variation-settings: "SOFT" 100;
+}
+
+.q-dark, .ink-slab, .pc, .h-quote, .term-window, .g-card-ctf, .sb-detail, .gb-tile[aria-pressed="true"] {
+  --glass-rim:
+    inset 0 1px 0 rgb(255 255 255 / 0.2),
+    inset 0 -1px 0 rgb(255 255 255 / 0.06),
+    inset 1px 0 0 rgb(255 255 255 / 0.08),
+    inset 0 14px 26px -20px rgb(255 255 255 / 0.14),
+    inset 0 -16px 28px -22px rgb(169 146 125 / 0.22);
+  --glass-drop: 0 22px 44px -26px rgb(0 0 0 / 0.7);
+  --glass-drop-hover: 0 30px 56px -28px rgb(0 0 0 / 0.8);
+}
+
+/* Every pane builds its shadow here, at its own level, so the specular light uses that
+   pane's pointer position. The light is an inset shadow that slides to the rim nearest
+   the pointer and fades in while the pointer is over the pane. */
+.flat-card, .l-stat, .l-node, .l-builds article, .hs-card, .a-card, .a-cert, .c-card, .c-form, .hh-layer, .g-card-word,
+.s-item, .w-principles li, .t-item, .a-closing-item, .w-caplist > div, .p-facts > div, .w-tools > div, .h-glance-cell,
+.q-head, .hh-copy, .q-case, .h-proof-item, .p-github, .a-now, .w-caps, .gb-tile, .gb-detail, .sb, .q-btn, .q-link {
+  --glass-spec: inset calc(var(--sx) * -18px) calc(var(--sy) * -18px) 28px -18px rgb(255 255 255 / calc(var(--so) * 0.9));
+  --glass-shadow: var(--glass-rim), var(--glass-spec), var(--glass-drop);
+  --glass-shadow-hover: var(--glass-rim), var(--glass-spec), var(--glass-drop-hover);
+  --card-shadow: var(--glass-shadow);
+  --card-shadow-hover: var(--glass-shadow-hover);
+  --surface-shadow: var(--glass-shadow);
+  --surface-shadow-hover: var(--glass-shadow-hover);
+  --glass-btn-shadow: inset 0 1px 0 rgb(255 255 255 / 0.85), inset 0 0 0 1px rgb(255 255 255 / 0.25), var(--glass-spec), 0 1px 2px rgb(46 34 24 / 0.06), 0 6px 16px -10px rgb(46 34 24 / 0.35);
+}
+:is(.q-dark, .ink-slab, .pc, .h-quote) :is(.q-btn, .q-link) {
+  --glass-btn-shadow: inset 0 1px 0 rgb(255 255 255 / 0.16), inset 0 0 0 1px rgb(255 255 255 / 0.05), var(--glass-spec), 0 8px 20px -12px rgb(0 0 0 / 0.6);
+}
+
+/* The colour field the glass refracts: taupe light, a little berry and umber. Solid colour
+   blurred by box-shadow, as before, slightly richer so the panes have more to bend. */
+body::before {
+  box-shadow:
+    84vw 8vh 30vw 14vw rgb(169 146 125 / 0.5),
+    4vw 38vh 26vw 10vw rgb(107 26 46 / 0.16),
+    60vw 60vh 24vw 8vw rgb(94 80 63 / 0.18),
+    94vw 94vh 28vw 10vw rgb(107 26 46 / 0.14),
+    20vw 98vh 26vw 10vw rgb(169 146 125 / 0.36),
+    32vw 0vh 20vw 6vw rgb(169 146 125 / 0.24);
+}
+
+/* Former gradient effects, now flat: the ghost word behind page headers is a pale taupe
+   watermark, and the eyebrow rule is a short, softened taupe line. The watermark fades out
+   top to bottom through an alpha mask, so its colour stays one flat taupe. */
+.q-ghost {
+  color: rgb(169 146 125 / 0.2);
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 15%, transparent 95%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 15%, transparent 95%);
+}
+
+/* Ghost word entrance: each letter rises out of the faded bottom edge in turn, so the mask
+   itself reads as the surface the word surfaces from. */
+.q-ghost-char {
+  display: inline-block;
+  animation: ghost-rise 1.1s var(--ease-out) both;
+  animation-delay: calc(120ms + var(--c, 0) * 45ms);
+}
+@keyframes ghost-rise { from { opacity: 0; transform: translateY(55%); } }
+
+/* Then, where the browser supports scroll-driven animation, the word drifts up and thins out
+   as the header scrolls away — a slow parallax layer behind the faster foreground copy. */
+@supports (animation-timeline: view()) {
+  .q-ghost {
+    animation: ghost-drift linear both;
+    animation-timeline: view();
+    animation-range: exit 0% exit 100%;
+  }
+  @keyframes ghost-drift { to { translate: 0 -40%; opacity: 0; } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .q-ghost, .q-ghost-char { animation: none; }
+}
+.q-eyebrow::after { opacity: 0.55; }
+
+/* ── Type ── */
+
+/* The name: Fraunces at display size, soft and with its "wonky" leaning letterforms on,
+   so it is recognisably a name and not just a heading. */
+.hh-name {
+  font-weight: 400;
+  font-size: clamp(2.75rem, min(1rem + 12vw, 15svh), 9.25rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+}
+.hh-line em { padding-right: 0.04em; }
+.boot-name { font-variation-settings: "SOFT" 100, "WONK" 1; letter-spacing: -0.03em; }
+
+/* Fraunces sets wider than the old serif; pull the biggest sizes in a touch. */
+.q-title { letter-spacing: -0.03em; }
+.q-head .q-title { font-size: clamp(1.95rem, 0.8rem + 3.9vw, 4rem); }
+.q-h2 { letter-spacing: -0.025em; font-size: clamp(1.85rem, 1.1rem + 2.5vw, 3.15rem); }
+.h-quote-text { font-size: clamp(2.3rem, 0.9rem + 5.6vw, 6rem); letter-spacing: -0.03em; }
+.sf-sign-title { font-size: clamp(2.3rem, 1.4rem + 4.4vw, 4.75rem); letter-spacing: -0.03em; }
+.l-quote p { font-size: clamp(2rem, 0.9rem + 4vw, 4.4rem); letter-spacing: -0.03em; }
+.m-link-label { letter-spacing: -0.03em; }
+
+/* Signal discipline: big numbers are ink; berry stays for what is live or chosen. */
+.h-glance-value, .l-stat dd, .hs-value, .s-scores dd, .hh-proof dd, .hh-lab-list dd, .r-highlights dd, .a-year-num {
+  color: var(--role-ink);
+}
+.q-dark :is(.hs-value, .s-scores dd), .sb-detail .hs-value { color: var(--palette-cream); }
+
+/* ── Motion ──
+   One curve everywhere. Panes ease up a hair on hover and press like liquid. */
+@media (hover: hover) and (pointer: fine) {
+  .q-btn:hover, .q-link:hover { transform: translateY(-1px); }
+}
+.q-btn:active, .q-link:active, .gb-tile:active, .sb-row:active { transform: scale(0.97); transition-duration: 0.1s; }
+
+/* ── Homelab: live gauges ── */
+
+.hs-meters { gap: clamp(0.6rem, 0.4rem + 0.8vw, 1rem); }
+.hs-gauge { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.1rem; }
+.hs-ring { flex: none; width: 4.25rem; height: 4.25rem; transform: rotate(-90deg); }
+.hs-ring circle { fill: none; stroke-width: 6; }
+.hs-ring-track { stroke: rgb(94 80 63 / 0.12); }
+.hs-ring-fill { stroke-linecap: round; transition: stroke-dashoffset 0.9s var(--ease-out); animation: ring-in 1.2s var(--ease-out) both; }
+.hs-ring-fill[data-level="ok"] { stroke: var(--palette-violet); }
+.hs-ring-fill[data-level="warm"] { stroke: var(--palette-taupe); }
+.hs-ring-fill[data-level="hot"] { stroke: var(--palette-berry); }
+@keyframes ring-in { from { stroke-dashoffset: 163.4; } }
+.hs-ring-live { display: grid; place-items: center; transform: none; border: 6px solid rgb(94 80 63 / 0.12); border-radius: 9999px; }
+.hs-ring-live .live-dot { width: 0.7rem; height: 0.7rem; }
+.hs-gauge-text { display: grid; gap: 0.2rem; min-width: 0; }
+.hs-gauge .hs-value { font-size: clamp(1.6rem, 1.3rem + 0.9vw, 2.1rem); }
+.hs-card-sk .hs-ring { border-radius: 9999px; transform: none; }
+
+/* ── Homelab: service board ── */
+
+.sb {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  padding: clamp(0.75rem, 0.5rem + 1.2vw, 1.25rem);
+  border: 1px solid var(--glass-border);
+  border-radius: calc(var(--card-radius) + 0.4rem);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+}
+@media (min-width: 960px) { .sb { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: stretch; } }
+.sb-list { display: grid; gap: 1.1rem; align-content: start; padding: 0.35rem 0.25rem; }
+.sb-sk .sb-list { gap: 0.9rem; }
+.sb-sk .hs-sk { animation: hs-pulse 1.6s ease-in-out calc(var(--d, 0) * 90ms) infinite; }
+.sb-summary { font-size: 0.875rem; color: var(--color-text-secondary); }
+.sb-summary strong { font-weight: 600; color: var(--role-ink); }
+.sb-group { display: grid; gap: 0.45rem; }
+.sb-group ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.25rem), 1fr)); gap: 0.3rem; }
+@media (max-width: 420px) { .sb-row { gap: 0.45rem; padding-inline: 0.45rem; font-size: 0.8125rem; } .sb-row .hs-icon { width: 1.25rem; height: 1.25rem; } }
+.sb-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease-out), border-color 0.25s, box-shadow 0.3s var(--ease-out), transform 0.16s var(--ease-out);
+}
+.sb-row .hs-icon { width: 1.5rem; height: 1.5rem; border-radius: 0.35rem; }
+.sb-row-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (hover: hover) and (pointer: fine) { .sb-row:hover { background: var(--glass-fill-soft); border-color: rgb(255 255 255 / 0.5); } }
+.sb-row[aria-pressed="true"] { border-color: var(--glass-border); background: var(--glass-fill-strong); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), 0 6px 16px -10px rgb(46 34 24 / 0.35); font-weight: 600; }
+.sb-row:focus-visible { outline: 2px solid var(--palette-berry); outline-offset: 2px; }
+
+/* The selected service sits in a smoked-glass console beside the list. */
+.sb-detail {
+  --color-text-primary: var(--palette-cream);
+  --color-text-secondary: rgb(242 244 243 / 0.8);
+  --color-text-muted: rgb(242 244 243 / 0.6);
+  --color-surface: rgb(242 244 243 / 0.07);
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  min-height: 15rem;
+  padding: clamp(1.1rem, 0.8rem + 1.4vw, 1.75rem);
+  border: 1px solid rgb(242 244 243 / 0.1);
+  border-radius: calc(var(--card-radius) - 0.1rem);
+  background: var(--glass-ink-panel);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-rim), var(--glass-drop);
+  color: var(--palette-cream);
+}
+.sb-detail-anim, .sb-detail-body { display: grid; gap: 1rem; }
+.sb-detail-anim { animation: settle 0.45s var(--ease-out) both; }
+.sb-detail .hs-icon { width: 2.5rem; height: 2.5rem; }
+.sb-detail-title { font-family: var(--font-display), Georgia, serif; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.05; letter-spacing: -0.02em; }
+.sb-detail-state { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.8125rem; color: rgb(242 244 243 / 0.72); text-transform: capitalize; }
+.sb-detail .q-body { color: rgb(242 244 243 / 0.82); }
+.sb-detail .q-small { color: rgb(242 244 243 / 0.6); }
+.sb-detail .hs-widget { padding: 0.9rem 0.5rem; border-radius: 0.85rem; background: rgb(242 244 243 / 0.06); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08); }
+.sb-detail .hs-widget dd { font-size: 1rem; color: var(--palette-cream); }
+.sb-detail .hs-widget dt { color: rgb(242 244 243 / 0.55); }
+.sb-detail .hs-dot[data-status="healthy"] { background: color-mix(in srgb, var(--palette-berry) 55%, white); }
+.sb-detail .hs-dot[data-status="running"] { background: var(--palette-taupe); }
+.sb-guide { display: grid; gap: 1.1rem; margin-top: 0.35rem; padding-top: 1.25rem; border-top: 1px solid rgb(242 244 243 / 0.12); }
+.sb-guide p { font-size: 0.9375rem; line-height: 1.6; color: rgb(242 244 243 / 0.82); text-wrap: pretty; }
+.sb-guide-label { margin-bottom: 0.4rem; font: 500 0.625rem/1 var(--font-jetbrains-mono), monospace; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(242 244 243 / 0.5); }
+.sb-guide-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.sb-guide-tags li { padding: 0.3rem 0.7rem; border-radius: 9999px; font-size: 0.75rem; color: rgb(242 244 243 / 0.8); background: rgb(242 244 243 / 0.07); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), inset 0 0 0 1px rgb(255 255 255 / 0.05); }
+.sb-sk .sb-detail .hs-sk { background: rgb(242 244 243 / 0.12); }
+
+/* ── Homelab: the gear bench ── */
+
+.g-filters { margin-bottom: 1.25rem; }
+.gb { display: grid; gap: 1rem; }
+@media (min-width: 960px) { .gb { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; } }
+
+.gb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 0.6rem; }
+/* Phones and tablets: the bench becomes one swipeable row, so the detail pane stays close. */
+@media (max-width: 959px) {
+  .gb-grid { display: flex; gap: 0.6rem; margin: -0.5rem calc(-1 * var(--gutter)); padding: 0.5rem var(--gutter) 1rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+  .gb-grid::-webkit-scrollbar { display: none; }
+  .gb-grid > li { flex: 0 0 min(11.5rem, 62vw); scroll-snap-align: start; }
+}
+.gb-grid.tab-swap > li { animation: rise 0.5s var(--ease-glass) both; animation-delay: calc(var(--n, 0) * 35ms); }
+
+.gb-tile {
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  width: 100%;
+  height: 100%;
+  min-height: 6.25rem;
+  padding: 0.85rem 0.95rem 0.95rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--card-radius);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-blur-sm);
+  backdrop-filter: var(--glass-blur-sm);
+  box-shadow: var(--glass-shadow);
+  color: var(--color-text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease-out), border-color 0.3s, box-shadow 0.35s var(--ease-out), color 0.25s, transform 0.16s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .gb-tile:not([aria-pressed="true"]):hover { background: var(--glass-fill-hover); box-shadow: var(--glass-shadow-hover); } }
+.gb-tile[aria-pressed="true"] { border-color: rgb(242 244 243 / 0.12); background: var(--glass-ink-panel); color: var(--palette-cream); box-shadow: var(--glass-shadow); }
+.gb-tile:focus-visible { outline: 2px solid var(--palette-berry); outline-offset: 3px; }
+.gb-tile-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.gb-host { font: 500 0.6875rem/1 var(--font-jetbrains-mono), ui-monospace, monospace; letter-spacing: 0.02em; color: var(--color-text-muted); }
+.gb-tile[aria-pressed="true"] .gb-host { color: rgb(242 244 243 / 0.62); }
+.gb-led { width: 0.45rem; height: 0.45rem; flex: none; border-radius: 9999px; background: rgb(94 80 63 / 0.22); transition: background-color 0.25s, box-shadow 0.25s; }
+.gb-tile[aria-pressed="true"] .gb-led { background: color-mix(in srgb, var(--palette-berry) 55%, white); box-shadow: 0 0 0 3px rgb(107 26 46 / 0.45); }
+.gb-model { font-size: 0.9375rem; font-weight: 600; line-height: 1.25; }
+.gb-skill { margin-top: auto; font-size: 0.75rem; color: var(--color-text-muted); }
+.gb-tile[aria-pressed="true"] .gb-skill { color: rgb(242 244 243 / 0.62); }
+
+.gb-detail {
+  position: relative;
+  min-height: 18rem;
+  padding: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
+  border: 1px solid var(--glass-border);
+  border-radius: calc(var(--card-radius) + 0.4rem);
+  background: var(--glass-fill-strong);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  scroll-margin-top: 6rem;
+}
+@media (min-width: 960px) { .gb-detail { position: sticky; top: 6rem; } }
+.gb-detail-body { display: grid; gap: 0.9rem; animation: settle 0.45s var(--ease-out) both; }
+.gb-detail-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.75rem; font-size: 0.75rem; color: var(--color-text-muted); }
+.gb-detail-kicker .gb-host { padding: 0.25rem 0.5rem; border-radius: 0.4rem; background: var(--palette-black); color: var(--palette-cream); }
+.gb-detail-title { font-family: var(--font-display), Georgia, serif; font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.6rem); font-weight: 400; line-height: 1.02; letter-spacing: -0.03em; color: var(--role-ink); text-wrap: balance; }
+.gb-detail-role { font-size: 0.8125rem; color: var(--color-text-muted); }
+.gb-detail-role strong { margin-left: 0.35rem; font-weight: 600; color: var(--palette-berry); }
+.gb-specs { display: flex; flex-wrap: wrap; gap: 0.4rem; padding-top: 0.9rem; border-top: 1px solid var(--hairline); }
+.gb-specs li { padding: 0.3rem 0.65rem; border: 1px solid rgb(94 80 63 / 0.14); border-radius: 0.55rem; background: var(--glass-fill); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.85); font: 0.75rem/1.4 var(--font-jetbrains-mono), ui-monospace, monospace; color: var(--palette-violet); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hs-ring-fill, .sb-detail-anim, .gb-detail-body, .gb-grid.tab-swap > li { animation: none; transition: none; }
+  .q-btn:hover, .q-link:hover, .q-btn:active, .q-link:active, .gb-tile:active, .sb-row:active { transform: none; }
+  .sb-row, .gb-tile { transition: none; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .sb, .gb-tile, .gb-detail { background: #faf9f7; }
+  .sb-detail, .gb-tile[aria-pressed="true"] { background: var(--palette-black); }
+}
+@media print {
+  .sb, .gb-tile, .gb-detail, .sb-detail { box-shadow: none !important; background: transparent !important; color: var(--palette-black) !important; }
+}

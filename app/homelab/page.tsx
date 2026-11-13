@@ -36,13 +36,15 @@ export default async function HomelabPage() {
           description="Where I started and where I still learn. I broke plenty before it stayed up, and that is how I learned to keep services running."
         />
 
-        <TerminalWindow title="homelab.map" className="l-map">
-          <div className="l-map-body">
-            <NetworkMap devices={devicesFromStats(initialStats)} />
-          </div>
-        </TerminalWindow>
+        <div className="l-overview">
+          <TerminalWindow title="homelab.map" className="l-map">
+            <div className="l-map-body">
+              <NetworkMap devices={devicesFromStats(initialStats)} />
+            </div>
+          </TerminalWindow>
 
-        <LabStatus />
+          <LabStatus />
+        </div>
 
         <Section id="live" index="01" label="Live" title={<>What&apos;s running <em>right now</em></>}>
           <LiveStats initial={initialStats} />

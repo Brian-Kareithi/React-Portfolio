@@ -4,6 +4,7 @@ import { ViewTransition, type ReactNode } from "react";
 import { CommandPaletteProvider } from "@/components/command-palette/CommandPaletteProvider";
 import { ConsoleGreeting } from "@/components/effects/ConsoleGreeting";
 import { CursorGlow } from "@/components/effects/CursorGlow";
+import { GlassLight } from "@/components/effects/GlassLight";
 import { HeadingReveal } from "@/components/effects/HeadingReveal";
 import { MagneticButtons } from "@/components/effects/MagneticButtons";
 import { SmoothScroll } from "@/components/effects/SmoothScroll";
@@ -22,6 +23,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <HeadingReveal />
         <MagneticButtons />
         <CursorGlow />
+        <GlassLight />
         <ConsoleGreeting />
         <SiteHeader />
         <ScrollIndicator />

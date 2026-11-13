@@ -13,7 +13,7 @@ import { primaryRoutes } from "@/lib/navigation";
 /** Fixed top bar: wordmark, primary links, search, the mobile menu toggle and a reading progress bar. */
 export function SiteHeader() {
   const pathname = usePathname();
-  const linksRef = useSlidingIndicator<HTMLDivElement>();
+  const linksRef = useSlidingIndicator<HTMLDivElement>({ followHover: true });
   const { open: openPalette } = useCommandPalette();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -50,7 +50,7 @@ export function SiteHeader() {
               Brian Kareithi<i>.</i>
             </Link>
 
-            <div ref={linksRef} className="q-nav-links" data-indicator="line">
+            <div ref={linksRef} className="q-nav-links" data-indicator="glass">
               {primaryRoutes.map((route) => {
                 const isActive = route.path === pathname;
                 return (
