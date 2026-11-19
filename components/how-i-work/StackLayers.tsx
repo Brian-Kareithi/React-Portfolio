@@ -5,7 +5,7 @@ import { architecture } from "@/data/skills";
 /** The stack from interface to delivery, each layer shaded a little deeper than the last. */
 export function StackLayers() {
   return (
-    <Section id="layers" index="03" label="Stack by layer" title={<>From the screen <em>to the server</em></>}>
+    <Section id="layers" title={<>From the screen <em>to the server</em></>}>
       <ol className="w-strata">
         {architecture.map(({ title, icon: Icon, stack, desc }, i) => (
           <li key={title} style={{ "--depth": i / (architecture.length - 1) } as CSSProperties}>

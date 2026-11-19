@@ -4,7 +4,7 @@ import { auditScores, standards } from "@/data/standards";
 /** The accessibility, performance, security and reach standards this site is built to. */
 export function BuiltToStandard() {
   return (
-    <Section id="standards" index="04" label="Standards" title={<>Built to a <em>clear standard</em></>}>
+    <Section id="standards" title={<>Built to a <em>clear standard</em></>}>
       {auditScores.length > 0 && (
         <dl className="s-scores">
           {auditScores.map((s) => (

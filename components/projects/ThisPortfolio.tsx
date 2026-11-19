@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site";
 export function ThisPortfolio() {
   return (
     <section className="q-section p-self">
-      <SectionHeading index="★" label="This portfolio" title={<>You&apos;re <em>looking at it</em></>} />
+      <SectionHeading title={<>You&apos;re <em>looking at it</em></>} />
       <div className="p-self-grid">
         <p className="q-body" style={{ maxWidth: "34rem" }}>
           Next.js 16, TypeScript and Tailwind CSS v4, with per-route metadata and structured data. Scroll physics from Lenis and GSAP, a 3D homelab in

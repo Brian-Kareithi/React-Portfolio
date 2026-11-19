@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { caseStudies, type CaseStudy } from "@/data/projects";
@@ -31,7 +30,6 @@ function FeaturedItem({ study, position }: { study: CaseStudy; position: number 
         />
       </Link>
       <div className="h-proof-copy">
-        <Eyebrow index={`0${position + 1}`}>{study.status}</Eyebrow>
         <h3 className="q-h2">{study.title}</h3>
         <p className="q-body">{study.tagline}</p>
         <p className="q-mono q-small">{study.stack.slice(0, 4).join(" · ")}</p>
@@ -57,7 +55,7 @@ export function FeaturedWork() {
     <section id="proof" aria-labelledby="proof-title" className="h-proof">
       <div className="q-wrap">
         <Reveal>
-          <SectionHeading index="01" label="Featured" title={<>Built for <em>real shops</em></>} titleId="proof-title" bodyClassName="h-proof-head">
+          <SectionHeading title={<>Built for <em>real shops</em></>} titleId="proof-title" bodyClassName="h-proof-head">
             <Link href="/projects" className="q-link">
               All projects <ArrowUpRight aria-hidden="true" />
             </Link>

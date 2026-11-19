@@ -21,7 +21,7 @@ My first portfolio proved clean UI. This one shows range: real-time 3D and scrol
 
 ## Scope
 
-### In scope
+### in the scope
 
 - Scroll-choreographed Three.js scene
 - Light and dark themes across scene and content

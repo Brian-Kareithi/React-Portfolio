@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useMemo, useRef, useState, type KeyboardEvent } from "react";
-import { Grid3x3 } from "lucide-react";
 import { WordleGrid } from "@/components/games/wordle/WordleGrid";
 import { WordleGuide } from "@/components/games/wordle/WordleGuide";
 import { WordleKeyboard } from "@/components/games/wordle/WordleKeyboard";
@@ -117,10 +116,6 @@ function WordleBoard({ session }: { session: WordleSession }) {
         >
           <div className="mb-4 flex items-end justify-between gap-3">
             <div>
-              <p className="field-label mb-1.5 flex items-center gap-2">
-                <Grid3x3 className="h-3.5 w-3.5" style={{ color: "var(--color-accent)" }} aria-hidden="true" />
-                Game 02
-              </p>
               <h2 id="wordle-title" className="display-xl text-2xl sm:text-3xl" style={{ color: "var(--color-text-primary)" }}>
                 Guess the <span className="font-serif-accent">button</span>
               </h2>

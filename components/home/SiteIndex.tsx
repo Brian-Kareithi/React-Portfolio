@@ -1,10 +1,9 @@
 import { Command } from "lucide-react";
 import { CommandPaletteButton } from "@/components/command-palette/CommandPaletteButton";
 import { RouteList } from "@/components/ui/RouteList";
-import { TerminalWindow } from "@/components/ui/TerminalWindow";
 import { pageRoutes } from "@/lib/navigation";
 
-/** "Where to next": every page as a terminal listing, plus a shortcut into the command palette. */
+/** "Where to next": every page as one glass list, plus a shortcut into the command palette. */
 export function SiteIndex() {
   return (
     <section aria-labelledby="index-title" className="h-index">
@@ -18,12 +17,9 @@ export function SiteIndex() {
           </CommandPaletteButton>
         </div>
 
-        <TerminalWindow title="~/kareithi.sys">
-          <p className="term-prompt" aria-hidden="true">
-            <b>$</b> ls ./site
-          </p>
+        <div className="h-index-panel">
           <RouteList routes={pageRoutes} reveal />
-        </TerminalWindow>
+        </div>
       </div>
     </section>
   );

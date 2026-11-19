@@ -16,7 +16,6 @@ export default function ResumePage() {
     <div id="resume" className="q-page">
       <div className="q-wrap">
         <PageHeader
-          index="07"
           label="Resume"
           title={<>One background, <em>told</em> for the role</>}
           description="Full-stack first. Pick the angle that fits, preview it here, and download it as a PDF."
@@ -25,7 +24,6 @@ export default function ResumePage() {
         <ResumeBuilder />
 
         <NextSection
-          title="The full picture"
           links={[
             { href: "/projects", label: "Selected work", description: "Full case studies." },
             { href: "/about", label: "About", description: "Journey, education and certifications." },

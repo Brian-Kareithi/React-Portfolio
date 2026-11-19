@@ -9,7 +9,6 @@ import { Topology } from "@/components/homelab/Topology";
 import { NextSection } from "@/components/ui/NextSection";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Section } from "@/components/ui/Section";
-import { TerminalWindow } from "@/components/ui/TerminalWindow";
 import { devicesFromStats } from "@/lib/homelab";
 import { getHomelabStats } from "@/lib/homelab-server";
 import { pageMeta } from "@/lib/site";
@@ -30,23 +29,22 @@ export default async function HomelabPage() {
     <div id="homelab" className="q-page">
       <div className="q-wrap">
         <PageHeader
-          index="05"
           label="Homelab"
           title={<>The lab that <em>never sleeps</em></>}
           description="Where I started and where I still learn. I broke plenty before it stayed up, and that is how I learned to keep services running."
         />
 
         <div className="l-overview">
-          <TerminalWindow title="homelab.map" className="l-map">
+          <div className="l-map ink-slab">
             <div className="l-map-body">
               <NetworkMap devices={devicesFromStats(initialStats)} />
             </div>
-          </TerminalWindow>
+          </div>
 
           <LabStatus />
         </div>
 
-        <Section id="live" index="01" label="Live" title={<>What&apos;s running <em>right now</em></>}>
+        <Section id="live" title={<>What&apos;s running <em>right now</em></>}>
           <LiveStats initial={initialStats} />
         </Section>
 
@@ -60,12 +58,11 @@ export default async function HomelabPage() {
           </p>
         </blockquote>
 
-        <Section id="friday" index="05" label="Off the clock" title={<>Is it <em>Friday</em> yet?</>}>
+        <Section id="friday" title={<>Is it <em>Friday</em> yet?</>}>
           <FridaySurprise />
         </Section>
 
         <NextSection
-          title="From the lab to the work"
           links={[
             { href: "/troubleshooting", label: "Diagnostics", description: "Root-cause work from real failures." },
             { href: "/how-i-work", label: "How I work", description: "The principles behind the lab and the products." },

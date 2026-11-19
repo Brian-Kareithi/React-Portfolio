@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 
 interface NextLink {
   href: string;
@@ -9,13 +8,12 @@ interface NextLink {
 }
 
 /** End-of-page navigation: one large lead link and a short list of alternatives. */
-export function NextSection({ title = "Keep exploring", links }: { title?: string; links: NextLink[] }) {
+export function NextSection({ links }: { links: NextLink[] }) {
   const [main, ...rest] = links;
   return (
     <nav aria-label="Continue" className="q-next">
       <div className="q-next-grid">
         <Link href={main.href} className="q-next-main">
-          <Eyebrow style={{ marginBottom: "1.25rem" }}>{title}</Eyebrow>
           <span className="q-title">
             {main.label}
             <ArrowRight aria-hidden="true" />

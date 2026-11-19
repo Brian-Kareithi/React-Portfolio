@@ -184,6 +184,7 @@ export function ProjectCarousel() {
         className="pc-stage"
         data-dragging={pull !== 0 || undefined}
         tabIndex={showroom ? 0 : undefined}
+        role={showroom ? "group" : undefined}
         aria-label={showroom ? "Project showroom. Use the left and right arrow keys to browse." : undefined}
         onPointerDown={onDown}
         onPointerMove={onMove}

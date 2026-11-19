@@ -87,7 +87,7 @@ export function Timeline() {
   return (
     <section aria-labelledby="chapters-title" className="a-chapters">
       <aside className="a-rail">
-        <Eyebrow as="h2" id="chapters-title" index="02">
+        <Eyebrow as="h2" id="chapters-title">
           Chapters
         </Eyebrow>
         <div ref={filtersRef} className="a-filters" data-indicator="pill" role="group" aria-label="Filter the timeline">

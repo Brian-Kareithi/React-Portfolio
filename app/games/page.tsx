@@ -18,7 +18,6 @@ export default function GamesPage() {
     <div id="games" className="q-page">
       <div className="q-wrap">
         <PageHeader
-          index="08"
           label="Minigames"
           title={<>Play a <em>little</em></>}
           description="A sandbox. Nothing here touches anything real. It is where the security habits get exercised for fun."
@@ -36,7 +35,6 @@ export default function GamesPage() {
         </p>
 
         <NextSection
-          title="Liked that?"
           links={[
             { href: "/troubleshooting", label: "Diagnostics", description: "How I find the real fault." },
             { href: "/homelab", label: "Homelab", description: "The lab that never sleeps." },

@@ -23,7 +23,7 @@ Road authorities need to track licences, offences and demerit points without pap
 
 ## Scope
 
-### In scope
+### in the scope
 
 - Role-based access for four user types
 - Digital licence with QR verification

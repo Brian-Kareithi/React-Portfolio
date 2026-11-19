@@ -26,6 +26,8 @@ export function HeadingReveal() {
             type: "lines",
             mask: "lines",
             autoSplit: true,
+            // aria-label is only valid on headings; split paragraphs keep their text readable as is.
+            aria: /^H[1-6]$/.test(el.tagName) ? "auto" : "none",
             onSplit: (self) =>
               gsap.from(self.lines, {
                 yPercent: 110,

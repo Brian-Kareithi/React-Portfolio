@@ -21,7 +21,7 @@ Portfolios all look the same. I wanted one that reads like a bound volume, where
 
 ## Scope
 
-### In scope
+### in the scope
 
 - Page turning by drag, swipe and keyboard
 - Index of leaves with reading progress

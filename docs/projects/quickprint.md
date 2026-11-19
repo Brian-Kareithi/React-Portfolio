@@ -22,7 +22,7 @@ Cyber cafés and print shops run on WhatsApp attachments, flash drives and a sho
 
 ## Scope
 
-### In scope
+### in the scope
 
 - Shop-branded customer portal opened by QR code
 - Live print queue and searchable orders

@@ -12,12 +12,6 @@ import { email, github, linkedin } from "@/data/socials";
 import { externalLinkProps } from "@/lib/links";
 import { FINE_POINTER_WITH_MOTION, matches } from "@/lib/media";
 
-const proof = [
-  { value: "50+", label: "client projects shipped" },
-  { value: "2", label: "systems live at a school" },
-  { value: "19", label: "devices in my homelab" },
-];
-
 const socials = [github, linkedin, email];
 
 const LENS_MARGIN = 40;
@@ -105,15 +99,6 @@ export function Hero() {
           <p className="q-lede hh-rise" style={{ ...delay("0.95s"), marginTop: "2rem" }}>
             Full-stack developer. I ship web and mobile products, then run the infrastructure underneath them, with a security background.
           </p>
-
-          <dl className="hh-proof hh-rise" style={delay("1s")}>
-            {proof.map((p) => (
-              <div key={p.label}>
-                <dd>{p.value}</dd>
-                <dt>{p.label}</dt>
-              </div>
-            ))}
-          </dl>
 
           <div className="hh-actions hh-rise" style={delay("1.1s")}>
             <Link href="/projects" className="q-btn" data-solid>

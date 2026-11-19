@@ -1,4 +1,9 @@
+import { caseStudies } from "@/data/projects";
 import { siteConfig } from "@/lib/site";
+
+const selectedWork = caseStudies
+  .map((s) => `- ${s.title} (${s.status}): ${s.tagline}. ${s.stack.slice(0, 5).join(", ")}. ${siteConfig.url}/projects#${s.id}`)
+  .join("\n");
 
 export const profileText = `# Brian Kareithi: llms.txt
 > Full-stack developer trained in IT and security (Nairobi, Kenya)
@@ -6,7 +11,7 @@ export const profileText = `# Brian Kareithi: llms.txt
 ## About
 Brian is a full-stack developer who started in IT support and security, which is why he builds software with the network, servers and users in mind. His main work is full-stack web and mobile development; IT and security come with the territory. He builds secure, cloud-native products across three areas:
 software engineering (React, Next.js, TypeScript, Node.js), mobile
-development (React Native, Expo), and IT & infrastructure (Linux,
+development (React Native, Expo, native Android with Kotlin and Jetpack Compose), and IT & infrastructure (Linux,
 networking, system administration). He works in IT support and frontend
 development at Steadfast Academy, holds six certifications (Azure
 Fundamentals, CompTIA Security+, AWS Cloud Practitioner, Google
@@ -24,7 +29,10 @@ delivered 50+ projects.
 - BSc Information Technology, Umma University (cybersecurity focus)
 - 3 years in tech, 50+ projects delivered
 - 19-device homelab: 24/7 Proxmox, RAID-1, ESP32 automation
-- Recent focus: React Native (Expo), Next.js, secure cloud architecture
+- Recent focus: school management systems (web portals and a native Android admin app), React Native (Expo), Next.js, secure cloud architecture
+
+## Selected work
+${selectedWork}
 
 ## Pages
 - [Home](${siteConfig.url}/): Overview, roles and quick links

@@ -49,7 +49,7 @@ export function Capabilities() {
   const tabsRef = useSlidingIndicator<HTMLDivElement>();
 
   return (
-    <Section id="capabilities" index="05" label="Capabilities" title={<>What I&apos;m <em>good at</em></>}>
+    <Section id="capabilities" title={<>What I&apos;m <em>good at</em></>}>
       <div className="w-caps">
         <div ref={tabsRef} className="w-caps-tabs" data-indicator="soft" role="tablist" aria-label="Skill domains">
           {domains.map((domain) => (

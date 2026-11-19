@@ -81,6 +81,7 @@ export function CtfTerminal({ lines, cwd, input, onInputChange, onSubmit, onKeyD
           </label>
           <input
             id="ctf-input"
+            aria-label="Terminal command"
             ref={inputRef}
             value={input}
             onChange={(e) => onInputChange(e.target.value)}

@@ -8,7 +8,7 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" aria-label="Testimonials" className="q-section scroll-mt-24">
-      <SectionHeading index="●" label="References" title="What people I've worked with say" />
+      <SectionHeading title="What people I've worked with say" />
       <div className="t-grid">
         {testimonials.map((t) => (
           <figure key={t.name} className="t-item">

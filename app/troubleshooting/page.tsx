@@ -20,7 +20,6 @@ export default function TroubleshootingPage() {
     <div id="troubleshooting" className="q-page">
       <div className="q-wrap">
         <PageHeader
-          index="06"
           label="Diagnostics"
           title={<>Finding the <em>real fault</em></>}
           description="I follow the evidence to the root cause across software, hardware and networks, then write it down so it stays fixed."
@@ -29,7 +28,7 @@ export default function TroubleshootingPage() {
         <MethodSteps />
         <FieldNotes />
 
-        <Section id="debug" index="03" label="Your turn" title={<>Debug it <em>yourself</em></>}>
+        <Section id="debug" title={<>Debug it <em>yourself</em></>}>
           <div className="d-frame">
             <DebugGame />
           </div>
@@ -38,7 +37,6 @@ export default function TroubleshootingPage() {
         <DiagnosticKit />
 
         <NextSection
-          title="The method in use"
           links={[
             { href: "/homelab", label: "Homelab", description: "A live lab where the method is tested." },
             { href: "/how-i-work", label: "How I work", description: "How I build and ship." },

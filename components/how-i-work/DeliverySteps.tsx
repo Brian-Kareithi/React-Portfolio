@@ -6,7 +6,7 @@ export function DeliverySteps() {
   return (
     <section aria-labelledby="delivery-title" className="w-delivery q-dark">
       <div className="q-wrap">
-        <SectionHeading index="●" label="Delivery" title={<>From idea <em>to production</em></>} titleId="delivery-title" style={{ marginBottom: "3.5rem" }} />
+        <SectionHeading title={<>From idea <em>to production</em></>} titleId="delivery-title" style={{ marginBottom: "3.5rem" }} />
         <ol className="w-steps">
           {workflow.map((step) => (
             <li key={step.step}>

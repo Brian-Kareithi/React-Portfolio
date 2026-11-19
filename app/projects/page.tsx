@@ -14,8 +14,7 @@ import { currentProject } from "@/data/current-project";
 import { caseStudies } from "@/data/projects";
 import { pageMeta, siteConfig } from "@/lib/site";
 
-const description =
-  "Seven shipped projects, from road-safety and real-estate platforms to a school portal, with the problem, architecture and live demos.";
+const description = `${caseStudies.length} case studies, from school portals and native Android apps to point of sale and road safety, each with the problem, architecture and my part.`;
 
 export const metadata: Metadata = pageMeta({
   title: "Selected Work: Web and Mobile Projects",
@@ -38,12 +37,15 @@ const jsonLd = {
       "@type": "ListItem",
       position: i + 1,
       item: {
-        "@type": "CreativeWork",
+        "@type": "SoftwareApplication",
         name: study.title,
         description: study.tagline,
+        abstract: study.problem,
         creator: { "@id": `${siteConfig.url}/#person` },
         keywords: study.stack.join(", "),
-        ...(study.access.demo ? { url: study.access.demo } : {}),
+        applicationCategory: study.stack.includes("Kotlin") ? "MobileApplication" : "WebApplication",
+        operatingSystem: study.stack.includes("Kotlin") ? "Android" : "Web",
+        url: study.access.demo ?? `${siteConfig.url}/projects#${study.id}`,
         ...(study.access.repo ? { codeRepository: study.access.repo } : {}),
       },
     })),
@@ -60,10 +62,9 @@ export default function ProjectsPage() {
       <CaseStudySelectionProvider>
         <div className="q-wrap">
           <PageHeader
-            index="03"
             label="Selected work"
             title={<>Built to be <em>used</em></>}
-            description="Seven projects, each told as the problem, what I built, my part in it, and the design behind it. Smaller builds sit in the archive."
+            description={`${caseStudies.length} projects, each told as the problem, what I built, my part in it, and the design behind it. Smaller builds sit in the archive.`}
             aside={
               <dl className="p-stats">
                 <div>
@@ -71,7 +72,7 @@ export default function ProjectsPage() {
                   <dd>{caseStudies.length}</dd>
                 </div>
                 <div>
-                  <dt>Live right now</dt>
+                  <dt>Live demos</dt>
                   <dd>{liveCount}</dd>
                 </div>
               </dl>
@@ -92,7 +93,6 @@ export default function ProjectsPage() {
           <GithubStats />
 
           <NextSection
-            title="Next"
             links={[
               { href: "/how-i-work", label: "How I work", description: "The process behind these builds." },
               { href: "/homelab", label: "Homelab", description: "The infrastructure under them." },

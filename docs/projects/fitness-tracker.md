@@ -20,7 +20,7 @@ Fitness apps buried the two things I track, sleep and diet. So I built a Kotlin 
 
 ## Scope
 
-### In scope
+### in the scope
 
 - Sleep logging
 - Meal and nutrition logging

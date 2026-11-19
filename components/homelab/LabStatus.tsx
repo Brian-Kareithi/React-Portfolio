@@ -9,9 +9,9 @@ export function LabStatus() {
       <dl className="l-stats">
         {labStats.map((stat) => (
           <div key={stat.label} className="l-stat">
-            <dd>{stat.value}</dd>
             <dt>{stat.label}</dt>
-            <p>{stat.note}</p>
+            <dd>{stat.value}</dd>
+            <dd className="l-stat-note">{stat.note}</dd>
           </div>
         ))}
       </dl>

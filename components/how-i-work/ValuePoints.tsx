@@ -6,7 +6,7 @@ import { valuePoints } from "@/data/value-points";
 
 export function ValuePoints() {
   return (
-    <Section id="reasons" index="01" label="Why it holds up" title={<>Five things I <em>bring</em></>}>
+    <Section id="reasons" title={<>Five things I <em>bring</em></>}>
       <ol className="w-reasons">
         {valuePoints.map((point, i) => (
           <li key={point.id}>

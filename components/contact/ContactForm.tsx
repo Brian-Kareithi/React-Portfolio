@@ -124,8 +124,8 @@ export function ContactForm() {
         </div>
       </form>
 
-      <Toast open={toastOpen} onClose={closeToast}>
-        Message sent. Thank you.
+      <Toast open={toastOpen} onClose={closeToast} title="Message sent">
+        Thank you. I read every message myself and reply within a day.
       </Toast>
     </>
   );

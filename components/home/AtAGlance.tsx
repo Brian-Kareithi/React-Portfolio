@@ -2,19 +2,19 @@ import { Reveal } from "@/components/ui/Reveal";
 
 const facts = [
   { value: "50+", label: "Client projects shipped", note: "Freelance, 2022 to 2024" },
-  { value: "6", label: "Certifications", note: "Security, cloud and networking" },
+  { value: "∞", label: "Certifications", note: "So many I can't count" },
   { value: "19", label: "Devices in my homelab", note: "Proxmox, RAID-1, always on" },
-  { value: "2", label: "Systems live at a school", note: "Teacher and parent portals" },
+  { value: "5", label: "Systems live at a school", note: "Teacher, parent, library and HR portals, plus an admin app" },
 ];
 
 export function AtAGlance() {
   return (
     <section aria-label="At a glance" className="h-glance">
       <div className="q-wrap">
-        <dl className="h-glance-grid">
+        <div className="h-glance-grid">
           {facts.map((fact, i) => (
             <Reveal key={fact.label} index={i}>
-              <div className="h-glance-cell">
+              <dl className="h-glance-cell">
                 <dt className="q-eyebrow" style={{ marginBottom: "1.1rem" }}>
                   {fact.label}
                 </dt>
@@ -24,10 +24,10 @@ export function AtAGlance() {
                     {fact.note}
                   </span>
                 </dd>
-              </div>
+              </dl>
             </Reveal>
           ))}
-        </dl>
+        </div>
       </div>
     </section>
   );

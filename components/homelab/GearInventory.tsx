@@ -37,7 +37,7 @@ export function GearInventory() {
   const selected = visible.find((e) => e.key === selectedKey) ?? visible[0];
 
   return (
-    <Section id="gear" index="03" label="Equipment" title={<>The gear that <em>runs it</em></>}>
+    <Section id="gear" title={<>The gear that <em>runs it</em></>}>
       <div ref={tabsRef} className="a-filters g-filters" data-indicator="pill" role="group" aria-label="Filter equipment">
         {tabs.map((tab) => (
           <button key={tab.title} type="button" onClick={() => setCategory(tab.title)} aria-pressed={category === tab.title} className="a-tab">

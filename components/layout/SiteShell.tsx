@@ -25,9 +25,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <CursorGlow />
         <GlassLight />
         <ConsoleGreeting />
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <SiteHeader />
         <ScrollIndicator />
-        <main className="relative flex-1">
+        <main id="main" tabIndex={-1} className="relative flex-1 outline-none">
           <Breadcrumbs />
           <ViewTransition default="page">{children}</ViewTransition>
         </main>

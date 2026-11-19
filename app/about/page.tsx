@@ -44,7 +44,6 @@ export default function AboutPage() {
       <JsonLd data={jsonLd} />
       <div className="q-wrap">
         <PageHeader
-          index="01"
           label="Journey"
           title={<>How I <em>got here</em></>}
           description="From a science classroom to government security, fifty-plus client projects, a startup and live systems at a school."
@@ -63,7 +62,6 @@ export default function AboutPage() {
         <Testimonials />
 
         <NextSection
-          title="Next"
           links={[
             { href: "/how-i-work", label: "How I work", description: "How I take an idea to production." },
             { href: "/projects", label: "Selected work", description: "What I shipped and who uses it." },

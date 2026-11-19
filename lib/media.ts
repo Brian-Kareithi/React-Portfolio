@@ -12,6 +12,9 @@ export function canRender3D() {
   const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
   if (nav.connection?.saveData) return false;
   if ((nav.deviceMemory ?? 8) < 3 || (nav.hardwareConcurrency ?? 8) < 4) return false;
+  // Phones get the flat versions: a WebGL scene costs seconds of main-thread time on a mid-range
+  // phone and adds little on a small screen.
+  if (matches("(max-width: 767px)")) return false;
   try {
     const canvas = document.createElement("canvas");
     return Boolean(canvas.getContext("webgl2") ?? canvas.getContext("webgl"));

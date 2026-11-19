@@ -9,7 +9,7 @@ const description =
   "Contact Brian Kareithi in Nairobi, Kenya about a project, a collaboration, his work, or anything else worth discussing.";
 
 export const metadata: Metadata = pageMeta({
-  title: "Contact Brian Kareithi",
+  title: "Contact",
   heading: "Contact",
   description,
   path: "/contact",
@@ -37,7 +37,6 @@ export default function ContactPage() {
       <JsonLd data={jsonLd} />
       <div className="q-wrap">
         <PageHeader
-          index="04"
           label="Contact"
           title={<>Say <em>hello</em></>}
           description="Questions, ideas, collaborations or just a hello. I read every message myself and reply within a day."

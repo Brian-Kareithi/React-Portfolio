@@ -1,4 +1,4 @@
-import { Flag, RotateCcw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { missions, type Mission } from "@/lib/ctf";
 
 interface CtfMissionListProps {
@@ -13,10 +13,6 @@ export function CtfMissionList({ solved, current, onReset }: CtfMissionListProps
     <div className="flat-card p-4 sm:p-5">
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <p className="field-label mb-1.5 flex items-center gap-2">
-            <Flag className="h-3.5 w-3.5" style={{ color: "var(--color-accent)" }} aria-hidden="true" />
-            Game 01
-          </p>
           <h2 className="display-xl text-2xl sm:text-3xl" style={{ color: "var(--color-text-primary)" }}>
             Capture the <span className="font-serif-accent">flag</span>
           </h2>

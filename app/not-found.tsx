@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RouteList } from "@/components/ui/RouteList";
 import { TerminalWindow } from "@/components/ui/TerminalWindow";
 import { routes } from "@/lib/navigation";
@@ -21,7 +20,6 @@ export default function NotFound() {
     <section className="nf" aria-labelledby="not-found-title">
       <div className="q-wrap nf-grid">
         <div>
-          <Eyebrow index="404">Route not found</Eyebrow>
           <p className="nf-number" aria-hidden="true">
             404
           </p>

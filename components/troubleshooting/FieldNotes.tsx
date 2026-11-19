@@ -38,7 +38,7 @@ export function FieldNotes() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <Section id="cases" index="02" label="Field notes" title={<>Real problems, <em>real causes</em></>}>
+    <Section id="cases" title={<>Real problems, <em>real causes</em></>}>
       <ul className="d-log">
         {fieldNotes.map((note, i) => {
           const isOpen = openIndex === i;

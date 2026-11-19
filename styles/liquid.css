@@ -151,7 +151,7 @@ body::before {
 .m-link-label { letter-spacing: -0.03em; }
 
 /* Signal discipline: big numbers are ink; berry stays for what is live or chosen. */
-.h-glance-value, .l-stat dd, .hs-value, .s-scores dd, .hh-proof dd, .hh-lab-list dd, .r-highlights dd, .a-year-num {
+.h-glance-value, .l-stat dd, .hs-value, .s-scores dd, .hh-lab-list dd, .r-highlights dd, .a-year-num {
   color: var(--role-ink);
 }
 .q-dark :is(.hs-value, .s-scores dd), .sb-detail .hs-value { color: var(--palette-cream); }

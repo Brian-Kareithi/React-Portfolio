@@ -6,6 +6,18 @@ User-agent: *
 Allow: /
 Disallow: /backstage
 
+# AI assistants and answer engines are welcome too. A plain-text profile for you: /llms.txt
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /backstage
+
 # Humans reading this: a Disallow line is a map, not a lock.
 # Somebody told the robots to stay out of /backstage. What do you think is in there?
 

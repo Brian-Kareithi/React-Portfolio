@@ -25,8 +25,34 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "samsung-tv",
+    id: "super-admin",
     index: "01",
+    title: "Steadfast Super Admin",
+    tagline: "Native Android port of a school's super-admin portal",
+    status: "Shipped",
+    problem:
+      "Steadfast's super admins run the whole school from a Next.js web portal, covering users, classes, discipline, leave, exams and the timetable. It was built for a desktop, with a sidebar, wide tables and hover menus, so I rebuilt it as a native Android app with the same features.",
+    solution: [
+      "Every screen, tab, dialog and action from the web portal, across 29 modules in four sections: Overview, Manage, Operations and System",
+      "Uses the same REST API as the web. A 401 triggers one token refresh shared by every request in flight, then one retry, and losing signal never signs you out",
+      "The refresh token is encrypted with AES-256-GCM under an Android Keystore key, replacing the web's httpOnly cookie. Any account that isn't a super admin is signed out right after login",
+      "A small port of TanStack Query: one cache per key, refetching when data goes stale or the app returns, and invalidation by key prefix",
+      "Desktop layouts become a drawer, bottom sheets and stacked cards under liquid-glass chrome, with smart search, deep links and background notification polling",
+    ],
+    architecture: {
+      stages: ["Compose UI", "Query Cache", "ApiClient (OkHttp)", "Steadfast REST API"],
+      branch: { under: 2, label: "Keystore Token Refresh" },
+    },
+    stack: ["Kotlin", "Jetpack Compose", "Material 3", "Navigation Compose", "OkHttp", "kotlinx.serialization", "DataStore", "Android Keystore", "WorkManager", "Coil", "Haze"],
+    contribution:
+      "Solo build. Networking and auth, the query cache, the app shell, every module's screens and 44 unit tests, with a small manual DI container instead of Hilt.",
+    access: {
+      note: "Private repository. Signing in needs a Steadfast super-admin account",
+    },
+  },
+  {
+    id: "samsung-tv",
+    index: "02",
     title: "Samsung TV Idle Screen",
     tagline: "Motorsport ambient screen for an idle Samsung Tizen TV",
     status: "Shipped",
@@ -57,7 +83,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "homelab-app",
-    index: "02",
+    index: "03",
     title: "Homelab",
     tagline: "Native Android dashboard for my self-hosted homelab",
     status: "Shipped",
@@ -88,7 +114,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "quickprint",
-    index: "03",
+    index: "04",
     title: "QuickPrint",
     tagline: "Print-shop management and customer ordering portal",
     status: "Shipped",
@@ -119,7 +145,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "roadsafe360",
-    index: "04",
+    index: "05",
     title: "RoadSafe360",
     tagline: "Road safety and driver demerit platform",
     status: "Shipped",
@@ -153,7 +179,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "pos-system",
-    index: "05",
+    index: "06",
     title: "POS System",
     tagline: "Point of sale for multi-branch retail",
     status: "Active",
@@ -181,7 +207,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "steadfast-parent",
-    index: "06",
+    index: "07",
     title: "Steadfast Parent Portal",
     tagline: "School platform for parents, teachers and students",
     status: "Active",
@@ -199,13 +225,68 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Next.js", "React Native", "Expo", "TypeScript", "Node.js", "PostgreSQL"],
     contribution:
       "Part of my role at Steadfast. The web and mobile parent experience, API integration and school systems.",
+    screenshot: { src: "/projects/steadfast-parent/login.png", alt: "Steadfast Parent Portal sign-in screen in the dark theme, with the academy crest and email and password fields" },
+    access: {
+      note: "Private school system",
+    },
+  },
+  {
+    id: "steadfast-library",
+    index: "08",
+    title: "Steadfast Library Portal",
+    tagline: "Librarian workspace for a school library",
+    status: "Shipped",
+    problem:
+      "The school library tracked books, loans and fines by hand, so nobody could say which copies were out, who was overdue or what to buy next. The librarian needed one workspace for the catalogue, the issue desk and the fines book.",
+    solution: [
+      "A catalogue with copies tracked by accession number and barcode, bulk import and CSV export",
+      "A step-by-step issue desk: search by title, author or ISBN, or scan a barcode to look up and select the book, then return it the same way",
+      "Reservations with queue positions and an estimate of when each copy will be free",
+      "A fines ledger for recording payments, adjusting, waiving or resolving fines, and marking books lost",
+      "Purchase requests from request to fulfilment, copy transfers between locations, and usage reports",
+    ],
+    architecture: {
+      stages: ["Next.js Workspace", "Library API Client", "Steadfast REST API"],
+      branch: { under: 0, label: "Librarian-only Session Guard" },
+    },
+    stack: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS 4", "Radix UI", "REST API"],
+    contribution:
+      "Built the frontend: catalogue, issue desk, reservations, fines, reports and the app shell, on the shared Steadfast backend.",
+    screenshot: { src: "/projects/steadfast-library/login.png", alt: "Steadfast Library sign-in card for library staff, with work email, password and remember-me fields" },
+    access: {
+      note: "Private school system",
+    },
+  },
+  {
+    id: "steadfast-hr",
+    index: "09",
+    title: "Steadfast HR Portal",
+    tagline: "HR office portal for staff leave, letters and records",
+    status: "Shipped",
+    problem:
+      "HR at the school coordinates staff leave, complaints, formal letters and parent announcements, and needs to look up staff and student records. Each of those lived in a different place, and HR may only decide some leave requests: others must go to the Principal.",
+    solution: [
+      "A dashboard with a pending-approvals queue, today's attendance, the inbox and leave and ticket analytics",
+      "Leave decisions routed by who is asking: HR can approve most staff requests, while requests from senior staff go to the Principal",
+      "Tickets HR can claim, assign, escalate, schedule a meeting for and resolve, plus staff letters with PDF download",
+      "Announcements to the whole school, a class, a stream or chosen students, with scheduling, pinning and a live preview",
+      "Read-only staff and student records, with sensitive fields stripped before they are shown",
+    ],
+    architecture: {
+      stages: ["Next.js Portal", "Route Guard (proxy.ts)", "API Client", "Steadfast REST API"],
+      branch: { under: 1, label: "HR-only Role Check" },
+    },
+    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "REST API"],
+    contribution:
+      "Solo build of the frontend: every screen, the two-layer route guard, the command menu and the light and dark themes.",
+    screenshot: { src: "/projects/steadfast-hr/login.png", alt: "Steadfast HR Portal sign-in: a teal panel listing leave coordination, ticket triage and announcements beside the sign-in card and cat mascot" },
     access: {
       note: "Private school system",
     },
   },
   {
     id: "fitness-tracker",
-    index: "07",
+    index: "10",
     title: "Fitness Tracker",
     tagline: "Sleep and diet tracker for Android",
     status: "Active",
@@ -229,7 +310,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "flip-book-portfolio",
-    index: "08",
+    index: "11",
     title: "Flip-Book Portfolio",
     tagline: "A portfolio bound as an interactive book",
     status: "Shipped",
@@ -256,7 +337,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "portfolio-v2-3d",
-    index: "09",
+    index: "12",
     title: "Portfolio V2 (3D)",
     tagline: "Scroll-driven 3D portfolio built with Three.js",
     status: "Shipped",
@@ -291,19 +372,6 @@ export interface OtherProject {
 }
 
 export const otherProjects: OtherProject[] = [
-  {
-    title: "Steadfast Library Module",
-    type: "Web Application",
-    status: "active",
-    description: "Dedicated web-based library management solution integrated into the academy ecosystem.",
-    details: [
-      "Digital resource management and library administration workflows.",
-      "Student and staff access management with role-based permissions.",
-      "Built for efficiency, maintainability, and seamless integration with existing systems.",
-    ],
-    stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
-    repo: "",
-  },
   {
     title: "Custom Jellyfin Client",
     type: "Mobile Application",

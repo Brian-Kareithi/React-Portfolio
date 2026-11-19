@@ -3,7 +3,7 @@ import { techs } from "@/data/skills";
 
 export function Toolbox() {
   return (
-    <Section id="toolbox" index="06" label="Toolbox" title={<>Languages, platforms <em>and tools</em></>}>
+    <Section id="toolbox" title={<>Languages, platforms <em>and tools</em></>}>
       <div className="w-tools">
         {techs.map((category) => (
           <div key={category.heading}>

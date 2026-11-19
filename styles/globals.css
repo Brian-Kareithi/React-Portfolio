@@ -58,7 +58,7 @@
 
   --color-text-primary: var(--palette-black);
   --color-text-secondary: var(--palette-violet);
-  --color-text-muted: rgb(94 80 63 / 0.8);
+  --color-text-muted: rgb(94 80 63 / 0.88);
   --color-text-light: var(--palette-cream);
 
   --color-border: rgb(94 80 63 / 0.2);
@@ -305,9 +305,9 @@ input, textarea, [contenteditable] { caret-color: var(--color-accent); }
   line-height: 0.95;
 }
 .display-xl .font-serif-accent {
-  color: var(--color-accent);
+  color: inherit;
   font-size: 1em;
-  text-decoration-line: underline;
+  text-decoration-line: none;
   text-decoration-color: var(--marker);
   text-decoration-thickness: max(2px, 0.045em);
   text-underline-offset: 0.14em;

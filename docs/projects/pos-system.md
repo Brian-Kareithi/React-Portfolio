@@ -23,7 +23,7 @@ A shop needs one place to sell at the till, track stock across branches and expi
 
 ## Scope
 
-### In scope
+### in the scope
 
 - Till with scan or tap selling
 - Stock by branch with expiry batches

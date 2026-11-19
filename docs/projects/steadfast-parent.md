@@ -22,7 +22,7 @@ Parents needed to follow a child's progress and reach teachers on web and mobile
 
 ## Scope
 
-### In scope
+### in the scope
 
 - Parent portal (web)
 - Teacher portal (web)

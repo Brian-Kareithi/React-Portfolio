@@ -3,7 +3,7 @@ import { principles } from "@/data/skills";
 
 export function Principles() {
   return (
-    <Section id="principles" index="02" label="Principles" title={<>What I <em>optimise for</em></>}>
+    <Section id="principles" title={<>What I <em>optimise for</em></>}>
       <ol className="w-principles">
         {principles.map((principle, i) => (
           <li key={principle.title}>

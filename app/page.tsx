@@ -63,6 +63,7 @@ const jsonLd = {
       telephone: siteConfig.phone,
       image: siteConfig.ogImage,
       address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" },
+      worksFor: { "@type": "EducationalOrganization", name: "Steadfast Academy" },
       alumniOf: [
         { "@type": "EducationalOrganization", name: "Umma University" },
         { "@type": "EducationalOrganization", name: "Thika High School" },
@@ -78,6 +79,9 @@ const jsonLd = {
         "Cloud Architecture",
         "Docker",
         "Kotlin",
+        "Jetpack Compose",
+        "Android",
+        "School management systems",
       ],
     },
     {

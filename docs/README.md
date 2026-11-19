@@ -4,10 +4,15 @@ Product documentation for each case study on the portfolio: purpose, target audi
 
 | # | Project | Status | Data model |
 | --- | --- | --- | --- |
-| 01 | [QuickPrint](projects/quickprint.md) | Shipped | No database |
-| 02 | [RoadSafe360](projects/roadsafe360.md) | Shipped | 5 entities |
-| 03 | [POS System](projects/pos-system.md) | Active | No database |
-| 04 | [Steadfast Parent Portal](projects/steadfast-parent.md) | Active | 6 entities |
-| 05 | [Fitness Tracker](projects/fitness-tracker.md) | Active | 4 entities |
-| 06 | [Flip-Book Portfolio](projects/flip-book-portfolio.md) | Shipped | No database |
-| 07 | [Portfolio V2 (3D)](projects/portfolio-v2-3d.md) | Shipped | No database |
+| 01 | [Steadfast Super Admin](projects/super-admin.md) | Shipped | No database |
+| 02 | [Samsung TV Idle Screen](projects/samsung-tv.md) | Shipped | No database |
+| 03 | [Homelab](projects/homelab-app.md) | Shipped | No database |
+| 04 | [QuickPrint](projects/quickprint.md) | Shipped | No database |
+| 05 | [RoadSafe360](projects/roadsafe360.md) | Shipped | 5 entities |
+| 06 | [POS System](projects/pos-system.md) | Active | No database |
+| 07 | [Steadfast Parent Portal](projects/steadfast-parent.md) | Active | 6 entities |
+| 08 | [Steadfast Library Portal](projects/steadfast-library.md) | Shipped | No database |
+| 09 | [Steadfast HR Portal](projects/steadfast-hr.md) | Shipped | No database |
+| 10 | [Fitness Tracker](projects/fitness-tracker.md) | Active | 4 entities |
+| 11 | [Flip-Book Portfolio](projects/flip-book-portfolio.md) | Shipped | No database |
+| 12 | [Portfolio V2 (3D)](projects/portfolio-v2-3d.md) | Shipped | No database |

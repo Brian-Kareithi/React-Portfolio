@@ -36,7 +36,7 @@ export function ProjectArchive() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <Section id="archive" index="04" label="Archive" title={<>Smaller <em>builds</em></>}>
+    <Section id="archive" title={<>Smaller <em>builds</em></>}>
       <ul className="p-archive">
         {otherProjects.map((project, i) => {
           const isOpen = openIndex === i;

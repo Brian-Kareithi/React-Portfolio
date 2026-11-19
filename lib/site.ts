@@ -12,7 +12,7 @@ export const siteConfig = {
   phoneDisplay: "+254 119 343 294",
   location: "Nairobi, Kenya",
   timeZone: "Africa/Nairobi",
-  lastUpdated: "2026-10-07",
+  lastUpdated: "2026-11-19",
   github: "https://github.com/Brian-Kareithi",
   linkedin: "https://www.linkedin.com/in/brian-kareithi-04007637b/",
   instagram: "https://www.instagram.com/kareithi._/",

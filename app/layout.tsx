@@ -30,26 +30,37 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-jetbrains-mono",
+  // Small labels only, never the main content: leave the bandwidth to the fonts the first paint needs.
+  preload: false,
 });
 
 const siteUrl = siteConfig.url;
 
-const organizationJsonLd = {
+/* Site-wide identity: every page points at the same Person and WebSite nodes by @id. */
+const identityJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": `${siteUrl}/#organization`,
-  name: siteConfig.name,
-  url: siteUrl,
-  logo: `${siteUrl}/logo.png`,
-  image: siteConfig.ogImage,
-  email: siteConfig.email,
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer service",
-    email: siteConfig.email,
-    availableLanguage: ["English", "Swahili"],
-  },
-  sameAs: [siteConfig.github, siteConfig.linkedin],
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: siteConfig.name,
+      jobTitle: siteConfig.role,
+      url: siteUrl,
+      image: siteConfig.ogImage,
+      email: siteConfig.email,
+      address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" },
+      knowsLanguage: ["English", "Swahili"],
+      sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.instagram],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: siteConfig.name,
+      inLanguage: "en",
+      publisher: { "@id": `${siteUrl}/#person` },
+    },
+  ],
 };
 
 export const viewport: Viewport = {
@@ -67,6 +78,8 @@ export const metadata: Metadata = {
   keywords: [
     "Brian Kareithi",
     "React Native developer Kenya",
+    "Kotlin Android developer Kenya",
+    "school management system developer",
     "Nairobi software engineer",
     "Next.js developer",
     "TypeScript developer",
@@ -125,7 +138,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="relative overflow-x-clip antialiased" suppressHydrationWarning>
         <BootScreen />
-        <JsonLd data={organizationJsonLd} />
+        <JsonLd data={identityJsonLd} />
         <SiteShell>{children}</SiteShell>
         <Analytics />
       </body>

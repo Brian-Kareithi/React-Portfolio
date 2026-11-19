@@ -31,6 +31,26 @@ const id = (name = "id"): ErdField => ({ name, type: "uuid", key: "pk" });
 const fk = (name: string): ErdField => ({ name, type: "uuid", key: "fk" });
 
 export const projectDocs: Record<string, ProjectDoc> = {
+  "super-admin": {
+    purpose: "Let a school's super admins do everything the web portal does from an Android phone, against the same backend.",
+    audience: [
+      { who: "Super admins", needs: "Approve, assign and fix things across users, classes, discipline, leave, exams and the timetable while away from a desk." },
+      { who: "School leadership", needs: "See what is waiting on them and hear about new notifications without opening a laptop." },
+    ],
+    scope: {
+      in: [
+        "All 29 web portal modules, with the same tabs, dialogs and actions",
+        "Sign-in with two-factor, trusted devices, password reset and forced password change",
+        "Smart search, quick actions and a notification bell",
+        "Background notification polling and deep links into any screen",
+      ],
+      out: ["Roles other than super admin", "A separate mobile backend or API", "iOS"],
+    },
+    qualities: ["Matches the web portal feature for feature", "Tokens never stored in plain text", "Dropping offline never ends the session"],
+    dataNote:
+      "No local database. The app reads and writes through the same Steadfast REST API as the web portal, and the data model lives in the backend. The phone keeps only the Keystore-encrypted refresh token, preferences and a cached copy of the user's quick actions.",
+  },
+
   "samsung-tv": {
     purpose: "Turn an idle Samsung TV into an ambient screen with the time, the weather and motorsport photos, opened automatically.",
     audience: [{ who: "Anyone in the room", needs: "Time and weather at a glance, and something better than No Signal on an idle TV." }],
@@ -40,6 +60,27 @@ export const projectDocs: Record<string, ProjectDoc> = {
     },
     qualities: ["Never interrupts someone watching", "Runs on a 2018 Tizen browser", "Every photo credited"],
     dataNote: "No database. Photos and jokes are static files (screen/photos.js, screen/quotes.js); the watcher keeps its state in memory and the TV pairing token in a local file.",
+  },
+
+  "homelab-app": {
+    purpose: "Put a phone-friendly view of my self-hosted homelab in one app, without storing service credentials on the device.",
+    audience: [
+      { who: "Homelab owner", needs: "Check server health, media services and activity from a phone, at home or away." },
+      { who: "Self-hosting tinkerer", needs: "A dashboard that reflects whatever services are configured on the server." },
+    ],
+    scope: {
+      in: [
+        "Dashboard driven by Homepage's /api/services with CPU, RAM, disk and Docker status",
+        "Activity feed for Jellyfin now-playing, the Sonarr queue and active torrents",
+        "Per-service detail screens",
+        "Automatic LAN vs Tailscale resolution with an offline snapshot cache",
+        "Background checks with notifications for stopped containers, downtime or finished torrents",
+      ],
+      out: ["Managing or reconfiguring services from the app", "Storing Sonarr, Radarr or Jellyfin API keys on the device", "iOS"],
+    },
+    qualities: ["Single endpoint with no device-held service keys", "Works on LAN and over Tailscale", "Useful offline from cached snapshots"],
+    dataNote:
+      "No database. The app reads from the Homepage API and caches snapshots locally for offline use; service credentials stay on the server-side widget proxy.",
   },
 
   roadsafe360: {
@@ -134,6 +175,51 @@ export const projectDocs: Record<string, ProjectDoc> = {
         { from: "users", to: "messages", cardinality: "1:N", label: "sends / receives" },
       ],
     },
+  },
+
+  "steadfast-library": {
+    purpose: "Give the school librarian one workspace for the catalogue, the issue desk, reservations and fines.",
+    audience: [
+      { who: "Librarian", needs: "Issue and return books quickly, chase overdue loans and settle fines without a paper ledger." },
+      { who: "Students and staff", needs: "Reserve a book and know roughly when it will be free." },
+      { who: "School administration", needs: "Usage reports and a clear record of what the library asked to buy." },
+    ],
+    scope: {
+      in: [
+        "Catalogue with copies, barcodes, bulk import and CSV export",
+        "Issue and return by search or barcode scan",
+        "Reservations with queue positions",
+        "Fines ledger: pay, adjust, waive, resolve, mark lost",
+        "Purchase requests, copy transfers and usage reports",
+      ],
+      out: ["Borrower self-service kiosk", "Online payment of fines", "Catalogue data from outside the school"],
+    },
+    qualities: ["Fast at the issue desk", "Every fine change recorded", "Only librarians can sign in"],
+    dataNote:
+      "No local database. The portal reads and writes through the shared Steadfast REST API, and the data model lives in the backend repository.",
+  },
+
+  "steadfast-hr": {
+    purpose: "Give the school's HR office one portal for staff leave, tickets, letters and announcements, with read-only access to the records it needs.",
+    audience: [
+      { who: "HR officer", needs: "Decide leave, handle complaints, issue letters and reach parents from one place." },
+      { who: "Staff", needs: "Leave requests decided promptly by the right person." },
+      { who: "Parents", needs: "Clear, targeted announcements and a route for complaints." },
+    ],
+    scope: {
+      in: [
+        "Leave decisions with routing by requester",
+        "Ticket triage, escalation and meetings",
+        "Staff letters with PDF download",
+        "Targeted parent announcements with a live preview",
+        "Read-only staff, student, attendance and consent records",
+        "Own leave, letters and profile",
+      ],
+      out: ["Recruitment and onboarding", "Payroll", "Editing student records"],
+    },
+    qualities: ["HR sees only what HR needs", "Approval goes to the right person", "Works on a phone as well as a desk"],
+    dataNote:
+      "No local database. The portal reads and writes through the shared Steadfast REST API, and the data model lives in the backend repository.",
   },
 
   quickprint: {

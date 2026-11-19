@@ -5,7 +5,7 @@ import { topologyServices } from "@/data/homelab";
 /** Internet to router to server to services, as a vertical chain. */
 export function Topology() {
   return (
-    <Section id="topology" index="02" label="Topology" title={<>How it&apos;s <em>wired together</em></>}>
+    <Section id="topology" title={<>How it&apos;s <em>wired together</em></>}>
       <ol className="l-chain">
         <li>
           <span className="l-node">

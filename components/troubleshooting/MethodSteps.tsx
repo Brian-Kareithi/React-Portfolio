@@ -4,7 +4,7 @@ import { methodSteps } from "@/data/troubleshooting";
 export function MethodSteps() {
   return (
     <section aria-labelledby="process-title" className="d-process">
-      <SectionHeading index="01" label="The process" title={<>Five steps to <em>a root cause</em></>} titleId="process-title" />
+      <SectionHeading title={<>Five steps to <em>a root cause</em></>} titleId="process-title" />
       <ol className="d-steps">
         {methodSteps.map((step, i) => (
           <li key={step.title}>

@@ -6,7 +6,7 @@ import { currentProject } from "@/data/current-project";
 export function NowBuilding() {
   return (
     <section id="now-building" aria-labelledby="now-title" className="q-section">
-      <SectionHeading index="●" label="Inside the POS system" title={<>{currentProject.title} <em>{currentProject.titleAccent}</em></>} titleId="now-title">
+      <SectionHeading title={<>{currentProject.title} <em>{currentProject.titleAccent}</em></>} titleId="now-title">
         <p className="q-body" style={{ maxWidth: "40rem", marginTop: "1.25rem" }}>
           {currentProject.summary}
         </p>

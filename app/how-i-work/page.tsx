@@ -23,7 +23,6 @@ export default function HowIWorkPage() {
       <div className="q-page">
         <div className="q-wrap">
           <PageHeader
-            index="02"
             label="How I work"
             title={<>How I <em>deliver</em></>}
             description="What I bring to a project, the principles behind it, my stack by layer, and the path from an idea to production."
@@ -41,7 +40,6 @@ export default function HowIWorkPage() {
           <Toolbox />
 
           <NextSection
-            title="See it in practice"
             links={[
               { href: "/projects", label: "Selected work", description: "Case studies and live demos." },
               { href: "/troubleshooting", label: "Diagnostics", description: "How I find root causes." },

@@ -85,12 +85,12 @@ export const resumeRoles: ResumeRole[] = [
       "I am a full-stack developer who also builds mobile apps. My Expo / React Native Parent app is used by real families, and I write native Kotlin when the job needs it. Because I also work on the web and API side, I can take a feature from end to end.",
     highlights: [
       { value: "iOS + Android", label: "from one codebase" },
-      { value: "3", label: "mobile apps built" },
+      { value: "5", label: "mobile apps built" },
       { value: "6", label: "certifications" },
     ],
     skillGroups: [
       { group: "Cross-platform", items: ["React Native", "Expo", "TypeScript"] },
-      { group: "Native Android", items: ["Kotlin", "Android SDK", "Room Database", "MPAndroidChart"] },
+      { group: "Native Android", items: ["Kotlin", "Jetpack Compose", "Android SDK", "Room Database", "WorkManager"] },
       { group: "Integration", items: ["REST APIs", "Firebase", "Node.js"] },
     ],
     experience: [
@@ -102,8 +102,8 @@ export const resumeRoles: ResumeRole[] = [
     ],
     projects: [
       { title: "Steadfast Parent App", note: "Expo / React Native app for Android and iOS used by real families", stack: "Expo · React Native · TypeScript" },
+      { title: "Steadfast Super Admin", note: "Native Android port of a 29-module school admin portal on the same REST API", stack: "Kotlin · Jetpack Compose · OkHttp" },
       { title: "Fitness Tracker", note: "Native Kotlin Android app for sleep and diet tracking, in daily use", stack: "Kotlin · Room · MPAndroidChart" },
-      { title: "Custom Jellyfin Client", note: "React Native media client built for a self-hosted server", stack: "React Native · Expo · Jellyfin API" },
     ],
   },
   {

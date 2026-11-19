@@ -93,9 +93,13 @@ export function CtfGame() {
     setInput("");
   };
 
-  /** Tab completes, Up and Down walk the command history. */
+  /**
+   * Tab completes, Up and Down walk the command history. Tab is only taken while there is
+   * something to complete; on an empty prompt (or with Shift) it moves focus as usual,
+   * so keyboard users are never trapped in the terminal.
+   */
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Tab") {
+    if (e.key === "Tab" && !e.shiftKey && input.trim()) {
       e.preventDefault();
       const completed = complete(input, cwd);
       if (completed !== null) setInput(completed);
