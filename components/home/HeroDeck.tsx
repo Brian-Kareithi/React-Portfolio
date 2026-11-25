@@ -2,7 +2,7 @@
 
 import type { CSSProperties } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { AmbientVideo } from "@/components/ui/AmbientVideo";
 import { useHomelabSnapshot } from "@/hooks/useHomelabSnapshot";
 import { formatUptime, type HomelabStats } from "@/lib/homelab";
 
@@ -58,9 +58,10 @@ export function HeroDeck() {
     <div className="hh-deck">
       <LabCard lab={lab} />
 
-      <Link href="/projects#pos-system" className="hh-layer hh-layer-app" style={depth(1)} aria-label="Open the POS system case study">
-        <p className="hh-layer-label">pos system</p>
-        <Image src="/projects/pos/overview.png" alt="" width={720} height={450} sizes="320px" className="hh-shot" />
+      <Link href="/projects#quickprint" className="hh-layer hh-layer-app" style={depth(1)} aria-label="Open the QuickPrint case study">
+        <p className="hh-layer-label">quickprint</p>
+        <AmbientVideo src="/projects/quickprint/brag.mp4" poster="/projects/quickprint/brag.jpg" className="hh-video" />
+        <p className="hh-video-note">Web, API and Android. Print from a phone with one QR code.</p>
       </Link>
 
       <section className="hh-layer hh-layer-id" style={depth(1.7)} aria-label="Profile" tabIndex={0}>

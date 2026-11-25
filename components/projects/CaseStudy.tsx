@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown, ExternalLink, Github, Lock, TrendingUp } from "lucide-react";
 import { CaseStudyDetails } from "@/components/projects/CaseStudyDetails";
+import { CaseStudyGallery } from "@/components/projects/CaseStudyGallery";
+import { CaseStudyParts } from "@/components/projects/CaseStudyParts";
 import { CaseStudyPdfButton } from "@/components/projects/CaseStudyPdfButton";
 import { caseStudies, type CaseStudy as CaseStudyData } from "@/data/projects";
 import { projectDocs } from "@/data/project-docs";
@@ -31,7 +33,19 @@ export function CaseStudy({ study }: { study: CaseStudyData }) {
         <span className="q-chip">{study.status}</span>
       </header>
 
-      {study.screenshot && (
+      {study.video ? (
+        <div className="q-case-shot q-case-video">
+          <video
+            src={study.video.src}
+            poster={study.video.poster}
+            controls
+            playsInline
+            preload="metadata"
+            aria-label={study.video.label}
+            className="block h-auto w-full"
+          />
+        </div>
+      ) : study.screenshot && (
         <a href={study.access.demo ?? study.screenshot.src} target="_blank" rel="noopener noreferrer" className="q-case-shot" style={{ borderColor: "var(--color-border)" }}>
           <Image src={study.screenshot.src} alt={study.screenshot.alt} width={1440} height={900} sizes="(max-width: 1100px) 100vw, 1100px" className="h-auto w-full" />
         </a>
@@ -76,6 +90,9 @@ export function CaseStudy({ study }: { study: CaseStudyData }) {
         </dl>
       </div>
 
+      {study.parts && <CaseStudyParts parts={study.parts} />}
+      {study.gallery && <CaseStudyGallery shots={study.gallery} />}
+
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls={panelId} className="q-btn">
           {open ? "Hide details" : "View scope, architecture & data model"}
@@ -88,7 +105,7 @@ export function CaseStudy({ study }: { study: CaseStudyData }) {
             Live demo
           </a>
         )}
-        {study.access.repo ? (
+        {study.parts ? null : study.access.repo ? (
           <a href={study.access.repo} target="_blank" rel="noopener noreferrer" className="q-btn">
             <Github className="h-4 w-4" />
             Source

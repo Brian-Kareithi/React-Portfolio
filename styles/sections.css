@@ -373,7 +373,7 @@
 .a-card[data-cat="entrepreneurial"] { --cat: var(--palette-black); }
 .a-card[data-now] { border-color: color-mix(in srgb, var(--palette-berry) 45%, transparent); }
 .a-card[data-next] { border-style: dashed; background: transparent; }
-@media (hover: hover) { .a-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -40px rgb(46 34 24 / 0.5); } }
+@media (hover: hover) and (pointer: fine) { .a-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -40px rgb(46 34 24 / 0.5); } }
 .a-card-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.35rem; }
 .a-tag { display: inline-flex; align-items: center; gap: 0.45rem; font: 500 0.625rem/1 var(--font-jetbrains-mono), monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-text-muted); }
 .a-tag::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 9999px; background: var(--cat); }
@@ -738,7 +738,7 @@ body:has([data-nav="dark"]) .q-wordmark i { color: var(--palette-taupe); }
 .pc-stage[data-dragging] { cursor: grabbing; }
 .pc-stage[data-dragging] .pc-card { transition: opacity 0.2s; }
 @keyframes pc-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -9px; } }
-@keyframes pc-in { from { opacity: 0; scale: 0.82; } }
+@keyframes pc-in { from { opacity: 0; scale: 0.92; } }
 .pc-panel { position: absolute; inset: 7% 7% auto; display: grid; gap: 0.35rem; padding: 0.8rem 0.9rem 0.9rem; border-radius: 0.95rem; }
 .pc-card[data-tone="glass"] .pc-panel { background: color-mix(in srgb, var(--pc-accent) 38%, transparent); }
 .pc-card[data-tone="solid"] .pc-panel { background: rgb(255 255 255 / 0.08); }
@@ -1721,9 +1721,9 @@ body:has([data-nav="dark"]) [data-indicator="glass"]::before {
 
 /* Command palette: the scrim fades, the panel drops in from just above. */
 @keyframes fade-in { from { opacity: 0; } }
-@keyframes palette-in { from { opacity: 0; transform: translateY(-10px) scale(0.97); } }
-.palette-scrim { animation: fade-in 0.25s ease both; }
-.glass-panel { transform-origin: 50% 0; animation: palette-in 0.4s var(--ease-glass) both; }
+@keyframes palette-in { from { opacity: 0; transform: translateY(-4px) scale(0.98); } }
+.palette-scrim { animation: fade-in 0.14s ease both; }
+.glass-panel { transform-origin: 50% 0; animation: palette-in 0.18s var(--ease-out) both; }
 .glass-panel button { transition: background-color 0.15s ease, box-shadow 0.2s ease; }
 
 /* Glass surfaces respond to touch with a gentle press. */
@@ -1863,3 +1863,50 @@ form:has(> .ctf-input:focus-visible) {
   outline-offset: 4px;
   border-radius: 0.4rem;
 }
+
+/* ── Case study: demo video, codebases and screen gallery ──
+   Same glass bezel as the screenshot frame. The video frame does not lift on hover, so it stays
+   still while someone is watching. */
+.q-case-video { padding: 0.35rem; }
+.q-case-video video { aspect-ratio: 16 / 9; border-radius: 0.7rem; background: var(--palette-black); }
+.q-case-shot.q-case-video:hover { transform: none; }
+
+.q-parts { margin-top: 2rem; }
+.q-parts-list { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 900px) { .q-parts-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.q-part { display: flex; flex-direction: column; padding: 1.1rem 1.2rem 1.2rem; }
+.q-part-link { align-self: flex-start; display: inline-flex; align-items: center; gap: 0.4rem; margin-top: auto; }
+.q-part > ul { margin-bottom: 1rem; }
+
+.q-gallery-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.75rem; margin-top: 2rem; }
+.q-gallery-web { display: grid; grid-template-columns: 1fr; gap: 1.1rem; }
+@media (min-width: 560px) { .q-gallery-web { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .q-gallery-web { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.q-gallery-phone {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 9rem; gap: 0.9rem;
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; padding-bottom: 0.6rem;
+}
+.q-gallery-phone > li { scroll-snap-align: start; }
+@media (min-width: 1100px) { .q-gallery-phone { grid-auto-columns: minmax(0, 1fr); overflow: visible; } }
+.q-gallery-frame {
+  display: block; overflow: hidden; padding: 0.25rem;
+  border: 1px solid var(--glass-border); border-radius: 0.85rem; background: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-rim), 0 18px 36px -24px rgb(46 34 24 / 0.45);
+}
+.q-gallery-frame img { border-radius: 0.6rem; }
+.q-gallery-web .q-gallery-frame img { aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+.q-gallery-phone .q-gallery-frame { border-radius: 1.25rem; }
+.q-gallery-phone .q-gallery-frame img { border-radius: 1rem; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .q-gallery-frame { transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out); }
+  .q-gallery-frame:hover { transform: translateY(-4px); box-shadow: var(--glass-rim), 0 26px 44px -24px rgb(46 34 24 / 0.5); }
+}
+
+/* Home: the featured project's demo video sits in the window frame, and the hero deck card plays it muted. */
+.h-proof-video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--palette-cream); }
+.h-proof-shot .h-proof-video { border-radius: 0 0 0.7rem 0.7rem; }
+.hh-video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--glass-border); border-radius: 0.6rem; background: var(--palette-cream); }
+.hh-video-note { margin-top: 0.7rem; font-size: 0.8rem; line-height: 1.4; color: var(--color-text-secondary); }
+.h-proof-repos { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
+.h-proof-repos .q-link svg { width: 0.9rem; height: 0.9rem; }

@@ -28,7 +28,7 @@ function project(study) {
     `> ${study.tagline}`,
     `**Status:** ${study.status} · **Access:** ${study.access.note}` +
       (study.access.demo ? ` · [Live demo](${study.access.demo})` : "") +
-      (study.access.repo ? ` · [Source](${study.access.repo})` : ""),
+      (study.parts ? "" : study.access.repo ? ` · [Source](${study.access.repo})` : ""),
     "## Purpose",
     doc.purpose,
     "## Problem",
@@ -40,6 +40,13 @@ function project(study) {
     list(doc.scope.in),
     "### Out of scope",
     list(doc.scope.out),
+    ...(study.parts
+      ? [
+          "## Codebases",
+          "| Part | What it does | Stack | Hosted on |\n| --- | --- | --- | --- |\n" +
+            study.parts.map((p) => `| [${p.name}](${p.repo}) | ${p.role} | ${p.stack.join(", ")} | ${p.host ?? ""} |`).join("\n"),
+        ]
+      : []),
     "## Solution",
     study.solution.map((s, i) => `${i + 1}. ${s}`).join("\n"),
     "## Architecture",

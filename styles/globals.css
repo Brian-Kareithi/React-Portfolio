@@ -445,9 +445,10 @@ input, textarea, [contenteditable] { caret-color: var(--color-accent); }
   opacity: 0;
   transform: translateY(-12px);
   pointer-events: none;
-  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+  transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out);
 }
 .toast-pop[data-open="true"] {
+  transition-duration: 0.3s;
   opacity: 1;
   transform: none;
   pointer-events: auto;
@@ -478,7 +479,7 @@ input, textarea, [contenteditable] { caret-color: var(--color-accent); }
 @keyframes mascot-hop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
 @keyframes mascot-lost { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(7deg); } }
 @keyframes mascot-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
-@keyframes mascot-pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes mascot-pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes mascot-float { 0%, 100% { transform: translateY(0); opacity: 0.7; } 50% { transform: translateY(-4px); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   .mascot-face, .mascot-badge, .mascot-img { animation: none !important; transition: none; }
@@ -825,15 +826,20 @@ html.lenis, html.lenis body { height: auto; }
 li + li > * > .term-row::after, li + li > .term-row::after { content: ""; position: absolute; top: 0; left: 1.25rem; right: 1.25rem; height: 1px; background: rgb(242 244 243 / 0.1); pointer-events: none; }
 /* Lit accent bar that grows in from the left edge. */
 .term-row::before { content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 2px; border-radius: 0 2px 2px 0; background: var(--palette-taupe); box-shadow: 0 0 12px rgb(169 146 125 / 0.6); transform: scaleY(0); transition: transform 0.35s var(--ease-out); }
-.term-row:hover, .term-row:focus-visible { background: rgb(242 244 243 / 0.05); outline: none; }
-.term-row:hover::before, .term-row:focus-visible::before { transform: scaleY(1); }
+.term-row:focus-visible { background: rgb(242 244 243 / 0.05); outline: none; }
+.term-row:focus-visible::before { transform: scaleY(1); }
+@media (hover: hover) and (pointer: fine) {
+  .term-row:hover { background: rgb(242 244 243 / 0.05); }
+  .term-row:hover::before { transform: scaleY(1); }
+  .term-row:hover .term-name { color: #fff; transform: translateX(3px); }
+}
 .term-row:focus-visible { box-shadow: inset 0 0 0 1px rgb(242 244 243 / 0.35); }
 .term-num { font-size: 0.6875rem; color: rgb(169 146 125 / 0.7); transition: color 0.25s; }
-.term-name { font-family: var(--font-display), Georgia, serif; font-size: 1.5rem; line-height: 1.1; transition: color 0.25s, letter-spacing 0.35s var(--ease-out); }
+.term-name { font-family: var(--font-display), Georgia, serif; font-size: 1.5rem; line-height: 1.1; transition: color 0.25s, transform 0.3s var(--ease-out); }
 .term-desc { grid-column: 2; font-size: 0.75rem; color: rgb(242 244 243 / 0.5); transition: color 0.25s; }
 .term-arrow { grid-column: 3; grid-row: 1 / span 2; align-self: center; box-sizing: content-box; padding: 0.45rem; border: 1px solid rgb(242 244 243 / 0.12); border-radius: 9999px; color: rgb(242 244 243 / 0.55); background: rgb(242 244 243 / 0.03); transition: color 0.25s, background-color 0.25s, border-color 0.25s, transform 0.3s var(--ease-out) !important; }
 .term-row:is(:hover, :focus-visible) .term-num { color: var(--palette-rose); }
-.term-row:is(:hover, :focus-visible) .term-name { color: #fff; letter-spacing: 0.01em; }
+.term-row:focus-visible .term-name { color: #fff; transform: translateX(3px); }
 .term-row:is(:hover, :focus-visible) .term-desc { color: rgb(242 244 243 / 0.82); }
 .term-row:is(:hover, :focus-visible) .term-arrow { border-color: transparent; background: var(--palette-cream); color: var(--palette-black); transform: translateX(2px) rotate(-45deg); }
 .term-prompt::after { content: ""; display: inline-block; width: 0.5em; height: 1.05em; margin-left: 0.3em; vertical-align: -0.15em; background: var(--palette-taupe); animation: term-caret 1.1s steps(1) infinite; }
@@ -860,8 +866,8 @@ body::after {
 
 /* Route change: the old page lifts away and dims while the new one is drawn down over it like
    a curtain, settling the last few pixels into place. */
-::view-transition-old(.page) { animation: vt-out 320ms var(--ease-in-out) both; }
-::view-transition-new(.page) { animation: vt-in 760ms var(--ease-out) 90ms both; }
+::view-transition-old(.page) { animation: vt-out 220ms var(--ease-in-out) both; }
+::view-transition-new(.page) { animation: vt-in 480ms var(--ease-out) 60ms both; }
 @keyframes vt-out { to { opacity: 0; transform: translateY(-28px) scale(0.985); } }
 @keyframes vt-in {
   from { clip-path: inset(0 0 100% 0); transform: translateY(24px); opacity: 0.6; }

@@ -59,7 +59,9 @@ export function CaseStudyPdf({ study, doc }: { study: CaseStudy; doc?: ProjectDo
           <View style={s.metaRow}>
             <Text style={s.metaItem}>{access}</Text>
             {study.access.demo && <Link src={study.access.demo} style={s.metaItem}>Live demo</Link>}
-            {study.access.repo && <Link src={study.access.repo} style={s.metaItem}>Source</Link>}
+            {study.parts
+              ? study.parts.map((part) => <Link key={part.repo} src={part.repo} style={s.metaItem}>{part.name} source</Link>)
+              : study.access.repo && <Link src={study.access.repo} style={s.metaItem}>Source</Link>}
             <Link src={`${siteConfig.url}/projects#${study.id}`} style={s.metaItem}>{siteHost}/projects#{study.id}</Link>
           </View>
         </View>

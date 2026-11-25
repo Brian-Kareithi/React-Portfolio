@@ -11,6 +11,12 @@ export interface CaseStudy {
   contribution: string;
   outcome?: string;
   screenshot?: { src: string; alt: string };
+  /** A demo video shown in place of the screenshot, with the screenshot or poster as its first frame. */
+  video?: { src: string; poster: string; label: string };
+  /** For projects split across several repositories: one entry per codebase. */
+  parts?: { name: string; role: string; stack: string[]; repo: string; host?: string }[];
+  /** Extra screens, shown as a gallery. `phone` frames are portrait. */
+  gallery?: { src: string; title: string; caption: string; form: "desktop" | "phone" }[];
   access: {
     repo?: string;
     demo?: string;
@@ -116,31 +122,79 @@ export const caseStudies: CaseStudy[] = [
     id: "quickprint",
     index: "04",
     title: "QuickPrint",
-    tagline: "Print-shop management and customer ordering portal",
+    tagline: "Multi-tenant print-shop platform: web portal, Android app and a real-time API",
     status: "Shipped",
     problem:
-      "Cyber cafés and print shops run on WhatsApp attachments, flash drives and a shouted queue. QuickPrint gives each shop a QR code: customers upload, choose print options and see the price from their phone, and the shop works a live queue.",
+      "Cyber cafés and print shops run on WhatsApp attachments, flash drives and a shouted queue. QuickPrint gives each shop a QR code and a 5-character counter code: customers send files from a phone browser or the Android app, see an honest price, pay with M-Pesa or cash and chat with the shop, while the shop works a live queue.",
     solution: [
-      "Shop-branded upload portal reached by QR code, with print options, live pricing and order tracking",
-      "Live print queue with searchable orders and one-tap status updates",
-      "Cash, M-Pesa, Airtel Money and bank transfer, with payment status tracking",
-      "Printable QR posters, team and cashier access, and per-shop branding",
-      "Revenue, peak-hour and printer-utilisation analytics, plus a platform admin for super admins",
+      "Connect to a shop by QR poster, shop link or 5-character code, then upload with no account. Only the file types that shop accepts are offered, and PDF page counts are detected",
+      "Per-file print options (pages, copies, colour, paper, sides, quality, binding, finishing) priced by the server from the shop's own pricing rules",
+      "Cash, M-Pesa Till, Paybill or Send Money, Airtel Money and bank transfer, with the shop's exact payment steps and staff-confirmed payment status",
+      "A live print queue and searchable orders over Socket.IO, plus revenue, peak-hour and printer analytics, team and cashier access, and per-shop branding",
+      "Customer–shop chat under a fruit nickname such as Cute Pineapple 🍍. Shops get live toasts, desktop alerts and an unread count on the browser tab, and the Android app sends a notification only when the shop replies",
+      "Privacy by design: files are deleted an hour after an order is done, chats after 30 days, chat keys are stored only as SHA-256 hashes, and a Terms & Privacy page follows Kenya's Data Protection Act 2019",
     ],
     architecture: {
-      stages: ["Next.js Portal (QR Upload)", "REST API", "Database"],
-      branch: { under: 1, label: "Queue & Payments" },
+      stages: ["Next.js Web Portal + Android App", "NestJS REST API", "PostgreSQL (Prisma)"],
+      branch: { under: 1, label: "Socket.IO Queue & Chat · Retention Jobs" },
     },
-    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "REST API", "Docker"],
-    contribution: "Built the web app end to end: customer portal, shop dashboard, admin console and QR tooling. Backend in a separate repository.",
+    stack: [
+      "Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "NestJS 10", "PostgreSQL", "Prisma 6", "Socket.IO",
+      "JWT", "Kotlin", "Jetpack Compose", "WorkManager", "Docker", "Railway", "Vercel",
+    ],
+    contribution:
+      "Solo build across all three repositories: the NestJS API and data model, the Next.js customer portal, shop dashboard and admin console, and the native Android app, plus deployment on Railway and Vercel.",
     screenshot: {
       src: "/projects/quickprint/landing.png",
       alt: "QuickPrint landing page: Your print shop, run from one QR code, beside an order card showing a 24-page PDF paid with M-Pesa and ready in about 12 minutes",
     },
+    video: {
+      src: "/projects/quickprint/brag.mp4",
+      poster: "/projects/quickprint/brag.jpg",
+      label: "QuickPrint product demo",
+    },
+    parts: [
+      {
+        name: "Web portal",
+        role: "Customer upload portal, shop dashboard with queue, orders, messages and analytics, and the super-admin console.",
+        stack: ["Next.js 16", "React 19", "Tailwind CSS 4", "Socket.IO client", "Recharts", "Zod"],
+        repo: "https://github.com/Brian-Kareithi/QuickPrint",
+        host: "Vercel",
+      },
+      {
+        name: "API",
+        role: "Multi-tenant REST API with real-time queue and chat, server-side pricing, QR posters, rate limits and scheduled data retention.",
+        stack: ["NestJS 10", "PostgreSQL", "Prisma 6", "Socket.IO", "JWT", "@nestjs/schedule"],
+        repo: "https://github.com/Thee-Entity/QuickPrint-Backend",
+        host: "Railway",
+      },
+      {
+        name: "Android app",
+        role: "Customer app: connect by code, QR or link, upload, choose options, order, and chat with reply notifications.",
+        stack: ["Kotlin", "Jetpack Compose", "Material 3", "OkHttp", "WorkManager", "Google code scanner"],
+        repo: "https://github.com/Brian-Kareithi/QuickPrint-Android",
+        host: "Android 7.0+",
+      },
+    ],
+    gallery: [
+      { src: "/projects/quickprint/web/shop.png", title: "Shop portal", caption: "The shop-branded page a customer reaches from the QR poster.", form: "desktop" },
+      { src: "/projects/quickprint/web/dashboard.png", title: "Dashboard", caption: "Today's numbers, onboarding checklist and the open-for-orders switch.", form: "desktop" },
+      { src: "/projects/quickprint/web/orders.png", title: "Orders", caption: "Search orders and confirm payments.", form: "desktop" },
+      { src: "/projects/quickprint/web/inbox.png", title: "Messages", caption: "Every customer chat, with the linked order beside it.", form: "desktop" },
+      { src: "/projects/quickprint/web/chat-popup.png", title: "Chat popup", caption: "Customers message the shop without an account.", form: "desktop" },
+      { src: "/projects/quickprint/web/terms.png", title: "Terms & Privacy", caption: "What is kept, for how long, and the customer's rights.", form: "desktop" },
+      { src: "/projects/quickprint/android/home.png", title: "Connect", caption: "Shop code, QR scan or link.", form: "phone" },
+      { src: "/projects/quickprint/android/upload.png", title: "Upload", caption: "Only the file types the shop accepts.", form: "phone" },
+      { src: "/projects/quickprint/android/options.png", title: "Options", caption: "Pages, copies, colour, binding.", form: "phone" },
+      { src: "/projects/quickprint/android/review.png", title: "Review", caption: "Server-priced breakdown.", form: "phone" },
+      { src: "/projects/quickprint/android/order-placed.png", title: "Placed", caption: "Order number and payment steps.", form: "phone" },
+      { src: "/projects/quickprint/android/chat.png", title: "Chat", caption: "Talk to the shop as Nice Avocado.", form: "phone" },
+      { src: "/projects/quickprint/android/notification.png", title: "Reply alert", caption: "Only when the shop answers.", form: "phone" },
+    ],
     access: {
       repo: "https://github.com/Brian-Kareithi/QuickPrint",
-      demo: "https://quickprint-ten.vercel.app/auth/login",
-      note: "Public repository. Backend: github.com/Thee-Entity/QuickPrint-Backend",
+      demo: "https://quickprint-ten.vercel.app",
+      note: "Three public repositories: web, API and Android",
     },
   },
   {

@@ -7,7 +7,7 @@ Product documentation for each case study on the portfolio: purpose, target audi
 | 01 | [Steadfast Super Admin](projects/super-admin.md) | Shipped | No database |
 | 02 | [Samsung TV Idle Screen](projects/samsung-tv.md) | Shipped | No database |
 | 03 | [Homelab](projects/homelab-app.md) | Shipped | No database |
-| 04 | [QuickPrint](projects/quickprint.md) | Shipped | No database |
+| 04 | [QuickPrint](projects/quickprint.md) | Shipped | 9 entities |
 | 05 | [RoadSafe360](projects/roadsafe360.md) | Shipped | 5 entities |
 | 06 | [POS System](projects/pos-system.md) | Active | No database |
 | 07 | [Steadfast Parent Portal](projects/steadfast-parent.md) | Active | 6 entities |

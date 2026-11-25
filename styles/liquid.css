@@ -91,19 +91,44 @@ body::before {
     32vw 0vh 20vw 6vw rgb(169 146 125 / 0.24);
 }
 
-/* Former gradient effects, now flat: the ghost word behind page headers is a pale taupe
-   watermark, and the eyebrow rule is a short, softened taupe line. The watermark fades out
-   top to bottom through an alpha mask, so its colour stays one flat taupe. */
+/* ── Page header ──
+   One glass pane. A meta row names the page and its place in the index, a hairline closes it,
+   then the title and lede. The ghost word is anchored to the bottom-right edge and cut off by
+   the pane, so it reads as etched into the glass. One flat taupe, strong at the cap line and
+   fading out through an alpha mask toward the edge it sinks into, with a white lip for depth. */
+.q-head-meta {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding-bottom: 0.95rem;
+  margin-bottom: clamp(1.4rem, 0.9rem + 2vw, 2.4rem);
+  border-bottom: 1px solid var(--hairline);
+}
+.q-head .q-head-meta .q-eyebrow { margin: 0; color: var(--role-structure); }
+.q-head-meta .q-eyebrow::before {
+  content: ""; width: 0.4rem; height: 0.4rem; border-radius: 9999px;
+  background: var(--role-light);
+  box-shadow: 0 0 0 3px rgb(169 146 125 / 0.18);
+}
+.q-head-meta .q-eyebrow::after { display: none; }
+.q-head-count {
+  font: 500 0.6875rem/1 var(--font-jetbrains-mono), ui-monospace, monospace;
+  letter-spacing: 0.18em; font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+.q-head-count b { font-weight: 500; color: var(--role-ink); }
+
 .q-ghost {
-  color: rgb(169 146 125 / 0.2);
+  top: auto; bottom: -0.22em; transform: none;
+  font-size: clamp(2.5rem, calc(52vw / var(--chars, 7)), 10rem);
+  line-height: 1;
+  color: rgb(169 146 125 / 0.5);
+  text-shadow: 0 1px 0 rgb(255 255 255 / 0.85);
   -webkit-background-clip: border-box;
   background-clip: border-box;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 15%, transparent 95%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 15%, transparent 95%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 8%, rgb(0 0 0 / 0.45) 40%, transparent 78%);
+  mask-image: linear-gradient(to bottom, #000 8%, rgb(0 0 0 / 0.45) 40%, transparent 78%);
 }
 
-/* Ghost word entrance: each letter rises out of the faded bottom edge in turn, so the mask
-   itself reads as the surface the word surfaces from. */
+/* Ghost word entrance: each letter rises out of the pane's bottom edge in turn. */
 .q-ghost-char {
   display: inline-block;
   animation: ghost-rise 1.1s var(--ease-out) both;
@@ -111,7 +136,7 @@ body::before {
 }
 @keyframes ghost-rise { from { opacity: 0; transform: translateY(55%); } }
 
-/* Then, where the browser supports scroll-driven animation, the word drifts up and thins out
+/* Then, where the browser supports scroll-driven animation, the word sinks back into the edge
    as the header scrolls away — a slow parallax layer behind the faster foreground copy. */
 @supports (animation-timeline: view()) {
   .q-ghost {
@@ -119,7 +144,7 @@ body::before {
     animation-timeline: view();
     animation-range: exit 0% exit 100%;
   }
-  @keyframes ghost-drift { to { translate: 0 -40%; opacity: 0; } }
+  @keyframes ghost-drift { to { translate: 0 35%; opacity: 0; } }
 }
 
 @media (prefers-reduced-motion: reduce) {

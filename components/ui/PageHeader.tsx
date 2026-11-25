@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { LensHeading } from "@/components/ui/LensHeading";
+import { PageIndex } from "@/components/ui/PageIndex";
 
 interface PageHeaderProps {
   /** Drawn as the faded watermark word behind the header. */
@@ -22,6 +23,10 @@ export function PageHeader({ label, title, description, aside }: PageHeaderProps
           </span>
         ))}
       </span>
+      <div className="q-head-meta q-rise" style={rise(0)}>
+        <span className="q-eyebrow">{label}</span>
+        <PageIndex />
+      </div>
       <div className={aside ? "q-head-grid" : undefined}>
         <div>
           <LensHeading style={rise(1)}>{title}</LensHeading>
