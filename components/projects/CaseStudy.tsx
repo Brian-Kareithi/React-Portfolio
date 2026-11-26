@@ -1,18 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ChevronDown, ExternalLink, Github, Lock, TrendingUp } from "lucide-react";
 import { CaseStudyDetails } from "@/components/projects/CaseStudyDetails";
 import { CaseStudyGallery } from "@/components/projects/CaseStudyGallery";
 import { CaseStudyParts } from "@/components/projects/CaseStudyParts";
 import { CaseStudyPdfButton } from "@/components/projects/CaseStudyPdfButton";
+import { MOBILE_VIDEO } from "@/components/ui/AmbientVideo";
 import { caseStudies, type CaseStudy as CaseStudyData } from "@/data/projects";
 import { projectDocs } from "@/data/project-docs";
 
 const total = String(caseStudies.length).padStart(2, "0");
 
 /** One case study: summary up front, with scope, architecture and data model behind a toggle. */
+/**
+ * The demo player. Phones get the portrait cut when there is one, without the landscape poster,
+ * and it switches cuts if the viewport crosses the breakpoint.
+ */
+function CaseVideo({ video }: { video: NonNullable<CaseStudyData["video"]> }) {
+  const [mobile, setMobile] = useState(false);
+
+  useEffect(() => {
+    if (!video.mobileSrc) return;
+    const mq = window.matchMedia(MOBILE_VIDEO);
+    const sync = () => setMobile(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, [video.mobileSrc]);
+
+  const src = mobile && video.mobileSrc ? video.mobileSrc : video.src;
+
+  return (
+    <div className="q-case-shot q-case-video" data-portrait-mobile={video.mobileSrc ? "" : undefined}>
+      <video
+        key={src}
+        src={src}
+        poster={mobile ? undefined : video.poster}
+        controls
+        playsInline
+        preload="metadata"
+        aria-label={video.label}
+        className="block h-auto w-full"
+      />
+    </div>
+  );
+}
+
 export function CaseStudy({ study }: { study: CaseStudyData }) {
   const [open, setOpen] = useState(false);
   const doc = projectDocs[study.id];
@@ -34,17 +69,7 @@ export function CaseStudy({ study }: { study: CaseStudyData }) {
       </header>
 
       {study.video ? (
-        <div className="q-case-shot q-case-video">
-          <video
-            src={study.video.src}
-            poster={study.video.poster}
-            controls
-            playsInline
-            preload="metadata"
-            aria-label={study.video.label}
-            className="block h-auto w-full"
-          />
-        </div>
+        <CaseVideo video={study.video} />
       ) : study.screenshot && (
         <a href={study.access.demo ?? study.screenshot.src} target="_blank" rel="noopener noreferrer" className="q-case-shot" style={{ borderColor: "var(--color-border)" }}>
           <Image src={study.screenshot.src} alt={study.screenshot.alt} width={1440} height={900} sizes="(max-width: 1100px) 100vw, 1100px" className="h-auto w-full" />

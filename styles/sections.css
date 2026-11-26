@@ -1916,7 +1916,23 @@ form:has(> .ctf-input:focus-visible) {
 /* Home: the featured project's demo video sits in the window frame, and the hero deck card plays it muted. */
 .h-proof-video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--palette-cream); }
 .h-proof-shot .h-proof-video { border-radius: 0 0 0.7rem 0.7rem; }
-.hh-video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--glass-border); border-radius: 0.6rem; background: var(--palette-cream); }
-.hh-video-note { margin-top: 0.7rem; font-size: 0.8rem; line-height: 1.4; color: var(--color-text-secondary); }
+/* Phones get QuickPrint's portrait cut, so its frames switch to a tall ratio there. */
+@media (max-width: 767px) {
+  .h-proof-video[data-portrait-mobile] { aspect-ratio: 9 / 16; max-height: 78svh; }
+  .q-case-video[data-portrait-mobile] { width: fit-content; max-width: 100%; margin-inline: auto; }
+  .q-case-video[data-portrait-mobile] video { width: auto; max-width: 100%; max-height: 80svh; }
+}
+
+/* Hero: one square reel in a glass frame, drifting with the pointer like the old card deck. */
+.hh-deck-reel { display: flex; align-items: center; justify-content: center; }
+/* Phones and tablets: the reel sits under the copy, so the hero grows past one screen to fit it. */
+@media (max-width: 1023px) {
+  .hh:has(.hh-deck-reel) { height: auto; min-height: 100svh; padding-bottom: 2.5rem; }
+  .hh-deck-reel { height: auto; zoom: 1; }
+  .hh-deck-reel .hh-reel { width: min(26rem, 100%); }
+}
+.hh-reel { position: relative; z-index: 1; box-sizing: border-box; width: min(30rem, 100%); aspect-ratio: 1; padding: 0.5rem; border: 1px solid var(--glass-border); border-radius: 1.25rem; background: var(--card-bg); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); }
+.hh-reel:hover { z-index: 1; transform: translate3d(calc(var(--px) * var(--z) * -34px), calc(var(--py) * var(--z) * -26px), 0) rotateY(calc(var(--px) * var(--z) * 6deg)) rotateX(calc(var(--py) * var(--z) * -5deg)); }
+.hh-reel-video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0.8rem; background: var(--palette-cream); }
 .h-proof-repos { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
 .h-proof-repos .q-link svg { width: 0.9rem; height: 0.9rem; }

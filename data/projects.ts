@@ -12,7 +12,7 @@ export interface CaseStudy {
   outcome?: string;
   screenshot?: { src: string; alt: string };
   /** A demo video shown in place of the screenshot, with the screenshot or poster as its first frame. */
-  video?: { src: string; poster: string; label: string };
+  video?: { src: string; /** Smaller portrait cut served to phones. */ mobileSrc?: string; poster: string; label: string };
   /** For projects split across several repositories: one entry per codebase. */
   parts?: { name: string; role: string; stack: string[]; repo: string; host?: string }[];
   /** Extra screens, shown as a gallery. `phone` frames are portrait. */
@@ -150,6 +150,7 @@ export const caseStudies: CaseStudy[] = [
     },
     video: {
       src: "/projects/quickprint/quickprint.mp4",
+      mobileSrc: "/projects/quickprint/quickprint%20mobile.mp4",
       poster: "/projects/quickprint/brag.jpg",
       label: "QuickPrint product demo",
     },

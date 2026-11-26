@@ -22,7 +22,7 @@ function FeaturedItem({ study, position }: { study: CaseStudy; position: number 
           <span className="jv-window-url">{study.title.toLowerCase().replace(/\s+/g, "-")}.app</span>
         </div>
         {study.video ? (
-          <AmbientVideo src={study.video.src} poster={study.video.poster} className="h-proof-video" />
+          <AmbientVideo src={study.video.src} mobileSrc={study.video.mobileSrc} poster={study.video.poster} className="h-proof-video" />
         ) : (
           <Image
             src={study.screenshot!.src}
