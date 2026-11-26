@@ -60,7 +60,7 @@ export function HeroDeck() {
 
       <Link href="/projects#quickprint" className="hh-layer hh-layer-app" style={depth(1)} aria-label="Open the QuickPrint case study">
         <p className="hh-layer-label">quickprint</p>
-        <AmbientVideo src="/projects/quickprint/brag.mp4" poster="/projects/quickprint/brag.jpg" className="hh-video" />
+        <AmbientVideo src="/projects/quickprint/quickprint.mp4" poster="/projects/quickprint/brag.jpg" className="hh-video" />
         <p className="hh-video-note">Web, API and Android. Print from a phone with one QR code.</p>
       </Link>
 

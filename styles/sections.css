@@ -1104,6 +1104,16 @@ body:has([data-nav="dark"]) .q-nav[data-scrolled] .q-nav-shell { --nav-glass: co
 .sf-lab-dot { width: 0.45rem; height: 0.45rem; border-radius: 9999px; background: var(--palette-berry); box-shadow: 0 0 0 3px var(--color-highlight); }
 .sf-lab-dot[data-stale] { background: var(--palette-taupe); box-shadow: none; }
 @media (prefers-reduced-motion: reduce) { .sf-sign-title svg { transition: none; } }
+/* Sign-off rises letter by letter on first view, echoing the hero name. Words stay whole and
+   clip their own letters; padding keeps the descender of "g" and the italic overhang visible. */
+.sf-rise-word { display: inline-block; white-space: nowrap; overflow: hidden; padding: 0 0.08em 0.14em 0; margin: 0 -0.08em -0.14em 0; vertical-align: bottom; }
+.sf-rise-char { display: inline-block; }
+.sf-sign-title[data-rise="armed"] .sf-rise-char { transform: translateY(115%); }
+.sf-sign-title[data-rise="armed"] svg { opacity: 0; }
+.sf-sign-title[data-rise="in"] .sf-rise-char { animation: sf-rise 0.9s var(--ease-out) calc(var(--c) * 40ms) backwards; }
+.sf-sign-title[data-rise="in"] svg { animation: sf-arrow 0.5s var(--ease-out) 0.75s backwards; }
+@keyframes sf-rise { from { transform: translateY(115%); } }
+@keyframes sf-arrow { from { opacity: 0; transform: translate(-0.2em, 0.2em); } }
 
 .hs-sk { display: block; height: 0.7rem; border-radius: 9999px; background: color-mix(in srgb, var(--palette-taupe) 28%, transparent); }
 .hs-sk-lg { height: 1.6rem; border-radius: 0.5rem; }

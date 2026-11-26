@@ -149,7 +149,7 @@ export const caseStudies: CaseStudy[] = [
       alt: "QuickPrint landing page: Your print shop, run from one QR code, beside an order card showing a 24-page PDF paid with M-Pesa and ready in about 12 minutes",
     },
     video: {
-      src: "/projects/quickprint/brag.mp4",
+      src: "/projects/quickprint/quickprint.mp4",
       poster: "/projects/quickprint/brag.jpg",
       label: "QuickPrint product demo",
     },

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, type CSSProperties } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
@@ -17,9 +18,48 @@ const builtWith = ["Next.js", "React", "TypeScript", "Tailwind"];
  * Nairobi time and homelab status. The big "Let's build" sign-off is the home page's ending only:
  * every inner page already closes with its own "Next" card, and one ending lands harder than two.
  */
+/** Letters of one word, each its own span; the word stays unbreakable so lines never split mid-word. */
+function RiseWord({ text, start }: { text: string; start: number }) {
+  return (
+    <span className="sf-rise-word">
+      {text.split("").map((ch, i) => (
+        <span key={i} className="sf-rise-char" style={{ "--c": start + i } as CSSProperties}>
+          {ch}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+/**
+ * The visit closes with the same gesture it opened on: the sign-off rises letter by letter, like
+ * the hero name, the first time it scrolls into view. Armed only on the client and only with motion
+ * allowed, so without JS or with reduced motion it is simply there.
+ */
+function useRiseOnView() {
+  const ref = useRef<HTMLAnchorElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+    el.dataset.rise = "armed";
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        el.dataset.rise = "in";
+        io.disconnect();
+      },
+      { rootMargin: "0px 0px -12% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return ref;
+}
+
 function FooterSignoff({ full }: { full: boolean }) {
   const time = useLocalTime();
   const lab = useHomelabSnapshot();
+  const riseRef = useRiseOnView();
   const lastSeen =
     lab &&
     new Date(lab.generatedAt).toLocaleString([], {
@@ -30,10 +70,12 @@ function FooterSignoff({ full }: { full: boolean }) {
   return (
     <div className="sf-sign" data-compact={full ? undefined : ""}>
       {full && (
-        <Link href="/contact" className="sf-sign-title">
-          Let&apos;s build{" "}
+        <Link ref={riseRef} href="/contact" className="sf-sign-title" aria-label="Let's build something">
+          <RiseWord text="Let's" start={0} /> <RiseWord text="build" start={5} />{" "}
           <span className="sf-sign-tail">
-            <em>something</em>
+            <em>
+              <RiseWord text="something" start={10} />
+            </em>
             <ArrowUpRight aria-hidden="true" />
           </span>
         </Link>
